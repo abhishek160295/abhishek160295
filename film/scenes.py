@@ -542,7 +542,7 @@ def s07(f, t):
     click = seg(t, 5.4, 5.7) if t < 5.7 else (seg(t, 6.25, 6.55) if 6.25 < t < 6.55 else 0)
     if t < 6.6:
         cursor(f, cx, cy, click)
-    vline(f, 1180, 600 if t < 4.6 else 330, 'It\'s not good enough.', t, 2.6, 6.0, 58)
+    vline(f, 1180, 600, 'It\'s not good enough.', t, 2.6, 5.4, 58)
     # thumb on trackpad
     f.layer(1.15)
     hx = 960 + (cx - 960) * 0.18

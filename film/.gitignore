@@ -4,3 +4,4 @@ out/*.wav
 out/video.mp4
 out/*_master.mp4
 out/finish.ok
+out/finish.log
