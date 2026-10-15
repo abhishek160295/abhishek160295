@@ -1,51 +1,871 @@
 [
-  {"id": "co_notes", "dur": 5.2, "mood": "tense", "sfx": [["f:pen", 0.25], ["f:scratch", 1.0, 0.5], ["f:pen", 1.65], ["f:scratch", 2.45, 0.5], ["f:pen", 3.0], ["f:scratch", 3.85, 0.5]]},
-  {"id": "co_text", "dur": 3.6, "mood": "silence", "sfx": [["hit", 0.3]]},
-  {"id": "q_open", "dur": 6.5, "mood": "quote"},
-
-  {"id": "nye_party", "dur": 8.0, "mood": "warm", "sfx": [["f:party", 0.2], ["f:fireworks", 0.6], ["f:fireworks", 3.0], ["f:fireworks", 5.6], ["f:party", 5.0, 0.5]]},
-  {"id": "note_big", "dur": 5.0, "mood": "warm", "sfx": [["f:pen", 0.3], ["f:pen", 1.5], ["f:pen", 2.7], ["f:fireworks", 1.2, 0.4]]},
-  {"id": "pay", "dur": 4.2, "mood": "warm", "sfx": [["tap", 1.3], ["ding", 1.7]]},
-  {"id": "gym_enter", "dur": 5.0, "mood": "gym", "sfx": [["f:gym", 0.0, 0.7], ["f:gym", 1.0, 0.7], ["f:gym", 2.0, 0.7], ["f:gym", 3.0, 0.7], ["f:gym", 4.0, 0.7], ["step", 0.8], ["step", 1.4], ["step", 2.0]]},
-
-  {"id": "gym_struggle", "dur": 5.8, "mood": "gym", "sfx": [["f:gym", 0.0, 0.5], ["f:gym", 1.0, 0.5], ["f:strain", 1.3], ["f:gym", 2.0, 0.5], ["f:strain", 2.7], ["f:gym", 3.0, 0.5], ["f:gym", 4.0, 0.5], ["f:gym", 5.0, 0.5]]},
-  {"id": "stairs", "dur": 5.0, "mood": "tense", "sfx": [["f:stairs", 0.5], ["f:stairs", 1.4], ["f:stairs", 2.3], ["f:stairs", 3.2]]},
-  {"id": "alarm5", "dur": 5.4, "mood": "tense", "sfx": [["alarm", 0.2], ["rustle", 1.7]]},
-  {"id": "loop", "dur": 7.4, "mood": "tense", "sfx": [["tick", 0.0], ["f:pen", 0.3], ["f:scratch", 1.3, 0.5], ["f:pen", 1.7], ["f:scratch", 2.8, 0.5], ["f:pen", 3.2], ["f:scratch", 4.3, 0.5], ["f:pen", 4.7]]},
-  {"id": "bed_scroll", "dur": 5.4, "mood": "tense", "sfx": [["swipe", 0.6], ["f:crunch", 1.2], ["swipe", 2.1], ["f:crunch", 3.0], ["swipe", 3.9]]},
-  {"id": "reels_screen", "dur": 5.6, "mood": "tense", "sfx": [["swipe", 0.2], ["tap", 1.2], ["swipe", 1.9], ["tap", 2.9], ["swipe", 3.6], ["tap", 4.6]]},
-  {"id": "debit", "dur": 4.6, "mood": "tense", "sfx": [["ping", 0.5], ["f:sigh", 2.2]]},
-  {"id": "story", "dur": 5.4, "mood": "sad", "sfx": [["tap", 0.3], ["f:sigh", 3.0], ["thunk", 4.0]]},
-  {"id": "jeans", "dur": 4.4, "mood": "sad", "sfx": [["f:strain", 0.7, 0.7], ["f:strain", 2.0, 0.7]]},
-  {"id": "mirror", "dur": 8.0, "mood": "silence"},
-
-  {"id": "kid_door", "dur": 10.0, "mood": "sad", "sfx": [["f:door", 0.6], ["swipe", 2.0], ["swipe", 5.4], ["f:door", 8.6, 0.8]]},
-  {"id": "silence_hold", "dur": 4.6, "mood": "silence"},
-  {"id": "screentime", "dur": 6.0, "mood": "shock", "sfx": [["ping", 0.3], ["heart", 1.6], ["heart", 2.4], ["heart", 3.2], ["heart", 4.0]]},
-  {"id": "face_realize", "dur": 5.0, "mood": "shock", "sfx": [["heart", 0.3], ["heart", 1.1], ["heart", 1.9], ["heart", 2.7]]},
-  {"id": "note_gym", "dur": 6.0, "mood": "shock"},
-  {"id": "rip", "dur": 6.0, "mood": "hope", "sfx": [["f:rip", 0.5], ["f:pen", 2.0], ["f:pen", 2.9], ["stick", 4.4]]},
-  {"id": "q_ziglar", "dur": 6.5, "mood": "quote"},
-
-  {"id": "morning_reach", "dur": 4.6, "mood": "hope", "sfx": [["alarm", 0.2]]},
-  {"id": "exhale", "dur": 4.6, "mood": "silence", "sfx": [["f:exhale", 0.2]]},
-  {"id": "pushup1", "dur": 6.2, "mood": "hope", "sfx": [["f:slap", 0.3, 0.6], ["f:strain", 1.4], ["f:breath", 2.6], ["f:strain", 3.6], ["f:breath", 4.8]]},
-  {"id": "kid_watch", "dur": 7.0, "mood": "hope", "sfx": [["f:door", 0.3, 0.5], ["f:giggle", 2.6], ["f:breath", 3.6], ["f:giggle", 5.2]]},
-  {"id": "tally1", "dur": 4.4, "mood": "hope", "sfx": [["f:pen", 1.0]]},
-
-  {"id": "mont_tally", "dur": 6.0, "mood": "rise", "sfx": [["f:pen", 0.6, 0.6], ["f:pen", 2.0, 0.6], ["f:pen", 3.4, 0.6], ["f:pen", 4.8, 0.6]]},
-  {"id": "mont_park", "dur": 5.0, "mood": "rise", "sfx": [["f:giggle", 1.4, 0.7], ["step", 0.3], ["step", 0.9], ["step", 1.5], ["step", 2.1], ["step", 2.7], ["step", 3.3]]},
-  {"id": "mont_gym", "dur": 5.0, "mood": "gym", "sfx": [["f:gym", 0.0, 0.5], ["f:gym", 1.0, 0.5], ["f:gym", 2.0, 0.5], ["f:gym", 3.0, 0.5], ["f:gym", 4.0, 0.5]]},
-  {"id": "wedding", "dur": 7.0, "mood": "triumph", "sfx": [["rustle", 1.0], ["f:slap", 2.9, 0.6], ["f:breath", 3.8], ["f:laugh", 5.2, 0.8]]},
-  {"id": "button", "dur": 4.2, "mood": "triumph", "sfx": [["f:strain", 0.5, 0.6], ["click", 1.8]]},
-  {"id": "q_durant", "dur": 6.0, "mood": "quote"},
-
-  {"id": "debit_again", "dur": 5.0, "mood": "gym", "sfx": [["f:gym", 0.0, 0.4], ["f:gym", 1.0, 0.4], ["ping", 0.6], ["f:gym", 2.0, 0.4], ["f:gym", 3.0, 0.4], ["f:gym", 4.0, 0.4]]},
-  {"id": "friend_gym", "dur": 5.8, "mood": "gym", "sfx": [["f:gym", 0.0, 0.35], ["f:gym", 1.0, 0.35], ["f:gym", 2.0, 0.35], ["f:gym", 3.0, 0.35], ["f:gym", 4.0, 0.35], ["f:gym", 5.0, 0.35]]},
-  {"id": "he_one", "dur": 4.0, "mood": "warm"},
-  {"id": "friend_what", "dur": 3.4, "mood": "warm"},
-  {"id": "he_rest", "dur": 5.0, "mood": "warm"},
-  {"id": "nye_again", "dur": 7.4, "mood": "triumph", "sfx": [["f:party", 0.2], ["f:fireworks", 0.6], ["f:fireworks", 2.4], ["f:party", 3.4, 0.6], ["f:fireworks", 4.6], ["f:giggle", 5.6, 0.6]]},
-  {"id": "note_wall", "dur": 8.0, "mood": "triumph", "sfx": [["f:pen", 4.6], ["f:fireworks", 1.0, 0.3]]},
-  {"id": "end_card", "dur": 8.0, "mood": "quote", "sfx": [["hit", 0.3]]}
+ {
+  "id": "co_notes",
+  "dur": 5.2,
+  "mood": "tense",
+  "sfx": [
+   [
+    "f:pen",
+    0.25,
+    0.35
+   ],
+   [
+    "f:scratch",
+    1.0,
+    0.3
+   ],
+   [
+    "f:scratch",
+    2.45,
+    0.3
+   ],
+   [
+    "f:pen",
+    3.0,
+    0.35
+   ],
+   [
+    "f:scratch",
+    3.85,
+    0.3
+   ]
+  ]
+ },
+ {
+  "id": "co_text",
+  "dur": 3.6,
+  "mood": "silence",
+  "sfx": [
+   [
+    "hit",
+    0.3
+   ]
+  ]
+ },
+ {
+  "id": "q_open",
+  "dur": 6.5,
+  "mood": "quote"
+ },
+ {
+  "id": "nye_party",
+  "dur": 8.0,
+  "mood": "warm",
+  "sfx": [
+   [
+    "f:party",
+    0.2
+   ],
+   [
+    "f:fireworks",
+    0.6
+   ],
+   [
+    "f:fireworks",
+    3.0
+   ],
+   [
+    "f:fireworks",
+    5.6
+   ],
+   [
+    "f:party",
+    5.0,
+    0.5
+   ]
+  ]
+ },
+ {
+  "id": "note_big",
+  "dur": 5.0,
+  "mood": "warm",
+  "sfx": [
+   [
+    "f:pen",
+    0.3,
+    0.35
+   ],
+   [
+    "f:pen",
+    2.7,
+    0.35
+   ],
+   [
+    "f:fireworks",
+    1.2,
+    0.4
+   ]
+  ]
+ },
+ {
+  "id": "pay",
+  "dur": 4.2,
+  "mood": "warm",
+  "sfx": [
+   [
+    "tap",
+    1.3
+   ],
+   [
+    "ding",
+    1.7
+   ]
+  ]
+ },
+ {
+  "id": "gym_enter",
+  "dur": 5.0,
+  "mood": "gym",
+  "sfx": [
+   [
+    "f:gym",
+    0.0,
+    0.7
+   ],
+   [
+    "f:gym",
+    1.0,
+    0.7
+   ],
+   [
+    "f:gym",
+    2.0,
+    0.7
+   ],
+   [
+    "f:gym",
+    3.0,
+    0.7
+   ],
+   [
+    "f:gym",
+    4.0,
+    0.7
+   ],
+   [
+    "step",
+    0.8
+   ],
+   [
+    "step",
+    1.4
+   ],
+   [
+    "step",
+    2.0
+   ]
+  ]
+ },
+ {
+  "id": "gym_struggle",
+  "dur": 5.8,
+  "mood": "gym",
+  "sfx": [
+   [
+    "f:gym",
+    0.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    1.0,
+    0.5
+   ],
+   [
+    "f:breath",
+    1.3,
+    0.45
+   ],
+   [
+    "f:gym",
+    2.0,
+    0.5
+   ],
+   [
+    "f:breath",
+    2.7,
+    0.45
+   ],
+   [
+    "f:gym",
+    3.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    4.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    5.0,
+    0.5
+   ]
+  ]
+ },
+ {
+  "id": "stairs",
+  "dur": 5.0,
+  "mood": "tense",
+  "sfx": [
+   [
+    "f:stairs",
+    0.5
+   ],
+   [
+    "f:stairs",
+    1.4
+   ],
+   [
+    "f:stairs",
+    2.3
+   ],
+   [
+    "f:stairs",
+    3.2
+   ]
+  ]
+ },
+ {
+  "id": "alarm5",
+  "dur": 5.4,
+  "mood": "tense",
+  "sfx": [
+   [
+    "alarm",
+    0.2
+   ],
+   [
+    "rustle",
+    1.7
+   ]
+  ]
+ },
+ {
+  "id": "loop",
+  "dur": 7.4,
+  "mood": "tense",
+  "sfx": [
+   [
+    "tick",
+    0.0
+   ],
+   [
+    "f:pen",
+    0.3,
+    0.35
+   ],
+   [
+    "f:scratch",
+    1.3,
+    0.3
+   ],
+   [
+    "f:scratch",
+    2.8,
+    0.3
+   ],
+   [
+    "f:pen",
+    3.2,
+    0.35
+   ],
+   [
+    "f:scratch",
+    4.3,
+    0.3
+   ]
+  ]
+ },
+ {
+  "id": "bed_scroll",
+  "dur": 5.4,
+  "mood": "tense",
+  "sfx": [
+   [
+    "swipe",
+    0.6
+   ],
+   [
+    "f:crunch",
+    1.2
+   ],
+   [
+    "swipe",
+    2.1
+   ],
+   [
+    "f:crunch",
+    3.0
+   ],
+   [
+    "swipe",
+    3.9
+   ]
+  ]
+ },
+ {
+  "id": "reels_screen",
+  "dur": 5.6,
+  "mood": "tense",
+  "sfx": [
+   [
+    "swipe",
+    0.2
+   ],
+   [
+    "tap",
+    1.2
+   ],
+   [
+    "swipe",
+    1.9
+   ],
+   [
+    "tap",
+    2.9
+   ],
+   [
+    "swipe",
+    3.6
+   ],
+   [
+    "tap",
+    4.6
+   ]
+  ]
+ },
+ {
+  "id": "debit",
+  "dur": 4.6,
+  "mood": "tense",
+  "sfx": [
+   [
+    "ping",
+    0.5
+   ],
+   [
+    "f:sigh",
+    2.2
+   ]
+  ]
+ },
+ {
+  "id": "story",
+  "dur": 5.4,
+  "mood": "sad",
+  "sfx": [
+   [
+    "tap",
+    0.3
+   ],
+   [
+    "f:sigh",
+    3.0
+   ],
+   [
+    "thunk",
+    4.0
+   ]
+  ]
+ },
+ {
+  "id": "jeans",
+  "dur": 4.4,
+  "mood": "sad",
+  "sfx": [
+   [
+    "f:breath",
+    0.7,
+    0.45
+   ],
+   [
+    "f:breath",
+    2.0,
+    0.45
+   ]
+  ]
+ },
+ {
+  "id": "mirror",
+  "dur": 8.0,
+  "mood": "silence"
+ },
+ {
+  "id": "kid_door",
+  "dur": 10.0,
+  "mood": "sad",
+  "sfx": [
+   [
+    "f:door",
+    0.6
+   ],
+   [
+    "swipe",
+    2.0
+   ],
+   [
+    "swipe",
+    5.4
+   ],
+   [
+    "f:door",
+    8.6,
+    0.8
+   ]
+  ]
+ },
+ {
+  "id": "silence_hold",
+  "dur": 4.6,
+  "mood": "silence"
+ },
+ {
+  "id": "screentime",
+  "dur": 6.0,
+  "mood": "shock",
+  "sfx": [
+   [
+    "ping",
+    0.3
+   ],
+   [
+    "heart",
+    1.6
+   ],
+   [
+    "heart",
+    2.4
+   ],
+   [
+    "heart",
+    3.2
+   ],
+   [
+    "heart",
+    4.0
+   ]
+  ]
+ },
+ {
+  "id": "face_realize",
+  "dur": 5.0,
+  "mood": "shock",
+  "sfx": [
+   [
+    "heart",
+    0.3
+   ],
+   [
+    "heart",
+    1.1
+   ],
+   [
+    "heart",
+    1.9
+   ],
+   [
+    "heart",
+    2.7
+   ]
+  ]
+ },
+ {
+  "id": "note_gym",
+  "dur": 6.0,
+  "mood": "shock"
+ },
+ {
+  "id": "rip",
+  "dur": 6.0,
+  "mood": "hope",
+  "sfx": [
+   [
+    "f:rip",
+    0.5
+   ],
+   [
+    "f:pen",
+    2.0,
+    0.35
+   ],
+   [
+    "f:pen",
+    2.9,
+    0.35
+   ],
+   [
+    "stick",
+    4.4
+   ]
+  ]
+ },
+ {
+  "id": "q_ziglar",
+  "dur": 6.5,
+  "mood": "quote"
+ },
+ {
+  "id": "morning_reach",
+  "dur": 4.6,
+  "mood": "hope",
+  "sfx": [
+   [
+    "alarm",
+    0.2
+   ]
+  ]
+ },
+ {
+  "id": "exhale",
+  "dur": 4.6,
+  "mood": "silence",
+  "sfx": [
+   [
+    "f:exhale",
+    0.2
+   ]
+  ]
+ },
+ {
+  "id": "pushup1",
+  "dur": 6.2,
+  "mood": "hope",
+  "sfx": [
+   [
+    "f:slap",
+    0.3,
+    0.6
+   ],
+   [
+    "f:strain",
+    1.4,
+    0.45
+   ],
+   [
+    "f:breath",
+    2.6
+   ],
+   [
+    "f:breath",
+    4.8
+   ]
+  ]
+ },
+ {
+  "id": "kid_watch",
+  "dur": 7.0,
+  "mood": "hope",
+  "sfx": [
+   [
+    "f:door",
+    0.3,
+    0.5
+   ],
+   [
+    "f:giggle",
+    2.6
+   ],
+   [
+    "f:breath",
+    3.6
+   ],
+   [
+    "f:giggle",
+    5.2
+   ]
+  ]
+ },
+ {
+  "id": "tally1",
+  "dur": 4.4,
+  "mood": "hope",
+  "sfx": [
+   [
+    "f:pen",
+    1.0,
+    0.35
+   ]
+  ]
+ },
+ {
+  "id": "mont_tally",
+  "dur": 6.0,
+  "mood": "rise",
+  "sfx": [
+   [
+    "f:pen",
+    0.6,
+    0.21
+   ],
+   [
+    "f:pen",
+    3.4,
+    0.21
+   ]
+  ]
+ },
+ {
+  "id": "mont_park",
+  "dur": 5.0,
+  "mood": "rise",
+  "sfx": [
+   [
+    "f:giggle",
+    1.4,
+    0.7
+   ],
+   [
+    "step",
+    0.3
+   ],
+   [
+    "step",
+    0.9
+   ],
+   [
+    "step",
+    1.5
+   ],
+   [
+    "step",
+    2.1
+   ],
+   [
+    "step",
+    2.7
+   ],
+   [
+    "step",
+    3.3
+   ]
+  ]
+ },
+ {
+  "id": "mont_gym",
+  "dur": 5.0,
+  "mood": "gym",
+  "sfx": [
+   [
+    "f:gym",
+    0.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    1.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    2.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    3.0,
+    0.5
+   ],
+   [
+    "f:gym",
+    4.0,
+    0.5
+   ]
+  ]
+ },
+ {
+  "id": "wedding",
+  "dur": 7.0,
+  "mood": "triumph",
+  "sfx": [
+   [
+    "rustle",
+    1.0
+   ],
+   [
+    "f:slap",
+    2.9,
+    0.6
+   ],
+   [
+    "f:breath",
+    3.8
+   ],
+   [
+    "f:laugh",
+    5.2,
+    0.8
+   ]
+  ]
+ },
+ {
+  "id": "button",
+  "dur": 4.2,
+  "mood": "triumph",
+  "sfx": [
+   [
+    "f:breath",
+    0.5,
+    0.45
+   ],
+   [
+    "click",
+    1.8
+   ]
+  ]
+ },
+ {
+  "id": "q_durant",
+  "dur": 6.0,
+  "mood": "quote"
+ },
+ {
+  "id": "debit_again",
+  "dur": 5.0,
+  "mood": "gym",
+  "sfx": [
+   [
+    "f:gym",
+    0.0,
+    0.4
+   ],
+   [
+    "f:gym",
+    1.0,
+    0.4
+   ],
+   [
+    "ping",
+    0.6
+   ],
+   [
+    "f:gym",
+    2.0,
+    0.4
+   ],
+   [
+    "f:gym",
+    3.0,
+    0.4
+   ],
+   [
+    "f:gym",
+    4.0,
+    0.4
+   ]
+  ]
+ },
+ {
+  "id": "friend_gym",
+  "dur": 5.8,
+  "mood": "gym",
+  "sfx": [
+   [
+    "f:gym",
+    0.0,
+    0.35
+   ],
+   [
+    "f:gym",
+    1.0,
+    0.35
+   ],
+   [
+    "f:gym",
+    2.0,
+    0.35
+   ],
+   [
+    "f:gym",
+    3.0,
+    0.35
+   ],
+   [
+    "f:gym",
+    4.0,
+    0.35
+   ],
+   [
+    "f:gym",
+    5.0,
+    0.35
+   ]
+  ]
+ },
+ {
+  "id": "he_one",
+  "dur": 4.0,
+  "mood": "warm"
+ },
+ {
+  "id": "friend_what",
+  "dur": 3.4,
+  "mood": "warm"
+ },
+ {
+  "id": "he_rest",
+  "dur": 5.0,
+  "mood": "warm"
+ },
+ {
+  "id": "nye_again",
+  "dur": 7.4,
+  "mood": "triumph",
+  "sfx": [
+   [
+    "f:party",
+    0.2
+   ],
+   [
+    "f:fireworks",
+    0.6
+   ],
+   [
+    "f:fireworks",
+    2.4
+   ],
+   [
+    "f:party",
+    3.4,
+    0.6
+   ],
+   [
+    "f:fireworks",
+    4.6
+   ],
+   [
+    "f:giggle",
+    5.6,
+    0.6
+   ]
+  ]
+ },
+ {
+  "id": "note_wall",
+  "dur": 8.0,
+  "mood": "triumph",
+  "sfx": [
+   [
+    "f:pen",
+    4.6,
+    0.35
+   ],
+   [
+    "f:fireworks",
+    1.0,
+    0.3
+   ]
+  ]
+ },
+ {
+  "id": "end_card",
+  "dur": 8.0,
+  "mood": "quote",
+  "sfx": [
+   [
+    "hit",
+    0.3
+   ]
+  ]
+ }
 ]
