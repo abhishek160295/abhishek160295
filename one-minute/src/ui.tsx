@@ -168,7 +168,8 @@ export const PhoneScene: React.FC<{
   hover?: [number, number];
   fadeExcuses?: number;
   dark?: number;
-}> = ({ date, label, excuses = [], press, pressBtn = "snooze", hover, fadeExcuses = 1, dark = 0 }) => {
+  time?: string;
+}> = ({ date, label, excuses = [], press, pressBtn = "snooze", hover, fadeExcuses = 1, dark = 0, time = "5:30" }) => {
   const t = useT();
   const pulse = 0.5 + 0.5 * Math.sin(t * 10);
   const px = 1240,
@@ -214,7 +215,7 @@ export const PhoneScene: React.FC<{
             {date}
           </text>
           <text x={0} y={-80} textAnchor="middle" fill="#eef3ff" fontFamily="Inter, Helvetica, Arial" fontSize={170} fontWeight={300}>
-            5:30
+            {time}
           </text>
           <text x={0} y={-10} textAnchor="middle" fill="#b9c6e2" fontFamily="Inter, Helvetica, Arial" fontSize={40} fontWeight={700} letterSpacing={3}>
             {label}

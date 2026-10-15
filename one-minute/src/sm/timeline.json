@@ -1,0 +1,50 @@
+[
+  {"id": "co_notes", "dur": 4.6, "mood": "tense", "sfx": [["pen", 0.25], ["scratch", 1.05], ["pen", 1.45], ["scratch", 2.25], ["pen", 2.65], ["scratch", 3.5]]},
+  {"id": "co_text", "dur": 3.4, "mood": "silence", "sfx": [["hit", 0.3]]},
+  {"id": "q_open", "dur": 6.5, "mood": "quote"},
+
+  {"id": "nye_write", "dur": 6.5, "mood": "warm", "sfx": [["firework", 0.4], ["firework", 1.6], ["pen", 2.2], ["firework", 3.3], ["firework", 4.6], ["cheer", 0.2]]},
+  {"id": "note_big", "dur": 4.5, "mood": "warm", "sfx": [["pen", 0.3], ["pen", 1.5], ["pen", 2.7], ["firework", 1.0], ["firework", 3.2]]},
+  {"id": "pay", "dur": 3.8, "mood": "warm", "sfx": [["tap", 1.3], ["ding", 1.7]]},
+  {"id": "gym_enter", "dur": 4.8, "mood": "gym", "sfx": [["door", 0.2], ["step", 0.8], ["step", 1.3], ["step", 1.8], ["step", 2.3], ["clang", 1.1], ["clang", 3.2]]},
+
+  {"id": "gym_struggle", "dur": 5.2, "mood": "gym", "sfx": [["clank", 0.5], ["strain", 1.4], ["strain", 2.6], ["clang", 3.6]]},
+  {"id": "stairs", "dur": 4.6, "mood": "tense", "sfx": [["step", 0.6], ["step", 1.5], ["step", 2.4], ["step", 3.3]]},
+  {"id": "alarm5", "dur": 4.6, "mood": "tense", "sfx": [["alarm", 0.2], ["rustle", 1.7]]},
+  {"id": "loop", "dur": 6.2, "mood": "tense", "sfx": [["tick", 0.0], ["pen", 0.3], ["scratch", 1.3], ["pen", 1.7], ["scratch", 2.8], ["pen", 3.2], ["scratch", 4.3], ["pen", 4.7]]},
+  {"id": "bed_scroll", "dur": 4.4, "mood": "tense", "sfx": [["swipe", 0.6], ["crunch", 1.2], ["swipe", 1.9], ["crunch", 2.8], ["swipe", 3.3]]},
+  {"id": "reels_screen", "dur": 5.6, "mood": "tense", "sfx": [["swipe", 0.2], ["tap", 1.2], ["swipe", 1.9], ["tap", 2.9], ["swipe", 3.6], ["tap", 4.6]]},
+  {"id": "debit", "dur": 3.8, "mood": "tense", "sfx": [["ping", 0.5]]},
+  {"id": "story", "dur": 4.6, "mood": "sad", "sfx": [["tap", 0.3], ["sigh", 2.4], ["thunk", 3.4]]},
+  {"id": "jeans", "dur": 4.0, "mood": "sad", "sfx": [["strain", 0.7], ["strain", 2.0], ["sigh", 3.0]]},
+  {"id": "mirror", "dur": 5.4, "mood": "sad"},
+
+  {"id": "sunday_note", "dur": 3.6, "mood": "sad", "sfx": [["pen", 0.8]]},
+  {"id": "screentime", "dur": 5.8, "mood": "shock", "sfx": [["ping", 0.3], ["heart", 1.6], ["heart", 2.4], ["heart", 3.2], ["heart", 4.0]]},
+  {"id": "face_realize", "dur": 4.4, "mood": "shock", "sfx": [["heart", 0.3], ["heart", 1.1], ["heart", 1.9]]},
+  {"id": "note_gym", "dur": 5.6, "mood": "shock"},
+  {"id": "rip", "dur": 5.4, "mood": "hope", "sfx": [["rip", 0.6], ["crumple", 1.1], ["marker", 2.0], ["stick", 4.4]]},
+  {"id": "q_ziglar", "dur": 6.5, "mood": "quote"},
+
+  {"id": "morning_reach", "dur": 4.4, "mood": "hope", "sfx": [["alarm", 0.2]]},
+  {"id": "pushup1", "dur": 5.6, "mood": "hope", "sfx": [["slap", 0.4], ["breath", 1.4], ["breath", 2.8], ["breath", 4.2]]},
+  {"id": "clock", "dur": 3.6, "mood": "hope", "sfx": [["tick", 0.0], ["beep", 2.9]]},
+  {"id": "keep_going", "dur": 4.6, "mood": "rise", "sfx": [["breath", 0.6], ["breath", 1.6], ["breath", 2.6], ["breath", 3.6]]},
+  {"id": "widget", "dur": 3.6, "mood": "rise", "sfx": [["ping", 0.6]]},
+
+  {"id": "mont_home", "dur": 3.6, "mood": "rise", "sfx": [["slap", 0.3], ["breath", 1.2], ["breath", 2.4]]},
+  {"id": "mont_walk", "dur": 4.0, "mood": "rise", "sfx": [["step", 0.3], ["step", 0.9], ["step", 1.5], ["step", 2.1], ["step", 2.7], ["step", 3.3]]},
+  {"id": "mont_gym", "dur": 4.4, "mood": "gym", "sfx": [["clank", 0.8], ["clank", 2.4]]},
+  {"id": "mont_screens", "dur": 4.2, "mood": "rise", "sfx": [["ping", 0.3], ["ping", 1.6], ["ping", 2.9]]},
+  {"id": "wedding", "dur": 6.4, "mood": "triumph", "sfx": [["door", 0.2], ["rustle", 1.0], ["slap", 3.0], ["breath", 3.8], ["laugh", 5.0]]},
+  {"id": "button", "dur": 3.8, "mood": "triumph", "sfx": [["strain", 0.6], ["click", 1.8]]},
+  {"id": "q_durant", "dur": 6.0, "mood": "quote"},
+
+  {"id": "friend_gym", "dur": 5.2, "mood": "gym", "sfx": [["clank", 0.4]]},
+  {"id": "he_one", "dur": 3.4, "mood": "warm"},
+  {"id": "friend_what", "dur": 3.0, "mood": "warm"},
+  {"id": "he_rest", "dur": 4.2, "mood": "warm"},
+  {"id": "nye_again", "dur": 6.6, "mood": "triumph", "sfx": [["cheer", 0.2], ["firework", 0.6], ["firework", 2.0], ["laugh", 2.8], ["firework", 3.6], ["firework", 5.2]]},
+  {"id": "note_keep", "dur": 4.6, "mood": "triumph", "sfx": [["pen", 0.6], ["firework", 1.6], ["firework", 3.4]]},
+  {"id": "end_card", "dur": 8.0, "mood": "quote", "sfx": [["hit", 0.3]]}
+]

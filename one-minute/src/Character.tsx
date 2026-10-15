@@ -1,7 +1,7 @@
 import React from "react";
 import { useT } from "./lib";
 
-export type Pose = "stand" | "walk" | "run" | "sit" | "counter" | "hold" | "wave" | "reach" | "hug";
+export type Pose = "stand" | "walk" | "run" | "sit" | "counter" | "hold" | "wave" | "reach" | "hug" | "curl" | "armsUp" | "phone" | "write" | "cheer";
 export type Expr =
   | "neutral"
   | "sad"
@@ -30,6 +30,10 @@ type Props = {
   blur?: number;
   headDrop?: number;
   watch?: boolean;
+  buff?: boolean;
+  outfit?: "suit" | "cap" | "tank";
+  item?: "dumbbell" | "phone" | "pen" | "note" | "cup";
+  shake?: number;
 };
 
 const rad = (d: number) => (d * Math.PI) / 180;
@@ -59,6 +63,10 @@ export const Character: React.FC<Props> = ({
   blur = 0,
   headDrop = 0,
   watch = false,
+  buff = false,
+  outfit,
+  item,
+  shake = 0,
 }) => {
   const t = useT() + t0;
   const body = raincoat ? "#e8b82a" : "#0d0f13";
@@ -108,6 +116,20 @@ export const Character: React.FC<Props> = ({
   } else if (pose === "hug") {
     A1 = { a: 30, b: 70 };
     A2 = { a: -30, b: -70 };
+  } else if (pose === "curl") {
+    const k = 0.5 + 0.5 * Math.sin(t * 2.4);
+    A2 = { a: -14, b: -(40 + 95 * k) };
+  } else if (pose === "armsUp") {
+    A1 = { a: 165 + Math.sin(t * 2) * 6, b: 8 };
+    A2 = { a: -165 - Math.sin(t * 2) * 6, b: -8 };
+  } else if (pose === "phone") {
+    A2 = { a: -30, b: -110 };
+    A1 = { a: 25, b: 90 };
+  } else if (pose === "write") {
+    A2 = { a: -70 + Math.sin(t * 14) * 4, b: -30 };
+  } else if (pose === "cheer") {
+    A1 = { a: 150 + Math.sin(t * 7) * 10, b: 20 };
+    A2 = { a: -150 - Math.sin(t * 7 + 1) * 10, b: -20 };
   } else {
     A1 = { a: 8 + breathe * 0.6, b: -6 };
     A2 = { a: -8 - breathe * 0.6, b: 6 };
@@ -203,13 +225,20 @@ export const Character: React.FC<Props> = ({
           <ellipse key={`s${i}`} cx={l.fx + 8} cy={l.fy + 4} rx={22} ry={9} fill="#dfe6ee" opacity={0.92} />
         ) : null,
       )}
-      <rect x={-36} y={neckY} width={72} height={hipY - neckY + 22 + bob} rx={30} fill={isRim ? fill : body} />
+      <rect x={buff ? -54 : -36} y={neckY} width={buff ? 108 : 72} height={hipY - neckY + 22 + bob} rx={buff ? 40 : 30} fill={isRim ? fill : body} />
+      {!isRim && outfit === "suit" && (
+        <g>
+          <path d={`M-16,${neckY + 2} L0,${neckY + 46} L16,${neckY + 2} Z`} fill="#f2f2f0" />
+          <path d={`M-5,${neckY + 10} L5,${neckY + 10} L8,${neckY + 70} L0,${neckY + 82} L-8,${neckY + 70} Z`} fill="#a8323a" />
+        </g>
+      )}
+      {!isRim && outfit === "tank" && <rect x={-30} y={neckY + 10} width={60} height={70} rx={16} fill="#2b3a55" opacity={0.9} />}
       {arms.map((a, i) => (
         <path
           key={`a${i}`}
           d={a.d}
           stroke={isRim ? lc : raincoat ? "#e8b82a" : lc}
-          strokeWidth={22}
+          strokeWidth={buff ? 34 : 22}
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
@@ -223,13 +252,38 @@ export const Character: React.FC<Props> = ({
           <path d={`M58,${headY - 16} l22,10 l-4,10 z`} fill="#eef0f2" />
         </g>
       )}
+      {!isRim && outfit === "cap" && (
+        <g>
+          <path d={`M-62,${headY - 8} Q-60,${headY - 70} 0,${headY - 70} Q60,${headY - 70} 62,${headY - 8} Z`} fill="#c0392b" />
+          <path d={`M30,${headY - 14} L112,${headY - 6} L112,${headY + 2} L30,${headY - 2} Z`} fill="#a93226" />
+        </g>
+      )}
+      {!isRim && item === "dumbbell" && (
+        <g transform={`translate(${arms[1].fx},${arms[1].fy})`}>
+          <rect x={-26} y={-5} width={52} height={10} rx={4} fill="#4a4f57" />
+          <rect x={-34} y={-14} width={12} height={28} rx={3} fill="#2d3138" />
+          <rect x={22} y={-14} width={12} height={28} rx={3} fill="#2d3138" />
+        </g>
+      )}
+      {!isRim && item === "phone" && (
+        <g transform={`translate(${arms[1].fx},${arms[1].fy - 10})`}>
+          <rect x={-16} y={-28} width={32} height={56} rx={6} fill="#0b0d12" stroke="#7fa6ff" strokeWidth={2} />
+          <rect x={-12} y={-24} width={24} height={48} rx={3} fill="#9fc0ff" opacity={0.85} />
+        </g>
+      )}
+      {!isRim && item === "cup" && (
+        <rect x={arms[0].fx - 14} y={arms[0].fy - 34} width={28} height={36} rx={4} fill="#d9534f" />
+      )}
+      {!isRim && item === "note" && (
+        <rect x={arms[1].fx - 26} y={arms[1].fy - 50} width={52} height={52} fill="#ffd84d" transform={`rotate(-8 ${arms[1].fx} ${arms[1].fy})`} />
+      )}
       {!isRim && eyes()}
     </g>
   );
 
   return (
     <g
-      transform={`translate(${x},${y}) scale(${s * dir},${s}) rotate(${lean})`}
+      transform={`translate(${x + (shake ? Math.sin(t * 61) * shake : 0)},${y + (shake ? Math.cos(t * 53) * shake * 0.5 : 0)}) scale(${s * dir},${s}) rotate(${lean})`}
       filter={blur ? `url(#cb${Math.round(x)}${Math.round(y)})` : undefined}
     >
       {blur > 0 && (
