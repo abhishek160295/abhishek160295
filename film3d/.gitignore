@@ -1,0 +1,12 @@
+node_modules/
+web/three/
+chunks/
+out/*.wav
+out/video3d.mp4
+out/*_master.mp4
+out/finish.*
+out/thumb_src.png
+audio/*.wav
+stills/
+*.png
+!out/thumbnail_3d.png

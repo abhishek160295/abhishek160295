@@ -1,0 +1,570 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: Gaegu; src: url(fonts/Gaegu-Bold.ttf); }
+@font-face { font-family: Hand; src: url(fonts/PatrickHand-Regular.ttf); }
+html, body { margin: 0; background: #000; overflow: hidden; width: 1920px; height: 1080px; }
+#c { position: absolute; left: 0; top: 0; }
+.ov { position: absolute; left: 0; width: 1920px; text-align: center; pointer-events: none; }
+#cap { bottom: 46px; font: 54px Hand; color: #f4f1ea; text-shadow: 0 0 8px #000, 0 2px 4px #000, 0 0 24px #000; letter-spacing: 0.5px; }
+#vil { font: 92px Gaegu; color: #ff3a30; text-shadow: 0 0 18px #ff1a10, 0 0 50px #a00, 0 4px 6px #000; }
+#hud { top: 34px; left: 48px; text-align: left; font: 46px Gaegu; color: #ff4036; text-shadow: 0 0 12px #f00, 0 2px 3px #000; width: auto; }
+#day { top: 34px; right: 48px; left: auto; text-align: right; font: 56px Gaegu; color: #9ff5d2; text-shadow: 0 0 14px #2c9, 0 2px 3px #000; width: auto; }
+#big { top: 0; height: 1080px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+#big .l1 { font: 84px Gaegu; color: #fff; text-shadow: 0 4px 0 #000, 0 0 30px #000; }
+#big .l2 { font: 104px Gaegu; color: #ff3a30; text-shadow: 0 0 30px #f20, 0 4px 0 #000; }
+#flash { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #fff; opacity: 0; }
+#black { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #000; opacity: 0; }
+</style>
+<script type="importmap">{"imports":{"three":"./three/build/three.module.js","three/addons/":"./three/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="black"></div>
+<div id="flash"></div>
+<div class="ov" id="hud"></div>
+<div class="ov" id="day"></div>
+<div class="ov" id="vil"></div>
+<div class="ov" id="big"><div class="l1"></div><div class="l2"></div></div>
+<div class="ov" id="cap"></div>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+// ------------------------------------------------------------------ helpers
+const W = 1920, H = 1080;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const sm = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+const eout = x => 1 - Math.pow(1 - clamp(x), 3);
+const ein = x => Math.pow(clamp(x), 3);
+const lerp = (a, b, x) => a + (b - a) * x;
+const backE = x => { x = clamp(x); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = rng(7);
+
+await document.fonts.load('80px Gaegu');
+await document.fonts.load('40px Hand');
+
+function textTex(lines, w, h, opts = {}) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  if (opts.bg) { g.fillStyle = opts.bg; g.fillRect(0, 0, w, h); }
+  g.fillStyle = opts.color || '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = opts.font || `${Math.floor(h * 0.6)}px Gaegu`;
+  if (opts.glow) { g.shadowColor = opts.glow; g.shadowBlur = opts.blur || 20; }
+  const L = Array.isArray(lines) ? lines : [lines];
+  L.forEach((s, i) => g.fillText(s, w / 2, h * (i + 0.5) / L.length + (opts.dy || 0)));
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
+}
+
+// ------------------------------------------------------------------ renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H); renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+renderer.domElement.id = 'c';
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environment = envTex; scene.environmentIntensity = 0.6;
+const fog = new THREE.FogExp2(0x040509, 0.018); scene.fog = fog;
+const camera = new THREE.PerspectiveCamera(38, W / H, 0.05, 900);
+
+// sky dome with vertical gradient (night -> dawn mixes per frame)
+const skyU = { top: { value: new THREE.Color(0x020308) }, mid: { value: new THREE.Color(0x05070f) }, bot: { value: new THREE.Color(0x020204) }, sunDir: { value: new THREE.Vector3(0, 0.05, -1) }, sunCol: { value: new THREE.Color(0x000000) } };
+const sky = new THREE.Mesh(new THREE.SphereGeometry(600, 48, 24), new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite: false, fog: false, uniforms: skyU,
+  vertexShader: `varying vec3 vW; void main(){ vW = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+  fragmentShader: `uniform vec3 top, mid, bot, sunCol; uniform vec3 sunDir; varying vec3 vW;
+    void main(){ float h = vW.y; vec3 c = h > 0.0 ? mix(mid, top, smoothstep(0.0, 0.6, h)) : mix(mid, bot, smoothstep(0.0, -0.4, h));
+      float s = max(dot(normalize(vW), normalize(sunDir)), 0.0); c += sunCol * (pow(s, 6.0) * 0.6 + pow(s, 80.0) * 2.0);
+      gl_FragColor = vec4(c, 1.0); }`
+}));
+scene.add(sky);
+
+// stars
+{
+  const g = new THREE.BufferGeometry(); const p = [];
+  for (let i = 0; i < 2500; i++) { const v = new THREE.Vector3(R() - 0.5, R() * 0.9 - 0.2, R() - 0.5).normalize().multiplyScalar(500); p.push(v.x, v.y, v.z); }
+  g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+  var stars = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xaab4ff, size: 1.3, sizeAttenuation: false, fog: false, transparent: true }));
+  scene.add(stars);
+}
+
+// lights
+const hemi = new THREE.HemisphereLight(0x6070a0, 0x101010, 0.35); scene.add(hemi);
+const key = new THREE.SpotLight(0xffd2a0, 120, 40, 0.55, 0.5, 1.6); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0004;
+scene.add(key); scene.add(key.target);
+const redL = new THREE.PointLight(0xff2010, 0, 30, 1.6); scene.add(redL);
+const goldL = new THREE.PointLight(0xffc070, 0, 12, 1.8); scene.add(goldL);
+const sunL = new THREE.DirectionalLight(0xffb070, 0); sunL.castShadow = true; sunL.shadow.mapSize.set(2048, 2048);
+sunL.shadow.camera.left = -12; sunL.shadow.camera.right = 12; sunL.shadow.camera.top = 12; sunL.shadow.camera.bottom = -12; sunL.shadow.camera.far = 120;
+scene.add(sunL); scene.add(sunL.target);
+
+// ------------------------------------------------------------------ hero: Leo
+const cream = new THREE.MeshPhysicalMaterial({ color: 0xcfc4ad, roughness: 0.58, clearcoat: 0.12, clearcoatRoughness: 0.5, envMapIntensity: 0.28 });
+const ink = new THREE.MeshStandardMaterial({ color: 0x0c0a0a, roughness: 0.25 });
+function makeLeo() {
+  const root = new THREE.Group();
+  const body = new THREE.Group(); root.add(body);
+  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.46, 0.78, 20, 40), cream);
+  torso.position.y = 0.95; torso.castShadow = true; torso.receiveShadow = true; body.add(torso);
+  const head = new THREE.Group(); head.position.y = 1.45; body.add(head);
+  const eyes = [], lids = [], irises = [];
+  for (const s of [-1, 1]) {
+    const e = new THREE.Group(); e.position.set(s * 0.16, 0.0, 0.415); head.add(e);
+    const ball = new THREE.Mesh(new THREE.SphereGeometry(0.075, 24, 16), ink); ball.scale.z = 0.5; e.add(ball);
+    const hl = new THREE.Mesh(new THREE.SphereGeometry(0.022, 12, 8), new THREE.MeshBasicMaterial({ color: 0xffffff })); hl.position.set(-0.025, 0.03, 0.035); e.add(hl);
+    const iris = new THREE.Mesh(new THREE.SphereGeometry(0.06, 20, 12), new THREE.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0 })); iris.scale.z = 0.4; iris.position.z = 0.02; e.add(iris);
+    const lid = new THREE.Mesh(new THREE.SphereGeometry(0.088, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), cream); lid.rotation.x = Math.PI / 2 * 0.0; lid.position.z = 0.0; e.add(lid);
+    const brow = new THREE.Mesh(new THREE.CapsuleGeometry(0.018, 0.11, 6, 12), ink); brow.rotation.z = Math.PI / 2; brow.position.set(0, 0.13, 0.01); e.add(brow);
+    eyes.push(e); lids.push(lid); irises.push(iris); e.userData.brow = brow;
+  }
+  const mouth = new THREE.Mesh(new THREE.TorusGeometry(0.07, 0.014, 8, 24, Math.PI), ink); mouth.position.set(0, -0.2, 0.43); mouth.rotation.z = Math.PI; head.add(mouth);
+  const band = new THREE.Mesh(new THREE.TorusGeometry(0.345, 0.045, 12, 48), new THREE.MeshStandardMaterial({ color: 0xc8121a, roughness: 0.5, envMapIntensity: 0.3 }));
+  band.rotation.x = Math.PI / 2 - 0.12; band.position.y = 0.205; band.visible = false; head.add(band);
+  const limb = (len) => { const g = new THREE.Group(); const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.1, len, 8, 16), cream); m.position.y = -len / 2 - 0.05; m.castShadow = true; g.add(m); return g; };
+  const armL = limb(0.42), armR = limb(0.42), legL = limb(0.32), legR = limb(0.32);
+  armL.position.set(-0.47, 1.12, 0); armR.position.set(0.47, 1.12, 0); legL.position.set(-0.2, 0.52, 0); legR.position.set(0.2, 0.52, 0);
+  body.add(armL, armR, legL, legR);
+  root.userData = { body, head, eyes, lids, irises, mouth, band, armL, armR, legL, legR, torso };
+  return root;
+}
+const leo = makeLeo(); scene.add(leo);
+function pose(L, p) {
+  const u = L.userData;
+  u.lids.forEach((l, i) => { const c = p.lid ?? 0; l.rotation.x = lerp(-Math.PI * 0.55, 0.15, c); l.visible = c > 0.02; });
+  u.eyes.forEach((e, i) => { const s = i === 0 ? -1 : 1; e.userData.brow.rotation.z = Math.PI / 2 + s * (p.brow ?? 0) * 0.5; e.userData.brow.position.y = 0.13 + (p.browY ?? 0); });
+  u.irises.forEach(ir => ir.material.opacity = p.fire ?? 0);
+  u.mouth.rotation.z = (p.smile ?? 0) > 0 ? 0 : Math.PI; u.mouth.position.y = (p.smile ?? 0) > 0 ? -0.16 : -0.2;
+  u.mouth.scale.set(1, Math.abs(p.smile ?? -0.3) + 0.2, 1);
+  u.band.visible = !!p.band;
+  u.armL.rotation.set(p.armLx ?? 0, 0, p.armLz ?? 0.12); u.armR.rotation.set(p.armRx ?? 0, 0, p.armRz ?? -0.12);
+  u.legL.rotation.x = p.legL ?? 0; u.legR.rotation.x = p.legR ?? 0;
+  u.body.position.y = p.bob ?? 0; u.body.rotation.x = p.lean ?? 0;
+  u.head.rotation.set(p.headX ?? 0, p.headY ?? 0, 0);
+}
+
+// ------------------------------------------------------------------ act 1: the void of clocks
+const clockTex = textTex('05:00', 256, 128, { bg: '#0a0303', color: '#ff2a1c', glow: '#ff0000', blur: 18, font: 'bold 88px monospace' });
+const clockTex2 = textTex('05:05', 256, 128, { bg: '#0a0303', color: '#ff2a1c', glow: '#ff0000', blur: 18, font: 'bold 88px monospace' });
+const clockScreen = new THREE.MeshStandardMaterial({ map: clockTex, emissive: 0xffffff, emissiveMap: clockTex, emissiveIntensity: 1.6, roughness: 0.3 });
+const clockBody = new THREE.MeshStandardMaterial({ color: 0x16161a, roughness: 0.35, metalness: 0.5 });
+const clocks = new THREE.Group(); scene.add(clocks);
+const clockData = [];
+for (let i = 0; i < 170; i++) {
+  const g = new THREE.Group();
+  const b = new THREE.Mesh(new RoundedBoxGeometry(1.5, 0.8, 0.6, 3, 0.08), clockBody); g.add(b);
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.62), clockScreen); s.position.z = 0.305; g.add(s);
+  const a = R() * Math.PI * 2, r = 2.5 + Math.pow(R(), 0.7) * 16;
+  g.position.set(Math.cos(a) * r, Math.sin(a) * r * 0.7 + 2, 20 + R() * 190);
+  g.userData = { rx: (R() - 0.5) * 0.8, ry: (R() - 0.5) * 0.8, ph: R() * 6.28, base: g.position.clone(), sp: 0.3 + R() * 0.6 };
+  clocks.add(g); clockData.push(g);
+}
+
+// ------------------------------------------------------------------ act 2: the floating bedroom
+const room = new THREE.Group(); scene.add(room);
+const stone = new THREE.MeshStandardMaterial({ color: 0x2a2a30, roughness: 0.85 });
+const island = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 3.2, 2.6, 48, 1), stone); island.position.y = -1.3; island.receiveShadow = true; room.add(island);
+const floorTop = new THREE.Mesh(new THREE.CylinderGeometry(5.2, 5.2, 0.08, 48), new THREE.MeshStandardMaterial({ color: 0x3a3028, roughness: 0.6 })); floorTop.position.y = 0.0; floorTop.receiveShadow = true; room.add(floorTop);
+const wood = new THREE.MeshStandardMaterial({ color: 0x4a3426, roughness: 0.6 });
+const bed = new THREE.Group(); room.add(bed); bed.position.set(-0.6, 0, -0.4);
+{
+  const frame = new THREE.Mesh(new RoundedBoxGeometry(2.6, 0.45, 1.5, 2, 0.05), wood); frame.position.y = 0.25; frame.castShadow = frame.receiveShadow = true; bed.add(frame);
+  const head = new THREE.Mesh(new RoundedBoxGeometry(0.15, 1.1, 1.5, 2, 0.05), wood); head.position.set(-1.3, 0.55, 0); head.castShadow = true; bed.add(head);
+  const mat = new THREE.Mesh(new RoundedBoxGeometry(2.4, 0.25, 1.35, 3, 0.1), new THREE.MeshStandardMaterial({ color: 0x9c978e, roughness: 0.95, envMapIntensity: 0.3 })); mat.position.y = 0.58; mat.receiveShadow = true; bed.add(mat);
+  const pil = new THREE.Mesh(new RoundedBoxGeometry(0.55, 0.18, 0.9, 4, 0.08), new THREE.MeshStandardMaterial({ color: 0xb4b0a8, roughness: 0.95, envMapIntensity: 0.3 })); pil.position.set(-0.9, 0.78, 0); bed.add(pil);
+}
+const blanket = new THREE.Mesh(new RoundedBoxGeometry(1.6, 0.3, 1.45, 4, 0.13), new THREE.MeshStandardMaterial({ color: 0x2c3a66, roughness: 0.85 }));
+blanket.position.set(-0.1, 0.84, -0.4); blanket.castShadow = true; room.add(blanket);
+const stand = new THREE.Mesh(new RoundedBoxGeometry(0.7, 0.7, 0.6, 2, 0.04), wood); stand.position.set(1.35, 0.35, -0.6); stand.castShadow = true; room.add(stand);
+const miniClock = new THREE.Group(); miniClock.position.set(1.35, 0.92, -0.55); room.add(miniClock);
+{ const b = new THREE.Mesh(new RoundedBoxGeometry(0.5, 0.26, 0.2, 2, 0.03), clockBody); miniClock.add(b); const s = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.2), clockScreen); s.position.z = 0.101; miniClock.add(s); }
+const windowF = new THREE.Group(); windowF.position.set(-2.2, 2.3, -2.4); room.add(windowF);
+{
+  const fr = new THREE.MeshStandardMaterial({ color: 0x8a8a90, roughness: 0.4, metalness: 0.6 });
+  [[0, 0.8, 1.9, 0.08], [0, -0.8, 1.9, 0.08], [-0.95, 0, 0.08, 1.68], [0.95, 0, 0.08, 1.68], [0, 0, 0.05, 1.6], [0, 0, 1.8, 0.05]].forEach(([x, y, w, h]) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.08), fr); m.position.set(x, y, 0); windowF.add(m); });
+  const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.6), new THREE.MeshBasicMaterial({ color: 0x0b1530 })); glass.position.z = -0.02; windowF.add(glass);
+  const moon = new THREE.Mesh(new THREE.CircleGeometry(0.16, 24), new THREE.MeshBasicMaterial({ color: 0xdfe6ff })); moon.position.set(0.45, 0.4, -0.01); windowF.add(moon);
+}
+
+// the SNOOZE monolith
+const snooze = new THREE.Group(); scene.add(snooze); snooze.position.set(4.3, -9, -1.6);
+const snoozeTop = textTex(['SNOOZE'], 512, 512, { bg: '#c40a0a', color: '#ffe8e0', glow: '#fff', blur: 12, font: '150px Gaegu' });
+const redMat = new THREE.MeshStandardMaterial({ color: 0xc8100c, emissive: 0xff1608, emissiveIntensity: 0.9, roughness: 0.28, metalness: 0.1 });
+const capMat = new THREE.MeshStandardMaterial({ map: snoozeTop, emissive: 0xffffff, emissiveMap: snoozeTop, emissiveIntensity: 0.32, roughness: 0.45, envMapIntensity: 0.2 });
+const btnCap = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.75, 0.7, 64), [redMat, capMat, redMat]); btnCap.position.y = 6.35; btnCap.rotation.y = -0.6; snooze.add(btnCap);
+const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(2.1, 2.5, 6, 64), new THREE.MeshStandardMaterial({ color: 0x18181c, roughness: 0.3, metalness: 0.85 })); pedestal.position.y = 3; pedestal.castShadow = true; snooze.add(pedestal);
+const ringMat = new THREE.MeshBasicMaterial({ color: 0xff3020, transparent: true, opacity: 0, side: THREE.DoubleSide, fog: false });
+const shock = new THREE.Mesh(new THREE.TorusGeometry(1, 0.06, 8, 96), ringMat); shock.rotation.x = Math.PI / 2; scene.add(shock);
+
+// ------------------------------------------------------------------ act 3: the tower of excuses
+const font = await new Promise(res => new FontLoader().load('fonts/helvetiker_bold.typeface.json', res));
+const WORDS = ['LATER', 'MONDAY', 'TOMORROW', 'TIRED', 'NOT TODAY', 'ONE MORE EPISODE', 'NEXT WEEK', 'NO TIME', 'TOO HARD', 'YOU EARNED IT', 'SKIP IT', 'WHY BOTHER'];
+const exMat = new THREE.MeshStandardMaterial({ color: 0x220405, emissive: 0xff1a0e, emissiveIntensity: 0.9, roughness: 0.3, metalness: 0.4 });
+const exSide = new THREE.MeshStandardMaterial({ color: 0x150304, roughness: 0.35, metalness: 0.6 });
+const blocks = [];
+const rB = rng(21);
+for (let i = 0; i < 40; i++) {
+  const w = WORDS[i % WORDS.length];
+  const g = new TextGeometry(w, { font, size: 0.42, depth: 0.32, curveSegments: 4, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.02, bevelSegments: 2 });
+  g.computeBoundingBox(); const bb = g.boundingBox; g.translate(-(bb.max.x + bb.min.x) / 2, -(bb.max.y + bb.min.y) / 2, -0.16);
+  const m = new THREE.Mesh(g, [exMat, exSide]); m.castShadow = true;
+  const layer = Math.floor(i / 6), k = i % 6;
+  const ang = k * Math.PI / 3 + layer * 0.5 + (rB() - 0.5) * 0.3;
+  const rad = 1.55 - layer * 0.05 + (rB() - 0.5) * 0.25;
+  const rest = new THREE.Vector3(Math.cos(ang) * rad, 0.3 + layer * 0.52 + rB() * 0.1, Math.sin(ang) * rad);
+  const outward = Math.PI / 2 - ang; const facesCam = Math.cos(ang) * 1.0 + Math.sin(ang) * 0.07 > -0.15;
+  const rot = new THREE.Euler((rB() - 0.5) * 0.4, outward + (facesCam ? 0 : Math.PI) + (rB() - 0.5) * 0.4, (rB() - 0.5) * 0.5);
+  const tDrop = 30.4 + i * 0.36 + rB() * 0.12;
+  const vel = new THREE.Vector3(rest.x, 0, rest.z).normalize().multiplyScalar(7 + rB() * 9); vel.y = 4 + rB() * 9;
+  m.userData = { rest, rot, tDrop, vel, spin: new THREE.Vector3(rB() * 6 - 3, rB() * 6 - 3, rB() * 6 - 3) };
+  m.visible = false; scene.add(m); blocks.push(m);
+}
+// embers
+const emG = new THREE.BufferGeometry(); const emN = 600; const emP = new Float32Array(emN * 3); const emSeed = [];
+for (let i = 0; i < emN; i++) emSeed.push([R() * 6.28, R() * 4 + 0.5, R() * 14, R() * 0.6 + 0.2]);
+emG.setAttribute('position', new THREE.BufferAttribute(emP, 3));
+const embers = new THREE.Points(emG, new THREE.PointsMaterial({ color: 0xff5530, size: 0.07, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+scene.add(embers);
+
+// ------------------------------------------------------------------ act 4: the staircase of days
+const STEPS = 400, SR = 6.5, DTH = 0.2, DY = 0.33;
+const stepGeo = new RoundedBoxGeometry(2.4, 0.22, 1.25, 2, 0.05);
+const stepMat = new THREE.MeshStandardMaterial({ color: 0x2a2a30, roughness: 0.4, metalness: 0.5, emissive: 0xffb050, emissiveIntensity: 0 });
+const stairs = new THREE.InstancedMesh(stepGeo, stepMat, STEPS); stairs.castShadow = true; stairs.receiveShadow = true;
+stairs.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(STEPS * 3), 3);
+const tmpM = new THREE.Matrix4(), tmpQ = new THREE.Quaternion(), tmpS = new THREE.Vector3(1, 1, 1);
+const stepPos = (k) => { const th = k * DTH; return new THREE.Vector3(Math.cos(th) * SR, k * DY, Math.sin(th) * SR); };
+for (let k = 0; k < STEPS; k++) {
+  const p = stepPos(k); tmpQ.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -k * DTH);
+  tmpM.compose(p, tmpQ, tmpS); stairs.setMatrixAt(k, tmpM); stairs.setColorAt(k, new THREE.Color(0x404048));
+}
+stairs.visible = false; scene.add(stairs);
+const dayLabels = [];
+for (let k = 10; k < STEPS; k += 20) {
+  const n = Math.round(k / (STEPS - 20) * 365);
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: textTex('DAY ' + n, 512, 128, { color: '#ffd9a0', glow: '#ff9a30', blur: 16, font: '84px Gaegu' }), transparent: true, depthWrite: false }));
+  const p = stepPos(k); s.position.set(p.x * 1.22, p.y + 0.55, p.z * 1.22); s.scale.set(1.9, 0.48, 1); s.visible = false; scene.add(s); dayLabels.push(s);
+}
+// cloud sea
+const cloudTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); const gr = g.createRadialGradient(128, 128, 10, 128, 128, 128); gr.addColorStop(0, 'rgba(255,255,255,0.95)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.45)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 256, 256); const t = new THREE.CanvasTexture(c); return t; })();
+const clouds = new THREE.Group(); scene.add(clouds); const cloudMats = [];
+const rC = rng(99);
+for (let i = 0; i < 260; i++) {
+  const m = new THREE.SpriteMaterial({ map: cloudTex, color: 0x8890a8, transparent: true, depthWrite: false, opacity: 0.85 });
+  cloudMats.push(m);
+  const s = new THREE.Sprite(m); const a = rC() * Math.PI * 2, r = 8 + Math.pow(rC(), 0.6) * 120;
+  s.position.set(Math.cos(a) * r, 118 + rC() * 6, Math.sin(a) * r); const sc = 14 + rC() * 26; s.scale.set(sc, sc * 0.45, 1); clouds.add(s);
+}
+clouds.visible = false;
+const summit = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 2.2, 1.2, 48), new THREE.MeshStandardMaterial({ color: 0x3a3a40, roughness: 0.5, metalness: 0.4 }));
+const topP = stepPos(STEPS - 1); summit.position.set(topP.x * 0.55, topP.y - 0.4, topP.z * 0.55); summit.receiveShadow = true; summit.castShadow = true; summit.visible = false; scene.add(summit);
+const sun = new THREE.Mesh(new THREE.SphereGeometry(14, 48, 24), new THREE.MeshBasicMaterial({ color: 0xfff0c8, fog: false })); scene.add(sun); sun.visible = false;
+
+// chrome DISCIPLINE
+const chrome = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.16, envMapIntensity: 1.6 });
+const chromeEdge = new THREE.MeshStandardMaterial({ color: 0xffb070, metalness: 1.0, roughness: 0.25 });
+const titleG = new TextGeometry('DISCIPLINE', { font, size: 4.2, depth: 1.2, curveSegments: 8, bevelEnabled: true, bevelThickness: 0.25, bevelSize: 0.14, bevelSegments: 4 });
+titleG.computeBoundingBox(); titleG.translate(-(titleG.boundingBox.max.x + titleG.boundingBox.min.x) / 2, 0, 0);
+const title = new THREE.Mesh(titleG, [chrome, chromeEdge]); title.visible = false; scene.add(title);
+// tiny final snooze button
+const tiny = new THREE.Group(); scene.add(tiny); tiny.visible = false;
+{ const c = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.17, 0.08, 32), [redMat, capMat, redMat]); c.position.y = 0.09; tiny.add(c); const b = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.24, 0.06, 32), clockBody); b.position.y = 0.03; tiny.add(b); tiny.userData.cap = c; }
+
+// ------------------------------------------------------------------ post: bloom + grade (grain, vignette, aberration)
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.55, 0.5, 0.88); composer.addPass(bloom);
+const grade = new ShaderPass({
+  uniforms: { tDiffuse: { value: null }, time: { value: 0 }, ab: { value: 0.0012 }, vig: { value: 0.9 } },
+  vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float time, ab, vig; varying vec2 vUv;
+    float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233)) + time*37.0) * 43758.5453); }
+    void main(){ vec2 d = vUv - 0.5; float r = dot(d,d);
+      vec3 c; c.r = texture2D(tDiffuse, vUv + d*ab*8.0).r; c.g = texture2D(tDiffuse, vUv).g; c.b = texture2D(tDiffuse, vUv - d*ab*8.0).b;
+      c *= 1.0 - vig * r * 1.1; c += (h(vUv*vec2(1920.0,1080.0)) - 0.5) * 0.035; gl_FragColor = vec4(c, 1.0); }`
+});
+composer.addPass(new OutputPass());
+composer.addPass(grade);
+
+// ------------------------------------------------------------------ DOM overlays
+const $ = id => document.getElementById(id);
+function caption(s, a) { $('cap').textContent = s || ''; $('cap').style.opacity = a ?? 1; }
+const CAPS = [
+  [2.0, 6.9, 'Every morning, at 5 A.M., a war begins.'],
+  [11.3, 14.0, 'No armies. No guns.'], [15.1, 18.0, 'Just you... and a voice.'],
+  [38.6, 46.0, 'It never says no. It says later. And later becomes never.'],
+  [48.0, 50.0, "Here's what nobody tells you."], [51.0, 54.0, "Disciplined people don't feel like it either."],
+  [56.4, 58.8, 'They just stopped asking.'],
+  [66.0, 73.4, 'One push-up. One page. One step. And never... miss twice.'],
+  [86.4, 89.4, 'Motivation asks how you feel.'], [90.8, 94.0, "Discipline... doesn't ask."],
+];
+const VILS = [[22.4, 25.2, 'Five more minutes...', 0.42], [31.0, 33.6, 'Start Monday.', 0.3], [35.0, 37.6, 'You deserve a break.', 0.62], [98.6, 101.0, '...tomorrow?', 0.4]];
+
+// ------------------------------------------------------------------ camera helpers
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+function look(p, q, roll = 0) { camera.position.copy(p); camera.up.set(Math.sin(roll), Math.cos(roll), 0); camera.lookAt(q); }
+function shake(a, t) { camera.position.x += Math.sin(t * 91) * a; camera.position.y += Math.cos(t * 77) * a; }
+
+// ------------------------------------------------------------------ the timeline
+window.renderAt = (t) => {
+  grade.uniforms.time.value = t;
+  let bloomS = 0.55, exposure = 1.0, ab = 0.0012;
+  // defaults per frame
+  clocks.visible = t < 32; room.visible = t < 62; snooze.visible = t > 15 && t < 62;
+  stairs.visible = t > 58; dayLabels.forEach(s => s.visible = t > 58 && t < 86); clouds.visible = t > 70; summit.visible = t > 70;
+  title.visible = t > 84 && t < 98; sun.visible = t > 74; tiny.visible = t > 96;
+  redL.intensity = 0; goldL.intensity = 0; sunL.intensity = 0; key.intensity = 30; hemi.intensity = 0.35;
+  ringMat.opacity = 0; embers.material.opacity = 0;
+  const night = { top: 0x020308, mid: 0x05070f, bot: 0x020204 };
+  skyU.top.value.set(night.top); skyU.mid.value.set(night.mid); skyU.bot.value.set(night.bot); skyU.sunCol.value.set(0x000000);
+  fog.color.set(0x040509); fog.density = 0.018; stars.material.opacity = 1;
+  $('black').style.opacity = 0; $('flash').style.opacity = 0; $('hud').textContent = ''; $('day').textContent = '';
+  $('vil').textContent = ''; $('big').querySelector('.l1').textContent = ''; $('big').querySelector('.l2').textContent = '';
+
+  // clocks drift + ring-shake
+  const clockReset = t > 26.0;
+  clockScreen.map = clockScreen.emissiveMap = clockReset ? clockTex2 : clockTex; clockScreen.needsUpdate = true;
+  for (const g of clockData) {
+    const d = g.userData, ring = (t < 26 ? 1 : 0.15) * Math.sin(t * 46 + d.ph) * 0.06;
+    g.rotation.set(d.rx + Math.sin(t * d.sp + d.ph) * 0.2, d.ry + t * 0.1 * d.sp, ring);
+    g.position.y = d.base.y + Math.sin(t * 0.5 + d.ph) * 0.4;
+  }
+
+  // ---- Leo default pose
+  leo.position.set(-0.3, 0.72, -0.4); leo.rotation.set(0, 0, Math.PI / 2); // lying in bed
+  let P = { lid: 1, brow: 0, smile: -0.3, armLz: 0.12, armRz: -0.12 };
+  blanket.visible = true;
+
+  // ========== ACT 1: 0-11  the void of clocks
+  if (t < 11) {
+    const u = sm(t / 11);
+    const z = lerp(215, 14, eout(t / 11.5));
+    look(V(Math.sin(t * 0.4) * 2.5, lerp(5, 4.2, u), z), V(0, lerp(3, 1.2, u), z - 30), Math.sin(t * 0.3) * 0.12);
+    key.position.set(-4, 7, 5); key.target.position.set(0, 0.5, 0);
+    fog.density = 0.012; bloomS = 0.7;
+    if (t < 0.6) $('black').style.opacity = 1 - t / 0.6;
+  }
+  // ========== ACT 2: 11-19  the floating bedroom
+  else if (t < 19) {
+    const u = sm(seg(t, 11, 19));
+    look(V(lerp(6, 3.2, u), lerp(4.5, 2.6, u), lerp(12, 6.5, u)), V(-0.3, 0.8, -0.4));
+    key.position.set(-3, 6, 3); key.target.position.set(-0.3, 0.5, -0.4); key.intensity = 22;
+    if (t > 15.2) { redL.position.set(3, 2, -1); redL.intensity = 8 * seg(t, 15.2, 16) * (0.8 + 0.2 * Math.sin(t * 8)); }
+    P.lid = 1; P.brow = -0.2;
+  }
+  // ========== ACT 3: 19-30  the SNOOZE monolith
+  else if (t < 30) {
+    const rise = eout(seg(t, 19, 21.6));
+    snooze.position.y = lerp(-9, -0.2, rise);
+    const press = t > 26 ? Math.exp(-(t - 26) * 4) : 0;
+    btnCap.position.y = 6.35 - 0.3 * press;
+    const u = sm(seg(t, 19, 30));
+    const v3 = sm(seg(t, 21.6, 24.5));
+    const camP = V(lerp(lerp(3, -1.5, sm(seg(t, 19, 21.6))), -1.2, v3), lerp(1.2, 9.0, v3), lerp(7, 8.0, v3));
+    const dr = Math.max(0, t - 24.5);
+    camP.x += dr * 0.32; camP.z -= dr * 0.22; camP.y -= dr * 0.18;
+    look(camP, V(lerp(2.6, 2.4, v3) + dr * 0.05, lerp(3.8, 4.4, v3), lerp(-1.0, -0.6, v3)));
+    if (t < 21.8) shake(0.06 * (1 - seg(t, 21, 21.8)), t);
+    if (t > 26 && t < 26.6) shake(0.12 * (1 - seg(t, 26, 26.6)), t);
+    key.position.set(-3, 6, 3); key.target.position.set(0, 0.5, 0); key.intensity = 18;
+    redL.position.set(4.3, 7.5, -1.6); redL.intensity = 40 * rise * (0.85 + 0.15 * Math.sin(t * 6)) + 80 * press;
+    // Leo wakes a little, arm reaches toward the button and slaps it
+    const reach = sm(seg(t, 23.2, 25.8)) * (1 - sm(seg(t, 26.4, 27.6)));
+    P = { lid: lerp(1, 0.45, seg(t, 22.4, 23.2)), brow: -0.4, armRz: lerp(-0.12, -2.6, reach), armRx: -0.2 * reach, smile: -0.4 };
+    if (t > 26) { ringMat.opacity = (1 - seg(t, 26, 27.6)) * 0.9; const s = lerp(1, 40, eout(seg(t, 26, 27.6))); shock.scale.set(s, s, s); shock.position.set(4.3, 6.4, -1.6); $('flash').style.opacity = 0.55 * Math.exp(-(t - 26) * 6); }
+    if (t > 26.8) P.lid = 1;
+    bloomS = 0.7;
+  }
+  // ========== ACT 4: 30-47  the tower of excuses
+  else if (t < 47) {
+    blanket.visible = t < 30.3;
+    const stand = eout(seg(t, 30, 30.8));
+    leo.position.set(lerp(-0.3, 0, stand), lerp(0.72, 0.0, stand), lerp(-0.4, 0, stand)); leo.rotation.set(0, lerp(0, 0.3, stand), lerp(Math.PI / 2, 0, stand));
+    P = { lid: 0.35, brow: -0.6, browY: 0.02, smile: -0.5, armLz: 0.25, armRz: -0.25 };
+    if (t > 40) P.lid = 0.55;
+    const u = sm(seg(t, 30.5, 47));
+    const ang = lerp(0.6, 2.4, u), rad = lerp(5.5, 8.5, u), h = lerp(1.6, 10.5, ein(seg(t, 34, 47)));
+    look(V(Math.sin(ang) * rad, h, Math.cos(ang) * rad), V(0, lerp(1.2, 1.4, u), 0));
+    key.position.set(2, 9, 4); key.target.position.set(0, 0, 0); key.intensity = 20;
+    redL.position.set(0, 3.5, 0); redL.intensity = 12 + 20 * u;
+    snooze.position.y = lerp(-0.2, -9, ein(seg(t, 30, 33)));
+    let i0 = 0;
+    for (const m of blocks) {
+      const d = m.userData; m.visible = t > d.tDrop;
+      if (!m.visible) continue;
+      const fall = clamp((t - d.tDrop) / 0.55);
+      const y = d.rest.y + (1 - ein(fall)) * 14 + (fall >= 1 ? Math.max(0, Math.sin((t - d.tDrop - 0.55) * 18) * 0.08 * Math.exp(-(t - d.tDrop - 0.55) * 8)) : 0);
+      m.position.set(d.rest.x, y, d.rest.z); m.rotation.copy(d.rot); m.rotation.x += (1 - fall) * 2.0;
+      if (fall >= 1 && t - d.tDrop - 0.55 < 0.1) i0++;
+    }
+    if (i0) shake(0.05, t);
+    $('hud').textContent = 'DAY 1'.repeat(1) ; $('hud').style.opacity = (Math.floor(t * 3) % 2) ? 1 : 0.35;
+    bloomS = 0.65;
+  }
+  // ========== ACT 5: 47-56  buried. silence.
+  else if (t < 56) {
+    leo.position.set(0, 0, 0); leo.rotation.set(0, 0.3, 0);
+    for (const m of blocks) { const d = m.userData; m.visible = true; m.position.copy(d.rest); m.rotation.copy(d.rot); }
+    P = { lid: 0.7, brow: -0.7, browY: 0.03, smile: -0.6, armLz: 0.08, armRz: -0.08 };
+    const u = sm(seg(t, 47, 56));
+    look(V(Math.sin(0.3) * lerp(1.05, 0.92, u), lerp(1.55, 1.48, u), Math.cos(0.3) * lerp(1.05, 0.92, u)), V(0, 1.42, 0));
+    key.intensity = 0; hemi.intensity = 0.08;
+    redL.position.set(0.6, 1.9, 0.9); redL.intensity = 2.2 + 0.8 * Math.sin(t * 5);
+    goldL.position.set(0, 1.5, 1.2); goldL.intensity = 0;
+    fog.density = 0.05; bloomS = 0.5; stars.material.opacity = 0.2;
+    exposure = 0.9;
+  }
+  // ========== ACT 6: 56-64  ignition + explosion
+  else if (t < 64) {
+    hemi.intensity = 0.35;
+    leo.position.set(0, 0, 0); leo.rotation.set(0, 0.3, 0);
+    const ign = sm(seg(t, 56.2, 57.4));
+    P = { lid: lerp(0.7, 0, ign), brow: lerp(-0.7, 0.7, ign), fire: ign, smile: lerp(-0.6, 0.3, seg(t, 58.2, 59)), armLz: 0.3, armRz: -0.3, band: t > 58.8 };
+    goldL.position.set(0, 1.6, 1.0); goldL.intensity = 1.6 * ign + (t > 59.2 ? 30 * Math.exp(-(t - 59.2) * 1.5) : 0);
+    const T0 = 59.2;
+    const slow = t < T0 ? 0 : (t - T0 < 0.25 ? (t - T0) * 1.0 : 0.25 + (t - T0 - 0.25) * 0.28);
+    for (const m of blocks) {
+      const d = m.userData; m.visible = true;
+      if (t < T0) { m.position.copy(d.rest); m.rotation.copy(d.rot); if (t > 58.4) { m.position.x += Math.sin(t * 80 + d.rest.y) * 0.03; } continue; }
+      m.position.set(d.rest.x + d.vel.x * slow, d.rest.y + d.vel.y * slow - 4.9 * slow * slow, d.rest.z + d.vel.z * slow);
+      m.rotation.set(d.rot.x + d.spin.x * slow, d.rot.y + d.spin.y * slow, d.rot.z + d.spin.z * slow);
+    }
+    if (t > T0) { $('flash').style.opacity = 0.9 * Math.exp(-(t - T0) * 3.5); shake(0.25 * Math.exp(-(t - T0) * 3), t); }
+    // embers burst
+    embers.material.opacity = t > T0 ? 1 - seg(t, T0 + 2, 64) : 0;
+    for (let i = 0; i < emN; i++) { const [a, sp, up, s] = emSeed[i]; const r = slow * sp * 2.2; emP[i * 3] = Math.cos(a) * r; emP[i * 3 + 1] = 1.2 + slow * up * 0.6 - 2 * slow * slow * s; emP[i * 3 + 2] = Math.sin(a) * r; }
+    emG.attributes.position.needsUpdate = true;
+    const u = sm(seg(t, 56, 59.2));
+    const pull = eout(seg(t, T0, 64));
+    look(V(Math.sin(0.3) * lerp(0.92, 0.8, u) + pull * 3, lerp(1.48, 1.46, u) + pull * 3.5, Math.cos(0.3) * lerp(0.92, 0.8, u) + pull * 9), V(0, 1.43 + pull * 1.5, 0));
+    key.position.set(2, 8, 5); key.intensity = 8 + 18 * pull; key.target.position.set(0, 0, 0);
+    redL.intensity = t < T0 ? 2.5 : 0;
+    bloomS = 0.55 + (t > T0 ? 1.0 * Math.exp(-(t - T0) * 2) : 0) + 0.2 * ign;
+    ab = 0.0012 + (t > T0 ? 0.006 * Math.exp(-(t - T0) * 3) : 0);
+  }
+  // ========== ACT 7: 64-84  the staircase of days
+  else if (t < 84) {
+    blocks.forEach(m => m.visible = false);
+    const k = lerp(0, STEPS - 2, Math.pow(sm(seg(t, 64.5, 83.5)), 1.15));
+    const ki = Math.floor(k), kf = k - ki;
+    const p0 = stepPos(ki), p1 = stepPos(ki + 1);
+    const pos = p0.clone().lerp(p1, kf);
+    const run = t * 9.5;
+    leo.position.set(pos.x * 0.93, pos.y + 0.11 + Math.abs(Math.sin(run)) * 0.08, pos.z * 0.93);
+    leo.rotation.set(0, -(k * DTH) - Math.PI, 0);
+    P = { lid: 0, fire: 0.6, brow: 0.6, smile: 0.4, band: true, legL: Math.sin(run) * 0.9, legR: -Math.sin(run) * 0.9, armLx: -Math.sin(run) * 0.9, armRx: Math.sin(run) * 0.9, armLz: 0.15, armRz: -0.15, lean: 0.25, bob: 0 };
+    // stairs light up as he climbs
+    for (let j = Math.max(0, ki - 120); j < Math.min(STEPS, ki + 40); j++) {
+      const lit = j <= ki ? 1 : 0; const c = new THREE.Color(lit ? 0xffb060 : 0x3a3a42);
+      stairs.setColorAt(j, c);
+    }
+    stairs.instanceColor.needsUpdate = true; stepMat.emissiveIntensity = 0.0;
+    const th = k * DTH;
+    const camR = lerp(12, 15, sm(seg(t, 64, 84)));
+    const ca = th + 0.75 + Math.sin(t * 0.3) * 0.15;
+    look(V(Math.cos(ca) * camR, pos.y + 2.8 + Math.sin(t * 0.7) * 0.4, Math.sin(ca) * camR), V(pos.x * 0.8, pos.y + 1.2, pos.z * 0.8));
+    // sky: night -> dawn as he rises
+    const dawn = sm(seg(t, 66, 84));
+    skyU.top.value.set(0x020308).lerp(new THREE.Color(0x24345a), dawn);
+    skyU.mid.value.set(0x05070f).lerp(new THREE.Color(0xff8a4a), dawn);
+    skyU.bot.value.set(0x020204).lerp(new THREE.Color(0x40242a), dawn);
+    skyU.sunCol.value.set(0x000000).lerp(new THREE.Color(0xffa060), dawn);
+    skyU.sunDir.value.set(-0.6, 0.02, -1);
+    stars.material.opacity = 1 - dawn;
+    fog.color.set(0x040509).lerp(new THREE.Color(0x4a3440), dawn); fog.density = lerp(0.012, 0.003, dawn);
+    sun.position.set(-260, lerp(80, 125, dawn), -430); sun.material.color.set(0xffe2b0);
+    sunL.position.set(pos.x - 60, pos.y + 25, pos.z - 100); sunL.target.position.copy(pos); sunL.intensity = 2.0 * dawn;
+    key.position.set(pos.x + 2, pos.y + 7, pos.z + 3); key.target.position.copy(pos); key.intensity = 14;
+    goldL.position.set(pos.x, pos.y + 1, pos.z); goldL.intensity = 1.2;
+    hemi.intensity = 0.3 + 0.4 * dawn;
+    $('day').textContent = 'DAY ' + Math.max(1, Math.round(k / (STEPS - 2) * 365));
+    cloudMats.forEach(m => m.color.set(0x8890a8).lerp(new THREE.Color(0xffd0b0), dawn));
+    bloomS = 0.5;
+  }
+  // ========== ACT 8: 84-97  the summit
+  else if (t < 97) {
+    const top = stepPos(STEPS - 1); const sp = summit.position;
+    leo.position.set(sp.x, sp.y + 0.6, sp.z);
+    const face = Math.atan2(-430 - sp.z, -260 - sp.x);
+    leo.rotation.set(0, -face + Math.PI / 2, 0);
+    const cheer = sm(seg(t, 84.5, 86));
+    P = { lid: 0, fire: 0.3, brow: 0.4, smile: 0.7, band: true, armLz: lerp(0.12, 2.6, cheer), armRz: lerp(-0.12, -2.6, cheer) };
+    skyU.top.value.set(0x24345a); skyU.mid.value.set(0xff8a4a); skyU.bot.value.set(0x40242a); skyU.sunCol.value.set(0xffa060); skyU.sunDir.value.set(-0.6, 0.06, -1);
+    stars.material.opacity = 0; fog.color.set(0x4a3440); fog.density = 0.0016;
+    sun.position.set(-260, lerp(125, 150, seg(t, 84, 97)), -430);
+    // DISCIPLINE rises from the cloud sea
+    const tr = eout(seg(t, 85.2, 89.5));
+    const dir = new THREE.Vector3(-260 - sp.x, 0, -430 - sp.z).normalize();
+    title.position.set(sp.x + dir.x * 46, lerp(sp.y - 22, sp.y + 4, tr), sp.z + dir.z * 46);
+    title.lookAt(sp.x, title.position.y, sp.z);
+    const u = sm(seg(t, 84, 97));
+    const side = new THREE.Vector3(-dir.z, 0, dir.x);
+    const cp = V(sp.x - dir.x * lerp(6, 14, u) + side.x * lerp(3, 1, u), sp.y + lerp(2.2, 4.5, u), sp.z - dir.z * lerp(6, 14, u) + side.z * lerp(3, 1, u));
+    look(cp, V(sp.x + dir.x * 30, sp.y + lerp(1.5, 5, u), sp.z + dir.z * 30));
+    sunL.position.set(sp.x - 60, sp.y + 25, sp.z - 100); sunL.target.position.copy(sp); sunL.intensity = 2.2;
+    key.position.set(sp.x + 3, sp.y + 6, sp.z + 4); key.target.position.copy(sp); key.intensity = 12;
+    hemi.intensity = 0.55; bloomS = 0.45;
+    cloudMats.forEach(m => m.color.set(0xffd0b0));
+  }
+  // ========== ACT 9: 97-104  the sting
+  else {
+    const sp = summit.position;
+    leo.position.set(sp.x, sp.y + 0.6, sp.z);
+    const toCam = 0.0;
+    leo.rotation.set(0, toCam, 0);
+    tiny.position.set(sp.x + 0.6, sp.y + 0.6, sp.z + 0.7);
+    tiny.scale.setScalar(eout(seg(t, 97.3, 97.7)));
+    const stomp = t > 101.2 ? 1 : 0;
+    tiny.userData.cap.scale.y = stomp ? 0.25 : 1;
+    const lookDown = sm(seg(t, 99.6, 100.3));
+    const lift = sm(seg(t, 100.4, 100.9)) * (1 - sm(seg(t, 101.0, 101.2)));
+    P = { lid: lerp(0, 0.45, lookDown), brow: lerp(0.3, -0.1, lookDown), smile: lookDown > 0.5 ? 0.2 : 0.5, band: true, headX: 0.45 * lookDown, headY: 0.3 * lookDown, legR: -1.0 * lift };
+    leo.position.x += lift * 0.15;
+    skyU.top.value.set(0x24345a); skyU.mid.value.set(0xff8a4a); skyU.bot.value.set(0x40242a); skyU.sunCol.value.set(0xffa060); skyU.sunDir.value.set(-0.6, 0.08, -1);
+    stars.material.opacity = 0; fog.color.set(0x4a3440); fog.density = 0.0016;
+    sun.position.set(-260, 150, -430);
+    look(V(sp.x + 0.5, sp.y + 1.8, sp.z + 4.2), V(sp.x + 0.25, sp.y + 1.0, sp.z));
+    key.position.set(sp.x + 3, sp.y + 6, sp.z + 4); key.target.position.copy(sp); key.intensity = 14;
+    sunL.intensity = 1.8; sunL.position.set(sp.x - 60, sp.y + 25, sp.z - 100); sunL.target.position.copy(sp);
+    hemi.intensity = 0.55; bloomS = 0.45;
+    redL.position.set(tiny.position.x, tiny.position.y + 0.3, tiny.position.z); redL.intensity = stomp ? 0 : 1.2;
+    if (t > 101.2) shake(0.03 * Math.exp(-(t - 101.2) * 8), t);
+    const b = sm(seg(t, 101.5, 101.9));
+    $('black').style.opacity = b;
+    if (t > 101.9) { $('big').querySelector('.l1').textContent = 'DISCIPLINE'; $('big').querySelector('.l2').textContent = "doesn't negotiate."; $('big').style.opacity = sm(seg(t, 102.0, 102.4)); }
+  }
+  pose(leo, P);
+
+  // overlays
+  let cs = '', ca = 0;
+  for (const [a, b, s] of CAPS) if (t >= a && t <= b) { cs = s; ca = sm(seg(t, a, a + 0.25)) * (1 - sm(seg(t, b - 0.3, b))); }
+  caption(cs, ca);
+  for (const [a, b, s, y] of VILS) if (t >= a && t <= b) {
+    const n = Math.round(s.length * clamp((t - a) / 0.6));
+    $('vil').textContent = s.slice(0, n); $('vil').style.top = (y * 1080) + 'px';
+    $('vil').style.opacity = 1 - sm(seg(t, b - 0.4, b));
+    $('vil').style.transform = `translateX(${Math.sin(t * 40) * 2}px)`;
+  }
+  if (t < 101.9) $('big').style.opacity = 1;
+
+  renderer.toneMappingExposure = exposure; bloom.strength = bloomS; grade.uniforms.ab.value = ab;
+  composer.render();
+  return true;
+};
+window.ready = true;
+</script>
+</body>
+</html>
