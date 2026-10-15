@@ -21,18 +21,17 @@ Three rules from the film:
 3. Never miss twice.
 
 Chapters
-0:00 Day 1. Again.
-0:10 Five more minutes
-0:28 Start Monday
-0:46 Not good enough
-1:05 2:47 AM
-1:18 She hears it too
-1:48 The truth
-2:00 Count 5 to 1
-2:17 Day 1 to Day 180
-2:44 No more Day 1s
-2:55 Pass it on
-3:09 The voice never fully leaves
+0:00 47 restarts
+0:13 Five more minutes
+0:31 Start Monday
+0:51 2:47 AM
+1:04 She hears it too
+1:34 The truth
+1:46 Count 5 to 1
+2:03 Day 1 to Day 180
+2:30 No more Day 1s
+2:41 Pass it on
+2:55 The voice never fully leaves
 
 Animated, scored and sound-designed entirely in code.
 

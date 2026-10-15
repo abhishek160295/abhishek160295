@@ -215,12 +215,24 @@ SLOTS = _note_slots()
 SLAP = (1180, 600)
 
 
-def wall_scene(f, t, payoff=False):
+def wall_scene(f, t, payoff=False, hook=False):
     dur = 11.0 if payoff else 6.5
-    cam_push(f, t, dur, 1.16, 1.3, (1000, 500), (1060, 490))
-    gt = 5.6 if payoff else 2.3            # slap moment
-    if gt - 0.1 < t < gt + 0.12:
-        f.shx = math.sin(t * 90) * 5
+    if hook:
+        # extreme close-up on the slap, then rip back to reveal the whole wall
+        if t < 0.3:
+            f.cam(4.0, SLAP[0] + 30, SLAP[1] - 10)
+        elif t < 1.0:
+            u = smooth(seg(t, 0.3, 1.0))
+            f.cam(lerp(4.0, 1.18, u), lerp(SLAP[0] + 30, 1000, u), lerp(SLAP[1] - 10, 500, u))
+            f.whip = 70 * math.sin(u * math.pi)
+        else:
+            cam_push(f, t - 1.0, 4.0, 1.18, 1.27, (1000, 500), (1060, 495))
+    else:
+        cam_push(f, t, dur, 1.16, 1.3, (1000, 500), (1060, 490))
+    gt = 5.6 if payoff else (0.12 if hook else 2.3)            # slap moment
+    if gt - 0.1 < t < gt + 0.12 + (0.1 if hook else 0):
+        f.shx = math.sin(t * 90) * (14 if hook else 5)
+        f.shy = math.cos(t * 77) * (8 if hook else 0)
     # back layer: window
     f.layer(0.7)
     if payoff:
@@ -293,7 +305,44 @@ def wall_scene(f, t, payoff=False):
 
 
 def s01(f, t):
-    wall_scene(f, t, False)
+    wall_scene(f, t, False, hook=True)
+    # the villain begins to rise out of Leo's shadow as the scene ends
+    k = summon(t, 3.4, 99, 1.4)
+    vdraw(f, t, k, 1560, FY, 1.6, dict(face=-0.4, grin=0.8), (1300, FY), 3.4)
+    # the shocking number, centre screen, then into the counter
+    if 0.85 < t < 2.75:
+        u = back(seg(t, 0.85, 1.15))
+        v = smooth(seg(t, 2.2, 2.7))
+        size = lerp(lerp(560, 330, u), 44, v)
+        x, y = lerp(960, 600, v), lerp(520, 64, v)
+        if v < 0.05:
+            f.light(f.cx, f.cy, 260, RED, 0.35 * u)
+        f.otext(x, y, '47', size, (255, 52, 44), GAEGU, 'mm', clamp((t - 0.85) / 0.06), stroke=int(lerp(8, 1, v)))
+        if t < 2.2:
+            f.otext(960, 520 + 210, 'RESTARTS', 64, WHITE, GAEGU, 'mm', smooth(seg(t, 1.15, 1.4)) * (1 - seg(t, 2.0, 2.2)),
+                    stroke=5)
+
+
+def s02(f, t):
+    # the villain turns to the viewer
+    lean = smooth(seg(t, 2.5, 4.8))
+    f.cam(1.0 + 0.03 * t + 0.25 * lean, 960, 560 + 40 * lean)
+    op = eout(seg(t, 0.25, 0.6))
+    MON.draw(f, 960, 1323, 3.0, dict(eyes=op, grin=0.9 * seg(t, 0.4, 1.0), breath=0.5), t, halo=0.6)
+    if 0.8 < t < 2.6:
+        red_text(f, 960, 330, 'Start Monday.', 104, alpha=smooth(seg(t, 0.8, 0.95)) * (1 - smooth(seg(t, 2.35, 2.6))),
+                 col=(255, 52, 44), glow=0.7, wob=0.5, stroke=5)
+    if 2.7 < t:
+        red_text(f, 960, 330, 'You know my voice too.', 92, alpha=smooth(seg(t, 2.7, 2.85)), col=(255, 52, 44),
+                 glow=0.7, wob=0.5, stroke=5, appear=(t - 2.7) / 0.7)
+
+
+def s02b(f, t):
+    out = 1 - smooth(seg(t, 3.15, 3.5))
+    kinetic(f, 'It took him 47 restarts to learn'.split(), 470, 80, t, 0.15, 0.1,
+            cols=[None, None, None, RED, RED, None, None], alpha=out)
+    kinetic(f, 'what disciplined people never say out loud.'.split(), 580, 80, t, 0.95, 0.1,
+            cols=[None, None, None, (255, 236, 200), (255, 236, 200), (255, 236, 200), (255, 236, 200)], alpha=out)
 
 
 def s17(f, t):
@@ -301,15 +350,6 @@ def s17(f, t):
 
 
 # ====================================================================== 02 REVEAL
-def s02(f, t):
-    f.cam(1.0 + 0.04 * t, 960, 540)
-    op = eout(seg(t, 1.3, 1.9)) if t < 3.2 else eout(seg(t, 1.3, 1.9))
-    MON.draw(f, 960, 1323, 3.0, dict(eyes=op, grin=0.9 * seg(t, 2.2, 2.9), arms=True, breath=0.5), t,
-             halo=0.22 * seg(t, 1.2, 2.6))
-    out = 1 - smooth(seg(t, 3.05, 3.45))
-    kinetic(f, "Here's what stopped him.".split(), 300, 72, t, 0.2, 0.14, alpha=out, pop=0.25)
-    b = smooth(seg(t, 2.1, 2.4)) * out
-    f.otext(960, 880, 'the voice that always says  "later."', 54, (255, 70, 66), HAND, 'mm', b, stroke=3)
 
 
 # ====================================================================== 03 / 14 BEDROOM
@@ -497,7 +537,7 @@ def s05(f, t):
     va = smooth(seg(t, 3.8, 4.4))
     k = summon(t, 3.7, 8.3)
     vdraw(f, t, k, 500, fy, 1.8, dict(face=0.5, grin=0.9, rhw=(700, 560)), (lx, fy), 3.7, 8.3)
-    vline(f, 600, 330, 'Week\'s ruined. Start Monday.', t, 4.4, 8.0)
+    vline(f, 600, 365, 'Week\'s ruined. Start Monday.', t, 4.4, 8.0)
     kicker(f, 14, 'THE MISSED MONDAY', t, 4.6, 7.6)
     # Leo
     if t < 3.4:
@@ -668,9 +708,13 @@ def s08(f, t):
         f.ambient((80, 90, 120), 0.012)
         clock(f, 1440, 290, '07:00', 'MON', 0.85)
         seat = couch(f, 560, 1240, FY)
-        k = summon(t, 5.5, 9.3)
-        vdraw(f, t, k, 1200, FY, 1.95, dict(face=-0.4, grin=1.0, lhw=(1120, 520), rhw=(1290, 520), rot=-0.05),
-              (880, FY), 5.5, 9.3)
+        k = summon(t, 5.1, 9.3)
+        look = smooth(seg(t, 5.6, 5.9))
+        vdraw(f, t, k, 1200, FY, 1.95, dict(face=lerp(-0.4, 0.0, look), grin=1.0, lhw=(1120, 520), rhw=(1290, 520),
+                                            rot=-0.05 * (1 - look)), (880, FY), 5.1, 9.3)
+        if 5.75 < t < 8.2:
+            red_text(f, 1525, 700, 'Sound familiar?', 66, alpha=smooth(seg(t, 5.75, 5.9)) * (1 - smooth(seg(t, 7.9, 8.2))),
+                     col=(255, 52, 44), glow=0.6, wob=0.4, stroke=5)
         kicker(f, 47, 'THE PERFECT PLAN', t, 6.0, 9.4, y=890)
         couch(f, 560, 1240, FY)
         y = seat + 58
@@ -1226,7 +1270,11 @@ def s21(f, t):
 
 # ====================================================================== timeline
 class Scene:
-    def __init__(self, name, dur, fn, subs=(), hud=None, ticks=(), cues=(), day=None):
+    def __init__(self, name, dur, fn, subs=(), hud=None, ticks=(), cues=(), day=None, retime=None):
+        if retime:                      # play an existing scene from `off`, `speed` x faster
+            off, speed = retime
+            fn = (lambda g, o, k: (lambda f, t: g(f, o + t * k)))(fn, off, speed)
+        self.retime = retime
         self.name, self.dur, self.fn = name, dur, fn
         self.subs, self.hud, self.ticks, self.cues, self.day = list(subs), hud, list(ticks), list(cues), day
         self.start = 0.0
@@ -1297,21 +1345,31 @@ def day_s16(t):
 
 
 SCENES = [
-    Scene('01_wall', 6.5, s01, [(0.3, 3.7, 'Every Sunday night, Leo makes the same promise.', 'cap'), (4.0, 6.3, 'Day 1. Again.', 'cap')], H(46), [(2.35, 2.35, 46, 47)]),
-    Scene('02_reveal', 3.5, s02, [(0.2, 3.3, 'Here\'s what stopped him.', 'card'), (2.1, 3.4, 'the voice that always says "later."', 'card')], H(47)),
+    Scene('01_wall', 5.0, s01, [(1.1, 3.3, '47 times, Leo started over.', 'cap'), (1.15, 2.2, '47 RESTARTS', 'card'),
+                                (3.5, 4.9, 'Every time, the same voice stopped him.', 'cap')],
+          lambda sc, t: (None, None) if t < 2.7 else started(47, RED)),
+    Scene('02_reveal', 5.0, s02, [(0.8, 2.6, 'Start Monday.', 'vil'), (2.7, 4.9, 'You know my voice too.', 'vil')], H(47)),
+    Scene('02b_promise', 3.5, s02b, [(0.15, 3.4, 'It took him 47 restarts to learn', 'card'),
+                                     (0.95, 3.4, 'what disciplined people never say out loud.', 'card')]),
     Scene('03_snooze', 9.0, s03, [(0.2, 2.3, 'One year earlier.', 'cap'), (2.5, 5.6, 'Five more minutes.', 'vil'), (2.6, 5.4, 'RESTART #1 · THE ALARM', 'card'),
                                    (6.4, 8.8, 'The plan lasted exactly one alarm.', 'cap')],
           hud_s03, [(6.3, 6.3, 0, 1)]),
     Scene('04_research', 9.0, s04, [(0.2, 1.9, 'Exam on Friday. He just had to start.', 'cap'), (1.3, 6.0, 'Watch one more first.', 'vil'),
-                                     (1.6, 4.6, 'RESTART #6 · THE RESEARCH', 'card'), (6.9, 8.8, 'Four hours of advice. Zero pages read.', 'cap')], H(1), [(3.4, 6.6, 1, 6)]),
-    Scene('05_tuesday', 9.0, s05, [(0.4, 3.4, 'Tuesday. He\'d already missed Monday.', 'cap'), (4.4, 8.0, 'Week\'s ruined. Start Monday.', 'vil'),
-                                    (4.6, 7.6, 'RESTART #14 · THE MISSED MONDAY', 'card'), (6.6, 8.8, 'One missed day became a missed week.', 'cap')], H(6), [(6.4, 8.2, 6, 14)]),
-    Scene('06_earned', 9.0, s06, [(0.2, 2.6, 'The meals were prepped for the whole week.', 'cap'), (1.2, 5.5, 'You earned this.', 'vil'),
-                                   (1.4, 4.4, 'RESTART #23 · THE REWARD', 'card'), (6.9, 8.8, 'One "reward" undid five days.', 'cap')], H(14), [(6.6, 8.4, 14, 23)]),
-    Scene('07_draft', 9.0, s07, [(0.2, 2.5, 'His first cover. Three weeks of practice.', 'cap'), (2.6, 5.4, 'It\'s not good enough.', 'vil'),
-                                  (2.9, 5.4, 'RESTART #35 · THE DRAFT', 'card'), (6.8, 8.8, 'Nobody ever heard it.', 'cap')], H(23), [(6.6, 8.6, 23, 35)]),
-    Scene('08_plan', 10.0, s08, [(0.8, 4.6, 'Plan it perfectly first.', 'vil'), (1.2, 4.6, 'Planning felt like progress.', 'cap'),
-                                  (6.0, 9.4, 'RESTART #47 · THE PERFECT PLAN', 'card'), (7.0, 9.6, 'The plan never left the wall.', 'cap')], H(35), [(6.0, 8.8, 35, 47)]),
+                                     (1.6, 4.6, 'RESTART #6 · THE RESEARCH', 'card'), (6.9, 8.8, 'Four hours of advice. Zero pages read.', 'cap')],
+          H(1), [(3.4, 6.6, 1, 6)]),
+    # the failures accelerate: same scenes, entered later and played faster
+    Scene('05_tuesday', 6.0, s05, [(0.1, 1.6, 'Tuesday. He\'d already missed Monday.', 'cap'), (1.4, 5.0, 'Week\'s ruined. Start Monday.', 'vil'),
+                                   (1.6, 4.6, 'RESTART #14 · THE MISSED MONDAY', 'card'), (3.6, 5.8, 'One missed day became a missed week.', 'cap')],
+          H(6), [(3.4, 5.2, 6, 14)], retime=(3.0, 1.0)),
+    Scene('06_earned', 5.0, s06, [(0.5, 3.8, 'You earned this.', 'vil'), (0.6, 2.9, 'RESTART #23 · THE REWARD', 'card'),
+                                  (3.4, 4.9, 'One "reward" undid five days.', 'cap')],
+          H(14), [(3.0, 4.6, 14, 23)], retime=(0.6, 1.3)),
+    Scene('07_draft', 4.0, s07, [(0.4, 2.3, 'It\'s not good enough.', 'vil'), (0.6, 2.3, 'RESTART #35 · THE DRAFT', 'card'),
+                                 (2.8, 3.9, 'Nobody ever heard it.', 'cap')],
+          H(23), [(2.5, 3.7, 23, 35)], retime=(2.0, 1.5)),
+    Scene('08_plan', 5.0, s08, [(0.3, 2.8, 'Plan it perfectly first.', 'vil'), (3.6, 5.0, 'RESTART #47 · THE PERFECT PLAN', 'card'),
+                                (3.6, 5.0, 'Sound familiar?', 'vil')],
+          H(35), [(3.3, 4.7, 35, 47)], retime=(0.4, 1.5)),
     Scene('09_night', 13.0, s09, [(2.9, 6.3, 'You\'re just not built for this.', 'vil'),
                                   (6.8, 9.8, 'He\'d never talk to a friend like this.', 'cap'),
                                   (10.6, 12.8, 'Only to himself.', 'cap')], H(47)),
@@ -1363,6 +1421,7 @@ def scene_at(t):
 # transition into each scene: (kind, duration). Played over the first `d` seconds of the
 # incoming scene while the outgoing scene keeps animating past its end.
 TRANS = {
+    '02_reveal': ('zoom', 0.4), '02b_promise': ('dip', 0.5),
     '03_snooze': ('rewind', 0.55), '04_research': ('whip', 0.4), '05_tuesday': ('whip', 0.4),
     '06_earned': ('dissolve', 0.5), '07_draft': ('zoom', 0.45), '08_plan': ('whip', 0.4), '09_night': ('dip', 1.0),
     '10_dawn': ('dip', 1.0), '11_shadow': ('zoom', 0.4), '13_cards': ('glitch', 0.35), '15_rules': ('whip', 0.4),
@@ -1386,7 +1445,9 @@ def draw_scene(sc, lt, fi):
     # HUD
     if sc.hud:
         txt, col = sc.hud(sc, lt)
-        if sc.name == '21_loop':
+        if txt is None:
+            pass
+        elif sc.name == '21_loop':
             a = smooth(seg(lt, 0.2, 0.6)) * smooth((1 - seg(lt, 3.5, 3.95)))
             if txt == 'glitch':
                 f.glitch.append((300, 470, 1620, 610, 1.0, fi))

@@ -152,3 +152,12 @@ Sam does one, and his shadow breaks into red dust.
 - **Labels:** every failure is tagged `RESTART #n · NAME` (THE ALARM, THE RESEARCH, THE MISSED MONDAY, THE REWARD, THE DRAFT, THE PERFECT PLAN). The rules are plates with a big red numeral and a one-line reason. A "+1" floats off the counter each time it ticks. The villain gets a name tag in its reveal: *the voice that always says "later."*
 - **Narration:** every beat has a white line in the bottom bar, e.g. *Every Sunday night, Leo makes the same promise.* / *Four hours of advice. Zero pages read.* / *One missed day became a missed week.* / *180 days. Not one of them felt easy.*
 - **Kinetic type:** the truth cards and title pop in word by word (the title letter by letter). Red lines slam in with a shake, and a brush swoosh underlines *stopped asking*.
+
+## v3 revisions: the hook
+
+- **0:00 shock.** An extreme close-up of the slap on the 47th "DAY 1" note. The camera rips back to the whole wall, a giant red **47 RESTARTS** slams in centre screen, then flies into the counter.
+- **0:05 the villain talks to you.** It rises out of Leo's shadow and turns to the camera: *"Start Monday."* then *"You know my voice too."* Its first line matches the thumbnail.
+- **0:10 curiosity gap.** *"It took him 47 restarts to learn what disciplined people never say out loud."* The truth cards at 1:34 pay it off.
+- **Accelerating failures.** After the first two full scenes, the next four play shorter and faster (6 → 5 → 4 → 5 s) and the counter spins.
+- **0:50 re-hook.** On the couch, the villain looks at the camera: *"Sound familiar?"*
+- Runtime 3:14.9.

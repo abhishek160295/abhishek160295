@@ -14,7 +14,36 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out')
 
 
 def T(name, lt):
-    return S.BYNAME[name].start + lt
+    """Absolute time of a cue written in the scene's own (original) local time.
+    Retimed scenes map through (off, speed); cues outside the played window are dropped (-100)."""
+    sc = S.BYNAME[name]
+    if sc.retime:
+        off, sp = sc.retime
+        lt = (lt - off) / sp
+        if lt < -0.05 or lt > sc.dur + 0.3:
+            return -100.0
+    return sc.start + lt
+
+
+def TC(name, lt):
+    """Like T but clamps into the scene window (for beds and drones)."""
+    sc = S.BYNAME[name]
+    if sc.retime:
+        off, sp = sc.retime
+        lt = (lt - off) / sp
+    return sc.start + clamp(lt, 0.0, sc.dur)
+
+
+def ST(name):
+    return S.BYNAME[name].start
+
+
+def DUR(name):
+    return S.BYNAME[name].dur
+
+
+def clamp(v, a, b):
+    return a if v < a else b if v > b else v
 
 
 def bus():
@@ -385,9 +414,9 @@ def music(t0, t1, stage, g=1.0, bar=2.0, drums=False, melody=False, strum=False)
 def build():
     os.makedirs(OUT, exist_ok=True)
     # ---------------------------------------------------------- music map
-    music(T('01_wall', 0.0), T('01_wall', 6.4), 0, 0.9)
-    music(T('03_snooze', 2.0), T('05_tuesday', 0), 0, 0.7)
-    music(T('05_tuesday', 0), T('08_plan', 10.0), 1, 0.6)
+    music(T('01_wall', 2.6), T('02b_promise', 3.4), 0, 0.8)
+    music(T('03_snooze', 2.0), ST('05_tuesday'), 0, 0.7)
+    music(ST('05_tuesday'), ST('09_night'), 1, 0.65)
     for lt, nn in ((6.8, 'E4'), (7.6, 'C4'), (10.6, 'A3')):
         add(MUS, T('09_night', lt), piano(mid(nn), 3.0, 0.5), 0.25)
     add(MUS, T('10_dawn', 0), pad([hz(mid('A2')), hz(mid('E3')), hz(mid('C4'))], 8.2, 0.4, 900), 0.6)
@@ -459,10 +488,13 @@ def build():
     for name, a, b, lvl in pres:
         if lvl <= 0:
             continue
-        d = drone(b - a + 0.6, 1.0)
+        ta, tb = TC(name, a), TC(name, b)
+        if tb - ta < 0.2:
+            continue
+        d = drone(tb - ta + 0.6, 1.0)
         n = len(d)
         e = np.minimum(1, np.minimum(np.arange(n) / SR / 0.6, (n - np.arange(n)) / SR / 0.6))
-        add(DRN, T(name, a), d * e, 0.22 * lvl)
+        add(DRN, ta, d * e, 0.22 * lvl)
 
     # ---------------------------------------------------------- HUD ticks from scene tick data
     for sc in S.SCENES:
@@ -473,12 +505,23 @@ def build():
         add(SFX, T('03_snooze', 0.15) + k * 0.047, tick(), 0.25, -0.6)
 
     # ---------------------------------------------------------- foley per scene
-    add(SFX, T('01_wall', 0.2), rustle(1.2, 0.08), 1.0, 0.3)
-    add(SFX, T('01_wall', 1.0), tick(), 0.4, 0.6)
-    add(SFX, T('01_wall', 2.3), slap(), 0.7, 0.3)
-    add(SFX, T('01_wall', 2.3), thud(0.5), 0.5)
+    # hook: slap, rip-back, the 47 slam, the counter landing
+    add(SFX, T('01_wall', 0.12), slap(1.0), 0.9, 0.2)
+    add(SFX, T('01_wall', 0.12), thud(0.9, 55, 1.2), 0.8)
+    add(SFX, T('01_wall', 0.3), noise_sweep(0.7, 6000, 300, 0.4, up=False), 1.0)
+    add(SFX, T('01_wall', 0.85), thud(1.1, 38, 2.5), 0.9)
+    add(SFX, T('01_wall', 0.85), sparks(0.5, 0.25), 1.0)
+    add(SFX, T('01_wall', 2.2), noise_sweep(0.5, 500, 5000, 0.2), 1.0, -0.6)
+    add(SFX, T('01_wall', 2.7), tick(), 0.7, -0.6)
+    add(SFX, T('01_wall', 1.0), tick(), 0.3, 0.6)
+    # villain addresses the viewer
     add(SFX, T('02_reveal', 0.0), thud(1.0, 40, 2.5), 0.7)
-    add(SFX, T('02_reveal', 1.3), riser(0.5, 0.2), 0.4)
+    add(SFX, T('02_reveal', 0.8), noise_sweep(0.6, 1500, 6000, 0.12), 1.0, 0.2)
+    add(SFX, T('02_reveal', 2.7), noise_sweep(0.8, 1500, 6000, 0.12), 1.0, -0.2)
+    add(SFX, T('02_reveal', 2.6), riser(2.2, 0.15), 0.5)
+    for k in range(13):
+        add(SFX, T('02b_promise', 0.15 + k * 0.1 + (0.0 if k < 7 else 0.1)), tick(), 0.15, 0.0)
+    add(SFX, T('02b_promise', 0.45), thud(0.4, 60, 0.8), 0.5)
     for k in range(int(2.6 / 0.25)):
         if k % 4 < 3:
             add(SFX, T('03_snooze', 0.0) + k * 0.25, beep(), 0.5, 0.5)
@@ -490,21 +533,22 @@ def build():
     add(SFX, T('03_snooze', 6.1), sparks(0.2, 0.0), 0)
     add(SFX, T('04_research', 3.0), noise_sweep(4.0, 300, 3000, 0.08), 1.0)
     add(SFX, T('04_research', 8.7), noise_sweep(0.6, 500, 5000, 0.35), 1.0, 0.6)
-    add(AMB, T('05_tuesday', 0), rain_bed(9.0, 0.22), 1.0)
-    add(AMB, T('05_tuesday', 0), crowd(9.0, 0.05), 1.0, 0.6)
+    add(AMB, ST('05_tuesday'), rain_bed(DUR('05_tuesday') + 0.3, 0.22), 1.0)
+    add(AMB, ST('05_tuesday'), crowd(DUR('05_tuesday'), 0.05), 1.0, 0.6)
     add(SFX, T('05_tuesday', 0), steps(3.4, 1.6, 0.2), 1.0, -0.2)
     add(SFX, T('05_tuesday', 6.4), steps(2.6, 1.4, 0.16), 1.0, -0.4)
     add(SFX, T('05_tuesday', 4.4), thud(0.3, 60, 0.8), 0.4)
-    add(AMB, T('06_earned', 0), lp(rng.normal(0, 1, int(3.6 * SR)), 120) * 0.08, 1.0, -0.6)
+    add(AMB, ST('06_earned'), lp(rng.normal(0, 1, int(2.2 * SR)), 120) * 0.08, 1.0, -0.6)
     add(SFX, T('06_earned', 3.2), doorbell(), 0.5, 0.7)
     add(SFX, T('06_earned', 3.6), steps(1.7, 1.8, 0.18), 1.0, 0.3)
     add(SFX, T('06_earned', 4.9), noise_sweep(0.6, 300, 1200, 0.1), 1.0, 0.7)
     for lt in (5.45, 6.3):
         add(SFX, T('07_draft', lt), tick(), 0.6, 0.2)
     add(SFX, T('07_draft', 6.4), noise_sweep(0.5, 4000, 300, 0.2, up=False), 1.0)
-    add(SFX, T('08_plan', 0.0), rustle(4.4, 0.05), 1.0, -0.2)
+    add(SFX, ST('08_plan'), rustle(3.0, 0.05), 1.0, -0.2)
     add(SFX, T('08_plan', 5.0), thud(0.8, 45, 1.5), 0.6)
-    add(AMB, T('08_plan', 5.0), lp(rng.normal(0, 1, int(5 * SR)), 2000) * 0.015, 1.0, 0.4)
+    add(AMB, T('08_plan', 5.0), lp(rng.normal(0, 1, int(2 * SR)), 2000) * 0.015, 1.0, 0.4)
+    add(SFX, T('08_plan', 5.75), noise_sweep(0.6, 1500, 6000, 0.12), 1.0, 0.3)
     # low point
     add(AMB, T('09_night', 0), rain_bed(13.0, 0.18), 1.0)
     for k in range(9):
