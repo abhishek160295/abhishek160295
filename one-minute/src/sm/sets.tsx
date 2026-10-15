@@ -476,13 +476,14 @@ export const Jeans: React.FC<{ close: number }> = ({ close }) => {
 
 /* ───────── Push-up figure (side view) ───────── */
 
-export const PushUp: React.FC<{ x: number; y: number; s?: number; k: number; suit?: boolean; shake?: number }> = ({
+export const PushUp: React.FC<{ x: number; y: number; s?: number; k: number; suit?: boolean; shake?: number; confident?: boolean }> = ({
   x,
   y,
   s = 1,
   k,
   suit,
   shake = 0,
+  confident,
 }) => {
   const t = useT();
   const sy = -150 + k * 85 + (shake ? Math.sin(t * 50) * shake : 0);
@@ -499,7 +500,18 @@ export const PushUp: React.FC<{ x: number; y: number; s?: number; k: number; sui
       {suit && <path d={`M${sh.x - 70},${sh.y + 26} L${sh.x - 40},${sh.y + 40} L${sh.x - 46},${sh.y + 120}`} stroke="#a8323a" strokeWidth={14} fill="none" strokeLinecap="round" />}
       <path d={`M${sh.x - 20},${sh.y + 10} L${elbow.x},${elbow.y} L${hand.x},${hand.y - 8}`} stroke="#0d0f13" strokeWidth={24} strokeLinecap="round" strokeLinejoin="round" fill="none" />
       <circle cx={sh.x + 40} cy={sh.y - 34} r={58} fill="#0d0f13" />
-      <path d={`M${sh.x + 50},${sh.y - 40} l18,0 M${sh.x + 78},${sh.y - 40} l12,0`} stroke="#f2f4f6" strokeWidth={6} strokeLinecap="round" />
+      {confident ? (
+        <g>
+          <ellipse cx={sh.x + 58} cy={sh.y - 42} rx={8} ry={10} fill="#f4f6f8" />
+          <ellipse cx={sh.x + 86} cy={sh.y - 42} rx={7} ry={10} fill="#f4f6f8" />
+          <circle cx={sh.x + 61} cy={sh.y - 41} r={3.5} fill="#0d0f13" />
+          <circle cx={sh.x + 89} cy={sh.y - 41} r={3.5} fill="#0d0f13" />
+          <path d={`M${sh.x + 44},${sh.y - 62} L${sh.x + 68},${sh.y - 56} M${sh.x + 78},${sh.y - 56} L${sh.x + 98},${sh.y - 62}`} stroke="#e9edf2" strokeWidth={5} strokeLinecap="round" />
+          <path d={`M${sh.x + 52},${sh.y - 14} q20,14 42,-4`} stroke="#e9edf2" strokeWidth={5} fill="none" strokeLinecap="round" />
+        </g>
+      ) : (
+        <path d={`M${sh.x + 50},${sh.y - 40} l18,0 M${sh.x + 78},${sh.y - 40} l12,0`} stroke="#f2f4f6" strokeWidth={6} strokeLinecap="round" />
+      )}
       <ellipse cx={feet.x - 6} cy={-6} rx={22} ry={9} fill="#dfe6ee" />
       {suit && <path d={`M${sh.x - 40},${sh.y - 4} l30,-10 l10,26 z`} fill="#f2f2f0" />}
     </g>

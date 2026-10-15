@@ -46,13 +46,27 @@ export const Thumb: React.FC = () => (
               <path d={`M${d * 104},-232 Q${d * 128},-160 ${d * 96},-128`} stroke="#9fb2c7" strokeWidth={4} fill="none" opacity={0.8} />
             </g>
           ))}
-          <circle cx={0} cy={-330} r={92} fill="#0d0f13" stroke="#9fb2c7" strokeWidth={5} />
-          <ellipse cx={-30} cy={-322} rx={12} ry={16} fill="#f4f6f8" />
-          <ellipse cx={30} cy={-322} rx={12} ry={16} fill="#f4f6f8" />
-          <circle cx={-28} cy={-316} r={5} fill="#0d0f13" />
-          <circle cx={32} cy={-316} r={5} fill="#0d0f13" />
-          <path d="M-56,-350 L-16,-364 M16,-364 L56,-350" stroke="#cfd5dc" strokeWidth={6} strokeLinecap="round" />
-          <path d="M-16,-276 q16,-10 32,0" stroke="#cfd5dc" strokeWidth={5} fill="none" strokeLinecap="round" />
+          <g transform="rotate(-10 0 -290) translate(0,30)">
+            <circle cx={0} cy={-330} r={92} fill="#0d0f13" stroke="#9fb2c7" strokeWidth={5} />
+            <ellipse cx={-30} cy={-312} rx={12} ry={11} fill="#f4f6f8" />
+            <ellipse cx={30} cy={-312} rx={12} ry={11} fill="#f4f6f8" />
+            <rect x={-44} y={-328} width={28} height={10} fill="#0d0f13" />
+            <rect x={16} y={-328} width={28} height={10} fill="#0d0f13" />
+            <circle cx={-30} cy={-306} r={5} fill="#0d0f13" />
+            <circle cx={30} cy={-306} r={5} fill="#0d0f13" />
+            <path d="M-58,-336 L-14,-358 M14,-358 L58,-336" stroke="#cfd5dc" strokeWidth={6} strokeLinecap="round" />
+            <path d="M-18,-262 q18,-14 36,0" stroke="#cfd5dc" strokeWidth={5} fill="none" strokeLinecap="round" />
+            <path d="M-38,-292 q-8,18 0,26 q8,-8 0,-26 z" fill="#8fc3ff" />
+          </g>
+          <g transform="translate(0,-488) scale(0.85)" opacity={0.95}>
+            <ellipse cx={-60} cy={0} rx={70} ry={46} fill="#59606c" />
+            <ellipse cx={20} cy={-24} rx={80} ry={58} fill="#626a77" />
+            <ellipse cx={80} cy={8} rx={60} ry={40} fill="#59606c" />
+            <rect x={-110} y={0} width={230} height={40} rx={20} fill="#59606c" />
+            {[-70, -20, 30, 80].map((x, i) => (
+              <line key={i} x1={x} y1={50} x2={x - 10} y2={90 + (i % 2) * 20} stroke="#8fb3d9" strokeWidth={6} strokeLinecap="round" />
+            ))}
+          </g>
         </g>
         <g transform="translate(760,880)">
           <circle r={58} fill="#e8e6e0" />
@@ -86,12 +100,13 @@ export const Thumb: React.FC = () => (
         })}
         <Glow cx={1460} cy={620} r={560} color="#fff2c0" o={0.75} id="tSun" />
         <rect x={0} y={900} width={W} height={180} fill="#c9622e" opacity={0.55} />
-        <PushUp x={1720} y={905} s={1.4} k={0.55} />
+        <PushUp x={1720} y={905} s={1.45} k={0.05} confident />
         {[
-          [1800, 600],
-          [1830, 650],
+          [1560, 440],
+          [1860, 470],
+          [1700, 360],
         ].map(([x, y], i) => (
-          <path key={i} d={`M${x},${y} q10,18 0,26 q-10,-8 0,-26 z`} fill="#ffffff" opacity={0.9} />
+          <path key={i} d={`M${x},${y - 22} L${x + 7},${y - 7} L${x + 22},${y} L${x + 7},${y + 7} L${x},${y + 22} L${x - 7},${y + 7} L${x - 22},${y} L${x - 7},${y - 7} Z`} fill="#ffffff" opacity={0.95} />
         ))}
         {[0, 1, 2].map((i) => (
           <line key={i} x1={1140} y1={700 + i * 50} x2={1060} y2={700 + i * 50} stroke="#fff" strokeWidth={8} strokeLinecap="round" opacity={0.55} />
