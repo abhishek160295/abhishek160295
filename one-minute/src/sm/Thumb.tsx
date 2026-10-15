@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Composition } from "remotion";
 import { Character } from "../Character";
 import { Glow, H, Svg, W } from "../lib";
+import { Sticky } from "./sets";
 
 const SANS = "Inter, Helvetica, Arial";
 const SPLIT_TOP = 1000;
@@ -46,13 +47,19 @@ export const Thumb: React.FC = () => (
         </linearGradient>
       </defs>
 
-      {/* LEFT — scrolling at night while the kid waits */}
+      {/* LEFT — scrolling at night, "From Monday" notes piling up */}
       <g clipPath="url(#tL)">
         <rect width={W} height={H} fill="url(#tNight)" />
-        <rect x={110} y={300} width={230} height={520} fill="#ffcf8a" />
-        <Glow cx={225} cy={560} r={300} color="#ffcf8a" o={0.4} id="tDoor" />
-        <Character x={225} y={820} s={0.88} kid expr="sad" look={1} rim="#ffcf8a" />
-        <ellipse cx={225} cy={600} rx={175} ry={290} fill="none" stroke="#ff2b2b" strokeWidth={14} transform="rotate(-6 225 600)" />
+        {[
+          [70, 300, -8],
+          [150, 470, 5],
+          [60, 640, -3],
+        ].map(([x, y, r], i) => (
+          <g key={i} transform={`translate(${x},${y}) scale(0.62)`}>
+            <Sticky x={0} y={0} rot={r} lines={[{ text: i === 2 ? "From the 1st." : "From Monday.", at: -9, strike: -9, size: 70 }]} />
+          </g>
+        ))}
+        <ellipse cx={230} cy={640} rx={205} ry={330} fill="none" stroke="#ff2b2b" strokeWidth={14} transform="rotate(-6 230 640)" />
         <Glow cx={700} cy={560} r={560} color="#6f9dff" o={0.7} id="tPhone" />
         <Character x={640} y={1640} s={3.1} expr="tired" rim="#a9c4ff" />
         <path d="M900,1100 L930,760 L900,620" stroke="#0d0f13" strokeWidth={60} strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -62,7 +69,7 @@ export const Thumb: React.FC = () => (
         </g>
       </g>
 
-      {/* RIGHT — morning, kid on his shoulders */}
+      {/* RIGHT — morning, the habit stuck */}
       <g clipPath="url(#tR)">
         <rect width={W} height={H} fill="url(#tSunBg)" />
         {Array.from({ length: 14 }).map((_, i) => {
@@ -77,26 +84,16 @@ export const Thumb: React.FC = () => (
           );
         })}
         <Glow cx={1430} cy={560} r={560} color="#fff2c0" o={0.8} id="tSun" />
-        {/* kid's raised arms */}
-        <g stroke="#0d0f13" strokeWidth={24} strokeLinecap="round" strokeLinejoin="round" fill="none">
-          <path d="M1405,415 L1330,330 L1300,215" />
-          <path d="M1455,415 L1530,330 L1560,215" />
+        <g transform="translate(1600,470) rotate(7) scale(0.62)">
+          <Sticky x={0} y={0} rot={0} tally={23} lines={[{ text: "1 MINUTE.", at: -9, size: 80 }]} />
         </g>
-        <circle cx={1300} cy={205} r={20} fill="#0d0f13" />
-        <circle cx={1560} cy={205} r={20} fill="#0d0f13" />
-        <Character x={1430} y={720} s={0.95} kid expr="happy" rim="#fff7d6" />
-        <Character x={1430} y={1360} s={1.9} expr="happy" rim="#fff7d6" />
-        {/* his hands holding the kid's legs */}
-        <g stroke="#0d0f13" strokeWidth={26} strokeLinecap="round" strokeLinejoin="round" fill="none">
-          <path d="M1405,575 L1320,640 L1305,740" />
-          <path d="M1455,575 L1540,640 L1555,740" />
+        <g stroke="#0d0f13" strokeWidth={44} strokeLinecap="round" strokeLinejoin="round" fill="none">
+          <path d="M1380,595 L1240,470 L1215,300" />
+          <path d="M1470,595 L1610,470 L1635,300" />
         </g>
-        <g stroke="#0d0f13" strokeWidth={42} strokeLinecap="round" strokeLinejoin="round" fill="none">
-          <path d="M1385,835 L1230,800 L1290,720" />
-          <path d="M1475,835 L1630,800 L1570,720" />
-        </g>
-        <ellipse cx={1300} cy={752} rx={24} ry={11} fill="#dfe6ee" />
-        <ellipse cx={1560} cy={752} rx={24} ry={11} fill="#dfe6ee" />
+        <circle cx={1215} cy={285} r={38} fill="#0d0f13" />
+        <circle cx={1635} cy={285} r={38} fill="#0d0f13" />
+        <Character x={1425} y={1120} s={1.9} expr="happy" rim="#fff7d6" />
       </g>
 
       <line x1={SPLIT_TOP} y1={0} x2={SPLIT_BOT} y2={H} stroke="#fff" strokeWidth={16} />
