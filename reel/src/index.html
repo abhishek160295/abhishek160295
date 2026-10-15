@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Geometric Aha Reel</title>
+<style>
+  @font-face { font-family: "InterDisplay"; font-weight: 700; src: url("../fonts/InterDisplay-Bold.otf"); }
+  html, body { margin: 0; background: #050506; }
+  canvas { display: block; width: 360px; height: 640px; margin: 0 auto; }
+  body.render canvas { width: 1080px; height: 1920px; }
+  #ui { font: 13px system-ui, sans-serif; color: #888; text-align: center; padding: 10px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="ui"><input id="scrub" type="range" min="0" max="449" value="0" style="width:360px"> <span id="lbl">0</span></div>
+<script src="scene.js"></script>
+<script>
+  // Preview mode: open this file in a browser to scrub / play the reel.
+  window.READY = document.fonts.load('700 104px "InterDisplay"').then(() => document.fonts.ready);
+  if (!location.search.includes('render')) {
+    window.READY.then(() => {
+      const s = document.getElementById('scrub'), l = document.getElementById('lbl');
+      let f = 0, playing = true, last = performance.now();
+      s.oninput = () => { f = +s.value; playing = false; };
+      document.body.onkeydown = (e) => { if (e.code === 'Space') playing = !playing; };
+      (function tick(now) {
+        if (playing && now - last >= 1000 / 30) { f = (f + 1) % REEL.FRAMES; last = now; }
+        REEL.renderFrame(f); s.value = f; l.textContent = (f / 30).toFixed(2) + 's';
+        requestAnimationFrame(tick);
+      })(performance.now());
+    });
+  } else {
+    document.body.classList.add('render');
+    document.getElementById('ui').remove();
+  }
+</script>
+</body>
+</html>
