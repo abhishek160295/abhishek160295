@@ -1,0 +1,120 @@
+[
+ {
+  "id": "co_notes",
+  "from": 0.0,
+  "len": 2.6,
+  "focus": 960,
+  "text": "You've said this 100 times.",
+  "hi": "100"
+ },
+ {
+  "id": "pay",
+  "from": 1.2,
+  "len": 1.1,
+  "focus": 960,
+  "text": "Paid for the gym.",
+  "hi": "gym"
+ },
+ {
+  "id": "gym_struggle",
+  "from": 0.5,
+  "len": 1.4,
+  "focus": 860,
+  "text": "Went once.",
+  "hi": "once"
+ },
+ {
+  "id": "alarm5",
+  "from": 0.1,
+  "len": 1.3,
+  "focus": 1240,
+  "text": "Then snooze.",
+  "hi": "snooze"
+ },
+ {
+  "id": "loop",
+  "from": 1.0,
+  "len": 2.0,
+  "focus": 900,
+  "text": "Restart every Monday.",
+  "hi": "Monday"
+ },
+ {
+  "id": "reels_screen",
+  "from": 0.9,
+  "len": 1.6,
+  "focus": 960,
+  "text": "Save 300 workout reels.",
+  "hi": "300"
+ },
+ {
+  "id": "bed_scroll",
+  "from": 0.6,
+  "len": 1.4,
+  "focus": 760,
+  "text": "Scroll till 2 AM.",
+  "hi": "2"
+ },
+ {
+  "id": "screentime",
+  "from": 1.4,
+  "len": 2.6,
+  "focus": 960,
+  "text": "Then I saw THIS.",
+  "hi": "THIS"
+ },
+ {
+  "id": "face_realize",
+  "from": 0.3,
+  "len": 1.6,
+  "focus": 870,
+  "text": "4h 37m. Every. Single. Day.",
+  "hi": "Day"
+ },
+ {
+  "id": "rip",
+  "from": 1.6,
+  "len": 2.6,
+  "focus": 880,
+  "text": "So I tried something stupid small.",
+  "hi": "small"
+ },
+ {
+  "id": "pushup1",
+  "from": 0.6,
+  "len": 2.0,
+  "focus": 1200,
+  "text": "1 minute. That's it.",
+  "hi": "1"
+ },
+ {
+  "id": "mont_tally",
+  "from": 0.3,
+  "len": 2.5,
+  "focus": 500,
+  "text": "Day 1. Day 30. Day 90.",
+  "hi": "90"
+ },
+ {
+  "id": "button",
+  "from": 1.0,
+  "len": 1.5,
+  "focus": 960,
+  "text": "Jeans fit again.",
+  "hi": "again"
+ },
+ {
+  "id": "debit_again",
+  "from": 0.4,
+  "len": 2.0,
+  "focus": 960,
+  "text": "Worth it.",
+  "hi": "Worth"
+ },
+ {
+  "id": "end",
+  "from": 0,
+  "len": 3.2,
+  "end": true
+ }
+]

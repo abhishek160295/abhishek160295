@@ -1,4 +1,7 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
+
+/** Set to false to hide in-scene dialogue (e.g. when a reel overlays its own text). */
+export const ShowText = createContext(true);
 import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { HAND, SERIF, lerp, rand, useDur, useT, W, H } from "./lib";
 import { Arm } from "./Character";
@@ -13,12 +16,13 @@ export const Caption: React.FC<{
   size?: number;
   color?: string;
 }> = ({ text, x = W / 2, y = 120, at = 0.3, until, size = 58, color = "#fbfbfb" }) => {
+  const show = useContext(ShowText);
   const t = useT();
   const d = useDur();
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const end = until ?? d - 0.25;
-  if (t < at) return null;
+  if (t < at || !show) return null;
   const sp = spring({ frame: f - at * fps, fps, config: { damping: 14, stiffness: 160 } });
   const chars = Math.floor((t - at) * 38);
   const o = lerp(t, end - 0.25, end, 1, 0);
@@ -68,10 +72,12 @@ export const Inner: React.FC<{
   size?: number;
   fade?: number;
 }> = ({ text, x, y, at = 0.3, size = 60, fade = 1 }) => {
+  const show = useContext(ShowText);
   const t = useT();
   const d = useDur();
   const o = Math.min(lerp(t, at, at + 0.4, 0, 1), lerp(t, d - 0.3, d, 1, 0)) * fade;
   const dy = lerp(t, at, at + 0.6, 14, 0);
+  if (!show) return null;
   return (
     <div
       style={{
