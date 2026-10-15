@@ -399,8 +399,8 @@ def build():
     add(MUS, T('13_cards', 5.6), pad([hz(mid('F2')), hz(mid('C3')), hz(mid('A3'))], 6.6, 0.5, 900), 0.7)
     music(T('14_again', 7.3), T('16_montage', 0.0), 1, 0.85, melody=False)
     add(MUS, T('14_again', 7.3), pad([hz(mid('A2')), hz(mid('E3')), hz(mid('C4'))], 2.8, 0.5), 0.5)
-    music(T('16_montage', 0.0), T('16_montage', 18.5), 2, 0.9, drums=True, strum=True)
-    music(T('16_montage', 18.5), T('17_wall', 0.0), 2, 1.0, strum=True, melody=True)
+    music(T('16_montage', 0.0), T('16_montage', S.STARTS[17]), 2, 0.9, drums=True, strum=True)
+    music(T('16_montage', S.STARTS[17]), T('17_wall', 0.0), 2, 1.0, strum=True, melody=True)
     music(T('17_wall', 0.0), T('18_passon', 0.0), 2, 0.75, melody=True)
     music(T('18_passon', 0.0), T('19_hill', 0.0), 1, 0.7)
     add(MUS, T('18_passon', 0), pad([hz(mid('A2')), hz(mid('C3')), hz(mid('E3'))], 14.0, 0.4, 1000), 0.5)
@@ -416,7 +416,7 @@ def build():
             ('05_tuesday', 3.7, 8.9, 0.6), ('06_earned', 0.8, 7.6, 0.5), ('07_draft', 2.2, 7.2, 0.6),
             ('08_plan', 0.4, 5.0, 0.6), ('08_plan', 5.5, 9.9, 0.7), ('09_night', 0.5, 13, 1.0), ('10_dawn', 0, 8, 0.1),
             ('11_shadow', 1.2, 7.4, 0.35), ('11_shadow', 7.3, 10, 0.5), ('12_question', 0, 10.4, 0.35),
-            ('14_again', 0.3, 7.3, 0.9), ('14_again', 7.3, 9.2, 0.35), ('16_montage', 0, 18.5, 0.12),
+            ('14_again', 0.3, 7.3, 0.9), ('14_again', 7.3, 9.2, 0.35), ('16_montage', 0, S.STARTS[17], 0.12),
             ('18_passon', 0.5, 10.3, 0.25)]
     # the villain rising out of a shadow / sinking back in
     rises = [('03_snooze', 1.3), ('04_research', 0.8), ('05_tuesday', 3.7), ('06_earned', 0.8), ('07_draft', 2.2),
@@ -550,18 +550,19 @@ def build():
         t0 = T('16_montage', st)
         add(SFX, t0, kick(), 0.5)
         if S.LINES[i]:
-            add(SFX, t0 + 0.42, sparks(0.6, 0.55), 1.0, 0.1)
-            add(SFX, t0 + 0.42, thud(0.25, 90, 0.3), 0.5)
+            add(SFX, t0 + 0.05, noise_sweep(0.25, 300, 1800, 0.12), 1.0, 0.3)
+            add(SFX, t0 + S.HIT, sparks(0.6, 0.55), 1.0, 0.1)
+            add(SFX, t0 + S.HIT, thud(0.25, 90, 0.3), 0.5)
         if i == 5:
             add(SFX, t0 + 0.25, thud(0.9, 55, 0.8), 0.7)
         if i == 6:
-            add(SFX, t0 + 0.55, glitch(0.6, 0.3), 1.0, -0.6)
+            add(SFX, t0 + S.HIT + 0.1, glitch(0.6, 0.3), 1.0, -0.6)
         if i == 2:
             add(AMB, t0, rain_bed(1.0, 0.18), 1.0)
         if i == 4:
             add(AMB, t0, crowd(1.0, 0.1), 1.0)
-    add(SFX, T('16_montage', 18.3), riser(0.6, 0.3), 0.5)
-    add(SFX, T('16_montage', 18.5), thud(0.8, 45, 2.5), 0.6)
+    add(SFX, T('16_montage', S.STARTS[17] - 0.2), riser(0.6, 0.3), 0.5)
+    add(SFX, T('16_montage', S.STARTS[17]), thud(0.8, 45, 2.5), 0.6)
     # payoff
     add(SFX, T('17_wall', 0.9), rustle(2.2, 0.22), 1.0, -0.2)
     add(SFX, T('17_wall', 3.6), rustle(1.5, 0.06), 1.0, 0.3)

@@ -219,13 +219,17 @@ class Frame:
         if out is not None:
             self.line(pts, out, w, amp, closed=True)
 
-    def text(self, x, y, s, size, col=WHITE, path=HAND, anchor='mm', wob=0.0):
+    def text(self, x, y, s, size, col=WHITE, path=HAND, anchor='mm', wob=0.0, stroke=0.0):
         X, Y = self.T(x, y)
         if wob:
             r = self.rng()
             X += r.normal(0, wob * SS)
             Y += r.normal(0, wob * SS)
-        self.d.text((X, Y), s, fill=col, font=font(path, self.S(size)), anchor=anchor)
+        if stroke:
+            self.d.text((X, Y), s, fill=col, font=font(path, self.S(size)), anchor=anchor,
+                        stroke_width=max(1, int(self.S(stroke))), stroke_fill=(8, 4, 4))
+        else:
+            self.d.text((X, Y), s, fill=col, font=font(path, self.S(size)), anchor=anchor)
 
     def text_w(self, s, size, path=HAND):
         return font(path, size * 4).getlength(s) / 4

@@ -30,9 +30,9 @@ Chapters
 1:48 The truth
 2:00 Count 5 to 1
 2:17 Day 1 to Day 180
-2:40 No more Day 1s
-2:51 Pass it on
-3:05 The voice never fully leaves
+2:44 No more Day 1s
+2:55 Pass it on
+3:09 The voice never fully leaves
 
 Animated, scored and sound-designed entirely in code.
 

@@ -94,18 +94,25 @@ def burst(f, x, y, t, n=60, seed=1, spread=120, col=RED):
             f.light(px, py, 14, col, 0.4 * a)
 
 
-def throw_line(f, t, s, vp, lp, size=52, seed=1):
-    """Villain throws a red line at Leo; it shatters into sparks on impact."""
+HIT = 0.95   # seconds into a montage cut when the thrown excuse hits Leo
+
+
+def throw_line(f, t, s, vp, lp, size=64, seed=1):
+    """Villain throws an excuse at Leo: it pops in big, holds long enough to read,
+    flies at him and shatters into sparks on impact."""
     if not s or t < 0:
         return 0
-    hit = 0.42
-    if t < hit:
-        u = ein(seg(t, 0.14, hit))
+    if t < HIT:
+        pop = 1 - eout(seg(t, 0.0, 0.2))
+        u = ein(seg(t, 0.72, HIT))
         x, y = lerp(vp[0], lp[0], u), lerp(vp[1], lp[1], u)
-        red_text(f, x, y, s, size, appear=t / 0.12)
+        if t < 0.72:
+            x += math.sin(t * 40) * 2.5 * (1 - pop)
+        red_text(f, x, y, s, size * (1 + 0.35 * pop), alpha=clamp(t / 0.08), col=(255, 52, 44), glow=0.6, wob=0.4,
+                 stroke=5)
         return 0
-    shatter(f, lp[0], lp[1], s, size, t - hit, (lp[0] + (lp[0] - vp[0]) * 0.1, lp[1] + 60), seed=seed)
-    return t - hit
+    shatter(f, lp[0], lp[1], s, size, t - HIT, (lp[0] + (lp[0] - vp[0]) * 0.1, lp[1] + 60), seed=seed)
+    return t - HIT
 
 
 def fg_plant(f, x, fy, s=1.0):
@@ -894,10 +901,11 @@ def s15(f, t):
 
 # ====================================================================== 16 MONTAGE
 DAYS = [1, 2, 3, 5, 7, 9, 10, 14, 21, 30, 45, 60, 75, 90, 100, 120, 150, 180]
-DURS = [1.25, 1, 1, 1, 1, 1, 2, 1, 1, 1.25, 1, 1, 1, 1, 1, 1, 1, 4.5]
 LINES = ['Pointless.', 'You\'re tired.', 'It\'s raining.', 'Check your phone.', 'Everyone\'s staring.', None,
          'Missed one. Quit.', 'Too hard.', 'Order pizza.', 'Not good enough.', 'Skip today.', 'Tomorrow.', None,
          'Just today...', None, 'later?', None, None]
+# attack cuts hold long enough to read the excuse; quiet cuts stay snappy
+DURS = [(2.2 if k == 6 else 1.5) if LINES[k] else 0.8 for k in range(len(DAYS) - 1)] + [4.0]
 STARTS = [sum(DURS[:i]) for i in range(len(DURS))]
 
 
@@ -922,13 +930,13 @@ def s16(f, t):
     f.cam(z, 960 + (20 if i % 2 else -20) * u, 540)
     line = LINES[i]
     attacking = bool(line) or i == 5
-    vk = (eout(seg(u, 0.0, 0.15)) * (1 - ein(seg(u, 0.55, 0.85))) if i != 5 else 1.0) if attacking else 0.0
+    vk = (eout(seg(u, 0.0, 0.15)) * (1 - ein(seg(u, HIT + 0.1, HIT + 0.4))) if i != 5 else 1.0) if attacking else 0.0
 
     def mdraw(f, x, y, s, p, t, **kw):
         if vk > 0.01:
             MON.draw(f, x, y, s * lerp(0.3, 1, vk), p, t, halo=vk, alpha=clamp(vk * 1.5))
             burst(f, x, y - 140 * s, u, 30, i + 40, 100 * s)
-    lsize = int(30 + 30 * vs / 1.55)
+    lsize = 84 if vs > 0.6 else 76
     vx = 1450
     fy = FY
     lp = (960, fy - 300)
@@ -1057,7 +1065,7 @@ def s16(f, t):
     elif i in (9, 14):                        # posting / comments
         f.rect(360, 170, 1560, 840, (14, 15, 20), CHALK, 3)
         if i == 9:
-            f.text(960, 250, 'My first guitar cover :)', 52, WHITE, HAND)
+            f.text(960, 760, 'My first guitar cover :)', 52, WHITE, HAND)
             posted = u > 0.3
             f.rrect(800, 560, 1120, 660, 18, (70, 196, 150), (20, 40, 30), 2.2)
             f.text(960, 610, 'POSTED' if posted else 'POST', 54, (14, 40, 30), GAEGU)
@@ -1096,7 +1104,10 @@ def s16(f, t):
         mdraw(f, 180, 800, 0.2, dict(face=0.5, grin=0.0, eyes=1.0), t)
         line = None
     if line and i != 17:
-        vp = (vx, vp_y)
+        w = f.text_w(line, lsize) * 1.1
+        # readable stage: upper part of frame, leaning toward the villain, never clipped
+        sx = clamp(f.cx + (vx - f.cx) * 0.6, f.cx - 820 / f.zoom + w / 2, f.cx + 820 / f.zoom - w / 2)
+        vp = (sx, f.cy - 250 / f.zoom)
         throw_line(f, u, line, vp, lp, lsize, seed=i + 1)
 
 
@@ -1270,8 +1281,8 @@ def hud_s12(sc, t):
 
 def hud_s16(sc, t):
     i, u = mcut(t)
-    if i == 6 and 0.55 < u < 1.15:
-        return ('TIMES HE STARTED OVER: 48', RED) if (u * 12 % 1) < 0.7 or u < 0.8 else ('glitch', None)
+    if i == 6 and HIT + 0.1 < u < HIT + 0.7:
+        return ('TIMES HE STARTED OVER: 48', RED) if (u * 12 % 1) < 0.7 or u < HIT + 0.3 else ('glitch', None)
     return started(47, WHITE)
 
 
@@ -1317,9 +1328,9 @@ SCENES = [
           H(47, lambda t: RED if t < 7.3 else WHITE)),
     Scene('15_rules', 7.0, s15, [(0.2, 3.5, '2. Make it stupid small. One push-up. One page.', 'card'),
                                  (3.6, 7.0, '3. Never miss twice. Missing once is life. Missing twice is a new habit.', 'card')], H(47, WHITE)),
-    Scene('16_montage', 23.0, s16, [(STARTS[i] + 0.02, STARTS[i] + 0.42, LINES[i], 'vil') for i in range(len(DAYS)) if LINES[i]] +
+    Scene('16_montage', sum(DURS), s16, [(STARTS[i] + 0.05, STARTS[i] + HIT, LINES[i], 'vil') for i in range(len(DAYS)) if LINES[i]] +
           [(STARTS[5] + 0.1, STARTS[7] - 0.1, 'Day 9: sick. Day 10: one push-up anyway.', 'cap'),
-           (STARTS[17] + 0.1, 22.8, '180 days. Not one of them felt easy.', 'cap')],
+           (STARTS[17] + 0.1, sum(DURS) - 0.2, '180 days. Not one of them felt easy.', 'cap')],
           hud_s16, day=day_s16),
     Scene('17_wall', 11.0, s17, [(0.4, 3.6, 'Same wall. Same hand. Different man.', 'cap'), (6.5, 10.5, 'He never needed another Day 1.', 'cap')], H(47, WHITE),
           day=lambda t: 181 if t > 5.6 else 180),

@@ -368,7 +368,7 @@ def text_points(s, size, path=HAND, n=260):
     return _mask_cache[key]
 
 
-def red_text(f, x, y, s, size=60, alpha=1.0, col=RED, glow=0.35, wob=0.8, path=HAND, appear=1.0):
+def red_text(f, x, y, s, size=60, alpha=1.0, col=RED, glow=0.35, wob=0.8, path=HAND, appear=1.0, stroke=0.0):
     """Villain line: red handwriting with soft glow, typed on by `appear`."""
     if alpha <= 0.01:
         return
@@ -377,7 +377,7 @@ def red_text(f, x, y, s, size=60, alpha=1.0, col=RED, glow=0.35, wob=0.8, path=H
     if not shown:
         return
     c = lerpc(BG, col, alpha)
-    f.text(x - f.text_w(s, size, path) / 2, y, shown, size, c, path, anchor='lm', wob=wob)
+    f.text(x - f.text_w(s, size, path) / 2, y, shown, size, c, path, anchor='lm', wob=wob, stroke=stroke)
     w = f.text_w(s, size, path)
     for k in range(4):
         f.light(x - w / 2 + w * (k + 0.5) / 4 * clamp(appear), y, size * 0.8, col, glow * alpha * 0.5)
