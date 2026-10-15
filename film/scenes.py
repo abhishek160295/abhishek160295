@@ -124,6 +124,75 @@ def leo_sit(x, seat_y, feet_dx=(-30, 20), fy=FY):
     return y, dict(lfw=(x + feet_dx[0], fy), rfw=(x + feet_dx[1], fy))
 
 
+def summon(t, t_in, t_out=999.0, d_in=0.7, d_out=0.6):
+    """Villain presence 0..1: rises out of Leo's shadow at t_in, sinks back in at t_out."""
+    return min(eout(seg(t, t_in, t_in + d_in)), 1 - ein(seg(t, t_out, t_out + d_out)))
+
+
+def vdraw(f, t, k, x, y, s, p, src, t_in=-9.0, t_out=999.0, halo=1.0, V=None, seed=3):
+    """Draw a villain at presence k, travelling between Leo's shadow (src) and its spot."""
+    V = V or MON
+    if t_in - 0.4 < t < t_in + 0.2 or t_out - 0.3 < t < t_out + 0.1:
+        f.light(src[0], src[1], 90, RED, 0.35)
+        f.ell(src[0], src[1] + 2, 70, 9, (40, 4, 4), None, amp=0)
+    if k <= 0.003:
+        return
+    xx, yy = lerp(src[0], x, k), lerp(src[1], y, k)
+    ss = s * lerp(0.12, 1.0, k)
+    V.draw(f, xx, yy, ss, p, t, halo=halo * k, alpha=clamp(k * 1.5))
+    burst(f, xx, yy - 150 * ss, t - t_in, 40, seed, 120 * ss)
+    if t > t_out:
+        burst(f, xx, yy - 150 * ss, t - t_out, 50, seed + 1, 140 * ss)
+
+
+def kinetic(f, words, y, size, t, t0, stagger=0.12, path=GAEGU, cols=None, alpha=1.0, pop=0.35, x=960):
+    """Words pop in one by one around a fixed layout. cols: per-word colour (None = white)."""
+    sp = font(path, size).getlength(' ')
+    ws = [font(path, size).getlength(w) for w in words]
+    total = sum(ws) + sp * (len(words) - 1)
+    cx = x - total / 2
+    for i, w in enumerate(words):
+        ta = t0 + i * stagger
+        u = seg(t, ta, ta + 0.28)
+        if u > 0:
+            sc = 1 + pop * (1 - back(u)) * -1 if u < 1 else 1
+            sc = lerp(1 + pop, 1.0, eout(u))
+            col = (cols[i] if cols and cols[i] else WHITE)
+            f.otext(cx + ws[i] / 2, y + 10 * (1 - eout(u)), w, size * sc, col, path, 'mm', alpha * clamp(u * 2.5),
+                    stroke=3)
+        cx += ws[i] + sp
+
+
+def kicker(f, n, title, t, t0, t1, y=186):
+    """Restart chapter tag: red number plate + white title, top-center."""
+    a = smooth(seg(t, t0, t0 + 0.25)) * (1 - smooth(seg(t, t1 - 0.3, t1)))
+    if a <= 0:
+        return
+    sl = 40 * (1 - eout(seg(t, t0, t0 + 0.35)))
+    num = 'RESTART #%d' % n
+    w1 = font(GAEGU, 48).getlength(num)
+    w2 = font(GAEGU, 52).getlength(title)
+    tot = w1 + w2 + 70
+    x0 = 960 - tot / 2 + sl
+    f.otext(x0 + w1 / 2 + 14, y, num, 48, (255, 62, 58), GAEGU, 'mm', a, stroke=5)
+    f.otext(x0 + w1 + 44, y, '\u00b7', 46, (150, 150, 150), GAEGU, 'mm', a, stroke=3)
+    f.otext(x0 + w1 + 70 + w2 / 2, y, title, 52, WHITE, GAEGU, 'mm', a, stroke=5)
+
+
+def plate(f, num, s, sub, t, t0, t1, y=200):
+    """Rule plate: big red numeral, white rule, grey example line. Slides in."""
+    a = smooth(seg(t, t0, t0 + 0.25)) * (1 - smooth(seg(t, t1 - 0.3, t1)))
+    if a <= 0:
+        return
+    u = eout(seg(t, t0, t0 + 0.4))
+    w = font(GAEGU, 66).getlength(s)
+    x = 960 + 40 + (1 - u) * 60
+    f.otext(x - w / 2 - 60, y, num, 110 * lerp(1.4, 1, u), RED, GAEGU, 'mm', a, stroke=5)
+    f.otext(x, y, s, 66, WHITE, GAEGU, 'mm', a, stroke=5)
+    if sub:
+        f.otext(x, y + 64, sub, 40, (200, 198, 190), HAND, 'mm', a * smooth(seg(t, t0 + 0.35, t0 + 0.6)), stroke=3)
+
+
 # ====================================================================== 01 / 17  THE WALL
 def _note_slots():
     r = np.random.default_rng(11)
@@ -230,8 +299,10 @@ def s02(f, t):
     op = eout(seg(t, 1.3, 1.9)) if t < 3.2 else eout(seg(t, 1.3, 1.9))
     MON.draw(f, 960, 1323, 3.0, dict(eyes=op, grin=0.9 * seg(t, 2.2, 2.9), arms=True, breath=0.5), t,
              halo=0.22 * seg(t, 1.2, 2.6))
-    a = smooth(seg(t, 0.2, 0.7)) * smooth((1 - seg(t, 3.05, 3.45)) if t > 3.05 else 1)
-    f.otext(960, 300, "Here's what stopped him.", 68, WHITE, GAEGU, 'mm', a)
+    out = 1 - smooth(seg(t, 3.05, 3.45))
+    kinetic(f, "Here's what stopped him.".split(), 300, 72, t, 0.2, 0.14, alpha=out, pop=0.25)
+    b = smooth(seg(t, 2.1, 2.4)) * out
+    f.otext(960, 880, 'the voice that always says  "later."', 54, (255, 70, 66), HAND, 'mm', b, stroke=3)
 
 
 # ====================================================================== 03 / 14 BEDROOM
@@ -299,8 +370,10 @@ def bedroom(f, t, again=False):
         vp = dict(face=-0.5, grin=0.7, lhw=(lerp(1400, 1290, reach), lerp(FY - 130, ns - 70, reach)))
         if t > jolt:
             vp.update(grin=1.0, face=-0.3)
-        MON.draw(f, 1490, FY, vs, vp, t)
+        k = summon(t, 1.3, 6.6)
+        vdraw(f, t, k, 1490, FY, vs, vp, (900, FY), 1.3, 6.6)
         vline(f, 1470, 300, 'Five more minutes.', t, 2.5, 5.6)
+        kicker(f, 1, 'THE ALARM', t, 2.6, 5.4)
     else:
         shrink = eout(seg(t, jolt, jolt + 0.5))
         vs = lerp(2.25, 1.3, shrink)
@@ -310,15 +383,15 @@ def bedroom(f, t, again=False):
             talk = 0.35 + 0.45 * abs(math.sin(t * 13)) * abs(math.sin(t * 5.1))
         vp = dict(face=-0.6, grin=0.9 if shrink < 0.5 else 0.0, talk=talk, eyes=lerp(1.0, 1.7, shrink),
                   lhw=(lerp(1400, 1290, reach), lerp(FY - 160, ns - 70, reach)), rot=-0.12 * (1 - shrink))
-        MON.draw(f, 1530, FY, vs, vp, t)
+        k = summon(t, 0.3, 8.6)
+        vdraw(f, t, k, 1530, FY, vs, vp, (900, FY), 0.3, 8.6)
         if 2.65 < t < 5.2:
             red_text(f, 1300, 230, 'Just start Monday.', 74, alpha=smooth(seg(t, 2.65, 2.85)) * smooth((1 - seg(t, 4.9, 5.2))),
                      glow=0.6, appear=(t - 2.65) / 0.9)
         if t > jolt:
             burst(f, 1530, 400, t - jolt, 70, 3, 200)
         # countdown caption handled via subs; label after
-        a = smooth(seg(t, jolt + 0.3, jolt + 0.7))
-        label(f, '1. DON\'T ASK. COUNT 5 TO 1.', a)
+        plate(f, '1', 'DON\'T ASK. COUNT 5 TO 1.', 'The feeling never votes yes. So stop asking it.', t, jolt + 0.3, 10.2)
     fg_plant(f, 90, FY + 40, 0.9)
 
 
@@ -349,8 +422,7 @@ def screen_video(f, x0, y0, x1, y1, t, up_next):
 
 
 def s04(f, t):
-    cam_push(f, t, 9, 1.04, 1.2, (980, 520), (1060, 520))
-    whip_out(f, t, 9.0, 0.3, 900, 1)
+    cam_push(f, t, 9, 1.12, 1.3, (1000, 520), (1080, 530))
     f.layer(0.7)
     window(f, 200, 250, 430, 520, t, 'night', moon=True)
     f.layer(1.0)
@@ -358,21 +430,25 @@ def s04(f, t):
     m = int(lerp(19 * 60, 23 * 60 + 40, smooth(seg(t, 3.0, 7.0))))
     clock(f, 620, 300, '%02d:%02d' % (m // 60, m % 60), None, 0.85)
     desk(f, 580, 1300, 640, FY)
-    book(f, 700, 640, 140, 30, (70, 50, 50), 'CHEM')
-    book(f, 700, 610, 120, 26, (50, 60, 80), 'NOTES')
-    sticky(f, 770, 560, 'EXAM FRI', 0.85, ang=-0.12)
+    book(f, 1190, 640, 140, 30, (70, 50, 50), 'CHEM')
+    book(f, 700, 640, 120, 26, (50, 60, 80), 'NOTES')
+    sticky(f, 700, 580, 'EXAM FRI', 0.95, ang=-0.12)
     desk_lamp(f, 1220, 640, on=False, dirx=-1)
     sx0, sy0, sx1, sy1 = laptop(f, 940, 640, 330, 200, k=1.0)
     screen_video(f, sx0, sy0, sx1, sy1, t, t > 5.2)
     f.light(1300, 560, 160, (120, 150, 230), 0.25)
     # villain behind Leo
     lean = 0.04 * math.sin(t * 1.3)
-    MON.draw(f, 1600, FY, 1.6, dict(face=-0.6, grin=0.8, rot=-0.08 + lean, lhw=(1420, 560)), t)
-    vline(f, 1560, 270, 'Watch one more first.', t, 1.3, 6.0)
+    k = summon(t, 0.8, 7.4)
+    vdraw(f, t, k, 1600, FY, 1.6, dict(face=-0.6, grin=0.8, rot=-0.08 + lean, lhw=(1420, 560)), (1380, FY), 0.8, 7.4)
+    vline(f, 1560, 330, 'Watch one more first.', t, 1.3, 6.0)
+    kicker(f, 6, 'THE RESEARCH', t, 1.6, 4.6)
     chair(f, 1400, FY, facing=-1)
     y, p = leo_sit(1380, FY - 150, (-50, -10))
     p.update(face=-0.75, eyes='half', mouth='flat', brow=-0.2 if t < 6 else -0.7, look=(-2, 0), lhw=(1300, 636),
              rhw=(1320, 650), light=(-0.9, -0.2))
+    if t < 1.5:
+        p.update(eyes='open', brow=0.5, mouth='tense', lhw=(1200, 612), face=-0.5)
     if t > 6.5:
         p['mouth'] = 'frown'
     LEO.draw(f, 1380, y, 1.0, p, t)
@@ -389,8 +465,7 @@ def street(f, t, cx_shift=0, lit=0.3, fy=840, wet=True):
 
 def s05(f, t):
     lx = lerp(120, 800, seg(t, 0, 3.4)) if t < 6.2 else lerp(800, 160, seg(t, 6.4, 9.0))
-    f.cam(1.06, 960 + (lx - 700) * 0.25, 520)
-    whip_in(f, t, 0.35, 900, -1)
+    f.cam(1.16, 960 + (lx - 700) * 0.3, 540)
     fy = 840
     street(f, t, fy=fy)
     f.layer(0.75)
@@ -413,8 +488,10 @@ def s05(f, t):
     splashes(f, t, -200, 2200, fy + 30, 40)
     # villain
     va = smooth(seg(t, 3.8, 4.4))
-    MON.draw(f, 500, fy, 1.8, dict(face=0.5, grin=0.9, rhw=(700, 560)), t, alpha=va)
-    vline(f, 560, 240, 'Week\'s ruined. Start Monday.', t, 4.4, 8.0)
+    k = summon(t, 3.7, 8.3)
+    vdraw(f, t, k, 500, fy, 1.8, dict(face=0.5, grin=0.9, rhw=(700, 560)), (lx, fy), 3.7, 8.3)
+    vline(f, 600, 330, 'Week\'s ruined. Start Monday.', t, 4.4, 8.0)
+    kicker(f, 14, 'THE MISSED MONDAY', t, 4.6, 7.6)
     # Leo
     if t < 3.4:
         p, bob = walk(t, 1.6)
@@ -432,7 +509,7 @@ def s05(f, t):
         a = smooth(seg(t, 3.6, 3.9)) * smooth((1 - seg(t, 5.9, 6.2)))
         if a > 0:
             px, py = lx + 210, fy - 420
-            f.rrect(px - 110, py - 70, px + 110, py + 70, 14, lerpc(BG, (24, 28, 40), a), lerpc(BG, CHALK, a), 2.2)
+            f.rrect(px - 150, py - 70, px + 150, py + 70, 14, lerpc(BG, (24, 28, 40), a), lerpc(BG, CHALK, a), 2.2)
             f.text(px, py - 30, 'TUESDAY', 40, lerpc(BG, WHITE, a), GAEGU)
             f.text(px, py + 22, 'gym streak: missed MON', 24, lerpc(BG, (230, 90, 80), a), HAND)
     f.layer(1.25)
@@ -443,13 +520,16 @@ def s05(f, t):
 # ====================================================================== 06 EARNED
 def s06(f, t):
     pan = smooth(seg(t, 3.2, 4.6))
-    f.cam(1.06 + 0.04 * pan, lerp(900, 1240, pan), 520)
+    f.cam(1.14 + 0.04 * pan, lerp(880, 1240, pan), 530)
+    lx_ = 600 if t < 3.4 else (lerp(600, 1450, smooth(seg(t, 3.5, 5.3))) if t < 5.3 else 1450)
     floor(f, FY)
     clock(f, 1330, 280, '23:10', None, 0.85)
     fridge(f, 280, 500, 360, FY, open_=1.0 - smooth(seg(t, 3.4, 4.0)), t=t)
-    MON.draw(f, 1000, FY, 1.45, dict(face=-0.5, grin=1.0, lh=(-70, -270), rot=-0.05), t)
+    k = summon(t, 0.8, 7.0)
+    vdraw(f, t, k, 1000, FY, 1.45, dict(face=-0.5, grin=1.0, lh=(-70, -270), rot=-0.05), (lx_, FY), 0.8, 7.0)
+    kicker(f, 23, 'THE REWARD', t, 1.4, 4.4)
     counter(f, 760, 1260, 600, FY)
-    vline(f, 1000, 270, 'You earned this.', t, 1.2, 5.5)
+    vline(f, 1000, 330, 'You earned this.', t, 1.2, 5.5)
     dopen = smooth(seg(t, 4.9, 5.5)) * (1 - smooth(seg(t, 8.0, 8.8)))
     door(f, 1560, 1740, 380, FY, dopen)
     if dopen > 0.05:
@@ -493,7 +573,8 @@ def s07(f, t):
     else:
         cam_push(f, t - 4.6, 1.0, 1.22, 1.04, (1150, 610), (960, 540))
     # peeking villain behind the laptop
-    MON.draw(f, 1760, 1010, 2.2, dict(face=-0.7, grin=1.0, eyes=1.0), t)
+    k = summon(t, 2.2, 6.6, 0.8)
+    vdraw(f, t, k, 1760, 1010, 2.2, dict(face=-0.7, grin=1.0, eyes=1.0), (1760, 1500), 2.2, 6.6)
     f.rect(330, 160, 1590, 860, (14, 15, 20), CHALK, 3.2)
     f.poly([(260, 860), (1660, 860), (1760, 960), (160, 960)], (24, 24, 28), CHALK, 2.6)
     f.light(960, 500, 700, (120, 150, 220), 0.12)
@@ -543,6 +624,7 @@ def s07(f, t):
     if t < 6.6:
         cursor(f, cx, cy, click)
     vline(f, 1180, 600, 'It\'s not good enough.', t, 2.6, 5.4, 58)
+    kicker(f, 35, 'THE DRAFT', t, 2.9, 5.4, y=890)
     # thumb on trackpad
     f.layer(1.15)
     hx = 960 + (cx - 960) * 0.18
@@ -556,14 +638,15 @@ OUTL_C = (36, 32, 30)
 # ====================================================================== 08 THE PLAN
 def s08(f, t):
     if t < 5.0:
-        cam_push(f, t, 5.0, 1.0, 1.08, (940, 500), (980, 500))
+        cam_push(f, t, 5.0, 1.08, 1.18, (1000, 500), (1060, 510))
         floor(f, FY)
         f.light(880, 420, 500, WARM, 0.12)
         plan_board(f, 500, 210, 1240, 640, fill=smooth(seg(t, 0.0, 4.4)), t=t)
         book(f, 640, FY, 180, 34, (110, 60, 90), '2026 PLANNER')
         book(f, 640, FY - 34, 150, 26, (60, 80, 110), 'ATOMIC...')
         nod = math.sin(t * 6) * 0.06
-        MON.draw(f, 1640, FY, 1.3, dict(face=-0.4, grin=1.0, rot=nod, rh=(70, -150), lh=(-70, -150)), t)
+        k = summon(t, 0.4, 99)
+        vdraw(f, t, k, 1640, FY, 1.3, dict(face=-0.4, grin=1.0, rot=nod, rh=(70, -150), lh=(-70, -150)), (1330, FY), 0.4)
         vline(f, 1620, 290, 'Plan it perfectly first.', t, 0.8, 4.6)
         k = (t * 1.4) % 1
         tgt = (1100 + 60 * math.sin(t * 2.1), 420 + 120 * math.sin(t * 1.3))
@@ -578,7 +661,10 @@ def s08(f, t):
         f.ambient((80, 90, 120), 0.012)
         clock(f, 1440, 290, '07:00', 'MON', 0.85)
         seat = couch(f, 560, 1240, FY)
-        MON.draw(f, 1200, FY, 1.95, dict(face=-0.4, grin=1.0, lhw=(1120, 520), rhw=(1290, 520), rot=-0.05), t)
+        k = summon(t, 5.5, 9.3)
+        vdraw(f, t, k, 1200, FY, 1.95, dict(face=-0.4, grin=1.0, lhw=(1120, 520), rhw=(1290, 520), rot=-0.05),
+              (880, FY), 5.5, 9.3)
+        kicker(f, 47, 'THE PERFECT PLAN', t, 6.0, 9.4, y=890)
         couch(f, 560, 1240, FY)
         y = seat + 58
         p = dict(rot=0.28, face=-0.2, eyes='half', mouth='flat', brow=-0.2, look=(0, 3), lfw=(800, FY), rfw=(860, FY),
@@ -605,8 +691,9 @@ def s09(f, t):
     talk = 0.0
     if 2.9 < t < 5.7:
         talk = 0.3 + 0.55 * abs(math.sin(t * 12.5)) * abs(math.sin(t * 4.7 + 1))
-    MON.draw(f, 1520, fy, 2.7, dict(face=-0.5, talk=talk, grin=1.0, lhw=(1250, 380), rot=-0.06 + 0.015 * math.sin(t)),
-             t, halo=1.2)
+    k = summon(t, 0.5, 99, 1.4)
+    vdraw(f, t, k, 1520, fy, 2.7, dict(face=-0.5, talk=talk, grin=1.0, lhw=(1250, 380),
+                                    rot=-0.06 + 0.015 * math.sin(t)), (1000, fy), 0.5, halo=1.2)
     if 2.8 < t < 6.4:
         red_text(f, 820, 300, 'You\'re just not built for this.', 70,
                  alpha=smooth(seg(t, 2.8, 3.0)) * smooth((1 - seg(t, 6.0, 6.4))), glow=0.6, appear=(t - 2.85) / 1.6)
@@ -639,19 +726,22 @@ def dawn_street(f, t, fy=830):
 
 def s10(f, t):
     pan = smooth(seg(t, 4.2, 8.0))
-    f.cam(lerp(1.0, 1.1, pan), lerp(820, 1130, pan), 520)
+    f.cam(lerp(1.1, 1.2, pan), lerp(840, 1150, pan), 540)
     fy = 830
     dawn_street(f, t, fy)
     door(f, 1530, 1650, 560, fy)
     MAYA.draw(f, 1480, fy, 1.0, dict(face=-0.2, eyes='half', mouth='flat', brow=-0.3, sq=0.96, lh=(-55, -120)), t)
     lx = lerp(220, 760, seg(t, 0, 4.4))
-    MON.draw(f, lx - 300, fy, 2.0, dict(face=0.4, grin=0.8, rh=(60, -260)), t)
     if t < 4.4:
         p, bob = walk(t, 1.3)
         p.update(face=0.4, eyes='half', mouth='flat', brow=-0.5)
     else:
         p, bob = dict(face=0.7, eyes='open' if t < 5.6 else 'wide', mouth='flat' if t < 5.6 else 'o', brow=-0.2), 0
     LEO.draw(f, lx, fy - bob, 1.0, p, t)
+    g = 0.5 + 0.5 * math.sin(t * 2.3)
+    for sx in (-9, 9):
+        f.dot(lx + sx, fy + 3, 2.2, lerpc(BG, (255, 40, 30), 0.5 + 0.5 * g))
+    f.light(lx, fy + 3, 26, RED, 0.25 * g)
 
 
 def s11(f, t):
@@ -664,12 +754,12 @@ def s11(f, t):
         f.whip = 160 * (1 - abs(u * 2 - 1)) if t < 8.1 else 0
     dawn_street(f, t, fy)
     door(f, 1530, 1650, 560, fy)
-    va = smooth(seg(t, 1.2, 2.2))
     ve = eout(seg(t, 1.5, 2.0))
     run = t > 6.6
-    vs = lerp(1.05, 0.45, smooth(seg(t, 6.6, 8.0)))
-    MAYA_V.draw(f, 1650, fy, vs, dict(face=-0.5, eyes=ve, grin=0.7, lhw=(1560, 640)), t,
-                alpha=va * lerp(1, 0.3, seg(t, 6.6, 8.2)))
+    mx_ = 1480 + max(0, t - 6.6) ** 1.4 * 420
+    k = summon(t, 1.2, 6.7, 0.9, 0.7)
+    vdraw(f, t, k, 1650, fy, 1.05, dict(face=-0.5, eyes=ve, grin=0.7, lhw=(1560, 640)), (mx_, fy), 1.2, 6.7,
+          V=MAYA_V, seed=7)
     vline(f, 1680, 420, 'Stay in bed.', t, 2.8, 5.0, 50)
     if not run:
         tie = smooth(seg(t, 5.0, 5.4)) * (1 - smooth(seg(t, 6.0, 6.4)))
@@ -686,7 +776,8 @@ def s11(f, t):
         p.update(face=0.6, mouth='tense', brow=0.6)
         MAYA.draw(f, mx, fy - bob, 1.0, p, t)
     # Leo + his frozen villain (seen after whip)
-    MON.draw(f, 460, fy, 2.0, dict(face=0.4, eyes=1.6, grin=0.0, rh=(60, -260)), t)
+    k2 = summon(t, 7.3, 99, 0.6)
+    vdraw(f, t, k2, 460, fy, 2.0, dict(face=0.4, eyes=1.6, grin=0.0, rh=(60, -260)), (760, fy), 7.3)
     LEO.draw(f, 760, fy, 1.0, dict(face=0.7, eyes='wide', mouth='o', brow=-0.4), t)
     if t > 8.1:
         k = 0.6 + 0.4 * math.sin(t * 9)
@@ -698,7 +789,10 @@ def s12(f, t):
     cam_push(f, t, 12, 1.12, 1.2, (980, 560), (1000, 560))
     dawn_street(f, t, fy)
     gl = (t % 1.3) < 0.18
-    MON.draw(f, 470, fy, lerp(2.0, 1.75, seg(t, 8.1, 10.8)), dict(face=0.4, eyes=1.6, grin=0.0, rh=(60, -260)), t)
+    k = summon(t, -5, 9.6, 0.5, 1.0)
+    vdraw(f, t, k, 470, fy, lerp(2.0, 1.75, seg(t, 8.1, 9.6)), dict(face=0.4, eyes=1.6, grin=0.0, rh=(60, -260)),
+          (820, fy), -5, 9.6)
+    gl = gl and k > 0.4
     if gl:
         f.glitch.append((170, 128, 820, 952, 0.8, f.fi * 3))
     # Maya
@@ -732,12 +826,28 @@ def s12(f, t):
 
 # ====================================================================== 13 CARDS
 def s13(f, t):
-    a1 = smooth(seg(t, 0.5, 1.2)) * smooth((1 - seg(t, 11.3, 11.9)))
-    a2 = smooth(seg(t, 5.6, 5.9)) * smooth((1 - seg(t, 11.3, 11.9)))
-    f.otext(960, 470, 'Disciplined people don\'t feel like it either.', 66, WHITE, GAEGU, 'mm', a1)
-    if a2 > 0:
-        f.light(960, 610, 300, RED, 0.12 * a2)
-    f.otext(960, 610, 'They just stopped asking.', 84, RED, GAEGU, 'mm', a2)
+    out = 1 - smooth(seg(t, 11.3, 11.9))
+    kinetic(f, 'Disciplined people don\'t feel like it either.'.split(), 400, 78, t, 0.5, 0.17,
+            cols=[None, None, None, (255, 236, 200), (255, 236, 200), None, None], alpha=out)
+    kinetic(f, 'Not Maya. Not athletes. Not anyone.'.split(), 490, 52, t, 2.6, 0.22, path=HAND,
+            cols=[(150, 150, 156)] * 6, alpha=out, pop=0.15)
+    if t > 5.6:
+        k = 1 - eout(seg(t, 5.6, 5.9))
+        f.shx = math.sin(t * 70) * 10 * k
+        f.flash = 0.10 * k
+        f.light(960, 640, 420, RED, 0.16 * out)
+    kinetic(f, 'They just stopped asking.'.split(), 640, 112, t, 5.6, 0.0, cols=[RED] * 4, alpha=out, pop=0.6)
+    u = eout(seg(t, 6.1, 6.6))
+    if u > 0:
+        pts_t, pts_b = [], []
+        for k in range(25):
+            v = k / 24 * u
+            x = lerp(930, 1520, v)
+            y = 712 + math.sin(v * math.pi) * 6 - v * 10
+            th = 13 * math.sin(clamp(v / max(u, 1e-3)) * math.pi) ** 0.6 + 2
+            pts_t.append((x, y - th / 2))
+            pts_b.append((x + 5, y + th / 2))
+        f.poly(pts_t + pts_b[::-1], lerpc(BG, RED, out), None, amp=0.3)
 
 
 # ====================================================================== 15 RULES
@@ -760,15 +870,13 @@ def s15(f, t):
         window_beam(f, 220, 250, 460, 520, WARM, 0.18, dx=500)
         f.layer(1.0)
         floor(f, FY)
-        MON.draw(f, 1380, FY, 1.25, dict(face=-0.5, eyes=1.6, grin=0.0), t)
         rep = seg(t, 0.6, 2.2)
         if t < 2.4:
             pushup(f, t, 960, rep)
         else:
             LEO.draw(f, 960, FY, 1.0, dict(band=True, face=0.0, eyes='happy', mouth='grin',
                                            lh=(-70, -150 - 20 * math.sin(t * 8)), rh=(70, -150)), t)
-        label(f, '2. MAKE IT STUPID SMALL.', smooth(seg(t, 0.2, 0.5)) * smooth((1 - seg(t, 3.3, 3.5))),
-              sub='One push-up. One page.')
+        plate(f, '2', 'MAKE IT STUPID SMALL.', 'One push-up. One page. Too small to say no to.', t, 0.2, 3.5)
     else:
         u = t - 3.5
         cam_push(f, u, 3.5, 1.0, 1.08, (960, 560), (960, 560))
@@ -781,8 +889,7 @@ def s15(f, t):
             else:
                 marks.append(('v', seg(u, ta, ta + 0.12)))
         calendar(f, 590, 400, 7, 4, 106, 88, marks, 'FEBRUARY', t)
-        MON.draw(f, 1520, FY + 40, lerp(1.0, 0.7, seg(u, 0.5, 3.3)), dict(face=-0.7, eyes=1.3, grin=0.0), t)
-        label(f, '3. NEVER MISS TWICE.', smooth(seg(u, 0.1, 0.4)) * smooth((1 - seg(u, 3.3, 3.5))))
+        plate(f, '3', 'NEVER MISS TWICE.', 'Missing once is life. Missing twice is a new habit.', u, 0.1, 3.5, y=210)
 
 
 # ====================================================================== 16 MONTAGE
@@ -810,9 +917,17 @@ def s16(f, t):
     day = DAYS[i]
     vs = vscale(day)
     dur = DURS[i]
-    z = 1.04 + 0.08 * (u / dur)
+    z = 1.04 + 0.08 * (u / dur) + 0.07 * (1 - eout(seg(u, 0.0, 0.2)))
+    f.flash = 0.10 * (1 - seg(u, 0.0, 0.09)) if i > 0 else 0.0
     f.cam(z, 960 + (20 if i % 2 else -20) * u, 540)
     line = LINES[i]
+    attacking = bool(line) or i == 5
+    vk = (eout(seg(u, 0.0, 0.15)) * (1 - ein(seg(u, 0.55, 0.85))) if i != 5 else 1.0) if attacking else 0.0
+
+    def mdraw(f, x, y, s, p, t, **kw):
+        if vk > 0.01:
+            MON.draw(f, x, y, s * lerp(0.3, 1, vk), p, t, halo=vk, alpha=clamp(vk * 1.5))
+            burst(f, x, y - 140 * s, u, 30, i + 40, 100 * s)
     lsize = int(30 + 30 * vs / 1.55)
     vx = 1450
     fy = FY
@@ -823,7 +938,7 @@ def s16(f, t):
         f.layer(0.7)
         window(f, 200, 250, 440, 520, t, 'sunrise' if i != 6 else 'dawn')
         f.layer(1.0)
-        MON.draw(f, vx, fy, vs * (1.25 if i == 6 else 1), dict(face=-0.5, grin=0.8), t)
+        mdraw(f, vx, fy, vs * (1.25 if i == 6 else 1), dict(face=-0.5, grin=0.8), t)
         reps = 1 if i != 15 else 3
         pushup(f, t, 960, (u / dur * reps * 1.1) % 1.0, band=i != 6, face_s='tense' if i != 15 else 'grin')
         lp = (900, fy - 120)
@@ -835,7 +950,7 @@ def s16(f, t):
         if i == 13:
             for k in range(7):
                 book(f, 1180, 640 - k * 26, 120, 26, ((70, 60, 90), (60, 90, 80), (90, 70, 60))[k % 3])
-        MON.draw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
+        mdraw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
         chair(f, 1380, fy, -1)
         y, p = leo_sit(1360, fy - 150, (-50, -10), fy)
         p.update(band=True, face=-0.7, eyes='open', look=(-2, 3), mouth='flat', brow=0.4, lhw=(1150, 630),
@@ -856,7 +971,7 @@ def s16(f, t):
         floor(f, fy)
         if i == 2:
             rain(f, t, -200, 2200, 0, 1080, 180, seed=8)
-        MON.draw(f, 560 - 200 * u * (i == 11), fy, vs, dict(face=0.5, grin=0.6), t)
+        mdraw(f, 560 - 200 * u * (i == 11), fy, vs, dict(face=0.5, grin=0.6), t)
         p, bob = walk(t, 2.6, run=True)
         p.update(band=True, face=0.5, mouth='tense' if i == 2 else 'smile', brow=0.5)
         LEO.draw(f, 1000, fy - bob, 1.0, p, t)
@@ -874,7 +989,7 @@ def s16(f, t):
         phx, phy = lerp(1300, 1156, pu), lerp(560, 700, pu)
         if u < 0.7:
             phone_small(f, phx, phy, 1.0, 1.0)
-        MON.draw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
+        mdraw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
         y, p = leo_sit(1380, fy - 150, (-50, -10), fy)
         chair(f, 1400, fy, -1)
         p.update(band=True, face=-0.5, eyes='open', mouth='tense', brow=0.6, lhw=(phx + 10, phy))
@@ -888,7 +1003,7 @@ def s16(f, t):
         f.layer(1.0)
         floor(f, fy)
         sq = 1 - 0.18 * math.sin(clamp(u / dur) * math.pi)
-        MON.draw(f, vx, fy, vs, dict(face=-0.5, grin=0.6), t)
+        mdraw(f, vx, fy, vs, dict(face=-0.5, grin=0.6), t)
         LEO.draw(f, 960, fy, 1.0, dict(band=True, sq=sq, face=0, eyes='open', mouth='tense', brow=0.6,
                                        lh=(-75, -58 - 150 * sq), rh=(75, -58 - 150 * sq),
                                        lf=(-40, 0), rf=(40, 0)), t)
@@ -901,7 +1016,7 @@ def s16(f, t):
                                             mouth='frown', light=(0.6, -0.6)), t)
         blanket(f, 760, 1176, top, 1.0)
         f.line([(690, top - 40), (740, top - 62)], (220, 220, 230), 3)
-        MON.draw(f, vx, fy, vs * 1.3, dict(face=-0.5, grin=1.0), t)
+        mdraw(f, vx, fy, vs * 1.3, dict(face=-0.5, grin=1.0), t)
         xu = seg(u, 0.25, 0.6)
         if xu > 0:
             c = (1460, 330)
@@ -923,7 +1038,7 @@ def s16(f, t):
         prog = clamp(u / dur)
         lx = lerp(x0 + 150, x0 + n * sw - 300, prog)
         ly = step_y(lx, x0, fy + 60, n, sw, sh)
-        MON.draw(f, x0 - 60, fy + 60, vs, dict(face=0.5, grin=0.6), t)
+        mdraw(f, x0 - 60, fy + 60, vs, dict(face=0.5, grin=0.6), t)
         p, bob = walk(t, 2.4, run=True)
         p.update(band=True, face=0.6, mouth='tense', brow=0.6, sweat=1)
         LEO.draw(f, lx, ly - bob, 1.0, p, t)
@@ -934,7 +1049,7 @@ def s16(f, t):
         floor(f, fy)
         counter(f, 600, 1300, 640, fy)
         stove(f, 900, 640, t)
-        MON.draw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
+        mdraw(f, 1660, fy, vs, dict(face=-0.5, grin=0.6), t)
         LEO.draw(f, 1120, fy, 1.0, dict(band=True, face=-0.6, eyes='happy', mouth='smile',
                                         lhw=(1010 + 20 * math.cos(t * 9), 580 + 10 * math.sin(t * 9))), t)
         lp = (1120, fy - 320)
@@ -958,7 +1073,7 @@ def s16(f, t):
                 f.ell(450, 330 + k * 120, 30, None, lerpc(BG, (90, 90, 100), a), None)
                 f.text(510, 330 + k * 120, cmt, 42, lerpc(BG, (230, 230, 236), a), HAND, 'lm')
             f.text(1380, 760, '♥ 1.2k', 50, MINT, GAEGU)
-        MON.draw(f, 1700, 980, vs * 1.4, dict(face=-0.6, grin=0.5), t)
+        mdraw(f, 1700, 980, vs * 1.4, dict(face=-0.6, grin=0.5), t)
         vx, vp_y = 1700, 980 - 300 * vs * 1.4 - 30
     elif i == 10:                             # pull-ups
         floor(f, fy)
@@ -969,7 +1084,7 @@ def s16(f, t):
         LEO.draw(f, 960, y, 1.0, dict(band=True, lhw=(920, 380), rhw=(1000, 380), lbend=1, rbend=-1, face=0,
                                       eyes='shut' if up > 0.5 else 'open', mouth='tense', sweat=1,
                                       lf=(-20, -10), rf=(20, -14)), t)
-        MON.draw(f, 1450, fy, vs, dict(face=-0.5, grin=0.6), t)
+        mdraw(f, 1450, fy, vs, dict(face=-0.5, grin=0.6), t)
         lp = (960, y - 300)
     elif i == 17:                             # DAY 180 summit
         cam_push(f, u, dur, 1.0, 1.1, (960, 520), (1000, 500))
@@ -978,7 +1093,7 @@ def s16(f, t):
                (12, 12, 14), CHALK, 2.4)
         LEO.draw(f, 1000, 692, 1.0, dict(band=True, face=0, eyes='happy', mouth='grin', light=(0.5, -0.7),
                                          lh=(-80, -270), rh=(80, -270)), t)
-        MON.draw(f, 180, 800, 0.2, dict(face=0.5, grin=0.0, eyes=1.0), t)
+        mdraw(f, 180, 800, 0.2, dict(face=0.5, grin=0.0, eyes=1.0), t)
         line = None
     if line and i != 17:
         vp = (vx, vp_y)
@@ -1004,9 +1119,8 @@ def s18(f, t):
     floor(f, fy)
     pullup_bar(f, 1000, 1260, 470, fy)
     # Sam + his small villain
-    gone = smooth(seg(t, 9.4, 10.6))
-    SAM_V.draw(f, 1330, fy, 0.72 * (1 - 0.4 * gone), dict(face=-0.5, grin=0.8, lhw=(1210, 640)), t, alpha=1 - gone)
-    burst(f, 1330, fy - 140, t - 9.4, 80, 5, 160)
+    k = summon(t, 0.5, 9.4, 0.7, 0.9)
+    vdraw(f, t, k, 1330, fy, 0.72, dict(face=-0.5, grin=0.8, lhw=(1210, 640)), (1130, fy), 0.5, 9.4, V=SAM_V, seed=8)
     vline(f, 1350, 470, 'Everyone\'s watching.', t, 1.0, 5.4, 44)
     if t < 8.6:
         look = math.sin(t * 2.2) * 3
@@ -1023,7 +1137,6 @@ def s18(f, t):
                                         lh=(-70, -230), rh=(55, -120)), t)
     # Leo
     lx = lerp(-150, 860, smooth(seg(t, 2.0, 5.4)))
-    MON.draw(f, lx - 650, fy, 0.25, dict(face=0.5, grin=0.0), t, alpha=0.8)
     if 2.0 < t < 5.4:
         p, bob = walk(t, 1.6)
         p.update(band=True, face=0.5, mouth='smile')
@@ -1065,27 +1178,35 @@ def s19(f, t):
 
 # ====================================================================== 20 TITLE / 21 LOOP
 def s20(f, t):
-    a = smooth(seg(t, 0.15, 0.6)) * smooth((1 - seg(t, 6.5, 6.95)))
-    f.otext(960, 380, 'DISCIPLINE', 176, WHITE, GAEGU, 'mm', a)
-    u = eout(seg(t, 0.6, 1.3))
+    out = 1 - smooth(seg(t, 6.5, 6.95))
+    word = 'DISCIPLINE'
+    fnt = font(GAEGU, 176)
+    total = fnt.getlength(word)
+    x = 960 - total / 2
+    for i, ch in enumerate(word):
+        w = fnt.getlength(ch)
+        u = seg(t, 0.1 + i * 0.05, 0.42 + i * 0.05)
+        if u > 0:
+            yy = 380 - 60 * (1 - back(u))
+            f.otext(x + w / 2, yy, ch, 176, WHITE, GAEGU, 'mm', out * clamp(u * 3))
+        x += w
+    u = eout(seg(t, 0.75, 1.35))
     if u > 0:
         pts_t, pts_b = [], []
         for k in range(31):
             v = k / 30 * u
-            x = lerp(560, 1370, v)
+            xx = lerp(560, 1370, v)
             y = 488 + math.sin(v * math.pi) * 10 - v * 18
             th = 16 * math.sin(clamp(v / max(u, 1e-3)) * math.pi) ** 0.6 + 2
-            pts_t.append((x, y - th / 2))
-            pts_b.append((x + 6, y + th / 2))
+            pts_t.append((xx, y - th / 2))
+            pts_b.append((xx + 6, y + th / 2))
         f.boil = 0.5
-        f.poly(pts_t + pts_b[::-1], lerpc(BG, RED, a), None, amp=0.4)
-        f.light(960, 488, 300, RED, 0.18 * a)
-    b = smooth(seg(t, 1.8, 2.2)) * smooth((1 - seg(t, 6.5, 6.95)))
-    c = smooth(seg(t, 2.6, 3.0)) * smooth((1 - seg(t, 6.5, 6.95)))
-    d = smooth(seg(t, 3.6, 4.0)) * smooth((1 - seg(t, 6.5, 6.95)))
-    f.otext(960, 610, 'Motivation asks how you feel.', 58, WHITE, HAND, 'mm', b)
-    f.otext(960, 682, 'Discipline doesn\'t ask.', 58, RED, HAND, 'mm', c)
-    f.otext(960, 830, 'What\'s the line your villain always says? Comment it.', 36, (140, 140, 146), HAND, 'mm', d)
+        f.poly(pts_t + pts_b[::-1], lerpc(BG, RED, out), None, amp=0.4)
+        f.light(960, 488, 300, RED, 0.18 * out)
+    kinetic(f, 'Motivation asks how you feel.'.split(), 610, 60, t, 1.7, 0.13, path=HAND, alpha=out, pop=0.2)
+    kinetic(f, 'Discipline doesn\'t ask.'.split(), 686, 66, t, 2.8, 0.0, path=HAND, cols=[RED] * 3, alpha=out, pop=0.5)
+    d = smooth(seg(t, 3.7, 4.1)) * out
+    f.otext(960, 830, 'What\'s the line your villain always says? Comment it.', 38, (150, 150, 156), HAND, 'mm', d)
 
 
 def s21(f, t):
@@ -1165,35 +1286,44 @@ def day_s16(t):
 
 
 SCENES = [
-    Scene('01_wall', 6.5, s01, [(4.0, 6.3, 'Day 1. Again.', 'cap')], H(46), [(2.35, 2.35, 46, 47)]),
-    Scene('02_reveal', 3.5, s02, [(0.2, 3.3, 'Here\'s what stopped him.', 'card')], H(47)),
-    Scene('03_snooze', 9.0, s03, [(0.2, 2.3, 'One year earlier.', 'cap'), (2.5, 5.6, 'Five more minutes.', 'vil')],
+    Scene('01_wall', 6.5, s01, [(0.3, 3.7, 'Every Sunday night, Leo makes the same promise.', 'cap'), (4.0, 6.3, 'Day 1. Again.', 'cap')], H(46), [(2.35, 2.35, 46, 47)]),
+    Scene('02_reveal', 3.5, s02, [(0.2, 3.3, 'Here\'s what stopped him.', 'card'), (2.1, 3.4, 'the voice that always says "later."', 'card')], H(47)),
+    Scene('03_snooze', 9.0, s03, [(0.2, 2.3, 'One year earlier.', 'cap'), (2.5, 5.6, 'Five more minutes.', 'vil'), (2.6, 5.4, 'RESTART #1 · THE ALARM', 'card'),
+                                   (6.4, 8.8, 'The plan lasted exactly one alarm.', 'cap')],
           hud_s03, [(6.3, 6.3, 0, 1)]),
-    Scene('04_research', 9.0, s04, [(1.3, 6.0, 'Watch one more first.', 'vil')], H(1), [(3.4, 6.6, 1, 6)]),
-    Scene('05_tuesday', 9.0, s05, [(4.4, 8.0, 'Week\'s ruined. Start Monday.', 'vil')], H(6), [(6.4, 8.2, 6, 14)]),
-    Scene('06_earned', 9.0, s06, [(1.2, 5.5, 'You earned this.', 'vil')], H(14), [(6.6, 8.4, 14, 23)]),
-    Scene('07_draft', 9.0, s07, [(2.6, 6.0, 'It\'s not good enough.', 'vil')], H(23), [(6.6, 8.6, 23, 35)]),
-    Scene('08_plan', 10.0, s08, [(0.8, 4.6, 'Plan it perfectly first.', 'vil')], H(35), [(6.0, 8.8, 35, 47)]),
+    Scene('04_research', 9.0, s04, [(0.2, 1.9, 'Exam on Friday. He just had to start.', 'cap'), (1.3, 6.0, 'Watch one more first.', 'vil'),
+                                     (1.6, 4.6, 'RESTART #6 · THE RESEARCH', 'card'), (6.9, 8.8, 'Four hours of advice. Zero pages read.', 'cap')], H(1), [(3.4, 6.6, 1, 6)]),
+    Scene('05_tuesday', 9.0, s05, [(0.4, 3.4, 'Tuesday. He\'d already missed Monday.', 'cap'), (4.4, 8.0, 'Week\'s ruined. Start Monday.', 'vil'),
+                                    (4.6, 7.6, 'RESTART #14 · THE MISSED MONDAY', 'card'), (6.6, 8.8, 'One missed day became a missed week.', 'cap')], H(6), [(6.4, 8.2, 6, 14)]),
+    Scene('06_earned', 9.0, s06, [(0.2, 2.6, 'The meals were prepped for the whole week.', 'cap'), (1.2, 5.5, 'You earned this.', 'vil'),
+                                   (1.4, 4.4, 'RESTART #23 · THE REWARD', 'card'), (6.9, 8.8, 'One "reward" undid five days.', 'cap')], H(14), [(6.6, 8.4, 14, 23)]),
+    Scene('07_draft', 9.0, s07, [(0.2, 2.5, 'His first cover. Three weeks of practice.', 'cap'), (2.6, 5.4, 'It\'s not good enough.', 'vil'),
+                                  (2.9, 5.4, 'RESTART #35 · THE DRAFT', 'card'), (6.8, 8.8, 'Nobody ever heard it.', 'cap')], H(23), [(6.6, 8.6, 23, 35)]),
+    Scene('08_plan', 10.0, s08, [(0.8, 4.6, 'Plan it perfectly first.', 'vil'), (1.2, 4.6, 'Planning felt like progress.', 'cap'),
+                                  (6.0, 9.4, 'RESTART #47 · THE PERFECT PLAN', 'card'), (7.0, 9.6, 'The plan never left the wall.', 'cap')], H(35), [(6.0, 8.8, 35, 47)]),
     Scene('09_night', 13.0, s09, [(2.9, 6.3, 'You\'re just not built for this.', 'vil'),
                                   (6.8, 9.8, 'He\'d never talk to a friend like this.', 'cap'),
                                   (10.6, 12.8, 'Only to himself.', 'cap')], H(47)),
-    Scene('10_dawn', 8.0, s10, [(0.4, 3.6, '6:02 AM. He couldn\'t sleep.', 'cap')], H(47)),
-    Scene('11_shadow', 10.0, s11, [(2.8, 5.0, 'Stay in bed.', 'vil')], H(47)),
+    Scene('10_dawn', 8.0, s10, [(0.4, 3.6, '6:02 AM. He couldn\'t sleep.', 'cap'), (4.6, 7.8, 'Then he saw Maya. She never misses a run.', 'cap')], H(47)),
+    Scene('11_shadow', 10.0, s11, [(1.4, 2.9, 'She had one too.', 'cap'), (2.8, 5.0, 'Stay in bed.', 'vil'), (6.8, 9.6, 'And she went anyway.', 'cap')], H(47)),
     Scene('12_question', 12.0, s12, [(1.3, 3.6, 'You hear it too?', 'say'), (3.7, 5.6, 'Every morning.', 'say'),
                                      (5.7, 8.0, 'Then how do you still go?', 'say'),
                                      (8.1, 10.9, 'I stopped asking it.', 'say')], hud_s12),
-    Scene('13_cards', 12.0, s13, [(0.5, 11.9, 'Disciplined people don\'t feel like it either.', 'card'),
+    Scene('13_cards', 12.0, s13, [(0.5, 11.9, 'Disciplined people don\'t feel like it either.', 'card'), (2.6, 11.9, 'Not Maya. Not athletes. Not anyone.', 'card'),
                                   (5.6, 11.9, 'They just stopped asking.', 'card')]),
     Scene('14_again', 10.0, s14, [(2.7, 5.0, 'Just start Monday.', 'vil'), (5.2, 7.4, '5… 4… 3… 2… 1.', 'count'),
-                                  (7.6, 10.0, '1. Don\'t ask. Count 5 to 1.', 'card')],
+                                  (7.6, 10.0, '1. Don\'t ask. Count 5 to 1. The feeling never votes yes.', 'card'),
+                                  (8.2, 10.0, 'This time, he didn\'t answer it.', 'cap')],
           H(47, lambda t: RED if t < 7.3 else WHITE)),
     Scene('15_rules', 7.0, s15, [(0.2, 3.5, '2. Make it stupid small. One push-up. One page.', 'card'),
-                                 (3.6, 7.0, '3. Never miss twice.', 'card')], H(47, WHITE)),
-    Scene('16_montage', 23.0, s16, [(STARTS[i] + 0.02, STARTS[i] + 0.42, LINES[i], 'vil') for i in range(len(DAYS)) if LINES[i]],
+                                 (3.6, 7.0, '3. Never miss twice. Missing once is life. Missing twice is a new habit.', 'card')], H(47, WHITE)),
+    Scene('16_montage', 23.0, s16, [(STARTS[i] + 0.02, STARTS[i] + 0.42, LINES[i], 'vil') for i in range(len(DAYS)) if LINES[i]] +
+          [(STARTS[5] + 0.1, STARTS[7] - 0.1, 'Day 9: sick. Day 10: one push-up anyway.', 'cap'),
+           (STARTS[17] + 0.1, 22.8, '180 days. Not one of them felt easy.', 'cap')],
           hud_s16, day=day_s16),
-    Scene('17_wall', 11.0, s17, [(6.5, 10.5, 'He never needed another Day 1.', 'cap')], H(47, WHITE),
+    Scene('17_wall', 11.0, s17, [(0.4, 3.6, 'Same wall. Same hand. Different man.', 'cap'), (6.5, 10.5, 'He never needed another Day 1.', 'cap')], H(47, WHITE),
           day=lambda t: 181 if t > 5.6 else 180),
-    Scene('18_passon', 14.0, s18, [(1.0, 5.4, 'Everyone\'s watching.', 'vil'), (5.8, 8.4, 'Just do one. That\'s it.', 'say'),
+    Scene('18_passon', 14.0, s18, [(0.3, 2.6, 'Months later. A new face at the bar.', 'cap'), (1.0, 5.4, 'Everyone\'s watching.', 'vil'), (5.8, 8.4, 'Just do one. That\'s it.', 'say'),
                                    (11.0, 13.8, 'Now it was his turn to say it.', 'cap')], H(47, WHITE)),
     Scene('19_hill', 8.0, s19, [(0.5, 3.8, 'The voice never fully goes away.', 'cap'),
                                 (4.2, 7.8, 'He just stopped asking it for permission.', 'cap')]),
@@ -1219,10 +1349,19 @@ def scene_at(t):
     return SCENES[-1]
 
 
-def render(fi):
-    t = fi / FPS
-    sc = scene_at(t)
-    lt = t - sc.start
+# transition into each scene: (kind, duration). Played over the first `d` seconds of the
+# incoming scene while the outgoing scene keeps animating past its end.
+TRANS = {
+    '03_snooze': ('rewind', 0.55), '04_research': ('whip', 0.4), '05_tuesday': ('whip', 0.4),
+    '06_earned': ('dissolve', 0.5), '07_draft': ('zoom', 0.45), '08_plan': ('whip', 0.4), '09_night': ('dip', 1.0),
+    '10_dawn': ('dip', 1.0), '11_shadow': ('zoom', 0.4), '13_cards': ('glitch', 0.35), '15_rules': ('whip', 0.4),
+    '16_montage': ('flash', 0.35), '17_wall': ('dissolve', 0.7), '18_passon': ('whip', 0.4),
+    '19_hill': ('dissolve', 0.9), '20_title': ('dip', 0.8),
+}
+
+
+def draw_scene(sc, lt, fi):
+    t = sc.start + lt
     f = Frame(t, fi)
     sc.fn(f, lt)
     # captions in bottom bar
@@ -1246,23 +1385,112 @@ def render(fi):
             if txt == 'glitch':
                 f.glitch.append((40, 20, 1100, 110, 1.0, fi))
                 txt, col = started(47, RED)
-            pop = 0.0
+            pop, since = 0.0, 9.0
             for tt in tick_times(sc):
                 if 0 <= lt - tt < 0.2:
                     pop = 1 - (lt - tt) / 0.2
+                if 0 <= lt - tt:
+                    since = min(since, lt - tt)
             if sc.name == '03_snooze' and 0.15 < lt < 1.0:
                 pop = 0.4
             size = 44 * (1 + 0.14 * pop)
             c = lerpc(col, (255, 255, 255), 0.5 * pop) if col == RED else col
             f.otext(64, 64, txt, size, c, GAEGU, 'lm', 1.0)
+            if since < 0.7 and col == RED:
+                x = 64 + font(GAEGU, 44).getlength(txt) + 34
+                f.otext(x, 64 - 30 * eout(since / 0.7), '+1', 40, (255, 80, 70), GAEGU, 'mm', 1 - seg(since, 0.35, 0.7))
     if sc.day:
         d = sc.day(lt)
         f.otext(1856, 64, 'DAY %d' % d, 46, MINT, GAEGU, 'rm', 1.0)
-    # fades at a few boundaries
-    if sc.name in ('09_night',) and lt > sc.dur - 0.4:
-        f.fade = (1 - seg(lt, sc.dur - 0.4, sc.dur)) if False else 1 - seg(lt, sc.dur - 0.4, sc.dur)
-    if sc.name == '19_hill' and lt > sc.dur - 0.5:
-        f.fade = 1 - seg(lt, sc.dur - 0.5, sc.dur)
-    if sc.name == '10_dawn' and lt < 0.5:
-        f.fade = seg(lt, 0, 0.5)
     return f.finish()
+
+
+FH = 1080
+
+
+def _shift(a, dx):
+    out = np.zeros_like(a)
+    dx = int(dx)
+    if dx >= 0:
+        out[:, dx:] = a[:, :W - dx] if dx < W else 0
+    else:
+        out[:, :W + dx] = a[:, -dx:]
+    return out
+
+
+def _scale(img, k):
+    if abs(k - 1) < 1e-3:
+        return np.asarray(img, np.float32)
+    w, h = int(W * k), int(FH * k)
+    im = img.resize((w, h), Image.BILINEAR)
+    x0, y0 = (w - W) // 2, (h - FH) // 2
+    if k > 1:
+        im = im.crop((x0, y0, x0 + W, y0 + FH))
+        return np.asarray(im, np.float32)
+    out = Image.new('RGB', (W, FH), (0, 0, 0))
+    out.paste(im, (-x0, -y0))
+    return np.asarray(out, np.float32)
+
+
+def transition(kind, p, A, B, fi):
+    """Composite outgoing A and incoming B (PIL) at progress p in [0,1]."""
+    from scipy.ndimage import uniform_filter1d
+    a = np.asarray(A, np.float32)
+    b = np.asarray(B, np.float32)
+    if kind == 'dissolve':
+        o = a * (1 - smooth(p)) + b * smooth(p)
+    elif kind == 'dip':
+        o = a * (1 - smooth(p * 2)) if p < 0.5 else b * smooth(p * 2 - 1)
+    elif kind == 'flash':
+        o = b + 255 * (1 - p) ** 2
+    elif kind == 'whip':
+        u = smooth(p)
+        o = _shift(a, -u * W) + _shift(b, (1 - u) * W)
+        blur = int(220 * math.sin(p * math.pi)) | 1
+        o = uniform_filter1d(o, blur, axis=1, mode='nearest')
+    elif kind == 'zoom':
+        u = ein(p) if p < 0.5 else eout(p)
+        if p < 0.5:
+            o = _scale(A, 1 + 0.9 * ein(p * 2))
+            o = o * (1 - 0.3 * p)
+        else:
+            o = _scale(B, 1.3 - 0.3 * eout(p * 2 - 1))
+        r = int(40 * math.sin(p * math.pi)) | 1
+        o = uniform_filter1d(uniform_filter1d(o, r, axis=0), r, axis=1)
+    elif kind in ('rewind', 'glitch'):
+        base = a if p < 0.5 else b
+        amt = math.sin(p * math.pi)
+        r = np.random.default_rng(fi)
+        o = base.copy()
+        y = LB
+        while y < FH - LB:
+            h = int(r.integers(4, 30))
+            if r.random() < 0.7:
+                o[y:y + h] = np.roll(o[y:y + h], int(r.normal(0, 90 * amt)), axis=1)
+            y += h
+        o[..., 0] = np.roll(o[..., 0], int(14 * amt), axis=1)
+        o[..., 2] = np.roll(o[..., 2], -int(14 * amt), axis=1)
+        if kind == 'rewind':
+            for k in range(3):
+                yy = int((LB + ((p * 3 + k / 3) % 1) * (FH - 2 * LB)))
+                o[yy:yy + 6] = 200
+            o = o * 0.85 + r.normal(0, 18 * amt, (FH, W, 1))
+    else:
+        o = b
+    o[:LB] = b[:LB]
+    o[FH - LB:] = b[FH - LB:]
+    return Image.fromarray(np.clip(o, 0, 255).astype(np.uint8))
+
+
+def render(fi):
+    t = fi / FPS
+    sc = scene_at(t)
+    lt = t - sc.start
+    tr = TRANS.get(sc.name)
+    idx = SCENES.index(sc)
+    if tr and idx > 0 and lt < tr[1]:
+        prev = SCENES[idx - 1]
+        A = draw_scene(prev, prev.dur + lt, fi)
+        B = draw_scene(sc, lt, fi)
+        return transition(tr[0], lt / tr[1], A, B, fi)
+    return draw_scene(sc, lt, fi)

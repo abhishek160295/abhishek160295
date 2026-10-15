@@ -111,6 +111,9 @@ class Bean:
 
     def draw(self, f, x, y, s=1.0, p=None, t=0.0):
         P, tw, body, arms, legs, s = self.geom(x, y, s, p or {}, t)
+        if P.get('shadow', abs(P['rot']) < 0.3 and not P.get('hip')):
+            gy = P.get('ground', y)
+            f.ell(x, gy + 2, self.w * 0.75 * s, 9 * s, (5, 5, 6), None, amp=0)
         if P['legs']:
             for lg in legs:
                 self.limb(f, lg, s, self.shade)

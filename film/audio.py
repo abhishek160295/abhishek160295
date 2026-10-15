@@ -412,11 +412,50 @@ def build():
     add(MUS, T('21_loop', 2.4), pluck(mid('A2'), 2.0, 0.3), 0.25)
 
     # ---------------------------------------------------------- drone: follows villain presence & size
-    pres = [('01_wall', 0, 6.5, 0.0), ('02_reveal', 0, 3.5, 1.0), ('03_snooze', 1.8, 7.2, 0.5), ('04_research', 0, 9, 0.5),
-            ('05_tuesday', 3.8, 9, 0.6), ('06_earned', 0, 9, 0.5), ('07_draft', 0, 9, 0.6), ('08_plan', 0, 10, 0.7),
-            ('09_night', 0, 13, 1.0), ('10_dawn', 0, 8, 0.6), ('11_shadow', 1.5, 7.6, 0.35), ('11_shadow', 8.1, 10, 0.5),
-            ('12_question', 0, 12, 0.35), ('14_again', 0, 7.3, 0.9), ('14_again', 7.3, 10, 0.35),
-            ('15_rules', 0, 7, 0.25), ('16_montage', 0, 18.5, 0.15), ('18_passon', 0.5, 9.4, 0.2)]
+    pres = [('02_reveal', 0, 3.5, 1.0), ('03_snooze', 1.3, 7.2, 0.5), ('04_research', 0.8, 8.0, 0.5),
+            ('05_tuesday', 3.7, 8.9, 0.6), ('06_earned', 0.8, 7.6, 0.5), ('07_draft', 2.2, 7.2, 0.6),
+            ('08_plan', 0.4, 5.0, 0.6), ('08_plan', 5.5, 9.9, 0.7), ('09_night', 0.5, 13, 1.0), ('10_dawn', 0, 8, 0.1),
+            ('11_shadow', 1.2, 7.4, 0.35), ('11_shadow', 7.3, 10, 0.5), ('12_question', 0, 10.4, 0.35),
+            ('14_again', 0.3, 7.3, 0.9), ('14_again', 7.3, 9.2, 0.35), ('16_montage', 0, 18.5, 0.12),
+            ('18_passon', 0.5, 10.3, 0.25)]
+    # the villain rising out of a shadow / sinking back in
+    rises = [('03_snooze', 1.3), ('04_research', 0.8), ('05_tuesday', 3.7), ('06_earned', 0.8), ('07_draft', 2.2),
+             ('08_plan', 0.4), ('08_plan', 5.5), ('09_night', 0.5), ('11_shadow', 1.2), ('11_shadow', 7.3),
+             ('14_again', 0.3), ('18_passon', 0.5)]
+    sinks = [('03_snooze', 6.6), ('04_research', 7.4), ('05_tuesday', 8.3), ('06_earned', 7.0), ('07_draft', 6.6),
+             ('08_plan', 9.3), ('11_shadow', 6.7), ('12_question', 9.6), ('14_again', 8.6), ('18_passon', 9.4)]
+    for name, lt in rises:
+        add(SFX, T(name, lt) - 0.35, noise_sweep(0.5, 150, 2500, 0.25), 1.0, 0.2)
+        add(SFX, T(name, lt) + 0.12, thud(0.35, 45, 1.0), 0.6)
+    for name, lt in sinks:
+        add(SFX, T(name, lt), noise_sweep(0.6, 2500, 120, 0.2, up=False), 1.0, 0.2)
+        add(SFX, T(name, lt) + 0.1, sparks(0.6, 0.12), 1.0, 0.3)
+    # transitions
+    for sc in S.SCENES:
+        tr = S.TRANS.get(sc.name)
+        if not tr:
+            continue
+        kind, d = tr
+        if kind == 'whip':
+            add(SFX, sc.start - 0.05, noise_sweep(d + 0.15, 400, 7000, 0.45), 1.0, 0.0)
+        elif kind == 'zoom':
+            add(SFX, sc.start - 0.1, riser(d + 0.1, 0.25), 0.6)
+            add(SFX, sc.start + d * 0.5, thud(0.3, 70, 0.4), 0.5)
+        elif kind == 'flash':
+            add(SFX, sc.start, thud(0.8, 50, 1.2), 0.7)
+            add(SFX, sc.start, sparks(0.4, 0.3), 1.0)
+        elif kind == 'glitch':
+            add(SFX, sc.start, glitch(d, 0.35), 1.0)
+    # kinetic type: soft ticks per word, letter drops on the title
+    for k in range(7):
+        add(SFX, T('13_cards', 0.5 + k * 0.17), tick(), 0.18, 0.0)
+    for k in range(10):
+        add(SFX, T('20_title', 0.12 + k * 0.05), tick(), 0.2, -0.4 + k * 0.08)
+    add(SFX, T('20_title', 2.8), thud(0.6, 55, 1.0), 0.5)
+    add(SFX, T('02_reveal', 2.1), tick(), 0.2)
+    for name, lt in [('03_snooze', 2.6), ('04_research', 1.6), ('05_tuesday', 4.6), ('06_earned', 1.4), ('07_draft', 2.9),
+                     ('08_plan', 6.0)]:
+        add(SFX, T(name, lt), slap(0.35), 0.5, 0.0)
     for name, a, b, lvl in pres:
         if lvl <= 0:
             continue

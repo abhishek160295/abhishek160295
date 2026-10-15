@@ -142,3 +142,13 @@ Sam does one, and his shadow breaks into red dust.
 - **Villain:** a dissonant tritone drone (A + D#) under every appearance. Its gain follows the villain's size.
 - **Silence:** real silence before the twist (scene 11) and for one second on each side of the two spoken lines.
 - **Foley:** alarm beeps, heartbeat at the low point, rain, crowd murmur at the gym, footsteps, thuds and risers into the cards, sparks on every shatter, and a doorbell.
+
+---
+
+## v2 revisions
+
+- **The villain appears only when it's causing the problem.** It rises out of Leo's own shadow at the moment of temptation and sinks back into him afterwards. A red glow at his feet warns that it's coming. On the dawn walk it's hidden, showing only as two red pinpricks in his shadow. It dissolves into embers when Maya says *"I stopped asking it."*
+- **Transitions:** a VHS rewind into "one year earlier", whip pans, a zoom-through into the laptop and into Maya, dips to black for the passing of time, a glitch into the truth cards, a flash cut into the montage, and a dissolve for the match cut. Montage cuts get a punch-in and a white flicker on each beat.
+- **Labels:** every failure is tagged `RESTART #n · NAME` (THE ALARM, THE RESEARCH, THE MISSED MONDAY, THE REWARD, THE DRAFT, THE PERFECT PLAN). The rules are plates with a big red numeral and a one-line reason. A "+1" floats off the counter each time it ticks. The villain gets a name tag in its reveal: *the voice that always says "later."*
+- **Narration:** every beat has a white line in the bottom bar, e.g. *Every Sunday night, Leo makes the same promise.* / *Four hours of advice. Zero pages read.* / *One missed day became a missed week.* / *180 days. Not one of them felt easy.*
+- **Kinetic type:** the truth cards and title pop in word by word (the title letter by letter). Red lines slam in with a shake, and a brush swoosh underlines *stopped asking*.
