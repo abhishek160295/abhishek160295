@@ -4,16 +4,10 @@ import { Arm, Character } from "../Character";
 import { Cam, Finish, Glow, H, Particles, SERIF, W, lerp, useT } from "../lib";
 import { Caption, Inner, PhoneScene, Quote } from "../ui";
 import { Bedroom, Full, Park, ShoulderFG } from "../sets";
-import { BedSide, Gym, Jeans, NoteWall, Party, PhoneHeld, PushUp, Room, SpeechSmall, Stairs, Sticky, Timer } from "./sets";
-import { LockScreen, PayScreen, ReelsScreen, ScreenTimeScreen, StoryScreen, WidgetScreen } from "./screens";
+import { BedSide, Gym, Jeans, NoteWall, Party, PhoneHeld, PushUp, Room, SpeechSmall, Stairs, Sticky } from "./sets";
+import { LockScreen, PayScreen, ReelsScreen, ScreenTimeScreen, StoryScreen } from "./screens";
 
 const zoom = (cx: number, cy: number, s: number) => `translate(${960 - cx * s},${560 - cy * s}) scale(${s})`;
-const FW: [number, number, number, string][] = [
-  [260, 240, 0.4, "#ffcf6b"],
-  [500, 300, 1.6, "#ff6b9a"],
-  [330, 200, 3.3, "#7ad7ff"],
-  [520, 230, 4.6, "#b6ff8f"],
-];
 
 /** Small jolt used when a note slaps onto the wall. */
 const useJolt = (times: number[]) => {
@@ -83,19 +77,6 @@ const CoText = () => {
 const QOpen = () => <Quote lines={["Every Monday, millions of people start a new life.", "By Wednesday, most have quit."]} />;
 
 /* ═════════ ACT 1 ═════════ */
-
-const NyeWrite = () => (
-  <AbsoluteFill>
-    <Cam from={[1, 0, 0]} to={[1.1, -60, 20]}>
-      <Full>
-        <Room mode="night" fireworks={FW}>
-          <Character x={1180} y={1000} s={1.05} pose="write" dir={-1} expr="determined" rim="#ffcf8a" rimSide={1} />
-        </Room>
-      </Full>
-    </Cam>
-    <Caption text="This year. For real." y={150} at={3.4} />
-  </AbsoluteFill>
-);
 
 const NoteBig = () => {
   const t = useT();
@@ -317,27 +298,12 @@ const Mirror = () => {
           <ShoulderFG x={380} s={1.5} />
         </Full>
       </Cam>
-      <Caption text={"Maybe I'm just not\na disciplined person."} x={1100} y={150} at={1.8} />
+      <Caption text={"Maybe I'm just not\na disciplined person."} x={1100} y={150} at={3.2} />
     </AbsoluteFill>
   );
 };
 
 /* ═════════ ACT 3 ═════════ */
-
-const SundayNote = () => {
-  const t = useT();
-  return (
-    <Cam from={[1.05, 0, 0]} to={[1.15, 0, 0]}>
-      <Full>
-        <NoteWall night>
-          <Sticky x={740} y={280} rot={-2} stamp="Mar 9" lines={[{ text: "From Mon", at: 0.8, size: 70 }]} />
-          <Arm from={[1900, 1300]} to={[1260 + Math.sin(t * 3) * 6, 470]} w={70} kind="grip" />
-          <Glow cx={960} cy={500} r={600} color="#ffcf8a" o={0.12} id="snG" />
-        </NoteWall>
-      </Full>
-    </Cam>
-  );
-};
 
 const ScreenTime = () => (
   <Cam from={[1, 0, 0]} to={[1.12, 0, 0]}>
@@ -484,77 +450,7 @@ const PushUp1 = () => {
   );
 };
 
-const Clock = () => {
-  const t = useT();
-  const done = t > 2.9;
-  return (
-    <AbsoluteFill>
-      <Full bg="#1e2128">
-        <rect width={W} height={H} fill={done ? "#2a3a2e" : "#1e2128"} />
-        <Glow cx={960} cy={540} r={600} color={done ? "#7dffa0" : "#ffd9a0"} o={done ? 0.3 : 0.15} id="clG" />
-        <g transform={`translate(960,540) scale(${done ? lerp(t, 2.9, 3.1, 1.06, 1) : 1}) translate(-960,-540)`}>
-          <Timer p={lerp(t, 0, 2.9, 0.82, 1, (v) => v)} />
-        </g>
-      </Full>
-    </AbsoluteFill>
-  );
-};
-
-const KeepGoing = () => {
-  const t = useT();
-  const k = 0.5 + 0.5 * Math.sin(t * 4.2);
-  return (
-    <AbsoluteFill>
-      <Cam from={[1.08, 60, 20]} to={[1.15, 60, 20]}>
-        <Full>
-          <Room mode="morning" desk={false}>
-            <ellipse cx={1000} cy={980} rx={620} ry={60} fill="#b3896a" opacity={0.6} />
-            <PushUp x={1300} y={970} s={1.1} k={k} />
-          </Room>
-        </Full>
-      </Cam>
-      <Inner text="...maybe one more." x={960} y={200} at={1.0} size={66} />
-    </AbsoluteFill>
-  );
-};
-
-const Widget = () => (
-  <Cam from={[1, 0, 0]} to={[1.06, 0, 0]}>
-    <Full>
-      <PhoneHeld bg="#1b1712">
-        <WidgetScreen values={[["4h 37m", 0], ["4h 10m", 0.6]]} delta="27 min vs last week" />
-      </PhoneHeld>
-    </Full>
-  </Cam>
-);
-
 /* ═════════ ACT 5 ═════════ */
-
-const MontHome = () => {
-  const t = useT();
-  return (
-    <Cam from={[1, 0, 0]} to={[1.06, 0, 0]}>
-      <Full>
-        <Room mode="morning" desk={false}>
-          <Sticky x={1460} y={420} s={0.45} rot={4} lines={[{ text: "Day 12", at: -9, size: 80 }]} />
-          <ellipse cx={1000} cy={980} rx={620} ry={60} fill="#b3896a" opacity={0.6} />
-          <PushUp x={1300} y={970} s={1.1} k={0.5 + 0.5 * Math.sin(t * 5)} />
-        </Room>
-      </Full>
-    </Cam>
-  );
-};
-
-const MontWalk = () => (
-  <AbsoluteFill>
-    <Full>
-      <Park season="autumn">
-        <Character x={860} y={900} s={0.9} pose="run" speed={0.8} expr="smile" rim="#ffd29a" />
-      </Park>
-    </Full>
-    <Particles n={24} colors={["#e8a03a", "#d9822b", "#f2bc4f"]} speed={110} drift={-120} />
-  </AbsoluteFill>
-);
 
 const MontGym = () => {
   const t = useT();
@@ -571,14 +467,6 @@ const MontGym = () => {
     </Cam>
   );
 };
-
-const MontScreens = () => (
-  <Full>
-    <PhoneHeld bg="#1b1712">
-      <WidgetScreen values={[["3h 05m", 0], ["2h 10m", 1.6], ["1h 20m", 2.9]]} delta="down 3h 17m since March" />
-    </PhoneHeld>
-  </Full>
-);
 
 const Wedding = () => {
   const t = useT();
@@ -658,48 +546,219 @@ const HeOne = () => <Close expr="smile" text="One minute." />;
 const FriendWhat = () => <Close friend expr="worried" text="One minute?" />;
 const HeRest = () => <Close expr="happy" text={"The rest just shows up\nafter that."} />;
 
-const NyeAgain = () => (
-  <AbsoluteFill>
-    <Cam from={[1, 0, 0]} to={[1.08, 0, 10]}>
-      <Full>
-        <Party
-          fireworks={[
-            [260, 240, 0.6, "#ffcf6b"],
-            [480, 300, 2.0, "#ff6b9a"],
-            [330, 200, 3.6, "#7ad7ff"],
-            [520, 230, 5.2, "#b6ff8f"],
-          ]}
-        >
-          <Character x={420} y={1000} s={0.95} pose="cheer" expr="happy" rim="#ffcf8a" />
-          <Character x={700} y={1000} s={0.95} pose="cheer" outfit="cap" expr="happy" rim="#ff9fb8" />
-          <Character x={1560} y={1000} s={0.95} pose="cheer" expr="happy" item="cup" rim="#8fd3ff" />
-          <Character x={1150} y={1000} s={1.0} pose="hold" item="note" expr="smile" rim="#ffd56b" />
-          <SpeechSmall x={420} y={560} text="Gym every day!" at={0.6} />
-          <SpeechSmall x={760} y={460} text="No sugar. Ever!" at={1.6} />
-          <SpeechSmall x={1560} y={540} text="4 AM club!" at={2.6} />
-        </Party>
-      </Full>
-    </Cam>
-  </AbsoluteFill>
+const EndCard = () => <Quote big lines={["1 MINUTE"]} sub="Don't start Monday. Start for one minute." />;
+
+
+/* ═════════ NEW BEATS ═════════ */
+
+const NYE_FW: [number, number, number, string][] = [
+  [260, 240, 0.6, "#ffcf6b"],
+  [480, 300, 3.0, "#ff6b9a"],
+  [330, 200, 5.6, "#7ad7ff"],
+];
+
+const NyeParty = () => (
+  <Cam from={[1, 0, 0]} to={[1.1, 80, 20]}>
+    <Full>
+      <Party fireworks={NYE_FW}>
+        <Character x={420} y={1000} s={0.9} pose="cheer" expr="happy" item="cup" rim="#ffcf8a" />
+        <Character x={1560} y={1000} s={0.9} pose="cheer" expr="happy" rim="#8fd3ff" />
+        <Character x={1220} y={1000} s={1.05} pose="wave" outfit="cap" expr="smile" dir={-1} rim="#ff9fb8" />
+        <Character x={900} y={1000} s={1.05} pose="write" item="note" expr="determined" rim="#ffd56b" />
+        <SpeechSmall x={1400} y={540} text="Gym every day, bro. You in?" at={1.0} />
+        <SpeechSmall x={760} y={360} text="Two hours. Daily. This year." at={3.6} color="#ffd56b" />
+      </Party>
+    </Full>
+  </Cam>
 );
 
-const NoteKeep = () => {
+const KidDoor = () => {
   const t = useT();
-  const fl = Math.max(lerp(t, 1.6, 1.75, 0, 1) * lerp(t, 1.75, 2.5, 1, 0), lerp(t, 3.4, 3.55, 0, 1) * lerp(t, 3.55, 4.3, 1, 0));
+  const door = Math.min(lerp(t, 0.6, 1.4, 0, 0.75), lerp(t, 8.0, 9.0, 0.75, 0));
+  const kidO = Math.min(lerp(t, 1.0, 1.4, 0, 1), lerp(t, 7.6, 8.1, 1, 0));
   return (
-    <Cam from={[1, 0, 0]} to={[1.14, 0, 0]}>
+    <AbsoluteFill>
+      <Cam from={[1.05, -40, 20]} to={[1.1, -80, 30]}>
+        <Full>
+          <BedSide
+            face="bored"
+            scrollHand
+            door={door}
+            kid={
+              <g opacity={kidO}>
+                <Character x={1630} y={705} s={0.55} kid expr={t > 6.4 ? "sad" : "neutral"} look={-1} rim="#ffcf8a" />
+              </g>
+            }
+          />
+        </Full>
+      </Cam>
+      <Caption text="Papa... can we play outside tomorrow?" x={1320} y={200} at={1.7} until={4.0} size={52} />
+      <Caption text="Mm. Tomorrow." x={760} y={260} at={4.4} until={6.0} size={52} />
+      <Caption text="You said that yesterday." x={1320} y={200} at={6.3} until={8.2} size={52} />
+    </AbsoluteFill>
+  );
+};
+
+const SilenceHold = () => (
+  <Cam from={[1.3, 260, 30]} to={[1.55, 380, 50]}>
+    <Full>
+      <BedSide face="sad" glow={0.7} door={0} />
+    </Full>
+  </Cam>
+);
+
+const Exhale = () => (
+  <Cam from={[1, 0, 0]} to={[1.12, 0, -30]}>
+    <Full>
+      <Room mode="morning" desk={false}>
+        <Character x={960} y={1420} s={2.4} expr="determined" breath={5} rim="#ffe2b8" />
+      </Room>
+    </Full>
+  </Cam>
+);
+
+const KidWatch = () => {
+  const t = useT();
+  const kx = lerp(t, 0.3, 1.8, 2100, 1720);
+  const down = t > 2.4;
+  const k1 = 0.5 + 0.5 * Math.sin(t * 2.6 - 1.5);
+  const k2 = 0.5 + 0.5 * Math.sin((t - 2.4) * 3.2 - 1.5);
+  return (
+    <Cam from={[1, 0, 0]} to={[1.06, -40, 10]}>
+      <Full>
+        <Room mode="morning" desk={false}>
+          <ellipse cx={1050} cy={980} rx={760} ry={60} fill="#b3896a" opacity={0.6} />
+          <PushUp x={1150} y={970} s={1.05} k={k1} />
+          {down ? (
+            <PushUp x={1780} y={975} s={0.5} k={k2} />
+          ) : (
+            <Character x={kx} y={985} s={0.58} kid pose={t < 1.8 ? "walk" : "stand"} dir={-1} expr="happy" rim="#ffe2b8" />
+          )}
+        </Room>
+      </Full>
+    </Cam>
+  );
+};
+
+const Tally1 = () => {
+  const t = useT();
+  return (
+    <Cam from={[1.05, 0, 0]} to={[1.15, 0, 0]}>
       <Full>
         <NoteWall warm>
-          <Sticky x={720} y={300} s={1.2} rot={-2} lines={[{ text: "Keep going.", at: 0.6, size: 78 }]} />
-          <rect width={W} height={H} fill="#7ad7ff" opacity={fl * 0.12} />
-          <Glow cx={960} cy={520} r={700} color="#ffd56b" o={0.15} id="nkG" />
+          <Sticky x={720} y={260} rot={2} tally={t > 1.2 ? 1 : 0} lines={[{ text: "1 MINUTE.", at: -9, size: 76 }]} />
+          {t < 2.4 && <Arm from={[1900, 1300]} to={[lerp(t, 0.4, 1.0, 1300, 800), 520]} w={70} kind="grip" />}
+          <Glow cx={960} cy={500} r={700} color="#ffe2b0" o={0.18} id="t1G" />
         </NoteWall>
       </Full>
     </Cam>
   );
 };
 
-const EndCard = () => <Quote big lines={["1 MINUTE"]} sub="Don't start Monday. Start for one minute." />;
+const MontTally = () => {
+  const t = useT();
+  const a = Math.min(25, lerp(t, 0.4, 2.0, 1, 25, (v) => v));
+  const b = Math.min(25, lerp(t, 2.2, 3.8, 0, 25, (v) => v));
+  const c = lerp(t, 4.0, 5.6, 0, 18, (v) => v);
+  return (
+    <Cam from={[1.2, 200, 0]} to={[1.0, 0, 0]}>
+      <Full>
+        <NoteWall warm>
+          <Sticky x={300} y={300} rot={2} tally={a} lines={[{ text: "1 MINUTE.", at: -9, size: 70 }]} />
+          {t > 2.1 && <Sticky x={760} y={290} rot={-2} tally={b} lines={[{ text: "1 MINUTE.", at: -9, size: 70 }]} />}
+          {t > 3.9 && <Sticky x={1220} y={310} rot={3} tally={c} lines={[{ text: "1 MINUTE.", at: -9, size: 70 }]} />}
+          <rect width={W} height={H} fill="#ffd9a0" opacity={lerp(t, 0, 6, 0, 0.12)} />
+        </NoteWall>
+      </Full>
+    </Cam>
+  );
+};
+
+const MontPark = () => (
+  <AbsoluteFill>
+    <Full>
+      <Park season="autumn">
+        <Character x={760} y={900} s={0.9} pose="run" speed={0.8} expr="smile" rim="#ffd29a" />
+        <Character x={1060} y={905} s={0.52} kid pose="run" speed={1.1} expr="happy" rim="#ffd29a" />
+      </Park>
+    </Full>
+    <Particles n={24} colors={["#e8a03a", "#d9822b", "#f2bc4f"]} speed={110} drift={-120} />
+  </AbsoluteFill>
+);
+
+const DebitAgain = () => (
+  <AbsoluteFill>
+    <Full>
+      <defs>
+        <filter id="dagb">
+          <feGaussianBlur stdDeviation={14} />
+        </filter>
+      </defs>
+      <g filter="url(#dagb)">
+        <Gym bright>
+          <Character x={760} y={960} s={1.1} pose="curl" item="dumbbell" expr="determined" rim="#9fd8ff" />
+        </Gym>
+      </g>
+      <g transform="translate(240,140) scale(0.75)">
+        <PhoneHeld bg="none">
+          <LockScreen time="7:42" date="Monday, October 6" notif={[{ at: 0.6, app: "BANK ALERT", title: "₹2,000 debited", body: "To POWERGYM · monthly auto-pay" }]} />
+        </PhoneHeld>
+      </g>
+    </Full>
+    <Caption text="Worth it." x={960} y={150} at={2.4} />
+  </AbsoluteFill>
+);
+
+const NyeAgain = () => (
+  <AbsoluteFill>
+    <Cam from={[1, 0, 0]} to={[1.08, 0, 10]}>
+      <Full>
+        <Party fireworks={NYE_FW}>
+          <Character x={420} y={1000} s={0.9} pose="cheer" expr="happy" item="cup" rim="#ffcf8a" />
+          <Character x={1500} y={1000} s={1.05} pose="cheer" outfit="cap" expr="happy" dir={-1} rim="#ff9fb8" />
+          <Character x={1000} y={1000} s={1.05} pose="hold" item="note" expr="smile" rim="#ffd56b" />
+          <Character x={1180} y={1005} s={0.55} kid expr="happy" look={-1} rim="#ffd56b" />
+          <SpeechSmall x={1440} y={420} text="This year: gym THREE hours daily!" at={0.8} />
+          <SpeechSmall x={1420} y={800} text="Papa, what's yours?" at={3.4} />
+          <SpeechSmall x={860} y={500} text="Same as last year." at={5.2} color="#ffd56b" />
+        </Party>
+      </Full>
+    </Cam>
+  </AbsoluteFill>
+);
+
+const NoteWallFinal = () => {
+  const t = useT();
+  const k = lerp(t, 4.4, 5.0, 0, 1);
+  return (
+    <Cam from={[2.2, 0, 0]} to={[1.0, 0, 0]} end={4.2}>
+      <Full>
+        <NoteWall warm>
+          {Array.from({ length: 21 }).map((_, i) => {
+            const c = i % 7,
+              r = Math.floor(i / 7);
+            return (
+              <Sticky
+                key={i}
+                x={60 + c * 262}
+                y={70 + r * 330}
+                s={0.6}
+                rot={((i * 37) % 9) - 4}
+                tally={i === 10 ? 25 : 18 + ((i * 7) % 8)}
+                tallyY={200}
+                lines={[{ text: "1 MINUTE.", at: -9, size: 70 }]}
+              />
+            );
+          })}
+          <rect width={W} height={H} fill="#000" opacity={0.35 * k} />
+          {k > 0 && (
+            <Sticky x={760} y={lerp(k, 0, 1, 380, 330)} s={lerp(k, 0, 1, 1.5, 1.0)} rot={-2} lines={[{ text: "Keep going.", at: 4.7, size: 78 }]} />
+          )}
+        </NoteWall>
+      </Full>
+    </Cam>
+  );
+};
 
 const COOL = "rgba(80,110,170,0.4)";
 const WARM = "rgba(255,190,120,0.28)";
@@ -709,7 +768,7 @@ export const SM_SCENES: Record<string, { C: React.FC; tint?: string; vig?: numbe
   co_notes: { C: CoNotes, tint: "rgba(255,200,120,0.2)", vig: 0.75 },
   co_text: { C: CoText, vig: 0 },
   q_open: { C: QOpen, vig: 0 },
-  nye_write: { C: NyeWrite, tint: "rgba(170,120,255,0.25)" },
+  nye_party: { C: NyeParty, tint: "rgba(170,120,255,0.2)" },
   note_big: { C: NoteBig, tint: WARM },
   pay: { C: Pay },
   gym_enter: { C: GymEnter, tint: GYM },
@@ -723,30 +782,31 @@ export const SM_SCENES: Record<string, { C: React.FC; tint?: string; vig?: numbe
   story: { C: Story },
   jeans: { C: JeansScene, tint: COOL },
   mirror: { C: Mirror, tint: COOL, vig: 0.75 },
-  sunday_note: { C: SundayNote, tint: COOL, vig: 0.75 },
   screentime: { C: ScreenTime },
+  kid_door: { C: KidDoor, tint: COOL, vig: 0.7 },
+  silence_hold: { C: SilenceHold, tint: COOL, vig: 0.85 },
   face_realize: { C: FaceRealize, vig: 0.8 },
   note_gym: { C: NoteGym, tint: COOL, vig: 0.7 },
   rip: { C: Rip, tint: "rgba(255,200,120,0.15)" },
   q_ziglar: { C: QZiglar, vig: 0 },
   morning_reach: { C: MorningReach, tint: WARM },
   pushup1: { C: PushUp1, tint: WARM },
-  clock: { C: Clock },
-  keep_going: { C: KeepGoing, tint: WARM },
-  widget: { C: Widget },
-  mont_home: { C: MontHome, tint: WARM },
-  mont_walk: { C: MontWalk, tint: WARM },
+  exhale: { C: Exhale, tint: WARM, vig: 0.7 },
+  kid_watch: { C: KidWatch, tint: WARM },
+  tally1: { C: Tally1, tint: WARM },
+  mont_tally: { C: MontTally, tint: WARM },
+  mont_park: { C: MontPark, tint: WARM },
   mont_gym: { C: MontGym, tint: GYM },
-  mont_screens: { C: MontScreens },
   wedding: { C: Wedding, tint: "rgba(120,140,220,0.3)", vig: 0.7 },
   button: { C: ButtonScene, tint: WARM },
   q_durant: { C: QDurant, vig: 0 },
+  debit_again: { C: DebitAgain, tint: GYM },
   friend_gym: { C: FriendGym, tint: GYM },
   he_one: { C: HeOne, tint: GYM },
   friend_what: { C: FriendWhat, tint: GYM },
   he_rest: { C: HeRest, tint: GYM },
   nye_again: { C: NyeAgain, tint: "rgba(255,170,220,0.2)" },
-  note_keep: { C: NoteKeep, tint: WARM },
+  note_wall: { C: NoteWallFinal, tint: WARM, vig: 0.6 },
   end_card: { C: EndCard, vig: 0 },
 };
 

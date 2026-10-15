@@ -34,6 +34,8 @@ type Props = {
   outfit?: "suit" | "cap" | "tank";
   item?: "dumbbell" | "phone" | "pen" | "note" | "cup";
   shake?: number;
+  kid?: boolean;
+  breath?: number;
 };
 
 const rad = (d: number) => (d * Math.PI) / 180;
@@ -67,6 +69,8 @@ export const Character: React.FC<Props> = ({
   outfit,
   item,
   shake = 0,
+  kid = false,
+  breath = 1,
 }) => {
   const t = useT() + t0;
   const body = raincoat ? "#e8b82a" : "#0d0f13";
@@ -85,7 +89,7 @@ export const Character: React.FC<Props> = ({
     A1 = { a: 10, b: -8 },
     A2 = { a: -10, b: 8 };
 
-  const breathe = Math.sin(t * 2.2) * 2;
+  const breathe = Math.sin(t * (breath > 1 ? 1.1 : 2.2)) * 2 * breath;
 
   if (pose === "walk" || pose === "run") {
     const sw = Math.sin(p);
@@ -251,6 +255,9 @@ export const Character: React.FC<Props> = ({
           <path d={`M-60,${headY - 22} Q0,${headY - 40} 60,${headY - 22} L60,${headY - 6} Q0,${headY - 24} -60,${headY - 6} Z`} fill="#eef0f2" />
           <path d={`M58,${headY - 16} l22,10 l-4,10 z`} fill="#eef0f2" />
         </g>
+      )}
+      {!isRim && kid && (
+        <path d={`M-20,${headY - 58} q10,-30 22,-6 q8,-26 22,2`} stroke="#0d0f13" strokeWidth={10} fill="none" strokeLinecap="round" />
       )}
       {!isRim && outfit === "cap" && (
         <g>

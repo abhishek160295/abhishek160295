@@ -196,7 +196,7 @@ export const StoryScreen: React.FC = () => {
         POWERGYM
       </text>
       <g transform="translate(270,1010) scale(1.6)">
-        <Character x={0} y={0} buff pose="cheer" expr="happy" outfit="tank" rim="#ffffff" />
+        <Character x={0} y={0} buff pose="cheer" expr="happy" outfit="cap" rim="#ffffff" />
       </g>
       <g transform="translate(270,560) rotate(-6)">
         <rect x={-170} y={-60} width={340} height={110} rx={20} fill="#ffffff" />

@@ -17,7 +17,9 @@ export const Sticky: React.FC<{
   color?: string;
   peel?: number;
   stamp?: string;
-}> = ({ x, y, s = 1, rot = -2, lines, color = "#ffd84d", peel = 0, stamp }) => {
+  tally?: number;
+  tallyY?: number;
+}> = ({ x, y, s = 1, rot = -2, lines, color = "#ffd84d", peel = 0, stamp, tally = 0, tallyY = 220 }) => {
   const t = useT();
   return (
     <g transform={`translate(${x},${y}) rotate(${rot + peel * 30}) scale(${s})`}>
@@ -30,6 +32,17 @@ export const Sticky: React.FC<{
           {stamp}
         </text>
       )}
+      {Array.from({ length: Math.floor(tally) }).map((_, i) => {
+        const g = Math.floor(i / 5),
+          k = i % 5;
+        const gx = 40 + (g % 5) * 70,
+          gy = tallyY + Math.floor(g / 5) * 52;
+        return k < 4 ? (
+          <line key={`t${i}`} x1={gx + k * 12} y1={gy} x2={gx + k * 12 + 2} y2={gy + 40} stroke="#1f2a44" strokeWidth={5} strokeLinecap="round" />
+        ) : (
+          <line key={`t${i}`} x1={gx - 6} y1={gy + 34} x2={gx + 48} y2={gy + 6} stroke="#d62f35" strokeWidth={5} strokeLinecap="round" />
+        );
+      })}
       {lines.map((l, i) => {
         const n = Math.max(0, Math.floor((t - l.at) * 22));
         const vis = l.text.slice(0, n);
@@ -219,7 +232,9 @@ export const BedSide: React.FC<{
   scrollHand?: boolean;
   noteOnPhone?: boolean;
   reach?: number;
-}> = ({ face = "bored", phone = true, chips, mode = "late", glow = 1, scrollHand, noteOnPhone, reach }) => {
+  door?: number;
+  kid?: React.ReactNode;
+}> = ({ face = "bored", phone = true, chips, mode = "late", glow = 1, scrollHand, noteOnPhone, reach, door, kid }) => {
   const t = useT();
   const hx = 640,
     hy = 610;
@@ -258,6 +273,16 @@ export const BedSide: React.FC<{
   return (
     <>
       <Room mode={mode} desk={false} />
+      {door !== undefined && (
+        <g>
+          <rect x={1500} y={280} width={280} height={620} fill="#0a0b0f" />
+          <path d={`M1500,280 L${1500 + 280 * door},280 L${1500 + 280 * door},900 L1500,900 Z`} fill="#ffcf8a" opacity={0.85} />
+          <path d={`M1500,900 L${1500 + 280 * door},900 L${1300 + 600 * door},1080 L1300,1080 Z`} fill="#ffcf8a" opacity={0.25 * door} />
+          {kid}
+          <rect x={1500 + 280 * door} y={280} width={280 * (1 - door) + 4} height={620} fill="#2a2420" />
+          <rect x={1492} y={272} width={296} height={10} fill="#1a1d24" />
+        </g>
+      )}
       {/* bed */}
       <rect x={200} y={700} width={1560} height={150} rx={30} fill={mode === "morning" ? "#cfd6e0" : "#2a3142"} />
       <rect x={200} y={830} width={1560} height={60} fill={mode === "morning" ? "#6c5a48" : "#191b22"} />
@@ -279,7 +304,7 @@ export const BedSide: React.FC<{
       )}
       {phone && (
         <g>
-          <line x1={760} y1={650} x2={px + 10} y2={py + 90} stroke="#0d0f13" strokeWidth={26} strokeLinecap="round" />
+          <path d={`M740,690 L700,520 L${px + 6},${py + 70}`} stroke="#0d0f13" strokeWidth={26} strokeLinecap="round" strokeLinejoin="round" fill="none" />
           <g transform={`translate(${px},${py}) rotate(160)`}>
             <rect x={-46} y={-86} width={92} height={172} rx={14} fill="#0b0d12" />
             <rect x={-40} y={-80} width={80} height={160} rx={10} fill="#a8c4ff" opacity={0.15 + 0.85 * glow} />
@@ -311,7 +336,7 @@ export const PhoneHeld: React.FC<{ children: React.ReactNode; dim?: number; face
   const flip = face;
   return (
     <>
-      <rect width={W} height={H} fill={bg} />
+      {bg !== "none" && <rect width={W} height={H} fill={bg} />}
       <Glow cx={960} cy={560} r={900} color="#6d8fe0" o={0.22 * (1 - flip)} id="phG" />
       <g transform={`translate(960,${600 + flip * 500}) rotate(${tilt + Math.sin(t * 0.7) * 0.6}) scale(${1 - flip * 0.2},${1 - flip * 0.9})`}>
         <rect x={-sw / 2 - 18} y={-sh / 2 - 18} width={sw + 36} height={sh + 36} rx={70} fill="#06070a" stroke="#2c303a" strokeWidth={4} />

@@ -251,9 +251,32 @@ SFX = dict(pen=pen, scratch=scratch, hit=hit, firework=firework, cheer=cheer, ta
            crunch=crunch, crumple=crumple, rip=rip, swipe=swipe, thunk=thunk, heart=heart, marker=marker, stick=stick,
            slap=slap, alarm=alarm, tick=tick, beep=beep, click=bclick)
 
+import subprocess
+
+_cache = {}
+
+def sample(name):
+    if name not in _cache:
+        raw = subprocess.run(
+            ["ffmpeg", "-v", "error", "-i", f"{root}/public/sfx/{name}.mp3", "-f", "s16le", "-ac", "1", "-ar", str(SR), "-"],
+            capture_output=True, check=True,
+        ).stdout
+        x = np.frombuffer(raw, dtype=np.int16).astype(float) / 32768
+        fade = min(len(x) // 4, int(0.03 * SR))
+        if fade:
+            x[-fade:] *= np.linspace(1, 0, fade)
+        _cache[name] = norm(x, 0.5)
+    return _cache[name]
+
 for st, s in zip(starts, tl):
     end = st + round(s["dur"] * FPS) / FPS
-    for name, at in s.get("sfx", []):
+    for ev in s.get("sfx", []):
+        name, at = ev[0], ev[1]
+        g = ev[2] if len(ev) > 2 else 1.0
+        if name.startswith("f:"):
+            sig = sample(name[2:])[: int((end - st - at + 0.3) * SR)] * g
+            add(fx, st + at, sig)
+            continue
         sig = SFX[name]()
         if name == "tick":
             sig = sig[: int((end - st - at) * SR)]
