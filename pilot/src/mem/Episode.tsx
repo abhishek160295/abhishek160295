@@ -313,12 +313,19 @@ const CUES: Cue[] = [
   c(9, 'Wait', X.endScreen),
 ];
 
-/** cut-on-beat reframe: long shots get a hard punch-in every ~2 s so no shot sits still too long */
-const Punch: React.FC<{ d: number; children: React.ReactNode }> = ({ d, children }) => {
+// sentence ends on the episode timeline (frames): the only moments the camera is allowed to re-frame
+const BREAKS = CAPTION_WORDS.filter((w) => /[.?!…]$/.test(w[0])).map((w) => w[2]);
+/** smooth re-frame: on long shots, glide between two framings at each sentence break (never a snap) */
+const Reframe: React.FC<{ t: number; d: number; children: React.ReactNode }> = ({ t, d, children }) => {
   const f = F();
-  const seg = d > 80 ? Math.floor(f / 60) : 0;
-  const z = seg % 2 ? 1.18 : 1;
-  const ox = seg % 4 === 3 ? -60 : seg % 4 === 1 ? 60 : 0;
+  const pts = d > 90 ? BREAKS.filter((b) => b > t + 36 && b < t + d - 30) : [];
+  let z = 1, ox = 0, level = 0;
+  for (const b of pts) {
+    const k = lerp(t + f, b, b + 12, 0, 1);
+    const from = level % 2 ? 1.1 : 1, to = level % 2 ? 1 : 1.1;
+    if (t + f >= b) { z = from + (to - from) * k; ox = (level % 4 === 0 ? 1 : -1) * 40 * (to > from ? k : 1 - k); }
+    level++;
+  }
   return <AbsoluteFill style={{ transform: `translate(${ox}px, 0) scale(${z})` }}>{children}</AbsoluteFill>;
 };
 
@@ -333,7 +340,7 @@ export const MemEpisode: React.FC = () => {
         const d = (cues[i + 1]?.[0] ?? TOTAL_FRAMES) - t;
         return (
           <Sequence key={i} from={t} durationInFrames={Math.max(1, d)}>
-            <Punch d={d}>{el(d)}</Punch>
+            <Reframe t={t} d={d}>{el(d)}</Reframe>
             {(sfx ?? []).map(([o, n, v], j) => (
               <Sequence key={j} from={o} durationInFrames={120}><Audio src={SOFT(n)} volume={v * 0.9} /></Sequence>
             ))}

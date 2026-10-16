@@ -3,7 +3,7 @@
 ## Production rules (owner's notes, apply to every episode)
 
 1. **Quirky script.** Running gags, a sarcastic narrator who argues with Max, absurd comparisons, callback jokes, and at least one joke every 20 s. Never textbook tone.
-2. **More cuts.** Target an average shot of **2.5 s or less** (reference: 3.2 s), and 12+ cuts in the first 30 s. Every sentence gets a new visual (cut, angle change, zoom punch or insert). Check with ffmpeg scene detect before delivery.
+2. **More cuts.** Target an average shot of **2.5 s or less** (reference: 3.2 s), and 12+ cuts in the first 30 s. Every sentence gets a new visual (cut, angle change, zoom punch or insert). Check with ffmpeg scene detect before delivery. Real cuts only: never fake pace with timed zoom snaps; camera re-frames glide (~0.4 s ease) and only on sentence breaks.
 3. **Graphics over text.** Every fact becomes a picture: a gauge, a race, a size comparison, an icon pile, a filling bar, a before/after split, a map. Text only as a 1–3 word label on the graphic. No tables or paragraphs on screen.
 4. **One stable character.** Max looks the same in every shot and every episode: round black head, big white expressive eyes, yellow jacket, blue jeans, red shoes. One model sheet. Change the design only if the owner approves, and then everywhere.
 5. **Balance: never rushed, never unclear.** One idea per shot. Key facts stay up until the line ends plus 0.5 s. Cut on phrase breaks. Rhythm is fast, fast, then breathe, with a calm 2–3 s hold after every burst or set piece. Test with 30 random freeze frames (each readable in 1 s) and a sound-off phone watch.
