@@ -1,7 +1,7 @@
 # What If You Were Invisible for 24 Hours?
 
 Thumbnail: an empty yellow jacket floating in a dark street, only two eyeballs showing, bus headlights behind. Text: **I'M BLIND.**
-Length: ~6:30. Narrator only (Max acts with props, floating clothes and his eyes).
+Length: ~5:50 (narration ~5:00 plus slow-mo holds). Section times below are approximate. Narrator only (Max acts with props, floating clothes and his eyes).
 Running gags: (1) **The narrator can hear Max chewing.** (2) **Dave screams at floating objects.** (3) **Sir Biscuit is the only one who always knows where Max is** (he smells him). (4) **The HOUR counter** slams in at every jump.
 
 Key: `VO` = narration · `▶` = visual · `SLO` = slow motion · `FRZ` = freeze frame · `WHIP` = whip-pan cut · `GFX` = graphic
@@ -62,6 +62,12 @@ VO: [deadpan] Mum does not scream. Mum just says, "Put it back, Max."
 VO: [warm] Some powers are no match for mums.
 ▶ Max's jacket shrugs.
 
+VO: Hour three and a half. Max photobombs fifty selfies.
+▶ A tourist takes a selfie. Behind her, a floating pair of sunglasses pulls a silly face.
+
+VO: [deadpan] Every single photo shows a pair of sunglasses doing peace signs.
+▶ GFX: a phone gallery scrolls: sunglasses, sunglasses, sunglasses, each with a floating peace sign.
+
 ---
 
 ## 3. The reveal: invisible means blind (1:30–2:30)
@@ -77,6 +83,12 @@ VO: But your eyes only work by catching light. The back of your eye has to absor
 
 VO: Invisible eyes can't catch anything. The light just… keeps going.
 ▶ The same eye, now invisible. The beam goes straight through and out the back of the head.
+
+VO: And being see-through isn't enough anyway. A glass of water is see-through. You can still see it.
+▶ A glass of water on a table, the background wobbling behind it.
+
+VO: That's because glass and water bend light. To be truly invisible, every part of you has to bend light exactly like air does. Not a tiny bit more.
+▶ GFX: a light beam bends as it passes through glass (label: BENDS = YOU SEE IT), then passes straight through Max (label: AIR = GONE).
 
 VO: [pause] So the second Max turned invisible…
 ▶ Slow push in on Max's empty jacket.
@@ -105,6 +117,15 @@ VO: Hour four. Max tries to get home.
 
 VO: He uses a stick. Then he realises nobody can see the stick's owner, so the stick looks haunted.
 ▶ A stick taps along the pavement by itself. A crowd screams and scatters.
+
+VO: So he tries something smarter. Clicking. Like a bat.
+▶ The jacket makes tiny click sounds. Little white sound ripples spread out and bounce off a lamppost.
+
+VO: This is real. Some blind people navigate by clicking their tongue and listening to the echoes. They can ride bikes doing it.
+▶ GFX: a bat and a person side by side, both sending out ripples. Label: ECHOLOCATION.
+
+VO: [deadpan] Max is not one of those people yet. Max clicks straight into a lamppost.
+▶ Ripple, ripple, BONK. The jacket wobbles and sits down on the pavement.
 
 VO: Hour five. Lunch.
 ▶ HOUR 5. Max sits at a café table.
@@ -163,16 +184,74 @@ VO: [shaky] Every year, more than a million people die on the world's roads. Bei
 
 ---
 
-## 6. Hours 10–24: the loneliest day (4:40–5:40)
+## 6. Hours 10–15: the heist (4:40–6:00)
 
-VO: [quiet] Hour twelve. Max sits in the park. People walk past. Nobody looks.
-▶ HOUR 12. A crowded park, everyone walking past an empty bench.
+VO: [sarcastic] Hour ten. Having nearly died, Max makes a sensible, grown-up decision.
+▶ HOUR 10. The coats stand in front of a huge bank. Max's eyeballs narrow.
+
+VO: He's going to rob a bank.
+▶ GFX: a cartoon vault door with a giant dollar sign. Ka-ching.
+
+VO: He follows a guard through three locked doors, holding onto the back of his belt.
+▶ A guard walks through doors. Floating fingers grip his belt. The guard looks behind him, sees nothing, keeps walking.
+
+VO: The vault door closes. Max is inside. Surrounded by millions.
+▶ SLO: the vault door swings shut, heavy and slow. Stacks of gold glow in the dark.
+
+VO: [pause] And he can't see a single note.
+▶ Max's eyeballs dart around. His invisible hands grab… a stapler. He holds it up proudly.
+
+VO: [deadpan] Max has stolen a stapler.
+▶ FRZ on the stapler. A tiny sad trombone.
+
+VO: [tense] But it doesn't matter. Because the bank already knows he's there.
+▶ A security room. The guard leans toward a monitor.
+
+VO: Here's the thing. Max is invisible to the light our eyes see. But every warm body glows with heat. Infrared.
+▶ GFX: a rainbow bar. The visible strip is labelled EYES. Next to it, a red strip labelled HEAT.
+
+VO: Thermal cameras see that glow. Snakes like pit vipers can hunt in the dark with it.
+▶ A pit viper's thermal view: a glowing orange mouse. The snake's eyes narrow.
+
+VO: [deadpan] So on the bank's thermal camera, Max is the brightest thing in the building.
+▶ The security monitor shows a bright orange Max-shaped glow holding a stapler. Alarms go off, red lights spin.
+
+VO: [excited] Max runs. Blind. Through a bank. Holding a stapler.
+▶ Fast montage, 0.5 s each: Max bonks a pillar, trips over a rope barrier, crashes into a revolving door that spins him round three times.
+
+VO: Hour twelve. Escaped. But then… it rains.
+▶ HOUR 12. Thunder. Rain pours down on the street.
+
+VO: Every raindrop that hits Max splashes off him. And suddenly there's a perfect water outline of a man standing in the street.
+▶ SLO: raindrops bounce off an invisible shape until a glittering Max-shaped outline appears in the rain.
+
+VO: [deadpan] Being invisible only works on dry days. Max is from Manchester.
+▶ A guard points at the dripping outline. Max's outline slowly backs away.
+
+VO: Hour fourteen. Back home, soaked, Max asks Dave how he looks.
+▶ HOUR 14. Dave in a new house, nervously opening the door to a floating wet scarf.
+
+VO: Dave says, quote, "Like a scarf that's having a really bad day."
+▶ Dave and the scarf staring at each other. The scarf droops.
+
+VO: [quiet] And that's when it hits him. The worst part of being invisible isn't the danger.
+▶ Slow push in on Max's eyeballs, alone in a dark doorway.
+
+---
+
+## 7. Hours 16–24: the loneliest day (6:00–7:00)
+
+VO: [quiet] Hour seventeen. Max sits in the park. People walk past. Nobody looks.
+▶ HOUR 17. A crowded park, everyone walking past an empty bench.
 
 VO: It turns out being invisible isn't a superpower. It's what lonely already feels like.
 ▶ GFX: speech bubbles float between people, none of them pointing at Max's bench.
 
-VO: Hour eighteen. Mum leaves a plate out. With a note.
-▶ HOUR 18. A plate of biscuits and a sticky note: "FOR MAX. YOU'RE STILL MY SON."
+VO: He calls his friends. They hear his voice and see nobody. They think it's a prank and hang up.
+▶ Three quick phone screens: CALL ENDED. CALL ENDED. BLOCKED.
+
+VO: Hour twenty. Mum leaves a plate out. With a note.
+▶ HOUR 20. A plate of biscuits and a sticky note: "FOR MAX. YOU'RE STILL MY SON."
 
 VO: [warm] He eats every single one. You can see all of them.
 ▶ The biscuits float into his invisible stomach, clearly visible, stacked like a little tower.
@@ -185,7 +264,7 @@ VO: Three. Two. One…
 
 ---
 
-## 7. The fix and the twist (5:40–6:15)
+## 8. The fix and the twist (7:00–7:35)
 
 VO: [excited] So scientists try to fix him. Keep the invisibility, bring back the eyes. Like a glass frog.
 ▶ A lab. A scientist turns a dial: SKIN ONLY.
@@ -204,7 +283,7 @@ VO: [laughing] Max is now the only person in town who can see perfectly… and s
 
 ---
 
-## 8. Outro (6:15–6:30)
+## 9. Outro (7:35–7:50)
 
 VO: What's the first thing you'd do if you were invisible? Wrong answers only. Comments are open.
 ▶ The floating eyeballs look at the camera. A comment box pops up.
@@ -222,3 +301,5 @@ VO: [sarcastic] And Max, put the popcorn down. I can hear you.
 - Skin absorbs sunlight and warms you; if light passed straight through, the sun wouldn't warm you the same way.
 - Dogs' sense of smell is tens of thousands of times more sensitive than ours.
 - Road deaths: about 1.19 million people a year worldwide (WHO, 2023).
+- Every warm body gives off infrared light; thermal cameras and pit vipers' heat-sensing pits detect it, so visible-light invisibility wouldn't fool them.
+- Raindrops, dust and smoke would still collide with an invisible body and outline it.
