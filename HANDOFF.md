@@ -48,8 +48,16 @@ Make YouTube "What if" videos better than the reference: Ifology, "What If You W
 - Outputs: `pilot/out/demo-asher.mp4` and `demo-arthur.mp4`, ~20 s each, mastered to −14.0 LUFS / −1.5 dBTP with `pilot/master.sh`.
 - Free local transcription isn't possible here (HuggingFace, OpenAI and Vosk model hosts are blocked), so phrase timings come from silence detection.
 
+## Full episode: What If You Were 50x Faster? (in progress / done)
+- Script v2 (physics-corrected: grip-limited top speed ~170 km/h, drag braking): `pilot/scripts/what-if-50x-faster.md`; TTS text with v4 tags: `pilot/vo/sections.json`.
+- Voice: Arthur (TtRFBnwQdH1k01vR0hMz), eleven_v4, 15 sections, `pilot/public/ep/vo01..15.mp3` (8:49). Word timings from Scribe: `pilot/public/ep/words.json` -> `pilot/src/ep-data.json`.
+- Music: `public/ep/music-fun|tense|end.mp3`; 22 SFX in `public/ep/sfx/`.
+- Code: `src/ep/timing.ts` (phrase -> time lookup), `scenes.tsx` (3D), `cards.tsx` (2D infographics), `Episode.tsx` (77 shots, SFX cues, ducked music, word captions), `Thumb.tsx`.
+- Render: `pilot/render-chunks.sh` (resumable, 1,500-frame chunks; render takes ~3 h on 4 CPUs), then mux + `master.sh`.
+- Upload copy: `pilot/scripts/youtube-upload-50x.md`.
+- Credits this episode: VO ~10,400, Scribe 2,907 (estimate said 162; it billed far more), music 4,800, SFX ~370. Total ~18,500.
+- User feedback applied: background SFX/music kept low (music ducks to ~-20 dB under voice, SFX 0.15-0.4).
+
 ## Next step
-1. User gives the topic.
-2. Write the script.
-3. Show estimated credit costs (VO, SFX, music, AI hero shots) and get approval.
-4. Build a 60-second pilot with natural-sounding VO.
+1. Finish render, master to -14 LUFS, deliver.
+2. Next topic.
