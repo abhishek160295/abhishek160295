@@ -3,6 +3,8 @@ import { AbsoluteFill, Audio, interpolate, Sequence, spring, staticFile, useCurr
 import { at, ALL_WORDS, f as fr, FPS, secEnd, secStart, TOTAL_FRAMES } from './timing';
 import * as K from './cards';
 import * as S from './scenes';
+import * as S2 from './scenes2';
+import * as S3 from './scenes3';
 
 const { C, Txt, Stamp, BigSay, Paper, Gauge } = K;
 
@@ -16,16 +18,16 @@ const ForceCard: React.FC<{ backAt: number; fwdAt: number }> = ({ backAt, fwdAt 
   const b = K.usePop(fwdAt);
   return (
     <Paper>
-      <svg style={{ position: 'absolute', left: 360, top: 200 }} width={1200} height={700}>
+      <svg style={{ position: 'absolute', left: 260, top: 200 }} width={1400} height={700}>
         <rect x={0} y={520} width={1200} height={40} fill={C.grey} />
         <path d="M420 330 Q420 260 520 260 L700 300 Q790 330 780 420 L780 500 L420 500 Z" fill={C.red} stroke={C.navy} strokeWidth={10} />
         <rect x={400} y={500} width={400} height={30} rx={12} fill="#fff" stroke={C.navy} strokeWidth={8} />
-        <g opacity={a} transform={`translate(${410 - a * 30},580)`}>
+        <g opacity={a} transform={`translate(${560 - a * 30},600)`}>
           <line x1={0} y1={0} x2={-360} y2={0} stroke={C.red} strokeWidth={22} />
           <path d="M-360 -36 L-430 0 L-360 36 Z" fill={C.red} />
-          <text x={-160} y={80} textAnchor="middle" fontFamily={K.FONT} fontWeight={900} fontSize={48} fill={C.red}>your foot pushes back</text>
+          <text x={-180} y={80} textAnchor="middle" fontFamily={K.FONT} fontWeight={900} fontSize={48} fill={C.red}>your foot pushes back</text>
         </g>
-        <g opacity={b} transform={`translate(${800 + b * 30},440)`}>
+        <g opacity={b} transform={`translate(${830 + b * 30},440)`}>
           <line x1={0} y1={0} x2={360} y2={0} stroke={C.green} strokeWidth={22} />
           <path d="M360 -36 L430 0 L360 36 Z" fill={C.green} />
           <text x={200} y={-55} textAnchor="middle" fontFamily={K.FONT} fontWeight={900} fontSize={48} fill={C.green}>ground pushes you forward</text>
@@ -55,34 +57,81 @@ const Altimeter: React.FC<{ from: number }> = ({ from }) => {
   );
 };
 
+const BigText: React.FC<{ at: number; text: string }> = ({ at, text }) => {
+  const p = K.usePop(at, 9, 220);
+  return (
+    <div style={{ position: 'absolute', right: 120, top: 120, fontFamily: K.FONT, fontWeight: 900, fontSize: 260, color: C.yellow, WebkitTextStroke: `18px ${C.navy}`, paintOrder: 'stroke fill', textShadow: `12px 12px 0 ${C.navy}`, transform: `scale(${p}) rotate(${(1 - p) * 20 - 6}deg)` }}>
+      {text}
+    </div>
+  );
+};
+
+const TitleOverlay: React.FC = () => {
+  const a = K.usePop(4, 10, 160);
+  const b = K.usePop(12, 10, 160);
+  return (
+    <div style={{ position: 'absolute', top: 300, width: '100%', textAlign: 'center', fontFamily: K.FONT }}>
+      <div style={{ fontSize: 90, fontWeight: 900, color: '#fff', WebkitTextStroke: `10px ${C.navy}`, paintOrder: 'stroke fill', letterSpacing: 6, transform: `scale(${a})` }}>WHAT IF YOU WERE</div>
+      <div style={{ fontSize: 250, fontWeight: 900, color: C.yellow, WebkitTextStroke: `20px ${C.navy}`, paintOrder: 'stroke fill', textShadow: `14px 14px 0 ${C.navy}`, lineHeight: 1, transform: `scale(${b}) rotate(${(1 - b) * 8 - 2}deg)` }}>50× FASTER?</div>
+    </div>
+  );
+};
+
+const BigGauge: React.FC<{ keys: [number, number][] }> = ({ keys }) => (
+  <div style={{ position: 'absolute', right: 30, bottom: 150, width: 760, height: 760, transform: 'scale(0.62)', transformOrigin: 'bottom right' }}>
+    <Gauge x={380} y={380} r={360} max={1400} redFrom={1235} keys={keys} />
+  </div>
+);
+
+const Loading: React.FC<{ from: number; to: number }> = ({ from, to }) => {
+  const f = useCurrentFrame();
+  if (f < from || f >= to) return null;
+  const p = interpolate(f, [from, to], [0, 1]);
+  return (
+    <div style={{ position: 'absolute', left: 560, top: 110, width: 800, fontFamily: K.FONT, color: '#fff' }}>
+      <div style={{ fontSize: 56, fontWeight: 900, textAlign: 'center', WebkitTextStroke: `8px ${C.navy}`, paintOrder: 'stroke fill' }}>⏸ BRAIN LOADING… 0.25 s</div>
+      <div style={{ marginTop: 16, height: 34, border: `6px solid ${C.navy}`, borderRadius: 17, background: '#fff', overflow: 'hidden' }}>
+        <div style={{ width: `${p * 100}%`, height: '100%', background: C.yellow }} />
+      </div>
+    </div>
+  );
+};
+
 const Over: React.FC<{ children: React.ReactNode }> = ({ children }) => <AbsoluteFill>{children}</AbsoluteFill>;
 
 /* ------------------------------------------------------------------ */
 export const SHOTS: Shot[] = [
-  // S1 cold open
-  { t: 0, el: (k) => <S.BusMiss smugAt={k(P(1, 'Not a problem'))} /> },
+  // S1 cold open: in medias res, ~1 s cuts, title over aerial at ~11 s
+  { t: 0, el: () => <S2.Bedroom wakeAt={1e9} close /> },
+  { t: P(1, 'Max', 1) - 0.1, el: () => <S2.Bedroom wakeAt={0} /> },
+  { t: P(1, 'and Max'), el: () => <S3.DoorBurst /> },
+  { t: P(1, 'just missed'), el: (k) => <S.BusMiss smugAt={k(P(1, 'Not a problem'))} /> },
   {
     t: P(1, 'because as of'),
-    el: (k) => <BigSay tint={C.yellow} lines={[{ t: 'As of this morning…', at: 0, size: 90 }, { t: 'MAX IS 50× FASTER', at: k(P(1, '50')), size: 150 }]} />,
-    noCap: true,
+    el: (k) => (
+      <Over>
+        <S.SpinFeet env="street" zipAt={k(P(1, 'faster')) + 4} />
+        <BigText at={k(P(1, '50'))} text="50×" />
+      </Over>
+    ),
   },
-  { t: P(1, 'which raises'), el: () => <S.SpinFeet env="street" /> },
+  { t: P(1, 'than you') + 0.35, el: () => <S2.Overtake /> },
+  { t: P(1, 'which raises'), el: () => (<Over><S2.Aerial /><TitleOverlay /></Over>), noCap: true },
   {
     t: P(1, 'why does his commute'),
     el: (k) => (
-      <BigSay lines={[{ t: 'YOUR commute: 1 hour 🚶', at: 0, size: 96 }, { t: "MAX'S commute: 2½ hours?!", at: k(P(1, 'longer')), color: C.red, size: 96 }]} />
+      <BigSay burst lines={[{ t: 'YOUR commute: 1 hour 🚶', at: 0, size: 96 }, { t: "MAX'S commute: 2½ hours?!", at: k(P(1, 'longer')), color: C.red, size: 96 }]} />
     ),
     noCap: true,
   },
   {
     t: P(1, 'We did the maths'),
-    el: (k) => (
-      <BigSay dark lines={[{ t: 'F = μ·m·g', at: 0, size: 100, color: C.yellow }, { t: 'P = ½·ρ·CdA·v³', at: 6, size: 100 }, { t: 'ΔT = Q ÷ (m·c)', at: 12, size: 100, color: C.orange }]} />
+    el: () => (
+      <BigSay dark lines={[{ t: 'F = μ·m·g', at: 0, size: 100, color: C.yellow }, { t: 'P = ½·ρ·CdA·v³', at: 5, size: 100 }, { t: 'ΔT = Q ÷ (m·c)', at: 10, size: 100, color: C.orange }]} />
     ),
     noCap: true,
   },
   { t: P(1, 'It is so much worse'), el: () => <S.LyingSteam /> },
-  { t: secEnd(1) - 0.05, el: () => <K.TitleCard />, noCap: true },
 
   // S2 rules
   {
@@ -109,32 +158,31 @@ export const SHOTS: Shot[] = [
     noCap: true,
   },
 
-  // S3 on paper
+  // S3 on paper: 3D run with live speedometer, like the reference
   {
     t: secStart(3),
-    el: (k) => (
-      <Paper>
-        <Gauge x={760} y={560} r={380} max={1400} redFrom={1235} keys={[[0, 0], [k(P(3, 'five kilometers')), 5], [k(P(3, '250')), 250], [k(P(3, '500')), 500], [k(P(3, '1,250')), 1250]]} shake={0} />
-        <Txt x={1220} y={250} at={k(P(3, 'normal walk'))} size={70} w={650}>🚶 Walk: 5 → 250</Txt>
-        <Txt x={1220} y={420} at={k(P(3, 'light jog'))} size={70} w={650}>🏃 Jog: 500</Txt>
-        <Txt x={1220} y={520} at={k(P(3, 'passenger train'))} size={46} w={650} color={C.blue}>faster than any passenger train 🚄</Txt>
-        <Txt x={1220} y={660} at={k(P(3, 'proper sprint'))} size={70} w={650} color={C.red}>⚡ Sprint: 1,250</Txt>
-      </Paper>
-    ),
-    noCap: true,
+    el: (k) => {
+      const keys: [number, number][] = [[0, 5], [k(P(3, '250')), 250], [k(P(3, '500')), 500], [k(P(3, '1,250')), 1250]];
+      return (
+        <Over>
+          <S2.SpeedRun keys={keys} />
+          <BigGauge keys={keys} />
+          <Txt x={70} y={70} at={k(P(3, 'normal walk'))} size={70} color="#fff" stroke w={900}>🚶 Walk: 5 → 250 km/h</Txt>
+          <Txt x={70} y={160} at={k(P(3, 'light jog'))} size={70} color="#fff" stroke w={900}>🏃 Jog: 500</Txt>
+          <Txt x={70} y={250} at={k(P(3, 'proper sprint'))} size={70} color={C.yellow} stroke w={900}>⚡ Sprint: 1,250</Txt>
+        </Over>
+      );
+    },
   },
   {
     t: P(3, 'Now the speed of sound'),
     el: (k) => (
-      <Paper>
-        <Gauge x={760} y={560} r={380} max={1400} redFrom={1235} keys={[[0, 1250]]} shake={3} />
-        <Txt x={1220} y={330} at={0} size={64} w={660}>Speed of sound:</Txt>
-        <Txt x={1220} y={420} at={6} size={120} w={660} color={C.red}>1,235</Txt>
-        <Txt x={1220} y={600} at={k(P(3, 'sound barrier'))} size={64} w={660}>💥 SUPERSONIC!</Txt>
-        <Stamp x={960} y={540} at={k(P(3, 'on paper', 2))} text="ON PAPER" size={130} />
-      </Paper>
+      <Over>
+        <S3.SoundBarrier boomAt={k(P(3, 'sound barrier'))} freezeAt={k(P(3, 'on paper', 2))} />
+        <Txt x={960} y={80} at={4} size={80} align="center" color="#fff" stroke>Speed of sound: 1,235 km/h</Txt>
+        <Stamp x={960} y={560} at={k(P(3, 'on paper', 2))} text="ON PAPER" size={150} />
+      </Over>
     ),
-    noCap: true,
   },
 
   // S4 the good stuff
@@ -151,7 +199,7 @@ export const SHOTS: Shot[] = [
   },
 
   // S5 high-five
-  { t: P(5, 'And then there are'), el: (k) => <S.HighFive contactAt={k(P(5, '250')) + 18} /> },
+  { t: P(5, 'And then there are'), el: (k) => <S3.HighFiveBoom contactAt={k(P(5, '250')) + 18} /> },
   {
     t: P(5, 'At that speed'),
     el: (k) => (
@@ -184,22 +232,26 @@ export const SHOTS: Shot[] = [
     t: P(7, 'and grip depends'),
     el: (k) => (
       <Over>
-        <BigSay lines={[{ t: 'GRIP depends on WEIGHT ⚖️', at: 0, size: 100 }, { t: 'Max: still 70 kg', at: k(P(7, "Max didn't get heavier")), size: 90, color: C.red }]} />
+        <S.PresenterRun />
+        <Txt x={960} y={90} at={4} size={90} align="center" color="#fff" stroke>GRIP depends on WEIGHT ⚖️</Txt>
+        <Stamp x={960} y={330} at={k(P(7, "Max didn't get heavier"))} text="STILL 70 kg" size={90} />
       </Over>
     ),
     chip: [1, 'GRIP'],
     noCap: true,
   },
   { t: P(7, 'his shoes can only shove'), el: () => <BigSay lines={[{ t: 'Max can push with about', at: 0, size: 80 }, { t: 'a 50 kg sandbag 🏋️', at: 8, size: 130, color: C.orange }]} />, chip: [1, 'GRIP'], noCap: true },
-  { t: P(7, 'Push any harder'), el: () => <S.SpinFeet env="track" />, chip: [1, 'GRIP'] },
+  { t: P(7, 'Push any harder'), el: () => <S3.GripFail />, chip: [1, 'GRIP'] },
   { t: P(7, 'Meanwhile'), el: (k) => <K.GripGraph at={6} crossAt={k(P(7, '170'))} />, chip: [1, 'GRIP'], noCap: true },
   { t: P(7, "That's Max's real top speed"), el: () => (<Over><S.TrackRun speed={170} cam="front" /><MiniGauge v={172} at={4} /></Over>), chip: [1, 'GRIP'] },
   {
     t: P(7, '50 times faster legs'),
     el: (k) => (
-      <Paper>
-        <K.Bars x={260} y={330} w={1400} max={175} title="Top running speed" titleAt={0} rows={[{ label: 'Usain Bolt', value: 44.7, display: '44.7 km/h', color: C.blue, at: 4 }, { label: 'Max', value: 172, display: '≈ 170 km/h  (4×)', color: C.orange, at: k(P(7, 'four times')) }]} />
-      </Paper>
+      <Over>
+        <S2.RaceRunner />
+        <Txt x={960} y={70} at={4} size={80} align="center" color="#fff" stroke>Max ≈ 170 km/h vs Bolt-speed 44.7 km/h</Txt>
+        <Stamp x={1500} y={300} at={k(P(7, 'four times'))} text="4× BOLT" color={C.orange} size={90} />
+      </Over>
     ),
     chip: [1, 'GRIP'],
     noCap: true,
@@ -208,7 +260,8 @@ export const SHOTS: Shot[] = [
     t: P(7, 'Naught to 100'),
     el: (k) => (
       <Over>
-        <BigSay lines={[{ t: '0 → 100 km/h', at: 0, size: 120 }, { t: '≈ 3.5 s  🏎️', at: 8, size: 120, color: C.orange }, { t: '(a decent sports car)', at: k(P(7, 'sports car')), size: 70 }]} />
+        <S2.DragRace goAt={6} />
+        <Txt x={960} y={80} at={2} size={90} align="center" color="#fff" stroke>0 → 100 km/h ≈ 3.5 s 🏎️</Txt>
         <Stamp x={1500} y={850} at={k(P(7, 'Not superhero'))} text="NOT SUPERHERO" size={64} />
       </Over>
     ),
@@ -247,7 +300,7 @@ export const SHOTS: Shot[] = [
   // S9 lunch
   { t: secStart(9) - 0.6, el: () => <K.ProblemCard n={3} name="LUNCH" icon="🍔" />, noCap: true },
   { t: P(9, 'Muscles are only'), el: (k) => <K.Pie at={0} usefulAt={k(P(9, 'quarter'))} wasteAt={k(P(9, 'four times'))} />, chip: [3, 'LUNCH'], noCap: true },
-  { t: P(9, 'Running flat out'), el: () => <BigSay tint="#fff3e0" lines={[{ t: '≈ 600 kcal', at: 0, size: 180, color: C.orange }, { t: 'per kilometre', at: 6, size: 90 }]} />, chip: [3, 'LUNCH'], noCap: true },
+  { t: P(9, 'Running flat out'), el: () => (<Over><S.TrackRun speed={170} cam="side" /><Txt x={960} y={90} at={6} size={110} align="center" color={C.orange} stroke>≈ 600 kcal per km</Txt></Over>), chip: [3, 'LUNCH'] },
   { t: P(9, 'His commute is'), el: (k) => <K.Burgers at={k(P(9, '3,000'))} n={5} label="5 km = 3,000 kcal" />, chip: [3, 'LUNCH'], noCap: true },
   { t: P(9, 'And remember his stomach'), el: () => <BigSay lines={[{ t: 'STOMACH: 🐌', at: 0, size: 150 }, { t: 'normal speed', at: 8, size: 90, color: C.red }]} />, chip: [3, 'LUNCH'], noCap: true },
   { t: P(9, 'His muscles only carry'), el: (k) => <K.FuelGauge at={0} drainFrom={k(P(9, 'At full speed'))} drainTo={k(P(9, 'At full speed')) + 60} />, chip: [3, 'LUNCH'], noCap: true },
@@ -262,7 +315,7 @@ export const SHOTS: Shot[] = [
     chip: [4, 'HEAT'],
     noCap: true,
   },
-  { t: P(10, 'And the human body'), el: () => <BigSay lines={[{ t: 'Sweating can dump', at: 0, size: 90 }, { t: '≈ 1 kW 💦', at: 6, size: 170, color: C.blue }, { t: 'Max makes ≈ 90 kW', at: 22, size: 90, color: C.red }]} />, chip: [4, 'HEAT'], noCap: true },
+  { t: P(10, 'And the human body'), el: () => (<Over><S.TrackRun speed={170} heat={1} cam="side" /><Txt x={960} y={80} at={6} size={90} align="center" color="#fff" stroke>Sweat can dump ≈ 1 kW 💦</Txt><Txt x={960} y={190} at={26} size={90} align="center" color={C.red} stroke>Max makes ≈ 90 kW 🔥</Txt></Over>), chip: [4, 'HEAT'] },
   { t: P(10, 'So for every 10 seconds'), el: (k) => <K.RunRest at={0} restAt={k(P(10, 'lie down'))} />, chip: [4, 'HEAT'], noCap: true },
   { t: P(10, 'which means his'), el: (k) => <K.CommuteMap at={0} walkAt={k(P(10, 'Walking would'))} />, chip: [4, 'HEAT'], noCap: true },
   { t: P(10, 'So Max learns'), el: (k) => (<Over><S.LyingSteam walkerFrom={0} /><Stamp x={960} y={220} at={k(P(10, "don't"))} text="RULE #2: DON'T." size={90} /></Over>), chip: [4, 'HEAT'] },
@@ -279,37 +332,49 @@ export const SHOTS: Shot[] = [
   { t: secStart(12), el: (k) => <S.ParkThrow throwAt={k(P(12, 'roughly'))} /> },
   { t: P(12, 'At that speed'), el: () => <BigSay dark lines={[{ t: 'Front of the ball:', at: 0, size: 90 }, { t: '≈ 1,000 °C 🔥', at: 8, size: 170, color: C.orange }]} />, noCap: true },
   { t: P(12, 'The dog has not'), el: () => <S.DogWaits /> },
-  { t: P(12, 'and nothing limits'), el: (k) => (<Over><S.ParkJump jumpAt={k(P(12, 'So Max can jump')) + 8} /><Altimeter from={k(P(12, 'So Max can jump')) + 8} /></Over>) },
+  { t: P(12, 'and nothing limits'), el: (k) => (<Over><S3.JumpEpic jumpAt={k(P(12, 'So Max can jump')) + 8} /><Altimeter from={k(P(12, 'So Max can jump')) + 8} /></Over>) },
   { t: P(12, "That's higher than"), el: () => <K.Eiffel at={0} jumpAt={2} />, noCap: true },
   { t: P(12, 'That one jump'), el: (k) => (<Over><S.ParkJump jumpAt={-200} landAt={-1} /><Txt x={960} y={90} at={8} size={84} align="center" color="#fff" stroke>−600 kcal · +8 °C</Txt><Stamp x={960} y={420} at={k(P(12, 'once'))} text="ONCE." size={150} /></Over>) },
 
   // S13 rescue
-  { t: secStart(13), el: (k) => <S.Rescue scoopAt={k(P(13, 'Then he scoops'))} hopAt={k(P(13, 'and he goes up'))} /> },
+  {
+    t: secStart(13),
+    el: (k) => (
+      <Over>
+        <S3.RescueBullet freezeAt={k(P(13, 'So he spends'))} resumeAt={k(P(13, 'Then he scoops')) - 8} scoopAt={k(P(13, 'Then he scoops'))} hopAt={k(P(13, 'and he goes up'))} />
+        <Loading from={k(P(13, 'So he spends'))} to={k(P(13, 'Then he scoops')) - 8} />
+      </Over>
+    ),
+  },
 
   // S14 verdict
   { t: secStart(14), el: () => <S.BenchScene /> },
-  { t: P(14, 'For chores'), el: () => <BigSay lines={[{ t: '✔ chores', at: 0, size: 100, color: C.green }, { t: '✔ emails (badly)', at: 14, size: 100, color: C.green }, { t: '✔ catching phones', at: 34, size: 100, color: C.green }]} />, noCap: true },
+  { t: P(14, 'For chores'), el: () => (<Over><S.BenchScene /><Txt x={80} y={120} at={0} size={84} color={C.green} stroke w={900}>✔ chores</Txt><Txt x={80} y={230} at={14} size={84} color={C.green} stroke w={900}>✔ emails (badly)</Txt><Txt x={80} y={340} at={34} size={84} color={C.green} stroke w={900}>✔ catching phones</Txt></Over>) },
   { t: P(14, 'But for actually'), el: (k) => <BigSay lines={[{ t: 'grip + air + food + heat', at: 0, size: 90 }, { t: '= 18 km/h 🏃', at: k(P(14, 'about 18')), size: 170, color: C.orange }]} />, noCap: true },
   { t: P(14, 'the speed of a decent jogger'), el: () => <S.TrackRun speed={18} cam="side" /> },
   { t: P(14, 'because speed was never'), el: (k) => <BigSay dark lines={[{ t: 'Speed was never the hard part.', at: 0, size: 90 }, { t: 'Getting rid of the HEAT is.', at: k(P(14, 'Getting rid')), size: 100, color: C.orange }]} />, noCap: true },
 
   // S15 outro
   { t: secStart(15), el: () => <K.Letter at={4} /> },
-  { t: P(15, 'and somebody would like'), el: () => <K.CCTV at={0} /> },
+  { t: P(15, 'and somebody would like'), el: () => <S3.DarkReveal spinAt={20} /> },
   { t: P(15, 'So what would you do'), el: (k) => <K.CommentsEnd at={0} subAt={k(P(15, 'subscribe'))} />, noCap: true },
 ];
 
 /* ------------------------------------------------------------------ */
 type Cue = [string, number, number?, number?]; // file, time, volume, startFrom(frames)
 const SFX: Cue[] = [
-  ['ep/sfx/bus.mp3', 0, 0.4],
-  ['ep/sfx/crack.mp3', P(1, '50'), 0.25],
-  ['ep/sfx/spin.mp3', P(1, 'which raises'), 0.35],
+  ['ep/sfx/alarmclock.mp3', 0, 0.35],
+  ['ep/sfx/whoosh.mp3', P(1, 'and Max') - 0.1, 0.3],
+  ['ep/sfx/chores.mp3', P(1, 'and Max'), 0.25],
+  ['ep/sfx/bus.mp3', P(1, 'just missed') - 0.3, 0.4],
+  ['ep/sfx/spin.mp3', P(1, 'because as of'), 0.35],
+  ['ep/sfx/pop.mp3', P(1, '50'), 0.3],
+  ['ep/sfx/whoosh.mp3', P(1, 'faster') + 0.1, 0.4],
+  ['ep/sfx/wind.mp3', P(1, 'than you') + 0.35, 0.2],
+  ['ep/sfx/lowhit.mp3', P(1, 'which raises'), 0.35],
   ['ep/sfx/whoosh.mp3', P(1, 'why does his commute') - 0.15, 0.3],
   ['ep/sfx/pop.mp3', P(1, 'We did the maths'), 0.25],
   ['ep/sfx/sizzle.mp3', P(1, 'It is so much worse'), 0.25],
-  ['ep/sfx/lowhit.mp3', secEnd(1), 0.4],
-  ['ep/sfx/whoosh.mp3', secEnd(1) - 0.1, 0.35],
   ...(['muscles', 'bones', 'tendons', 'reflexes', 'brain', 'stomach', 'skin', 'weight', 'air'].map((w) => ['ep/sfx/pop.mp3', P(2, w), 0.18] as Cue)),
   ['ep/sfx/whoosh.mp3', P(2, 'Oh and stick around') - 0.1, 0.3],
   ['ep/sfx/jump.mp3', P(2, 'jumps higher'), 0.25],
@@ -317,7 +382,9 @@ const SFX: Cue[] = [
   ['ep/sfx/counter.mp3', P(3, '250'), 0.2],
   ['ep/sfx/counter.mp3', P(3, '500'), 0.2],
   ['ep/sfx/counter.mp3', P(3, '1,250'), 0.22],
-  ['ep/sfx/crack.mp3', P(3, 'sound barrier'), 0.3],
+  ['ep/sfx/crack.mp3', P(3, 'sound barrier'), 0.5],
+  ['audio/boom.mp3', P(3, 'sound barrier') - 2.0, 0.4],
+  ['ep/sfx/lowhit.mp3', P(3, 'sound barrier') + 0.1, 0.4],
   ['ep/sfx/pop.mp3', P(3, 'on paper', 2), 0.3],
   ['ep/sfx/whoosh.mp3', P(4, 'But problems later'), 0.3],
   ['ep/sfx/tick.mp3', P(4, 'Washing up'), 0.2],
@@ -339,6 +406,7 @@ const SFX: Cue[] = [
   ['ep/sfx/pop.mp3', P(7, '170'), 0.25],
   ['ep/sfx/wind.mp3', P(7, "That's Max's real top speed"), 0.15],
   ['ep/sfx/counter.mp3', P(7, 'four times'), 0.2],
+  ['ep/sfx/carby.mp3', P(7, 'Naught to 100') + 0.2, 0.25],
   ['ep/sfx/pop.mp3', P(7, 'Not superhero'), 0.3],
   ['ep/sfx/cans.mp3', P(7, 'There is a cheat') + 0.4, 0.3],
   ['ep/sfx/cans.mp3', P(7, 'top speed jumps'), 0.3],
@@ -367,17 +435,20 @@ const SFX: Cue[] = [
   ['ep/sfx/dog.mp3', secStart(12) + 0.5, 0.25],
   ['ep/sfx/crack.mp3', P(12, 'roughly'), 0.4],
   ['ep/sfx/sizzle.mp3', P(12, 'heats up'), 0.25],
-  ['ep/sfx/jump.mp3', P(12, 'So Max can jump') + 0.2, 0.35],
+  ['ep/sfx/jump.mp3', P(12, 'So Max can jump') + 0.2, 0.4],
+  ['ep/sfx/lowhit.mp3', P(12, 'So Max can jump') + 0.27, 0.35],
   ['ep/sfx/pop.mp3', P(12, 'Eiffel'), 0.25],
   ['ep/sfx/sizzle.mp3', P(12, 'That one jump'), 0.25],
   ['ep/sfx/pop.mp3', P(12, 'once'), 0.3],
+  ['ep/sfx/lowhit.mp3', P(13, 'So he spends'), 0.35],
+  ['ep/sfx/tick.mp3', P(13, 'So he spends') + 0.3, 0.2],
   ['ep/sfx/carby.mp3', P(13, 'and he goes up') - 0.6, 0.35],
   ['ep/sfx/boing.mp3', P(13, 'and he goes up'), 0.35],
   ['ep/sfx/pop.mp3', P(14, 'For chores'), 0.25],
   ['ep/sfx/counter.mp3', P(14, 'about 18'), 0.2],
   ['ep/sfx/whoosh.mp3', P(14, 'because speed was never'), 0.25],
   ['ep/sfx/letter.mp3', secStart(15) + 0.1, 0.35],
-  ['ep/sfx/lowhit.mp3', P(15, 'and somebody would like'), 0.4],
+  ['ep/sfx/lowhit.mp3', P(15, 'and somebody would like') + 2.0, 0.45],
   ['ep/sfx/pop.mp3', P(15, 'So what would you do'), 0.25],
   ['ep/sfx/pop.mp3', P(15, 'subscribe'), 0.3],
 ];
@@ -517,7 +588,7 @@ export const Episode: React.FC = () => {
         const k = (t: number) => fr(t) - from;
         return (
           <Sequence key={i} from={from} durationInFrames={Math.max(1, next - from)}>
-            <Punch>{s.el(k)}</Punch>
+            <Punch cutEvery={s.noCap ? 96 : 0}>{s.el(k)}</Punch>
             {s.chip && !s.noCap && <K.ProblemChip n={s.chip[0]} name={s.chip[1]} />}
           </Sequence>
         );
@@ -530,9 +601,17 @@ export const Episode: React.FC = () => {
   );
 };
 
-/** every cut lands with a tiny punch-in */
-const Punch: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+/** every cut lands with a tiny punch-in; long 2D cards also get a hard re-frame every ~3 s */
+const Punch: React.FC<{ children: React.ReactNode; cutEvery?: number }> = ({ children, cutEvery = 0 }) => {
   const f = useCurrentFrame();
-  const s = interpolate(f, [0, 7], [1.05, 1], { extrapolateRight: 'clamp' });
-  return <AbsoluteFill style={{ transform: `scale(${s})` }}>{children}</AbsoluteFill>;
+  const seg = cutEvery ? Math.floor(f / cutEvery) : 0;
+  const lf = cutEvery ? f % cutEvery : f;
+  const frames = [
+    { s: 1, x: 50, y: 50 },
+    { s: 1.1, x: 30, y: 45 },
+    { s: 1.06, x: 70, y: 55 },
+    { s: 1.12, x: 50, y: 40 },
+  ][seg % 4];
+  const s = frames.s * interpolate(lf, [0, 7], [1.05, 1], { extrapolateRight: 'clamp' });
+  return <AbsoluteFill style={{ transform: `scale(${s})`, transformOrigin: `${frames.x}% ${frames.y}%` }}>{children}</AbsoluteFill>;
 };

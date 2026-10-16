@@ -2,7 +2,7 @@ import data from '../ep-data.json';
 
 export const FPS = 30;
 // extra silence inserted before each section (seconds); section 2 gets the title card
-export const GAP_BEFORE = [0.3, 1.8, 0.2, 0.2, 0.2, 0.2, 0.6, 0.6, 0.6, 0.6, 0.6, 0.3, 0.4, 0.4, 0.4];
+export const GAP_BEFORE = [0.3, 0.5, 0.2, 0.2, 0.2, 0.2, 0.6, 0.6, 0.6, 0.6, 0.6, 0.3, 0.4, 0.4, 0.4];
 export const TAIL = 3.5;
 
 type Word = [string, number, number];

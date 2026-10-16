@@ -248,7 +248,7 @@ export const TrackRun: React.FC<{ speed: number; wind?: boolean; beans?: boolean
   return (
     <Stage>
       {cam === 'side' ? <Cam pos={[x + 1.2, 1.3, 5]} target={[x + 0.6, 1.1, 0]} fov={36} /> : <Cam pos={[x + 5, 1.5, 2.2]} target={[x, 1.1, 0]} fov={34} />}
-      <World />
+      <World cx={x} time={heat ? 'sunset' : 'day'} />
       <Character position={[x, 0, 0]} yaw={Math.PI / 2} pose={pose} back={beans ? <Backpack /> : undefined} look={heat ? { glow: heat } : undefined} />
       {streaks.map((s, i) => (
         <mesh key={i} geometry={GEO.box} position={s} scale={[1.6, 0.025, 0.025]}>
@@ -269,7 +269,7 @@ export const Skid: React.FC = () => {
   const pose = with_(mixPose(runPose(0, 1), { ...IDLE, lean: -0.4, thighL: -0.9, kneeL: 0.1, thighR: 0.4, kneeR: 1.2, shoulderL: -1.8, shoulderR: -1.6, armSpread: 0.7, eyeScale: 1.35 }, Math.min(1, f / 8)), {});
   return (
     <Stage>
-      <Cam pos={[x + 4.5, 1.5, 6]} target={[x, 1, 0]} fov={40} />
+      <Cam pos={[x + 4.5, 1.5, 6]} target={[x, 1, 0]} fov={40} lock />
       <Town near="sidewalk" />
       <Character position={[x, 0, 0]} yaw={Math.PI / 2} pose={u < 1 ? pose : with_(breathe(f), { eyeScale: 1.2 })} />
       <Puffs f={f} list={Array.from({ length: 40 }, (_, i) => ({ p: [-40 + i, 0.05, (rnd(i) - 0.5) * 0.4] as [number, number, number], born: (i / 40) * 60, size: 0.5 + rnd(i) * 0.3, life: 50 }))} />
@@ -324,7 +324,7 @@ export const ParkJump: React.FC<{ jumpAt: number; landAt?: number }> = ({ jumpAt
   const shake = k >= 0 && k < 10 ? (10 - k) * 0.03 : 0;
   return (
     <Stage>
-      <Cam pos={[2.5 + Math.sin(f * 3) * shake, air ? y * 0.9 + 0.6 : 1.2, 14]} target={[0, air ? y + 1.1 : camY, 8]} fov={40} />
+      <Cam pos={[2.5 + Math.sin(f * 3) * shake, air ? y * 0.9 + 0.6 : 1.2, 14]} target={[0, air ? y + 1.1 : camY, 8]} fov={40} lock />
       <Town near="park" />
       <Character position={[0, y, 8]} yaw={0.15} pose={pose} look={f >= landAt ? { glow: 0.7 } : undefined} pupil={air ? [0, 1] : [0, 0]} />
       {k >= 0 && k < 40 && <Puffs f={k} list={Array.from({ length: 16 }, (_, i) => ({ p: [Math.cos(i) * 0.8, 0.05, 8 + Math.sin(i) * 0.8] as [number, number, number], born: 0, size: 0.6, life: 40 }))} />}
@@ -348,7 +348,7 @@ export const Rescue: React.FC<{ scoopAt: number; hopAt: number }> = ({ scoopAt, 
   const kidPos: [number, number, number] = scooped ? [mx, 0.95 + hop, mz - 0.5] : [3, 0, kidZ];
   return (
     <Stage>
-      <Cam pos={[8.5, 2.1, 9.5]} target={[2.4, 1.1, 2.6]} fov={36} />
+      <Cam pos={[8.5, 2.1, 9.5]} target={[2.4, 1.1, 2.6]} fov={36} lock />
       <Town near="park" />
       <Car x={carX} z={1.3} color="#4aa3df" />
       <Character position={[mx, hop, mz]} yaw={scooped ? Math.PI : -0.2} pose={maxPose} pupil={[0.5, 0]} />

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { useMemo } from 'react';
 import { Part, toonMat } from './toon';
+import { SkyDome } from './ep/set3d';
 
 // deterministic pseudo-random
 const rnd = (i: number) => {
@@ -27,7 +28,8 @@ const Sky: React.FC = () => {
   );
 };
 
-export const World: React.FC = () => {
+export const World: React.FC<{ time?: 'day' | 'sunset'; cx?: number }> = ({ time = 'day', cx = 0 }) => {
+  const sunset = time === 'sunset';
   const geo = useMemo(
     () => ({
       box: new THREE.BoxGeometry(1, 1, 1),
@@ -53,11 +55,13 @@ export const World: React.FC = () => {
 
   return (
     <group>
-      <Sky />
-      <hemisphereLight args={['#dfefff', '#7aa35c', 0.9]} />
+      {sunset ? <SkyDome top="#3a4a92" horizon="#ffad74" /> : <Sky />}
+      <hemisphereLight args={sunset ? ['#ffd2b0', '#6a5a7a', 0.8] : ['#dfefff', '#7aa35c', 0.9]} />
       <directionalLight
-        position={[30, 40, 25]}
-        intensity={2.4}
+        position={[cx + (sunset ? 60 : 30), sunset ? 14 : 40, 25]}
+        target-position={[cx, 0, 0]}
+        color={sunset ? '#ffb27a' : '#ffffff'}
+        intensity={sunset ? 2.2 : 2.4}
         castShadow
         shadow-mapSize={[2048, 2048]}
         shadow-camera-left={-30}

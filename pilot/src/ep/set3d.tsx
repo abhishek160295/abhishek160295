@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { useMemo } from 'react';
 import { useThree } from '@react-three/fiber';
+import { useCurrentFrame } from 'remotion';
 import { Part, toonMat } from '../toon';
 
 export const rnd = (i: number) => {
@@ -19,10 +20,17 @@ const G = {
 };
 export const GEO = G;
 
-/** imperative camera: call inside a ThreeCanvas */
-export const Cam: React.FC<{ pos: V3; target: V3; fov?: number; roll?: number }> = ({ pos, target, fov = 38, roll = 0 }) => {
+/** imperative camera. Every ~3.2 s it hops to another angle (hard cut feel) and drifts like a handheld camera */
+export const Cam: React.FC<{ pos: V3; target: V3; fov?: number; roll?: number; lock?: boolean }> = ({ pos, target, fov = 38, roll = 0, lock }) => {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
-  camera.position.set(...pos);
+  const f = useCurrentFrame();
+  const v = new THREE.Vector3(pos[0] - target[0], pos[1] - target[1], pos[2] - target[2]);
+  const angle = lock ? 0 : Math.floor(f / 96) % 4;
+  if (angle === 1) v.multiplyScalar(0.62);
+  if (angle === 2) v.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.5).multiplyScalar(0.9);
+  if (angle === 3) v.applyAxisAngle(new THREE.Vector3(0, 1, 0), -0.45).add(new THREE.Vector3(0, 0.6, 0));
+  const drift = lock ? 0 : 1;
+  camera.position.set(target[0] + v.x + Math.sin(f / 37) * 0.08 * drift, target[1] + v.y + Math.sin(f / 51) * 0.05 * drift, target[2] + v.z);
   camera.up.set(Math.sin(roll), Math.cos(roll), 0);
   camera.lookAt(...target);
   if (camera.fov !== fov) {
