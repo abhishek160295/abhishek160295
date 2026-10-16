@@ -165,6 +165,15 @@ Fast cuts only work if every shot is instantly readable. These rules come first:
 
 ---
 
+## 8b. Fixes after review (approved)
+
+1. **The test shot is a hard pass/fail.** If code-drawn backgrounds look cheap, generate about 8 reusable background sets (~190 credits each, ~1,500 total, owner approval first). They're reused in every future episode.
+2. **Captions:** bold word-by-word captions in the thumbnail style (white plus a yellow highlight), driven by `align.py`. Required for the sound-off phone test.
+3. **Launch order:** upload the memory episode first, then remake 50x in the 2D pipeline (its script and voice already exist, so it costs ~0 credits).
+4. **Realistic time:** the first episode takes 5–6 sessions (building Max, the graphics kit and sets); later episodes take 2–3 sessions, for 1–2 videos a week.
+
+---
+
 ## 9. Risks and how we handle them
 
 | Risk | Plan |
