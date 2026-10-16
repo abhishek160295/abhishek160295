@@ -116,6 +116,34 @@ One file, `src/max/Max.tsx`, is the only Max that exists. Every shot uses it.
 
 ---
 
+## 7b. Balance: fast but never rushed, exciting but always clear
+
+Fast cuts only work if every shot is instantly readable. These rules come first:
+
+**Clarity**
+- **One idea per shot.** One subject, one action, one graphic. If you can't say what a shot is about in 3 words, split it or simplify it.
+- **Hold times are set by content, not a timer:**
+  - Simple action (a door slam, a wave): 0.6–1 s.
+  - Graphic with a label: at least 1.5 s.
+  - **A key fact graphic stays on screen until the narrator finishes the sentence, plus 0.5 s.**
+- **Cut on the narrator's phrase breaks,** never mid-word, so the edit rides the voice and feels smooth, not choppy.
+- **Eye-trace:** keep the main subject in the same area of the screen across fast cuts, so the eye never has to hunt.
+- **Big and bold:** every label readable on a phone at arm's length, with strong contrast and no clutter.
+
+**Rhythm (the balance)**
+- **Fast, fast, breathe.** After every burst of quick cuts or a big set piece, hold one calm 2–3 s shot so the moment lands.
+- **Speed matches emotion:** the comedy and upside sections run fast, the science sections are steady and clear, and emotional beats run slow.
+- **No montage longer than about 5 s,** so it reads as fun, not noise.
+- **Silence is a tool:** half a second of quiet before a punchline and right after the bus near-miss.
+- The 2.5 s average comes from that mix (quick bursts plus calm holds), **not** from chopping every shot evenly.
+
+**Clarity check (added to QA)**
+1. **Freeze test:** pause on 30 random frames. Each one must show clearly what's happening within 1 second.
+2. **Phone test:** watch the whole video on a phone with sound off. The story must still be clear from visuals and captions alone.
+3. **Fresh-eyes test:** you watch it once at normal speed. Any moment that feels rushed or confusing gets a longer hold or a simpler shot.
+
+---
+
 ## 8. Retention map (minute by minute)
 
 | Time | Beat | Device |
