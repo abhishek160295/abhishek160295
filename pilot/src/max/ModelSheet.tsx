@@ -30,12 +30,12 @@ export const ModelSheet: React.FC = () => {
         <text x={40} y={92} fontFamily={FONT} fontWeight={600} fontSize={22} fill="#6B6B7A">expressions · poses · cast</text>
         {heads.map((k, i) => (
           <Slot key={k} x={100 + i * 172} y={400} s={0.82} label={k}>
-            <g transform="translate(0 196)"><Max headOnly expr={k} look={k === 'smug' ? [0.7, 0] : k === 'hollow' ? [0, 0.4] : [0, 0]} /></g>
+            <g transform="translate(0 196)"><Max still headOnly expr={k} look={k === 'smug' ? [0.7, 0] : k === 'hollow' ? [0, 0.4] : [0, 0]} /></g>
           </Slot>
         ))}
         {bodies.map(([label, pose, p], i) => (
           <Slot key={label} x={100 + i * 168} y={985} s={0.72} label={label}>
-            <Max pose={pose} {...p} />
+            <Max still pose={pose} {...p} />
           </Slot>
         ))}
         <line x1={1430} y1={560} x2={1430} y2={1050} stroke="#CFC6B4" strokeWidth={3} />

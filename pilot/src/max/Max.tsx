@@ -1,6 +1,7 @@
 // The one and only Max. Every shot in every episode uses this file (production rule 4).
 // SVG, local units: origin at the feet, head top at about y = -392. Facing the viewer.
 import React, { useId } from 'react';
+import { useCurrentFrame } from 'remotion';
 
 export const INK = '#141414';
 export const BONE = '#EDE6D6';
@@ -133,11 +134,24 @@ export type MaxProps = {
   face?: number; outfit?: Look; prop?: 'book' | 'keys' | null; headOnly?: boolean;
   /** invisible Max: 'clothes' = no head or hands, 'eyes' = floating eyeballs only, 'skeleton' = skull and bone hands */
   ghost?: 'clothes' | 'eyes' | 'skeleton';
+  /** turn off the idle breathing / sway / auto-blink (model sheet) */
+  still?: boolean;
 };
 
 /** Render inside an <svg>; place with a parent <g transform>. */
-export const Max: React.FC<MaxProps> = ({ pose = STAND, expr = 'happy', look = [0, 0], blink = 0, face = 0, outfit = MAX, prop = null, headOnly = false, ghost }) => {
+export const Max: React.FC<MaxProps> = ({ expr = 'happy', look = [0, 0], blink = 0, face = 0, outfit = MAX, prop = null, headOnly = false, ghost, still = false, pose: pose0 = STAND }) => {
   const id = useId().replace(/[^a-zA-Z0-9]/g, '');
+  // idle life: breathing bob, arm sway, head tilt and an auto-blink every ~3 s (phase varies per instance)
+  const fr = useCurrentFrame();
+  const ph = (id.charCodeAt(id.length - 1) % 7) * 13;
+  const t = fr + ph;
+  const pose: Pose = still ? pose0 : {
+    ...pose0,
+    tilt: (pose0.tilt ?? 0) + Math.sin(t / 22) * 2.2,
+    shL: pose0.shL + Math.sin(t / 17) * 3.5, shR: pose0.shR - Math.sin(t / 19) * 3.5,
+    bob: (pose0.bob ?? 0) + Math.sin(t / 13) * 3,
+  };
+  if (!still && t % 95 < 4) blink = Math.max(blink, 1);
   const e: Expr = typeof expr === 'string' ? EXPR[expr] : expr;
   const fx = face * 16;
   const head = (
