@@ -54,4 +54,4 @@ what if, 50x faster, super speed, physics, science explained, what if you were f
 - Altered or synthetic content: tick YES (AI voice narration).
 - Category: Education. Audience: not made for kids (unless you want that label).
 - Add end screen in the last 15 s (the subscribe card sits there).
-- Thumbnail: `pilot/out/thumb-50x.png`
+- Thumbnail: `pilot/out/thumb-50x-v2.jpg` (art: ElevenLabs gpt-image, text: `python3 thumb_overlay.py art.png out.jpg 0`)
