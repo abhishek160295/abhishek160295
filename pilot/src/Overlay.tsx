@@ -77,8 +77,8 @@ const StatCard: React.FC = () => {
   const start = 238;
   if (f < start) return null;
   const pop = spring({ frame: f - start, fps, config: { damping: 13, stiffness: 160 } });
-  const t = interpolate(f, [start + 8, start + 30], [0, 1.44], { ...clamp, easing: Easing.out(Easing.quad) });
-  const bar = (d: number) => interpolate(f, [start + 30 + d, start + 50 + d], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const t = interpolate(f, [272, 300], [0, 1.44], { ...clamp, easing: Easing.out(Easing.quad) });
+  const bar = (d: number) => interpolate(f, [d, d + 18], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const row = (label: string, secs: string, w: number, color: string, d: number) => (
     <div style={{ marginTop: 26 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 34, fontWeight: 800, color: NAVY }}>
@@ -112,8 +112,8 @@ const StatCard: React.FC = () => {
         {t.toFixed(2)}
         <span style={{ fontSize: 70 }}> s</span>
       </div>
-      {row('Usain Bolt', '9.58 s', 1, '#8ea6cf', 0)}
-      {row('Max (10x)', '1.44 s', 1.44 / 9.58, ACCENT, 8)}
+      {row('Usain Bolt', '9.58 s', 1, '#8ea6cf', 320)}
+      {row('Max (10x)', '1.44 s', 1.44 / 9.58, ACCENT, 300)}
     </div>
   );
 };
@@ -122,25 +122,39 @@ export const Overlay: React.FC = () => (
   <AbsoluteFill>
     <AbsoluteFill style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(10,16,40,0.28) 100%)' }} />
     <SpeedLines />
+    <Caption from={12} to={36} words={[{ t: 'Meet', at: 12 }, { t: 'Max.', at: 20 }]} />
     <Caption
-      from={12}
-      to={100}
+      from={38}
+      to={102}
       words={[
-        { t: 'Meet', at: 12 },
-        { t: 'Max.', at: 20 },
-        { t: 'He’s', at: 44 },
-        { t: 'now', at: 50 },
-        { t: '10x', at: 58, hot: true },
-        { t: 'faster.', at: 64, hot: true },
+        { t: 'Max', at: 38 },
+        { t: 'is', at: 44 },
+        { t: 'now', at: 49 },
+        { t: '10x', at: 55, hot: true },
+        { t: 'faster', at: 62, hot: true },
+        { t: 'than', at: 70 },
+        { t: 'you.', at: 75 },
       ]}
     />
     <Caption
-      from={160}
-      to={205}
+      from={157}
+      to={210}
       words={[
-        { t: 'Aaand…', at: 160 },
-        { t: 'he’s', at: 178 },
-        { t: 'gone.', at: 184, hot: true },
+        { t: 'Aaand…', at: 157 },
+        { t: 'he’s', at: 185 },
+        { t: 'gone.', at: 191, hot: true },
+      ]}
+    />
+    <Caption
+      from={320}
+      to={375}
+      words={[
+        { t: 'Usain', at: 320 },
+        { t: 'Bolt', at: 327 },
+        { t: 'needs', at: 334 },
+        { t: 'nine', at: 341 },
+        { t: 'and a', at: 347 },
+        { t: 'half.', at: 353, hot: true },
       ]}
     />
     <StatCard />

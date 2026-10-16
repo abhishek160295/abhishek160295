@@ -1,6 +1,6 @@
 import { ThreeCanvas } from '@remotion/three';
 import { useThree } from '@react-three/fiber';
-import { AbsoluteFill, Easing, interpolate, Sequence, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Character, CROUCH, IDLE, mixPose, Pose, runPose } from './Character';
 import { World } from './World';
 import { Overlay } from './Overlay';
@@ -129,7 +129,7 @@ const Rig: React.FC<{ f: number }> = ({ f }) => {
     camera.position.set(cx, cy, cz);
     camera.lookAt(tx, ty, 0);
   } else {
-    const k = interpolate(f, [CUT, 300], [0, 1], clamp);
+    const k = interpolate(f, [CUT, 375], [0, 1], clamp);
     camera.position.set(106.2 - k * 0.6, 1.3, 4.4 - k * 0.4);
     camera.lookAt(99.6, 1.15, -0.6);
   }
@@ -155,6 +155,33 @@ const Scene: React.FC = () => {
   );
 };
 
+const sfx = (name: string) => staticFile(`audio/${name}`);
+
+// VO take 1 is split into three lines and placed against the picture
+const Soundtrack: React.FC = () => (
+  <>
+    <Audio src={sfx('amb.wav')} volume={0.5} />
+    <Sequence from={12} durationInFrames={72}>
+      <Audio src={sfx('vo1.mp3')} endAt={83} />
+    </Sequence>
+    <Sequence from={156} durationInFrames={44}>
+      <Audio src={sfx('vo1.mp3')} startFrom={88} endAt={132} />
+    </Sequence>
+    <Sequence from={240}>
+      <Audio src={sfx('vo1.mp3')} startFrom={178} endAt={303} />
+    </Sequence>
+    <Sequence from={108}>
+      <Audio src={sfx('steps.mp3')} volume={0.35} />
+    </Sequence>
+    <Sequence from={126}>
+      <Audio src={sfx('boom.mp3')} startFrom={36} volume={(f) => (f < 20 ? 0.35 : 0.6)} />
+    </Sequence>
+    <Sequence from={210}>
+      <Audio src={sfx('skid.mp3')} startFrom={18} volume={0.55} />
+    </Sequence>
+  </>
+);
+
 export const TestShot: React.FC = () => {
   const { width, height } = useVideoConfig();
   return (
@@ -162,9 +189,8 @@ export const TestShot: React.FC = () => {
       <ThreeCanvas width={width} height={height} shadows camera={{ fov: 38, near: 0.1, far: 2000 }} gl={{ antialias: true }}>
         <Scene />
       </ThreeCanvas>
-      <Sequence>
-        <Overlay />
-      </Sequence>
+      <Overlay />
+      <Soundtrack />
     </AbsoluteFill>
   );
 };

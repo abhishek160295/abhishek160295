@@ -1,3 +1,4 @@
 node_modules/
 out/*
 !out/test-shot.mp4
+!out/demo-final.mp4

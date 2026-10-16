@@ -34,6 +34,13 @@ Make YouTube "What if" videos better than the reference: Ifology, "What If You W
 - Render cost here: ~0.4 s per frame on 4 CPUs with SwiftShader, so a 10-min episode takes ~1 h.
 - Render: `npx remotion render src/index.ts TestShot out/test-shot.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell --gl=swiftshader --concurrency=4`
 
+## Demo with audio (done)
+- `pilot/out/demo-final.mp4`: 12.6 s, voiceover (ElevenLabs eleven_v4, voice "Eddie"), SFX, and captions retimed to the VO. Loudness is −13.6 LUFS, peak −1.4 dBTP.
+- Credits: ~823 (4 VO takes at 189 each, 4 SFX at ~17 each). The ElevenLabs flow is dvJCWrJehohD2N4xbyel.
+- Take 1 is used. Takes 2–4 are in `pilot/public/audio` as alternates. The ambience SFX came back only 0.5 s, so `amb.wav` is synthesized brown noise.
+- Pricing found: music runs ~1,500 credits per take, which is expensive. Use sparingly.
+- Master: ffmpeg compressor plus two-pass loudnorm to −14 LUFS (see the commit for the command).
+
 ## Next step
 1. User gives the topic.
 2. Write the script.
