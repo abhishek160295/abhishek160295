@@ -340,7 +340,7 @@ export const MemEpisode: React.FC = () => {
         const d = (cues[i + 1]?.[0] ?? TOTAL_FRAMES) - t;
         return (
           <Sequence key={i} from={t} durationInFrames={Math.max(1, d)}>
-            <Reframe t={t} d={d}>{el(d)}</Reframe>
+            {el(d)}
             {(sfx ?? []).map(([o, n, v], j) => (
               <Sequence key={j} from={o} durationInFrames={120}><Audio src={SOFT(n)} volume={v * 0.9} /></Sequence>
             ))}

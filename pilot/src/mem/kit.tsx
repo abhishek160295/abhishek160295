@@ -29,9 +29,11 @@ export const Cam: React.FC<{ a: CamKey; b?: CamKey; dur: number; shake?: number;
   const k = lerp(f, 0, dur, 0, 1);
   const x = (a.x ?? 0) + ((B.x ?? 0) - (a.x ?? 0)) * k;
   const y = (a.y ?? 0) + ((B.y ?? 0) - (a.y ?? 0)) * k;
-  const z = (a.z ?? 1) + ((B.z ?? 1) - (a.z ?? 1)) * k;
+  // gentle camera: zoom drift is damped to 35% of the requested move so nothing feels like a zoom-in
+  const z0 = 1 + ((a.z ?? 1) - 1) * 0.35, z1 = 1 + ((B.z ?? 1) - 1) * 0.35;
+  const z = z0 + (z1 - z0) * k;
   const r = (a.r ?? 0) + ((B.r ?? 0) - (a.r ?? 0)) * k + tilt;
-  const sh = shake * Math.max(0, 1 - f / 12);
+  const sh = shake * 0.4 * Math.max(0, 1 - f / 12);
   const sx = sh * Math.sin(f * 2.9) * 14, sy = sh * Math.cos(f * 3.7) * 10;
   const wk = whip ? lerp(f, 0, 7, 1, 0) : 0;
   return (
