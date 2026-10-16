@@ -7,9 +7,11 @@ import { Thumb } from './ep/Thumb';
 import { ModelSheet } from './max/ModelSheet';
 import { ColdOpen, COLD_OPEN_FRAMES } from './mem/ColdOpen';
 import { MemEpisode, MEM_FRAMES } from './mem/Episode';
+import { InvEpisode, INV_FRAMES } from './inv/Episode';
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="InvEpisode" component={InvEpisode} durationInFrames={INV_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MemEpisode" component={MemEpisode} durationInFrames={MEM_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MemColdOpen" component={ColdOpen} durationInFrames={COLD_OPEN_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MaxSheet" component={ModelSheet} durationInFrames={1} fps={30} width={1920} height={1080} />

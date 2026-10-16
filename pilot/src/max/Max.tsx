@@ -3,6 +3,7 @@
 import React, { useId } from 'react';
 
 export const INK = '#141414';
+export const BONE = '#EDE6D6';
 
 export type Look = {
   jacket: string; jacketDark: string; pants: string; shoes: string; sole: string; skin: string;
@@ -130,25 +131,35 @@ const MouthShape: React.FC<{ m: Mouth; x: number }> = ({ m, x }) => {
 export type MaxProps = {
   pose?: Pose; expr?: ExprName | Expr; look?: [number, number]; blink?: number;
   face?: number; outfit?: Look; prop?: 'book' | 'keys' | null; headOnly?: boolean;
+  /** invisible Max: 'clothes' = no head or hands, 'eyes' = floating eyeballs only, 'skeleton' = skull and bone hands */
+  ghost?: 'clothes' | 'eyes' | 'skeleton';
 };
 
 /** Render inside an <svg>; place with a parent <g transform>. */
-export const Max: React.FC<MaxProps> = ({ pose = STAND, expr = 'happy', look = [0, 0], blink = 0, face = 0, outfit = MAX, prop = null, headOnly = false }) => {
+export const Max: React.FC<MaxProps> = ({ pose = STAND, expr = 'happy', look = [0, 0], blink = 0, face = 0, outfit = MAX, prop = null, headOnly = false, ghost }) => {
   const id = useId().replace(/[^a-zA-Z0-9]/g, '');
   const e: Expr = typeof expr === 'string' ? EXPR[expr] : expr;
   const fx = face * 16;
   const head = (
     <g transform={`rotate(${pose.tilt ?? 0} 0 -230)`}>
-      {outfit.hair === 'bun' && <circle cx={0} cy={-398} r={34} fill={outfit.hairColor} stroke={INK} strokeWidth={6} />}
-      <circle cx={0} cy={-300} r={94} fill={outfit.skin} stroke={INK} strokeWidth={6} />
-      <path d="M-58 -362 A80 80 0 0 1 10 -386" fill="none" stroke="#3A3A48" strokeWidth={9} strokeLinecap="round" />
+      {!ghost && outfit.hair === 'bun' && <circle cx={0} cy={-398} r={34} fill={outfit.hairColor} stroke={INK} strokeWidth={6} />}
+      {!ghost && <circle cx={0} cy={-300} r={94} fill={outfit.skin} stroke={INK} strokeWidth={6} />}
+      {!ghost && <path d="M-58 -362 A80 80 0 0 1 10 -386" fill="none" stroke="#3A3A48" strokeWidth={9} strokeLinecap="round" />}
+      {ghost === 'skeleton' && <g>
+        <circle cx={0} cy={-300} r={94} fill={BONE} stroke={INK} strokeWidth={6} />
+        <path d="M-10 -268 L10 -268 L0 -286 Z" fill={INK} />
+        <rect x={-46} y={-240} width={92} height={30} rx={8} fill={BONE} stroke={INK} strokeWidth={5} />
+        {[-24, 0, 24].map((x) => <line key={x} x1={x} y1={-240} x2={x} y2={-210} stroke={INK} strokeWidth={4} />)}
+        <circle cx={-34} cy={-312} r={40} fill={INK} /><circle cx={34} cy={-312} r={40} fill={INK} />
+      </g>}
+      {ghost === 'eyes' && <g><ellipse cx={-34 + fx} cy={-312} rx={31} ry={37} fill={INK} /><ellipse cx={34 + fx} cy={-312} rx={31} ry={37} fill={INK} /></g>}
       {outfit.hair === 'bun' && <path d="M-92 -300 Q-88 -392 0 -394 Q88 -392 92 -300 Q70 -350 0 -356 Q-70 -350 -92 -300 Z" fill={outfit.hairColor} stroke={INK} strokeWidth={5} />}
-      <Eye cx={-34 + fx} side={-1} e={e} look={look} blink={blink} id={id} />
-      <Eye cx={34 + fx} side={1} e={e} look={look} blink={blink} id={id} />
-      {outfit.glasses && <g fill="none" stroke="#D7DCE6" strokeWidth={6}><circle cx={-34 + fx} cy={-312} r={38} /><circle cx={34 + fx} cy={-312} r={38} /><path d={`M${-0 + fx - 4} -314 L${fx + 4} -314`} /></g>}
-      <MouthShape m={e.mouth} x={fx * 1.2} />
-      {e.sweat && <path d="M78 -352 q10 18 0 26 q-10 -8 0 -26 Z" fill="#7FD4FF" stroke={INK} strokeWidth={4} />}
-      {e.tear && <path d="M-44 -272 q8 16 0 22 q-8 -6 0 -22 Z" fill="#7FD4FF" stroke={INK} strokeWidth={3} />}
+      {ghost !== 'clothes' && <Eye cx={-34 + fx} side={-1} e={e} look={look} blink={blink} id={id} />}
+      {ghost !== 'clothes' && <Eye cx={34 + fx} side={1} e={e} look={look} blink={blink} id={id} />}
+      {!ghost && outfit.glasses && <g fill="none" stroke="#D7DCE6" strokeWidth={6}><circle cx={-34 + fx} cy={-312} r={38} /><circle cx={34 + fx} cy={-312} r={38} /><path d={`M${-0 + fx - 4} -314 L${fx + 4} -314`} /></g>}
+      {!ghost && <MouthShape m={e.mouth} x={fx * 1.2} />}
+      {!ghost && e.sweat && <path d="M78 -352 q10 18 0 26 q-10 -8 0 -26 Z" fill="#7FD4FF" stroke={INK} strokeWidth={4} />}
+      {!ghost && e.tear && <path d="M-44 -272 q8 16 0 22 q-8 -6 0 -22 Z" fill="#7FD4FF" stroke={INK} strokeWidth={3} />}
     </g>
   );
   if (headOnly) return head;
@@ -164,7 +175,7 @@ export const Max: React.FC<MaxProps> = ({ pose = STAND, expr = 'happy', look = [
       <path d="M-20 12 L36 12" stroke={outfit.sole} strokeWidth={6} strokeLinecap="round" />
     </g>
   );
-  const hand = (x: number, y: number) => <circle cx={x} cy={y} r={15} fill={outfit.skin} stroke={INK} strokeWidth={5} />;
+  const hand = (x: number, y: number) => ghost === 'clothes' || ghost === 'eyes' ? null : <circle cx={x} cy={y} r={15} fill={ghost === 'skeleton' ? BONE : outfit.skin} stroke={INK} strokeWidth={5} />;
 
   return (
     <g transform={`translate(0 ${pose.bob ?? 0}) rotate(${pose.lean ?? 0} 0 -100)`}>
