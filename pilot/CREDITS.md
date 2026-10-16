@@ -10,3 +10,4 @@ Cap: 8,000 per episode. Estimate first, ask, then log here.
 | 2026-10-16 | memory | Narration sections 2–9 (v4, 1 take each, ~5,100 chars) | 5,171 |
 | | memory | **Episode total so far** (voice test reused as section 1) | **5,726** |
 | 2026-10-16 | memory | Thumbnail art, 1 image | 190 |
+| 2026-10-16 | invisible | Voice test, cold open (v4, 1 take, 315 chars) | 315 |
