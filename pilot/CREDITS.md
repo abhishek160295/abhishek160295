@@ -9,3 +9,4 @@ Cap: 8,000 per episode. Estimate first, ask, then log here.
 | 2026-10-16 | memory | Voice test, cold open (v4, 1 take, 560 chars; estimate said 1,165, actual charge 555). Owner chose option C: cap raised to ~12,500 for this episode | 555 |
 | 2026-10-16 | memory | Narration sections 2–9 (v4, 1 take each, ~5,100 chars) | 5,171 |
 | | memory | **Episode total so far** (voice test reused as section 1) | **5,726** |
+| 2026-10-16 | memory | Thumbnail art, 1 image | 190 |
