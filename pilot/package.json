@@ -1,0 +1,19 @@
+{
+  "name": "whatif-pilot",
+  "private": true,
+  "scripts": {
+    "render": "remotion render src/index.ts TestShot out/test-shot.mp4"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.8.2",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/three": "^4.0.535",
+    "@types/react": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.535",
+    "three": "^0.180.0",
+    "typescript": "^7.0.2"
+  }
+}
