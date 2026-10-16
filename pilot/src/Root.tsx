@@ -5,9 +5,11 @@ import { Episode } from './ep/Episode';
 import { TOTAL_FRAMES } from './ep/timing';
 import { Thumb } from './ep/Thumb';
 import { ModelSheet } from './max/ModelSheet';
+import { ColdOpen, COLD_OPEN_FRAMES } from './mem/ColdOpen';
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="MemColdOpen" component={ColdOpen} durationInFrames={COLD_OPEN_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MaxSheet" component={ModelSheet} durationInFrames={1} fps={30} width={1920} height={1080} />
     <Composition id="Thumb50x" component={Thumb} durationInFrames={1} fps={30} width={1280} height={720} />
     <Composition id="Episode50x" component={Episode} durationInFrames={TOTAL_FRAMES} fps={30} width={1920} height={1080} />

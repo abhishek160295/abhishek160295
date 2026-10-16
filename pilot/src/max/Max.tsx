@@ -7,10 +7,12 @@ export const INK = '#141414';
 export type Look = {
   jacket: string; jacketDark: string; pants: string; shoes: string; sole: string; skin: string;
   hair?: 'bun' | 'none';
+  glasses?: boolean;
   hairColor?: string;
 };
 export const MAX: Look = { jacket: '#FFC72C', jacketDark: '#C9921A', pants: '#2F6FD6', shoes: '#E53935', sole: '#FFFFFF', skin: INK };
 export const MUM: Look = { jacket: '#8E5BD6', jacketDark: '#5E3A9A', pants: '#3A3F58', shoes: '#F2F2F2', sole: '#9A9AA8', skin: INK, hair: 'bun', hairColor: '#5A3A22' };
+export const TEACHER: Look = { jacket: '#8A96A8', jacketDark: '#5F6A7C', pants: '#3A3F58', shoes: '#2B2B2B', sole: '#8A8A8A', skin: INK, glasses: true };
 export const DAVE: Look = { jacket: '#3DBE7A', jacketDark: '#258553', pants: '#5A4632', shoes: '#2B2B2B', sole: '#8A8A8A', skin: INK };
 
 /** joint angles in degrees. 0 = hanging straight down, + = toward screen-right */
@@ -143,6 +145,7 @@ export const Max: React.FC<MaxProps> = ({ pose = STAND, expr = 'happy', look = [
       {outfit.hair === 'bun' && <path d="M-92 -300 Q-88 -392 0 -394 Q88 -392 92 -300 Q70 -350 0 -356 Q-70 -350 -92 -300 Z" fill={outfit.hairColor} stroke={INK} strokeWidth={5} />}
       <Eye cx={-34 + fx} side={-1} e={e} look={look} blink={blink} id={id} />
       <Eye cx={34 + fx} side={1} e={e} look={look} blink={blink} id={id} />
+      {outfit.glasses && <g fill="none" stroke="#D7DCE6" strokeWidth={6}><circle cx={-34 + fx} cy={-312} r={38} /><circle cx={34 + fx} cy={-312} r={38} /><path d={`M${-0 + fx - 4} -314 L${fx + 4} -314`} /></g>}
       <MouthShape m={e.mouth} x={fx * 1.2} />
       {e.sweat && <path d="M78 -352 q10 18 0 26 q-10 -8 0 -26 Z" fill="#7FD4FF" stroke={INK} strokeWidth={4} />}
       {e.tear && <path d="M-44 -272 q8 16 0 22 q-8 -6 0 -22 Z" fill="#7FD4FF" stroke={INK} strokeWidth={3} />}
