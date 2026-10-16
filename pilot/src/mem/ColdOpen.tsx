@@ -35,7 +35,7 @@ const Book: React.FC<{ open: number }> = ({ open }) => (
   </g>
 );
 
-const S = {
+export const S = {
   bookSlam: (d: number) => {
     const C = () => { const f = F(); const open = lerp(f, 0, 9, 1, 0); const sq = f >= 9 && f < 14 ? 1.06 : 1;
       return <Stage bg="#BFE3EF"><Bathroom /><rect width={W} height={H} fill="rgba(255,255,255,0.35)" /><At x={960} y={560} s={1.25 * sq}><Book open={open} /></At>{f >= 9 && <Burst x={960} y={560} p={lerp(f, 9, 22, 0, 1)} color="#fff" r={520} />}</Stage>; };

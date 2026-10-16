@@ -8,7 +8,8 @@
 4. **One stable character.** Max looks the same in every shot and every episode: round black head, big white expressive eyes, yellow jacket, blue jeans, red shoes. One model sheet. Change the design only if the owner approves, and then everywhere.
 5. **Balance: never rushed, never unclear.** One idea per shot. Key facts stay up until the line ends plus 0.5 s. Cut on phrase breaks. Rhythm is fast, fast, then breathe, with a calm 2–3 s hold after every burst or set piece. Test with 30 random freeze frames (each readable in 1 s) and a sound-off phone watch.
 6. **Cinematics:** speed ramps, freeze frames, low hero angles, Dutch tilts, whip pans and orbits, saved for payoff beats (about 6–8 slow-motion moments per episode), not everywhere.
-7. **Topic formula** (from Ifverse / Jeremy Bearimy data): one human ability × a number ("What If Your X Was 10x…"). Brain abilities trending. New topic each video, no Part 2. Thumbnail: 2 words, white plus yellow, one big face, one object, dark background.
+7. **Soft sound effects.** Effects support the picture, never sting the ear: high-passed, low-passed at ~7.5 kHz, compressed and levelled to −26 LUFS (`public/mem/sfx/`), played well under the voice. No shrill or piercing hits.
+8. **Topic formula** (from Ifverse / Jeremy Bearimy data): one human ability × a number ("What If Your X Was 10x…"). Brain abilities trending. New topic each video, no Part 2. Thumbnail: 2 words, white plus yellow, one big face, one object, dark background.
 
 ## ElevenLabs credit budget (hard rule)
 
