@@ -1,7 +1,7 @@
 # What If Your Memory Was 100x Better?
 
 Thumbnail: Max wide-eyed, thousands of memory screens swirling round his head, dark background. Text: **CAN'T FORGET.**
-Length: ~8 min. Narrator only (Max acts with his face, signs and props, so there are no second-voice credits).
+Length: ~8 min (narration ~6.3 min plus slow-mo and beats). Narrator only (Max acts with his face, signs and props, so there are no second-voice credits).
 Running gags: (1) **The Wave**: in 2014 Max waved back at someone who was waving at the person behind him. (2) **Keys**. (3) **Dave's dog, Sir Biscuit**. (4) The narrator forgets things and Max can't.
 
 Key: `VO` = narration · `▶` = visual · `SLO` = slow motion · `FRZ` = freeze frame · `WHIP` = whip-pan cut · `GFX` = graphic
@@ -32,7 +32,10 @@ VO: Which sounds amazing. And for about a week… it is.
 ▶ Montage, 0.5 s shots: Max high-fiving, Max on a podium, Max winking.
 
 VO: [beat] Then it ruins his life. Slowly. In alphabetical order.
-▶ Hard cut to black. TITLE: **CAN'T FORGET.**
+▶ Hard cut to black.
+
+VO: [tense] By day thirty, Max will beg to forget. And one memory… nearly gets him killed.
+▶ Flash-forward, 1.5 s: a bus horn, headlights filling the frame, Max frozen mid-road. SMASH CUT to TITLE: **CAN'T FORGET.**
 
 ---
 
@@ -98,6 +101,9 @@ VO: [warm] For one week, Max is the most useful person alive.
 
 VO: [beat] And then. He goes to bed.
 ▶ Hard cut. Dark bedroom. The clock reads 11:00.
+
+VO: [whisper] And the real problem hasn't even started yet.
+▶ Slow push-in on Max's closed eyes. One tiny memory screen flickers on behind his eyelid.
 
 ---
 
@@ -173,9 +179,12 @@ VO: So when he sees a new one… his brain just goes "error".
 VO: [beat] Except Sir Biscuit. He'd know Sir Biscuit anywhere.
 ▶ Sir Biscuit walks past in sunglasses. Max nods.
 
+VO: [tense] Funny, right? It stops being funny on a Tuesday. At a crossing.
+▶ FRZ on Max at a red pedestrian light. A clock ticks. Cut.
+
 ---
 
-## 6. The meltdown (4:45–6:15)
+## 6. The meltdown and the near miss (4:45–6:40)
 
 VO: [tense] Week three. Max's head is full of everything, all the time.
 ▶ Dutch tilt. Max at his desk. Tiny memory screens orbit his head like a swarm.
@@ -191,6 +200,24 @@ VO: [sarcastic] Comedy is dead to him. Which is a shame, because this video is h
 
 VO: He can't make simple choices. Pick a restaurant? He remembers every meal he's had at every one of them.
 ▶ GFX: a split screen of 40 restaurant menus. A decision bar fills to 1%, then crashes.
+
+VO: [tense] Then comes that Tuesday. Max steps off the kerb, and the green man reminds him of a green jumper.
+▶ Max mid-step at the crossing. The green man icon glows.
+
+VO: Which reminds him of a birthday. Which reminds him of a cake. Which reminds him of every cake. Ever.
+▶ Speed ramp: memory screens slam over his eyes one after another, faster and faster, until the street disappears.
+
+VO: [urgent] He's not looking at the road any more. He's looking at two thousand and nine.
+▶ POV: Max sees only a sunny 2009 party. Faint and distorted underneath: a horn.
+
+VO: [shouting] Max!
+▶ SLO SET PIECE: the bus fills the frame, the horn stretches into a low groan. Camera orbits Max frozen mid-road, memories still swirling, the bus one metre away.
+
+VO: [beat] Real life comes back at the very last second.
+▶ Snap to full speed. Max stumbles back onto the kerb. The bus blasts past and his hair whips sideways.
+
+VO: [shaky] Your brain filters out the past so you can see the present. Max's can't.
+▶ GFX: two lenses. YOU: a clear view of the road. MAX: the road buried under a hundred floating memories.
 
 VO: [quiet] And the worst part: bad memories don't fade.
 ▶ The lighting goes cold. Max alone on a bench.
@@ -218,7 +245,7 @@ VO: [whisper] Including the Wave.
 
 ---
 
-## 7. The fix (6:15–7:15)
+## 7. The fix (6:40–7:40)
 
 VO: [gentle] So what does Max actually want?
 ▶ Max at dawn on the rooftop, hollow-eyed, holding a mug.
@@ -240,7 +267,7 @@ VO: Forgetting isn't a bug. [beat] It's the best feature you've got.
 
 ---
 
-## 8. Ending gag (7:15–7:50)
+## 8. Ending gag (7:40–8:15)
 
 VO: [warm] As for Max? He turned it down to about twice as good as you.
 ▶ The dial clicks to 2x. Max smiles for the first time.
@@ -262,7 +289,7 @@ VO: [laughing] Some things you never learn.
 
 ---
 
-## 9. Outro (7:50–8:05)
+## 9. Outro (8:15–8:30)
 
 VO: What's the one thing you wish you could forget? Tell us in the comments. Or don't. We'll forget it anyway.
 ▶ The mic stand. A sticky note on it: "SUBSCRIBE". It falls off.
