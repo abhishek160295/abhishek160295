@@ -1,5 +1,13 @@
 # Project rules
 
+## Production rules (owner's notes, apply to every episode)
+
+1. **Quirky script.** Running gags, a sarcastic narrator who argues with Max, absurd comparisons, callback jokes, and at least one joke every 20 s. Never textbook tone.
+2. **More cuts.** Target an average shot of **2.5 s or less** (reference: 3.2 s), and 12+ cuts in the first 30 s. Every sentence gets a new visual (cut, angle change, zoom punch or insert). Check with ffmpeg scene detect before delivery.
+3. **Graphics over text.** Every fact becomes a picture: a gauge, a race, a size comparison, an icon pile, a filling bar, a before/after split, a map. Text only as a 1–3 word label on the graphic. No tables or paragraphs on screen.
+4. **One stable character.** Max looks the same in every shot and every episode: round black head, big white expressive eyes, yellow jacket, blue jeans, red shoes. One model sheet. Change the design only if the owner approves, and then everywhere.
+5. **Topic formula** (from Ifverse / Jeremy Bearimy data): one human ability × a number ("What If Your X Was 10x…"). Brain abilities trending. New topic each video, no Part 2. Thumbnail: 2 words, white plus yellow, one big face, one object, dark background.
+
 ## ElevenLabs credit budget (hard rule)
 
 - Cap: **8,000 credits per episode**, all-in. Never exceed without the owner saying yes in that session.
