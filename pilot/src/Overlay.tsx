@@ -1,4 +1,5 @@
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import type { Cues } from './timeline';
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const FONT = '"Inter Display", Inter, sans-serif';
@@ -43,9 +44,9 @@ const Caption: React.FC<{ words: Word[]; from: number; to: number }> = ({ words,
   );
 };
 
-const SpeedLines: React.FC = () => {
+const SpeedLines: React.FC<{ c: Cues }> = ({ c }) => {
   const f = useCurrentFrame();
-  const k = f - 150;
+  const k = f - c.burst;
   if (k < 0 || k > 45) return null;
   const fade = interpolate(k, [0, 4, 30, 45], [0, 1, 0.8, 0], clamp);
   return (
@@ -64,20 +65,21 @@ const SpeedLines: React.FC = () => {
   );
 };
 
-const Flash: React.FC = () => {
+const Flash: React.FC<{ c: Cues }> = ({ c }) => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [150, 151, 158], [0, 0.85, 0], clamp);
+  const o = interpolate(f, [c.burst, c.burst + 1, c.burst + 8], [0, 0.85, 0], clamp);
   return o > 0 ? <AbsoluteFill style={{ background: '#fffbe8', opacity: o }} /> : null;
 };
 
 // navy line-art stat card
-const StatCard: React.FC = () => {
+const StatCard: React.FC<{ c: Cues }> = ({ c }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const start = 238;
+  const start = c.card;
   if (f < start) return null;
-  const pop = spring({ frame: f - start, fps, config: { damping: 13, stiffness: 160 } });
-  const t = interpolate(f, [272, 300], [0, 1.44], { ...clamp, easing: Easing.out(Easing.quad) });
+  const pop = spring({ frame: f - start, fps, config: { damping: 13, stiffness: 160 } }) * interpolate(f, [c.cardOut, c.cardOut + 8], [1, 0], clamp);
+  if (pop <= 0.001) return null;
+  const t = interpolate(f, [c.at(8), c.end(8)], [0, 1.44], { ...clamp, easing: Easing.out(Easing.quad) });
   const bar = (d: number) => interpolate(f, [d, d + 18], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const row = (label: string, secs: string, w: number, color: string, d: number) => (
     <div style={{ marginTop: 26 }}>
@@ -112,52 +114,55 @@ const StatCard: React.FC = () => {
         {t.toFixed(2)}
         <span style={{ fontSize: 70 }}> s</span>
       </div>
-      {row('Usain Bolt', '9.58 s', 1, '#8ea6cf', 320)}
-      {row('Max (10x)', '1.44 s', 1.44 / 9.58, ACCENT, 300)}
+      {row('Usain Bolt', '9.58 s', 1, '#8ea6cf', c.at(10))}
+      {row('Max (10x)', '1.44 s', 1.44 / 9.58, ACCENT, c.end(8))}
     </div>
   );
 };
 
-export const Overlay: React.FC = () => (
+// caption groups: phrase indices shown together; ^ marks a highlighted word
+const LINES: { phrases: number[]; text: string[] }[] = [
+  { phrases: [0], text: ['This is ^Max.'] },
+  { phrases: [1, 2], text: ['Yesterday?', 'Totally normal guy.'] },
+  { phrases: [3, 4], text: ['Today…', 'Max is ^10x ^faster than you.'] },
+  { phrases: [5], text: ['Watch this.'] },
+  { phrases: [6], text: ['Aaand… he’s ^gone.'] },
+  { phrases: [7, 8], text: ['A hundred metres.', '^1.44 ^seconds.'] },
+  { phrases: [9, 10], text: ['Usain Bolt?', 'Nine and a half.'] },
+  { phrases: [11], text: ['Bolt’s fine.'] },
+  { phrases: [12, 13], text: ['Max…', 'has a ^problem.'] },
+];
+
+const Captions: React.FC<{ c: Cues }> = ({ c }) => (
+  <>
+    {LINES.map((line, li) => {
+      const words: Word[] = [];
+      line.phrases.forEach((pi, k) => {
+        const ws = line.text[k].split(' ');
+        const a = c.at(pi);
+        const step = (c.end(pi) - a) / ws.length;
+        ws.forEach((w, i) => words.push({ t: w.replace('^', ''), hot: w.startsWith('^'), at: Math.round(a + i * step) }));
+      });
+      const next = LINES[li + 1];
+      const last = line.phrases[line.phrases.length - 1];
+      const to = next ? Math.min(c.at(next.phrases[0]) - 1, c.end(last) + 24) : c.total;
+      return <Caption key={li} from={c.at(line.phrases[0])} to={to} words={words} />;
+    })}
+  </>
+);
+
+const Vignette: React.FC<{ c: Cues }> = ({ c }) => {
+  const f = useCurrentFrame();
+  const dark = interpolate(f, [c.problem - 6, c.problem + 10], [0.28, 0.75], clamp);
+  return <AbsoluteFill style={{ background: `radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(10,16,40,${dark}) 100%)` }} />;
+};
+
+export const Overlay: React.FC<{ c: Cues }> = ({ c }) => (
   <AbsoluteFill>
-    <AbsoluteFill style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(10,16,40,0.28) 100%)' }} />
-    <SpeedLines />
-    <Caption from={12} to={36} words={[{ t: 'Meet', at: 12 }, { t: 'Max.', at: 20 }]} />
-    <Caption
-      from={38}
-      to={102}
-      words={[
-        { t: 'Max', at: 38 },
-        { t: 'is', at: 44 },
-        { t: 'now', at: 49 },
-        { t: '10x', at: 55, hot: true },
-        { t: 'faster', at: 62, hot: true },
-        { t: 'than', at: 70 },
-        { t: 'you.', at: 75 },
-      ]}
-    />
-    <Caption
-      from={157}
-      to={210}
-      words={[
-        { t: 'Aaand…', at: 157 },
-        { t: 'he’s', at: 185 },
-        { t: 'gone.', at: 191, hot: true },
-      ]}
-    />
-    <Caption
-      from={320}
-      to={375}
-      words={[
-        { t: 'Usain', at: 320 },
-        { t: 'Bolt', at: 327 },
-        { t: 'needs', at: 334 },
-        { t: 'nine', at: 341 },
-        { t: 'and a', at: 347 },
-        { t: 'half.', at: 353, hot: true },
-      ]}
-    />
-    <StatCard />
-    <Flash />
+    <Vignette c={c} />
+    <SpeedLines c={c} />
+    <StatCard c={c} />
+    <Captions c={c} />
+    <Flash c={c} />
   </AbsoluteFill>
 );

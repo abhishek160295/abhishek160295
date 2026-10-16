@@ -41,6 +41,13 @@ Make YouTube "What if" videos better than the reference: Ifology, "What If You W
 - Pricing found: music runs ~1,500 credits per take, which is expensive. Use sparingly.
 - Master: ffmpeg compressor plus two-pass loudnorm to −14 LUFS (see the commit for the command).
 
+## Hook-script demos (done)
+- New script: "This is Max. Yesterday? Totally normal guy. Today… Max is ten times faster than you. Watch this. / Aaand he's gone. / A hundred metres. One point four four seconds. Usain Bolt? Nine and a half. Bolt's fine. Max… has a problem."
+- Voices the user shortlisted: Arthur (TtRFBnwQdH1k01vR0hMz, energetic US) and Asher (UaYTS0wayjmO9KD1LR4R, playful British). On eleven_v4 each ~17 s take billed 333 credits.
+- The timeline is data-driven (`src/timeline.ts`): phrase timings measured per take drive every animation beat and caption. Compositions are `Demo-arthur` and `Demo-asher`.
+- Outputs: `pilot/out/demo-asher.mp4` and `demo-arthur.mp4`, ~20 s each, mastered to −14.0 LUFS / −1.5 dBTP with `pilot/master.sh`.
+- Free local transcription isn't possible here (HuggingFace, OpenAI and Vosk model hosts are blocked), so phrase timings come from silence detection.
+
 ## Next step
 1. User gives the topic.
 2. Write the script.

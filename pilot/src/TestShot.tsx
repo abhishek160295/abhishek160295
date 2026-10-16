@@ -4,6 +4,7 @@ import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurr
 import { Character, CROUCH, IDLE, mixPose, Pose, runPose } from './Character';
 import { World } from './World';
 import { Overlay } from './Overlay';
+import { Cues, cues, SPLIT, TAKES } from './timeline';
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const ease = Easing.inOut(Easing.cubic);
@@ -12,36 +13,42 @@ const rnd = (i: number) => {
   return x - Math.floor(x);
 };
 
-export const BURST = 150;
-export const CUT = 210;
 const STRIDE = 2.24; // rad of run phase per metre
+const LAUNCH_X = 6.75;
 
 // ---------- scene A: start line ----------
-const xA = (f: number) => {
-  if (f < 105) return 0;
-  if (f < BURST) return 3 * ((f - 105) / 30) ** 2;
-  return 6.75 + 90 * ((f - BURST) / 30);
+const xA = (c: Cues, f: number) => {
+  if (f < c.run) return 0;
+  if (f < c.burst) return 3 * ((f - c.run) / 30) ** 2;
+  return LAUNCH_X + 90 * ((f - c.burst) / 30);
 };
 
-const poseA = (f: number): Pose => {
+const poseA = (c: Cues, f: number): Pose => {
   const breathe = Math.sin(f / 9) * 0.012;
   let p: Pose = { ...IDLE, bob: breathe, lean: breathe * 2 };
-  p.headYaw = interpolate(f, [20, 32, 62, 74], [0, -1.15, -1.15, 0], { ...clamp, easing: ease });
-  p.blink = interpolate(f, [40, 43, 46], [0, 1, 0], clamp);
-  p.eyeScale = interpolate(f, [50, 54, 60], [1, 1.18, 1.08], clamp);
-  p.armSpread = 0.12 + interpolate(f, [48, 56, 64], [0, 0.18, 0], clamp);
-  if (f >= 74) p = mixPose(p, CROUCH, interpolate(f, [74, 98], [0, 1], { ...clamp, easing: ease }));
-  if (f >= 105) {
-    const x = xA(f);
-    const phase = f < BURST ? x * STRIDE : 6.75 * STRIDE + (f - BURST) * 1.6;
-    p = mixPose(CROUCH, runPose(phase, f < BURST ? 1 : 1.25), interpolate(f, [105, 118], [0, 1], { ...clamp, easing: ease }));
+  // looks at camera for the intro, glances away on "Yesterday", back on "Today"
+  p.headYaw = interpolate(
+    f,
+    [c.lookCam, c.lookCam + 10, c.at(1), c.at(1) + 8, c.at(3), c.at(3) + 8, c.crouch - 6, c.crouch + 4],
+    [0, -1.15, -1.15, -0.2, -0.2, -1.15, -1.15, 0],
+    { ...clamp, easing: ease },
+  );
+  p.headPitch = interpolate(f, [c.at(2), c.at(2) + 8, c.at(3)], [0, 0.12, 0], clamp);
+  p.blink = interpolate(f, [c.at(2) + 4, c.at(2) + 7, c.at(2) + 10], [0, 1, 0], clamp);
+  p.eyeScale = interpolate(f, [c.eyePop, c.eyePop + 4, c.eyePop + 12], [1, 1.2, 1.08], clamp);
+  p.armSpread = 0.12 + interpolate(f, [c.eyePop - 4, c.eyePop + 4, c.eyePop + 16], [0, 0.2, 0], clamp);
+  if (f >= c.crouch) p = mixPose(p, CROUCH, interpolate(f, [c.crouch, c.crouch + 24], [0, 1], { ...clamp, easing: ease }));
+  if (f >= c.run) {
+    const x = xA(c, f);
+    const phase = f < c.burst ? x * STRIDE : LAUNCH_X * STRIDE + (f - c.burst) * 1.6;
+    p = mixPose(CROUCH, runPose(phase, f < c.burst ? 1 : 1.25), interpolate(f, [c.run, c.run + 13], [0, 1], { ...clamp, easing: ease }));
   }
   return p;
 };
 
 // ---------- scene B: finish line ----------
-const xB = (f: number) => {
-  const u = interpolate(f, [CUT, CUT + 20], [0, 1], clamp);
+const xB = (c: Cues, f: number) => {
+  const u = interpolate(f, [c.cut, c.cut + 20], [0, 1], clamp);
   return 101.6 - 34 * (1 - u) ** 3;
 };
 
@@ -53,29 +60,35 @@ const SKID: Pose = {
   headYaw: 0, headPitch: 0.15, blink: 0, eyeScale: 1.25,
 };
 
-const poseB = (f: number): Pose => {
+const poseB = (c: Cues, f: number): Pose => {
+  const C = c.cut;
   const breathe = Math.sin(f / 7) * 0.02;
-  let p = mixPose(SKID, { ...IDLE, bob: breathe }, interpolate(f, [CUT + 20, CUT + 34], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2)) }));
-  p.headYaw = interpolate(f, [CUT + 34, CUT + 44], [0, -0.45], { ...clamp, easing: ease });
-  p.blink = interpolate(f, [CUT + 50, CUT + 53, CUT + 56, CUT + 70, CUT + 73, CUT + 76], [0, 1, 0, 0, 1, 0], clamp);
-  p.eyeScale = interpolate(f, [CUT + 20, CUT + 34], [1.25, 1], clamp);
+  const p = mixPose(SKID, { ...IDLE, bob: breathe }, interpolate(f, [C + 20, C + 34], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2)) }));
+  p.headYaw = interpolate(f, [C + 34, C + 44, c.at(12), c.at(12) + 8], [0, -0.45, -0.45, -0.75], { ...clamp, easing: ease });
+  p.headPitch = interpolate(f, [c.at(12), c.at(12) + 8], [0, -0.08], clamp);
+  p.blink = interpolate(f, [C + 50, C + 53, C + 56, c.at(11), c.at(11) + 3, c.at(11) + 6], [0, 1, 0, 0, 1, 0], clamp);
+  // "Max… has a problem": eyes go wide, then a worried double-blink
+  p.eyeScale =
+    interpolate(f, [C + 20, C + 34], [1.25, 1], clamp) +
+    interpolate(f, [c.problem, c.problem + 4], [0, 0.3], clamp);
+  p.blink = Math.max(p.blink, interpolate(f, [c.problem + 20, c.problem + 23, c.problem + 26, c.problem + 29, c.problem + 32], [0, 1, 0, 1, 0], clamp));
   return p;
 };
 
 // ---------- effects ----------
-const Dust: React.FC<{ f: number; scene: 'A' | 'B' }> = ({ f, scene }) => {
+const Dust: React.FC<{ c: Cues; f: number; scene: 'A' | 'B' }> = ({ c, f, scene }) => {
   const puffs: { x: number; z: number; born: number; size: number }[] = [];
   if (scene === 'A') {
-    for (let i = 0; i < 6; i++) puffs.push({ x: 0.2 + rnd(i) * 0.5, z: (rnd(i + 40) - 0.5) * 0.8, born: 106 + i * 0.6, size: 0.3 });
+    for (let i = 0; i < 6; i++) puffs.push({ x: 0.2 + rnd(i) * 0.5, z: (rnd(i + 40) - 0.5) * 0.8, born: c.run + 1 + i * 0.6, size: 0.3 });
     for (let i = 0; i < 16; i++) {
       const a = (i / 16) * Math.PI * 2;
-      puffs.push({ x: 6.75 + Math.cos(a) * 1.1, z: Math.sin(a) * 1.1, born: BURST, size: 0.55 + rnd(i + 3) * 0.4 });
+      puffs.push({ x: LAUNCH_X + Math.cos(a) * 1.1, z: Math.sin(a) * 1.1, born: c.burst, size: 0.55 + rnd(i + 3) * 0.4 });
     }
-    for (let x = 7.5; x < 190; x += 1.6) puffs.push({ x, z: (rnd(x) - 0.5) * 0.8, born: BURST + (x - 6.75) / 3, size: 1 + rnd(x + 1) * 0.8 });
+    for (let x = 7.5; x < 190; x += 1.6) puffs.push({ x, z: (rnd(x) - 0.5) * 0.8, born: c.burst + (x - LAUNCH_X) / 3, size: 1 + rnd(x + 1) * 0.8 });
   } else {
     for (let x = 84; x < 101.6; x += 0.9) {
       const u = 1 - Math.cbrt((101.6 - x) / 34);
-      puffs.push({ x, z: (rnd(x) - 0.5) * 0.6, born: CUT + u * 20, size: 0.45 + rnd(x + 2) * 0.35 });
+      puffs.push({ x, z: (rnd(x) - 0.5) * 0.6, born: c.cut + u * 20, size: 0.45 + rnd(x + 2) * 0.35 });
     }
   }
   return (
@@ -96,29 +109,29 @@ const Dust: React.FC<{ f: number; scene: 'A' | 'B' }> = ({ f, scene }) => {
   );
 };
 
-const Shockwave: React.FC<{ f: number }> = ({ f }) => {
-  const age = f - BURST;
+const Shockwave: React.FC<{ c: Cues; f: number }> = ({ c, f }) => {
+  const age = f - c.burst;
   if (age < 0 || age > 22) return null;
   return (
-    <mesh position={[6.75, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.5 + age * 0.55}>
+    <mesh position={[LAUNCH_X, 0.08, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.5 + age * 0.55}>
       <torusGeometry args={[1, 0.06, 8, 64]} />
       <meshBasicMaterial color="#ffffff" transparent opacity={interpolate(age, [0, 22], [0.9, 0], clamp)} />
     </mesh>
   );
 };
 
-const Rig: React.FC<{ f: number }> = ({ f }) => {
+const Rig: React.FC<{ c: Cues; f: number }> = ({ c, f }) => {
   const camera = useThree((s) => s.camera);
-  if (f < CUT) {
-    const x = Math.min(xA(f), 6.75);
-    const push = interpolate(f, [0, 105], [0, 1], { ...clamp, easing: ease });
+  if (f < c.cut) {
+    const x = Math.min(xA(c, f), LAUNCH_X);
+    const push = interpolate(f, [0, c.run], [0, 1], { ...clamp, easing: ease });
     let cx = interpolate(push, [0, 1], [3.4, 2.3]) + x * 0.85;
     let cy = interpolate(push, [0, 1], [1.9, 1.35]);
-    let cz = interpolate(push, [0, 1], [7.8, 5.4]) + interpolate(f, [105, BURST], [0, 0.8], clamp);
+    let cz = interpolate(push, [0, 1], [7.8, 5.4]) + interpolate(f, [c.run, c.burst], [0, 0.8], clamp);
     let tx = 0.2 + x;
     let ty = 1.05;
-    if (f >= BURST) {
-      const k = f - BURST;
+    if (f >= c.burst) {
+      const k = f - c.burst;
       const shake = Math.exp(-k / 6) * 0.12;
       cx += Math.sin(k * 2.7) * shake;
       cy += Math.cos(k * 3.1) * shake;
@@ -129,68 +142,77 @@ const Rig: React.FC<{ f: number }> = ({ f }) => {
     camera.position.set(cx, cy, cz);
     camera.lookAt(tx, ty, 0);
   } else {
-    const k = interpolate(f, [CUT, 375], [0, 1], clamp);
-    camera.position.set(106.2 - k * 0.6, 1.3, 4.4 - k * 0.4);
-    camera.lookAt(99.6, 1.15, -0.6);
+    const k = interpolate(f, [c.cut, c.problem], [0, 1], clamp);
+    // slow push-in onto Max's face for the cliffhanger line
+    const z = interpolate(f, [c.at(12), c.total], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
+    const px = interpolate(z, [0, 1], [106.2 - k * 0.6, 103.3]);
+    const py = interpolate(z, [0, 1], [1.3, 1.85]);
+    const pz = interpolate(z, [0, 1], [4.4 - k * 0.4, 1.9]);
+    camera.position.set(px, py, pz);
+    camera.lookAt(interpolate(z, [0, 1], [99.6, 101.5]), interpolate(z, [0, 1], [1.15, 1.75]), interpolate(z, [0, 1], [-0.6, 0]));
   }
   return null;
 };
 
-const Scene: React.FC = () => {
+const Scene: React.FC<{ c: Cues }> = ({ c }) => {
   const f = useCurrentFrame();
-  const a = f < CUT;
+  const a = f < c.cut;
   return (
     <>
       <fog attach="fog" args={['#d6e6f4', 70, 420]} />
-      <Rig f={f} />
+      <Rig c={c} f={f} />
       <World />
       {a ? (
-        <Character position={[xA(f), 0, 0]} yaw={Math.PI / 2 - (f < 105 ? 0.3 : 0)} pose={poseA(f)} />
+        <Character position={[xA(c, f), 0, 0]} yaw={Math.PI / 2 - (f < c.run ? 0.3 : 0)} pose={poseA(c, f)} />
       ) : (
-        <Character position={[xB(f), 0, 0]} yaw={Math.PI / 2 - interpolate(f, [CUT + 20, CUT + 34], [0, 0.3], clamp)} pose={poseB(f)} />
+        <Character position={[xB(c, f), 0, 0]} yaw={Math.PI / 2 - interpolate(f, [c.cut + 20, c.cut + 34], [0, 0.3], clamp)} pose={poseB(c, f)} />
       )}
-      <Dust f={f} scene={a ? 'A' : 'B'} />
-      {a && <Shockwave f={f} />}
+      <Dust c={c} f={f} scene={a ? 'A' : 'B'} />
+      {a && <Shockwave c={c} f={f} />}
     </>
   );
 };
 
 const sfx = (name: string) => staticFile(`audio/${name}`);
 
-// VO take 1 is split into three lines and placed against the picture
-const Soundtrack: React.FC = () => (
+// VO plays as two natural chunks, split at the pause before "Aaand"
+const Soundtrack: React.FC<{ c: Cues; voFile: string; splitAt: number }> = ({ c, voFile, splitAt }) => (
   <>
     <Audio src={sfx('amb.wav')} volume={0.5} />
-    <Sequence from={12} durationInFrames={72}>
-      <Audio src={sfx('vo1.mp3')} endAt={83} />
+    <Sequence from={c.v1}>
+      <Audio src={staticFile(voFile)} endAt={splitAt} />
     </Sequence>
-    <Sequence from={156} durationInFrames={44}>
-      <Audio src={sfx('vo1.mp3')} startFrom={88} endAt={132} />
+    <Sequence from={c.v2 + splitAt}>
+      <Audio src={staticFile(voFile)} startFrom={splitAt} />
     </Sequence>
-    <Sequence from={240}>
-      <Audio src={sfx('vo1.mp3')} startFrom={178} endAt={303} />
-    </Sequence>
-    <Sequence from={108}>
+    <Sequence from={c.run + 3}>
       <Audio src={sfx('steps.mp3')} volume={0.35} />
     </Sequence>
-    <Sequence from={126}>
+    <Sequence from={c.burst - 24}>
       <Audio src={sfx('boom.mp3')} startFrom={36} volume={(f) => (f < 20 ? 0.35 : 0.6)} />
     </Sequence>
-    <Sequence from={210}>
+    <Sequence from={c.cut}>
       <Audio src={sfx('skid.mp3')} startFrom={18} volume={0.55} />
+    </Sequence>
+    <Sequence from={c.problem}>
+      <Audio src={sfx('hit.wav')} volume={0.7} />
     </Sequence>
   </>
 );
 
-export const TestShot: React.FC = () => {
+export const TestShot: React.FC<{ voice: keyof typeof TAKES }> = ({ voice }) => {
   const { width, height } = useVideoConfig();
+  const take = TAKES[voice];
+  const c = cues(take);
+  // cut the VO between "Watch this" and "Aaand"
+  const splitAt = Math.round(((take.phrases[SPLIT - 1][1] + take.phrases[SPLIT][0]) / 2) * 30);
   return (
     <AbsoluteFill style={{ backgroundColor: '#cfe3f5' }}>
       <ThreeCanvas width={width} height={height} shadows camera={{ fov: 38, near: 0.1, far: 2000 }} gl={{ antialias: true }}>
-        <Scene />
+        <Scene c={c} />
       </ThreeCanvas>
-      <Overlay />
-      <Soundtrack />
+      <Overlay c={c} />
+      <Soundtrack c={c} voFile={take.file} splitAt={splitAt} />
     </AbsoluteFill>
   );
 };
