@@ -1,6 +1,6 @@
 # Upload package: What If You Could Read Minds?
 
-File: `pilot/out/mind-episode-youtube.mp4` · Thumbnail: `pilot/out/thumb-read-minds.jpg` (pending)
+File: `pilot/out/mind-episode-youtube.mp4` · Thumbnails for Test & Compare: `pilot/out/thumb-read-minds.jpg` (A: THEY HATE ME?!) and `pilot/out/thumb-read-minds-B.jpg` (B: HATE ME?!)
 
 ## When to publish
 Sunday 25 Oct, 6:00 PM IST (4 days after the invisible episode). Upload by 4:00 PM and schedule it.
