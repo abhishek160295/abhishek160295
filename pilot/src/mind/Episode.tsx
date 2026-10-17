@@ -19,18 +19,19 @@ type MP = MaxProps & { flip?: boolean; glow?: number; paste?: boolean };
 const EyeGlow: React.FC<{ k?: number }> = ({ k = 1 }) => {
   const f = F(); const a = k * (0.8 + 0.2 * Math.sin(f / 4));
   return <g opacity={a} style={{ pointerEvents: 'none' }}>
-    <g style={{ filter: 'blur(9px)' }} opacity={0.55}><circle cx={-34} cy={-312} r={44} fill={GOLD} /><circle cx={34} cy={-312} r={44} fill={GOLD} /></g>
-    <circle cx={-34} cy={-312} r={30} fill="none" stroke={GOLD} strokeWidth={5} opacity={0.9} /><circle cx={34} cy={-312} r={30} fill="none" stroke={GOLD} strokeWidth={5} opacity={0.9} />
+    <g style={{ filter: 'blur(9px)' }} opacity={0.4}><circle cx={-34} cy={-312} r={44} fill={GOLD} /><circle cx={34} cy={-312} r={44} fill={GOLD} /></g>
+    <circle cx={-34} cy={-312} r={30} fill="none" stroke={GOLD} strokeWidth={4} opacity={0.6} /><circle cx={34} cy={-312} r={30} fill="none" stroke={GOLD} strokeWidth={4} opacity={0.6} />
   </g>;
 };
-const Paste: React.FC = () => <path d="M44 -262 q14 -18 30 -6 q16 4 8 22 q-10 14 -28 8 q-18 -6 -10 -24 Z" fill="#F4FBFF" stroke="#9ED8F0" strokeWidth={4} />;
+const Paste: React.FC = () => <path transform="translate(14 28)" d="M44 -262 q14 -18 30 -6 q16 4 8 22 q-10 14 -28 8 q-18 -6 -10 -24 Z" fill="#F4FBFF" stroke="#9ED8F0" strokeWidth={4} />;
 const body = (p: MP, head = false) => {
   const { flip, glow, paste, ...mp } = p;
   const inner = <>{head ? <Max headOnly {...mp} /> : <Max {...mp} />}{paste && <Paste />}{glow ? <EyeGlow k={glow} /> : null}</>;
   return flip ? <g transform="scale(-1 1)">{inner}</g> : inner;
 };
 const M = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={y} s={s}>{body(p)}</At>;
-const Head = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={y} s={s}><g transform="translate(0 300)">{body(p, true)}</g></At>;
+/** close-ups (s >= 1.7) keep the jacket and shoulders in frame so Max always reads as Max; small icons stay head-only */
+const Head = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={s < 1.7 ? y : y - 110} s={s}><g transform="translate(0 300)">{body(p, s < 1.7)}</g></At>;
 type CamP = { a?: CamKey; b?: CamKey; shake?: number; whip?: number; tilt?: number };
 const sc = (render: (f: number, d: number) => React.ReactNode, cam: CamP = {}) => (d: number) => {
   const C = () => { const f = F(); return <>{render(f, d)}</>; };
@@ -276,7 +277,7 @@ const X = {
   viewer: sc((f) => <Stage bg="#14152A"><At x={960} y={760}><path d="M-360 320 Q-360 0 0 0 Q360 0 360 320 Z" fill="#2B2F4A" /><circle cx={0} cy={-200} r={230} fill="#2B2F4A" /></At><Bub x={1300} y={300} w={500} h={260} tx={-340} ty={260}><Label x={0} y={0} t="…reading…" size={60} color={INK} /></Bub></Stage>, PUSH),
   comments: (opts: string[]) => sc((f) => <Stage bg="#1F2347">{Head(460, 640, 1.8, { expr: 'smug', look: [0.8, 0] })}<At x={1240} y={540}><rect x={-460} y={-330} width={920} height={660} rx={30} fill="#fff" stroke={INK} strokeWidth={8} />{opts.map((t, i) => <At key={i} x={0} y={-200 + i * 190} o={f > 4 + i * 8 ? 1 : 0}><rect x={-400} y={-70} width={800} height={140} rx={20} fill="#EEF1F6" /><circle cx={-320} r={40} fill={['#E53935', '#2F6FD6', '#FFD21F'][i]} /><Label x={40} y={0} t={t} size={60} color={INK} /></At>)}</At></Stage>, PUSH),
   stareWhy: sc((f) => <Stage><Office />{M(560, 1060, 1.3, { outfit: CLERK, expr: 'smug', pose: POINT, look: [0.8, 0] })}{M(1380, 1060, 1.3, { expr: 'shocked', look: [-0.8, 0], flip: true })}</Stage>, PUSH),
-  paste: sc((f) => <Stage bg="#9ED8F0"><Rays bg="#9ED8F0" ray="#AEE0F4" t={f} />{Head(960, 620, 2.7, { expr: 'shocked', paste: true, look: [0.4, 0.3] })}<circle cx={960 + 70 * 2.7} cy={620 - 0 * 2.7} r={110 + Math.sin(f / 4) * 10} fill="none" stroke="#E53935" strokeWidth={12} /></Stage>, HOLDC),
+  paste: sc((f) => <Stage bg="#9ED8F0"><Rays bg="#9ED8F0" ray="#AEE0F4" t={f} />{Head(960, 620, 2.7, { expr: 'shocked', paste: true, look: [0.4, 0.3] })}<circle cx={960 + 72 * 2.7} cy={620 + 52 * 2.7} r={80 + Math.sin(f / 4) * 10} fill="none" stroke="#E53935" strokeWidth={12} /></Stage>, HOLDC),
   brushing: sc((f) => <Stage><Bathroom />{M(960, 1040, 1.3, { expr: { eyes: 'closed', lid: 0, lidAngle: 0, mouth: 'smile' }, paste: true, pose: { ...STAND, shR: 120, elR: 60 + Math.sin(f) * 20 } })}<Label x={960} y={140} t="7:30 AM" size={70} color={INK} /></Stage>, PUSH),
   clock15: ClockCard('15:00'),
   // ---- 4 Dave
