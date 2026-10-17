@@ -1,7 +1,7 @@
 # What If You Could Read Minds?
 
 Thumbnail: Max in a crowd, glowing eyes, thought bubbles everywhere, staring horrified at one bubble. Text: **THEY HATE ME?!**
-Length: ~5:45 (narration ~4:35 plus holds and set pieces). Narrator only. Thought bubbles do the talking (text and icons).
+Length: ~6:25 (narration ~5:15 plus holds and set pieces). Narrator only. Thought bubbles do the talking (text and icons).
 **Spine:** Max wakes up able to read minds and finds a note: "I can read minds too. Midnight." Every scene is Max reading a suspect to find out who wrote it. The answer arrives in the last minute.
 Running gags: (1) **The midnight clock** jumps in between acts. (2) **Dave is terrified of ducks.** (3) **The narrator begs Max to stay out of HIS head.** (4) **Sir Biscuit only ever thinks FOOD** (it's a clue).
 
@@ -56,7 +56,7 @@ VO: But it can't be him. His brain is too busy wondering where he left his car.
 
 ---
 
-## 3. The first rule: every brain speaks its own language (1:20–2:10)
+## 3. The first rule, and suspect four (1:20–2:50)
 
 VO: [curious] Lunch. Max tries to read a stranger. And gets… nothing.
 ▶ A café. A stranger eating soup. Max squints. The bubble above them is pure TV static.
@@ -78,6 +78,27 @@ VO: And even then, people don't think in neat sentences. Scientists who sampled 
 
 VO: [deadpan] The rest is pictures, feelings, and a lot of people thinking about absolutely nothing.
 ▶ A supermarket aisle. Forty bubbles, all showing the same thing: a big question mark.
+
+VO: [tense] Two p.m. The office. And there's a woman who has been watching Max. All. Day.
+▶ An office. A woman (WOMAN outfit) at her desk, staring straight at Max over her monitor. A SUSPECT 4 card slams in.
+
+VO: Max reads her. And gets… nothing. Not static. Not music. Total silence.
+▶ Max's eyes glow. The space above her head stays completely empty. A single cricket chirps.
+
+VO: [tense] No thoughts at all. Either she's a robot… or she's hiding them on purpose. Which is exactly what a mind reader would do.
+▶ Fast cuts: Max's imagination bubbles: a robot, a spy in sunglasses, a hooded figure holding the note.
+
+VO: [pause] She isn't hiding anything. She's one of the people who don't have an inner voice at all.
+▶ The woman smiles and waves. Totally normal.
+
+VO: This is real. Researchers only gave it a name in 2024: anendophasia. Some people live their whole lives without that little voice in their head. Many of them never knew everyone else had one.
+▶ GFX: two heads side by side. One with a little speech bubble inside, one with a calm empty space. Labels: VOICE / NO VOICE.
+
+VO: [playful] Quick question. Is there a voice in your head reading this to you right now? Tell us in the comments.
+▶ Max turns to the camera and squints at the viewer. A comment box fills with YES, NO, WAIT WHAT.
+
+VO: [deadpan] Oh, and she was staring because Max had toothpaste on his face. Since breakfast. Suspect four, cleared.
+▶ Max touches his cheek: a big blob of toothpaste. He's crossed off the board. The clock: 15:00.
 
 ---
 
@@ -232,6 +253,7 @@ VO: [sarcastic] And Max, I'm still not telling you about the duck.
 
 - Brain-to-text decoding: Tang et al., Nature Neuroscience, 2023 (University of Texas at Austin). An fMRI decoder recovered the gist of stories after about 16 hours of training scans per person; a decoder trained on one person failed on others; and people could resist it by deliberately thinking of other things (counting, naming animals).
 - Inner speech frequency: Descriptive Experience Sampling studies (Russell Hurlburt and colleagues) found inner speech in roughly a quarter of random moments.
+- Anendophasia (little or no inner speech): named by Nedergaard & Lupyan, Psychological Science, 2024.
 - The cocktail party effect: Colin Cherry, 1953.
 - Memory reconsolidation: recalled memories become changeable and are re-stored (Nader et al., 2000, and later work).
 - Dogs and human faces: dogs can discriminate happy from angry human faces (Müller et al., Current Biology, 2015), follow human pointing and gaze, and their brains respond to emotional tone in human voices (Andics et al., 2014).
