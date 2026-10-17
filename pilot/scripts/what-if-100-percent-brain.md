@@ -77,6 +77,12 @@ VO: [curious] And this part is real. Your eyes send your brain millions of bits 
 VO: [deadpan] Today, your brain stopped throwing it away.
 ▶ The cup overflows. Dots flood the street.
 
+VO: [curious] And here's something you've never noticed. There's a hole in your vision right now. Every eye has a blind spot, where the nerve leaves the eye. Your brain simply paints over it. Today, you can see the hole.
+▶ GFX: an eye with the nerve leaving the back, a small black gap in the view. A tiny neuron painter brushes over it, then the paint peels off.
+
+VO: [playful] You also remember where you left everything. The TV remote. Your first tooth. Every password you've ever forgotten.
+▶ POV: you reach under the sofa without looking and pull out a remote, then a tiny box with a tooth, then a sticky note covered in passwords.
+
 VO: [sarcastic] Your cat is staring at you. Your cat is not impressed.
 ▶ Biscuit the cat, half asleep on the counter, one eye open. Closes it.
 
@@ -115,6 +121,9 @@ VO: You know what people will say before they say it. You finish the waiter's se
 VO: [building] In the park, a chess champion is beating everyone. You beat him in four moves. Without looking.
 ▶ SLO: you move a piece with your eyes closed. The champion's face. A crowd gasps.
 
+VO: [deadpan] A pigeon lands next to you. You calculate its flight path, its mood, and what it had for lunch.
+▶ A pigeon with dotted trajectory lines, a mood meter, and a tiny bread icon.
+
 VO: [tense] But the patterns don't switch off. You see faces in the clouds. Faces in the toast. Your socks are judging you.
 ▶ Fast cuts: a cloud with a face, toast with a face, two socks with angry eyebrows.
 
@@ -152,6 +161,9 @@ VO: [building] Ninety percent. Someone books you on live TV. The biggest quiz sh
 
 VO: [excited] You answer every question before the host finishes reading it. Capital of Mongolia. Ulaanbaatar. The atomic number of gold. Seventy-nine. What the host had for breakfast. Eggs. He's furious.
 ▶ Fast cuts, a buzzer on every cut, the score climbing. The host's eye twitches.
+
+VO: [building] The audience is chanting your name. Your mum is texting you in all capitals.
+▶ The crowd on its feet. A phone buzzing: a text in capitals with seven exclamation marks.
 
 VO: [tense] But inside your head, the city is on fire. Every memory is playing at once. Every song you've ever heard is stuck in your head at the same time.
 ▶ Inside: the Memory Library's books flying off shelves, Word Street jammed with traffic, music notes swarming every street.
