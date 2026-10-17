@@ -27,3 +27,15 @@ Cap: 8,000 per episode. Estimate first, ask, then log here.
 | 2026-10-17 | 100%-brain | Voice test, cold open (v4, 1 take, 517 chars) | 517 |
 | 2026-10-17 | 100%-brain | Narration sections 2–10 (v4, 1 take each, 5,436 chars) | 5,435 |
 | | 100%-brain | **Episode total so far** | **5,952** |
+
+## CORRECTION (2026-10-17)
+I was halving the ElevenLabs number. The figure shown when a generation starts (and in estimate_only) IS the real charge: about 2.1 credits per character for speech on this account, on every model (v4, v3, multilingual v2 and flash all priced the same). The lower "price" in the run status was not the billed amount. Real costs:
+
+| Episode | Logged before | Real (from launch charges) |
+|---|---|---|
+| read-minds | 5,848 + 190 | ~12,300 voice + 190 thumbnail ≈ **12,500** |
+| see-future | 6,178 + 190 | 12,975 voice + 190 thumbnail ≈ **13,165** |
+| 100%-brain | 5,952 | 1,086 test + 11,415 sections ≈ **12,501** (thumbnail not made yet) |
+| memory, invisible | ~5.7k / ~5.3k | likely about double, **~11k each** |
+
+All of these were over the 8,000 cap. New rule: quote the start/estimate figure as the cost, never halve it.

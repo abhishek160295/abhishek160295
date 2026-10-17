@@ -15,6 +15,7 @@
 
 - Cap: **8,000 credits per episode**, all-in. Never exceed without the owner saying yes in that session.
 - Before ANY paid call: run it with `estimate_only` first, then ask the owner with the number. No silent spends, ever.
+- The `estimate_only` number IS the real charge (speech ≈ 2.1 credits per character on this account, same on every model). Never halve it. Narration that fits the cap: about 3,600 characters (~3:30 of voice).
 - Keep a running tally in `pilot/CREDITS.md` (date, what, credits). Check it before each spend.
 
 ### Where credits go and the cheap way
