@@ -1,0 +1,6 @@
+node_modules/
+out/*
+!out/demo-asher.mp4
+!out/demo-arthur.mp4
+!out/v2-best-frames.jpg
+!out/thumb-50x.png
