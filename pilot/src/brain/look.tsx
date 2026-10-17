@@ -116,7 +116,7 @@ export const Neil: React.FC<{ mood?: 'tired' | 'shock' | 'happy' | 'sleep'; run?
         <line x1={-22} y1={-50} x2={-22 - leg} y2={0} stroke={INK} strokeWidth={14} strokeLinecap="round" />
         <line x1={22} y1={-50} x2={22 + leg} y2={0} stroke={INK} strokeWidth={14} strokeLinecap="round" />
         <ellipse cx={-26 - leg} cy={2} rx={22} ry={10} fill="#FFD21F" stroke={INK} strokeWidth={5} /><ellipse cx={26 + leg} cy={2} rx={22} ry={10} fill="#FFD21F" stroke={INK} strokeWidth={5} />
-        {[-155, -115, -70, -25, 25, 60].map((a, i) => { const r = (a * Math.PI) / 180; const w = Math.sin(f / 9 + i) * 0.08; return <g key={i}><path d={`M${Math.cos(r) * 84} ${-140 + Math.sin(r) * 84} Q${Math.cos(r + w) * 120} ${-140 + Math.sin(r + w) * 120} ${Math.cos(r) * 140} ${-140 + Math.sin(r) * 140}`} stroke={INK} strokeWidth={18} fill="none" strokeLinecap="round" /><path d={`M${Math.cos(r) * 84} ${-140 + Math.sin(r) * 84} Q${Math.cos(r + w) * 120} ${-140 + Math.sin(r + w) * 120} ${Math.cos(r) * 140} ${-140 + Math.sin(r) * 140}`} stroke="#6FC0FF" strokeWidth={9} fill="none" strokeLinecap="round" /><circle cx={Math.cos(r) * 144} cy={-140 + Math.sin(r) * 144} r={12} fill="#FFF2A8" stroke={INK} strokeWidth={4} filter="url(#glow)" /></g>; })}
+        {[-170, 150, 115, 65, 30, -10].map((a, i) => { const r = (a * Math.PI) / 180; const w = Math.sin(f / 9 + i) * 0.08; return <g key={i}><path d={`M${Math.cos(r) * 84} ${-140 + Math.sin(r) * 84} Q${Math.cos(r + w) * 120} ${-140 + Math.sin(r + w) * 120} ${Math.cos(r) * 140} ${-140 + Math.sin(r) * 140}`} stroke={INK} strokeWidth={18} fill="none" strokeLinecap="round" /><path d={`M${Math.cos(r) * 84} ${-140 + Math.sin(r) * 84} Q${Math.cos(r + w) * 120} ${-140 + Math.sin(r + w) * 120} ${Math.cos(r) * 140} ${-140 + Math.sin(r) * 140}`} stroke="#6FC0FF" strokeWidth={9} fill="none" strokeLinecap="round" /><circle cx={Math.cos(r) * 144} cy={-140 + Math.sin(r) * 144} r={12} fill="#FFF2A8" stroke={INK} strokeWidth={4} filter="url(#glow)" /></g>; })}
         <circle cx={0} cy={-140} r={92} fill="url(#neilG)" stroke={INK} strokeWidth={8} />
         <ellipse cx={-34} cy={-178} rx={28} ry={14} fill="#fff" opacity={0.55} transform="rotate(-25 -34 -178)" />
         <circle cx={-56} cy={-108} r={14} fill="#FF8AB0" opacity={0.5} /><circle cx={56} cy={-108} r={14} fill="#FF8AB0" opacity={0.5} />
@@ -157,17 +157,21 @@ export const Cat: React.FC<{ eye?: 'shut' | 'one' | 'open' }> = ({ eye = 'one' }
 };
 
 /** first-person hands at the bottom of frame */
-export const Hands: React.FC<{ reach?: number }> = ({ reach = 0 }) => (
+export const Hands: React.FC<{ reach?: number; hold?: React.ReactNode }> = ({ reach = 0, hold }) => (
   <g>
     {[-1, 1].map((s) => (
-      <g key={s} transform={`translate(${960 + s * (420 - reach * 120)} ${1010 - reach * 160}) rotate(${s * -14})`}>
-        <rect x={-74} y={0} width={148} height={260} rx={44} fill="#4A5568" stroke={INK} strokeWidth={8} />
-        <rect x={-74} y={0} width={148} height={34} rx={14} fill="#2D3748" stroke={INK} strokeWidth={6} />
-        <ellipse cx={0} cy={-10} rx={76} ry={88} fill={INK} />
-        {[-48, -16, 16, 48].map((x) => <rect key={x} x={x - 14} y={-114} width={28} height={74} rx={14} fill={INK} />)}
-        <ellipse cx={-26} cy={-30} rx={20} ry={30} fill="#fff" opacity={0.08} />
+      <g key={s} transform={`translate(${960 + s * (400 - reach * 120)} ${990 - reach * 160}) rotate(${s * -12})`}>
+        <path d="M-82 40 L82 40 L96 300 L-96 300 Z" fill="#4A5568" stroke={INK} strokeWidth={8} strokeLinejoin="round" />
+        <path d="M-60 60 L-50 290" stroke="#5E6A80" strokeWidth={14} strokeLinecap="round" />
+        <rect x={-86} y={18} width={172} height={40} rx={16} fill="#2D3748" stroke={INK} strokeWidth={6} />
+        {s === -1 && <g><rect x={-60} y={-4} width={120} height={30} rx={8} fill="#1A202C" stroke={INK} strokeWidth={5} /><rect x={-26} y={-12} width={52} height={44} rx={10} fill="#E2E8F0" stroke={INK} strokeWidth={5} /><line x1={0} y1={10} x2={0} y2={-2} stroke={INK} strokeWidth={3} /><line x1={0} y1={10} x2={10} y2={14} stroke={INK} strokeWidth={3} /></g>}
+        <path d="M-64 0 Q-74 -70 -56 -96 L56 -96 Q74 -70 64 0 Z" fill={INK} />
+        {[-42, -14, 14, 42].map((x, k) => <g key={x}><rect x={x - 13} y={-170 + Math.abs(k - 1.5) * 12} width={26} height={90} rx={13} fill={INK} /><line x1={x - 8} y1={-128 + Math.abs(k - 1.5) * 12} x2={x + 8} y2={-128 + Math.abs(k - 1.5) * 12} stroke="#3A3F58" strokeWidth={3} strokeLinecap="round" /></g>)}
+        <path d={`M${s * -60} -30 Q${s * -110} -70 ${s * -96} -120`} stroke={INK} strokeWidth={30} strokeLinecap="round" fill="none" />
+        <path d="M-40 -80 Q-30 -40 -44 -10" stroke="#3A3F58" strokeWidth={6} fill="none" strokeLinecap="round" opacity={0.8} />
       </g>
     ))}
+    {hold}
   </g>
 );
 
@@ -189,21 +193,45 @@ export const Meter: React.FC<{ p: number }> = ({ p }) => {
 };
 
 /** warm, lit first-person kitchen */
-export const KitchenPOV: React.FC = () => (
-  <g>
-    <rect width={W} height={H} fill="url(#warm)" />
-    <rect x={1150} y={110} width={520} height={380} rx={12} fill="#BFE6F7" stroke={INK} strokeWidth={10} />
-    <circle cx={1540} cy={210} r={60} fill="#FFE45C" filter="url(#glow)" />
-    <line x1={1410} y1={110} x2={1410} y2={490} stroke={INK} strokeWidth={8} /><line x1={1150} y1={300} x2={1670} y2={300} stroke={INK} strokeWidth={8} />
-    <path d="M1150 490 L860 1080 L1960 1080 L1670 490 Z" fill="#FFF4D6" opacity={0.25} />
-    {[0, 1, 2].map((i) => <rect key={i} x={100 + i * 280} y={150} width={240} height={200} rx={10} fill="#E8C9A0" stroke={INK} strokeWidth={7} />)}
-    <rect y={560} width={W} height={60} fill="#8E6845" stroke={INK} strokeWidth={8} />
-    <rect y={620} width={W} height={460} fill="#C99A68" />
-    {Array.from({ length: 10 }, (_, i) => <line key={i} x1={i * 220} y1={620} x2={i * 220 - 120} y2={1080} stroke="#B07D50" strokeWidth={4} />)}
-    <g transform="translate(560 560)"><rect x={-80} y={-150} width={160} height={150} rx={14} fill="#E53935" stroke={INK} strokeWidth={7} /><rect x={-60} y={-130} width={120} height={60} rx={8} fill="#FFD21F" /><Label x={0} y={-100} t="CRUNCH" size={26} color={INK} /></g>
-    <g transform="translate(860 560)"><rect x={-90} y={-110} width={180} height={110} rx={20} fill="#C7CDD8" stroke={INK} strokeWidth={7} /><rect x={-60} y={-130} width={40} height={30} rx={6} fill="#E2A15B" stroke={INK} strokeWidth={5} /><rect x={20} y={-130} width={40} height={30} rx={6} fill="#E2A15B" stroke={INK} strokeWidth={5} /></g>
-  </g>
-);
+export const KitchenPOV: React.FC = () => {
+  const f = F();
+  return (
+    <g>
+      <rect width={W} height={H} fill="url(#warm)" />
+      {/* window with tree, curtains and sunlight */}
+      <rect x={1140} y={90} width={540} height={400} rx={12} fill="#9ED8F0" stroke={INK} strokeWidth={10} />
+      <circle cx={1560} cy={190} r={56} fill="#FFE45C" filter="url(#glow)" />
+      <ellipse cx={1290} cy={420} rx={170} ry={120} fill="#6BB36F" stroke={INK} strokeWidth={6} /><rect x={1280} y={420} width={22} height={70} fill="#7A4A22" />
+      <line x1={1410} y1={90} x2={1410} y2={490} stroke={INK} strokeWidth={8} /><line x1={1140} y1={290} x2={1680} y2={290} stroke={INK} strokeWidth={8} />
+      <path d={`M1110 70 Q${1150 + Math.sin(f / 25) * 8} 280 1120 500 L1170 500 Q1200 280 1170 70 Z`} fill="#F07FA8" stroke={INK} strokeWidth={6} />
+      <path d={`M1710 70 Q${1670 + Math.sin(f / 25) * 8} 280 1700 500 L1650 500 Q1620 280 1650 70 Z`} fill="#F07FA8" stroke={INK} strokeWidth={6} />
+      <path d="M1140 490 L900 1080 L1960 1080 L1680 490 Z" fill="#FFF4D6" opacity={0.28} />
+      {/* clock */}
+      <g transform="translate(930 150)"><circle r={58} fill="#fff" stroke={INK} strokeWidth={8} /><line x1={0} y1={0} x2={0} y2={-38} stroke={INK} strokeWidth={6} strokeLinecap="round" transform={`rotate(${f * 6})`} /><line x1={0} y1={0} x2={26} y2={0} stroke={INK} strokeWidth={7} strokeLinecap="round" /><circle r={6} fill={INK} /></g>
+      {/* upper cabinets */}
+      {[0, 1].map((i) => <g key={i}><rect x={300 + i * 260} y={90} width={240} height={250} rx={10} fill="#E8C9A0" stroke={INK} strokeWidth={7} /><rect x={318 + i * 260} y={108} width={204} height={214} rx={6} fill="none" stroke="#C99A68" strokeWidth={5} /><rect x={i ? 320 + i * 260 : 500} y={200} width={10} height={50} rx={5} fill="#7A4A22" /></g>)}
+      {/* fridge */}
+      <g><rect x={20} y={90} width={250} height={480} rx={20} fill="#E2E8F0" stroke={INK} strokeWidth={8} /><line x1={20} y1={260} x2={270} y2={260} stroke={INK} strokeWidth={6} /><rect x={230} y={150} width={12} height={70} rx={6} fill="#9AA3B5" /><rect x={230} y={300} width={12} height={90} rx={6} fill="#9AA3B5" /><rect x={60} y={300} width={70} height={56} rx={6} fill="#FFF7DC" stroke={INK} strokeWidth={4} transform="rotate(-6 95 328)" /><circle cx={160} cy={190} r={14} fill="#E53935" stroke={INK} strokeWidth={3} /><circle cx={100} cy={410} r={12} fill="#3DBE7A" stroke={INK} strokeWidth={3} /><rect x={36} y={100} width={30} height={460} fill="#fff" opacity={0.35} /></g>
+      {/* tiled backsplash */}
+      {Array.from({ length: 30 }, (_, i) => <rect key={'t' + i} x={290 + (i % 10) * 82} y={380 + Math.floor(i / 10) * 60} width={78} height={56} fill="#F6EEDC" stroke="#D9C9A8" strokeWidth={3} />)}
+      {/* counter */}
+      <rect y={560} width={W} height={34} fill="#5A3A20" stroke={INK} strokeWidth={6} />
+      <rect y={594} width={W} height={486} fill="#C99A68" />
+      <rect y={594} width={W} height={20} fill="#000" opacity={0.15} />
+      {Array.from({ length: 10 }, (_, i) => <line key={i} x1={i * 220} y1={614} x2={i * 220 - 140} y2={1080} stroke="#B07D50" strokeWidth={4} />)}
+      {/* cereal, toaster, kettle, mug, plant, fruit */}
+      <g transform="translate(400 560)"><ellipse cx={0} cy={4} rx={90} ry={10} fill="#000" opacity={0.2} /><rect x={-80} y={-170} width={160} height={170} rx={12} fill="#E53935" stroke={INK} strokeWidth={7} /><rect x={-62} y={-150} width={124} height={64} rx={8} fill="#FFD21F" /><Label x={0} y={-118} t="CRUNCH" size={28} color={INK} /><circle cx={0} cy={-46} r={26} fill="#FFF7DC" stroke={INK} strokeWidth={4} /></g>
+      <g transform="translate(640 560)"><ellipse cx={0} cy={4} rx={100} ry={10} fill="#000" opacity={0.2} /><rect x={-95} y={-115} width={190} height={115} rx={24} fill="#C7CDD8" stroke={INK} strokeWidth={7} /><rect x={-80} y={-108} width={30} height={100} rx={10} fill="#fff" opacity={0.4} /><rect x={-62} y={-136} width={42} height={30} rx={6} fill="#E2A15B" stroke={INK} strokeWidth={5} /><rect x={20} y={-136} width={42} height={30} rx={6} fill="#E2A15B" stroke={INK} strokeWidth={5} /><rect x={86} y={-70} width={24} height={14} rx={4} fill={INK} /></g>
+      <g transform="translate(870 560)"><ellipse cx={0} cy={4} rx={70} ry={10} fill="#000" opacity={0.2} /><path d="M-60 0 L-50 -120 Q0 -140 50 -120 L60 0 Z" fill="#3DBE7A" stroke={INK} strokeWidth={7} /><path d="M50 -100 Q100 -100 90 -50" fill="none" stroke={INK} strokeWidth={8} /><path d="M-50 -110 L-90 -140" stroke={INK} strokeWidth={10} strokeLinecap="round" />{[0, 1].map((k) => <path key={k} d={`M${-96 + k * 10} -150 q10 -20 0 -40`} stroke="#fff" strokeWidth={5} fill="none" opacity={0.5 + 0.5 * Math.sin(f / 6 + k)} />)}</g>
+      <g transform="translate(1060 560)"><ellipse cx={0} cy={4} rx={50} ry={8} fill="#000" opacity={0.2} /><rect x={-36} y={-70} width={72} height={70} rx={10} fill="#2F6FD6" stroke={INK} strokeWidth={6} /><path d="M36 -54 q22 0 22 18 q0 18 -22 18" fill="none" stroke={INK} strokeWidth={6} />{[0, 1].map((k) => <path key={k} d={`M${-10 + k * 18} -80 q8 -14 0 -28`} stroke="#fff" strokeWidth={4} fill="none" opacity={0.4 + 0.4 * Math.sin(f / 7 + k)} />)}</g>
+      <g transform="translate(1300 560)"><ellipse cx={0} cy={4} rx={60} ry={8} fill="#000" opacity={0.2} /><path d="M-40 0 L-50 -60 L50 -60 L40 0 Z" fill="#C46A3A" stroke={INK} strokeWidth={6} />{[-30, 0, 30].map((x, k) => <ellipse key={k} cx={x} cy={-100 - (k % 2) * 30} rx={20} ry={44} fill="#3DBE7A" stroke={INK} strokeWidth={5} transform={`rotate(${(k - 1) * 25} ${x} -80)`} />)}</g>
+      <g transform="translate(1210 560)"><ellipse cx={0} cy={4} rx={110} ry={12} fill="#000" opacity={0.2} /><path d="M-100 -40 Q0 40 100 -40 Z" fill="#E8C9A0" stroke={INK} strokeWidth={6} />{[[-50, '#FF8A1F'], [0, '#E53935'], [45, '#FFD21F']].map(([x, c], k) => <circle key={k} cx={x as number} cy={-60 - (k % 2) * 16} r={34} fill={c as string} stroke={INK} strokeWidth={5} />)}</g>
+      {/* hanging lamp */}
+      <line x1={1000} y1={0} x2={1000} y2={60} stroke={INK} strokeWidth={6} /><path d="M940 100 L1060 100 L1030 60 L970 60 Z" fill="#FFD21F" stroke={INK} strokeWidth={6} /><circle cx={1000} cy={104} r={14} fill="#FFF8C4" filter="url(#glow)" />
+      <rect width={W} height={H} fill="#3A1F00" opacity={0.06} />
+    </g>
+  );
+};
 
 /** style board: four test frames for approval */
 export const BrainLook: React.FC<{ frame: number }> = ({ frame }) => (
@@ -213,7 +241,7 @@ export const BrainLook: React.FC<{ frame: number }> = ({ frame }) => (
       {frame === 0 && <g><BrainCity lit={['see', 'mem']} /><Meter p={0.1} /></g>}
       {frame === 1 && <g><BrainCity lit={0.85} red /><At x={1060} y={1000} s={1.15}><Neil run mood="shock" /></At><Meter p={0.9} /></g>}
       {frame === 2 && <g><BrainCity lit={0.25} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.45} /><At x={700} y={960} s={2.1}><Neil coffee /></At><At x={1420} y={960} s={1.6}><Neil sign="OVERTIME" /></At></g>}
-      {frame === 3 && <g><KitchenPOV /><At x={1430} y={600} s={1.1}><Cat eye="one" /></At><Hands reach={0.3} /><Meter p={0.25} /></g>}
+      {frame === 3 && <g><KitchenPOV /><At x={1600} y={600} s={1.1}><Cat eye="one" /></At><Hands reach={0.3} /><Meter p={0.25} /></g>}
     </svg>
   </AbsoluteFill>
 );
