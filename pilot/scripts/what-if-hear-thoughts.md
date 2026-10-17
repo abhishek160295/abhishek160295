@@ -1,7 +1,7 @@
 # What If You Could Hear Everyone's Thoughts?
 
 Thumbnail: Max in the middle of a crowd, dozens of thought bubbles around him, staring horrified at one. Text: **THEY HATE ME?!**
-Length target: ~6:30. Narrator only (Max acts with his face, thought bubbles do the talking as text and icons).
+Length: ~6:00 (narration ~5:05 plus holds). Narrator only (Max acts with his face, thought bubbles do the talking as text and icons).
 Running gags: (1) **"…he's cute."** The crush's thought from the opening, paid off at the end. (2) **Dave's secret:** he's terrified of ducks. (3) **The narrator begs Max not to read HIS mind.** (4) **Sir Biscuit only thinks FOOD.**
 
 Key: `VO` = narration · `▶` = visual · `SLO` = slow motion · `FRZ` = freeze frame · `GFX` = graphic
@@ -56,6 +56,24 @@ VO: [deadpan] Dave is terrified of ducks.
 VO: [warm] For one morning, Max knows everything. He's never felt more powerful.
 ▶ SLO: Max walking down the street, low angle, bubbles floating around him like a crown.
 
+VO: [excited] Two p.m. A job interview. For a job he is not qualified for.
+▶ An office. A stern interviewer (TEACHER outfit) flips through a very short CV.
+
+VO: The interviewer asks, "What's your biggest weakness?" And thinks, "please don't say perfectionism."
+▶ The interviewer's bubble: the word PERFECTIONISM with a big red X.
+
+VO: [deadpan] Max says "honesty." He gets the job. He starts Monday. He doesn't know what the company does.
+▶ A handshake. FRZ on Max's confused smile. A sign behind him reads "SALES?"
+
+VO: [curious] Three p.m. Max discovers something about people. They lie. A lot.
+▶ A busy street. Every second bubble has a little red "LIE" tag on it.
+
+VO: In one well-known study, people kept a diary of every lie they told. On average? One or two a day. Mostly small ones.
+▶ GFX: a calendar where every day gets one or two small red stickers. Labels: "I'm fine." "Love the haircut." "On my way!"
+
+VO: [sarcastic] "On my way!" Max can hear that they are, in fact, still in the shower.
+▶ A man texting "On my way!". His bubble shows him in the shower with a rubber duck.
+
 ---
 
 ## 3. The first crack (1:30–2:20)
@@ -86,6 +104,9 @@ VO: The rest? Pictures. Feelings. And a surprising amount of… nothing.
 
 VO: [sarcastic] So mostly, Max isn't reading minds. He's reading static.
 ▶ Max's view of a crowded street: every bubble is TV static with the occasional word: "lunch", "ugh", "where are my keys".
+
+VO: [deadpan] Ten minutes in a supermarket, and Max now knows forty people forgot why they walked in.
+▶ A supermarket aisle. Forty bubbles, all showing the same thing: a big question mark.
 
 ---
 
@@ -122,6 +143,9 @@ VO: And if this just blew your mind a little, smash like. We'll pretend we didn'
 VO: [curious] Here's the scary part. Scientists are already getting close to this.
 ▶ A lab. A big brain scanner hums. A volunteer lies inside.
 
+VO: Your brain has around eighty-six billion neurons, all firing in patterns. A thought is one of those patterns.
+▶ GFX: a brain made of tiny glowing dots. Patterns ripple across it like city lights at night.
+
 VO: In 2023, a team in Texas trained an AI on brain scans while people listened to stories for hours.
 ▶ GFX: a brain lighting up in patches while a podcast plays. Waves of colour.
 
@@ -156,6 +180,9 @@ VO: [tense] But thoughts don't come through your ears. There's nothing to filter
 VO: [building] Kick-off. Sixty thousand minds switch on.
 ▶ The whistle blows. SLO SET PIECE: thousands of thought bubbles burst from every seat at once, swirling up into a tornado around Max.
 
+VO: [sarcastic] Even the team mascot is thinking about quitting.
+▶ A giant duck mascot on the pitch. Its bubble: "I hate this job." Dave, in the stands, faints.
+
 VO: "Goal!" "Hungry." "Did I leave the oven on?" "I hate this team." "I love this team." "Why is that man screaming?"
 ▶ Fast cuts, 0.4 s each: bubbles slamming in front of Max's face, one per line. The last one shows Max himself, screaming.
 
@@ -186,6 +213,15 @@ VO: [heavy] He can't sleep. He can't think. He can't even hear his own thoughts 
 
 VO: And that's the twist. When you hear everyone… you lose the only voice that was actually yours.
 ▶ GFX: Max's own little bubble getting smaller and smaller, buried under the others.
+
+VO: [quiet] He tries a library. Silent, right? Wrong. Three hundred people quietly thinking very loud thoughts.
+▶ A library. Everyone reading silently. Above them, a ceiling packed with bubbles: "is this boring", "I'm hungry", "who smells of onions".
+
+VO: He tries the woods. Birds, squirrels, a very anxious deer.
+▶ A forest. A deer's bubble: a car's headlights. A squirrel's bubble: "NUT NUT NUT."
+
+VO: [heavy] The only quiet place left is next to the woman from the office. The one with no inner voice.
+▶ Max sitting on a bench beside her in total silence. For the first time all day, his shoulders drop.
 
 ---
 
@@ -224,3 +260,5 @@ VO: [sarcastic] And no, Max. I'm still not telling you about the duck.
 - Anendophasia (little or no inner speech): named in a 2024 study by Nedergaard & Lupyan (Psychological Science).
 - Brain-to-text decoding: Tang et al., Nature Neuroscience, 2023 (University of Texas at Austin). An fMRI-based decoder recovered the gist of stories, not exact words, after about 16 hours of training scans per person.
 - The cocktail party effect: Colin Cherry, 1953. Your brain can focus on one voice in a noisy room.
+- Lying diaries: DePaulo et al., 1996. Participants told about one to two lies a day, mostly small social ones.
+- About 86 billion neurons in the human brain (Azevedo et al., 2009).
