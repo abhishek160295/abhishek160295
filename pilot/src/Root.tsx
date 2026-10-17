@@ -11,10 +11,11 @@ import { InvEpisode, INV_FRAMES } from './inv/Episode';
 import { MindEpisode, MIND_FRAMES } from './mind/Episode';
 import { FutureEpisode, FUTURE_FRAMES } from './future/Episode';
 import { BrainLookComp } from './brain/look';
-import { BrainS1, S1_FRAMES, S2 } from './brain/Episode';
+import { BrainS1, S1_FRAMES, S2, S3 } from './brain/Episode';
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="BrainS3" component={S3.Clip} durationInFrames={S3.frames} fps={30} width={1920} height={1080} />
     <Composition id="BrainS2" component={S2.Clip} durationInFrames={S2.frames} fps={30} width={1920} height={1080} />
     <Composition id="BrainS1" component={BrainS1} durationInFrames={S1_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="BrainLook" component={BrainLookComp} durationInFrames={4} fps={30} width={1920} height={1080} />

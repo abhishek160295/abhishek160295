@@ -128,6 +128,178 @@ const Poster: React.FC<{ f: number; stage: 0 | 1 }> = ({ f, stage }) => (
   </g>
 );
 
+// ---- 3 twenty-five percent
+const BOX = { y: '#FFD45C' };
+const Brackets: React.FC<{ x: number; y: number; w: number; h: number; p: number }> = ({ x, y, w, h, p }) => p <= 0 ? null : (
+  <g opacity={p} transform={`translate(${x} ${y}) scale(${1.25 - p * 0.25})`}>{[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b], i) => <path key={i} d={`M${a * w / 2} ${b * h / 2 - b * 30} L${a * w / 2} ${b * h / 2} L${a * w / 2 - a * 30} ${b * h / 2}`} stroke={BOX.y} strokeWidth={8} fill="none" strokeLinecap="round" filter="url(#glow)" />)}</g>
+);
+const Stairs: React.FC<{ f: number }> = ({ f }) => {
+  const bob = Math.sin(f / 5) * 14;
+  return (
+    <g transform={`translate(0 ${bob})`}>
+      <rect width={W} height={H + 40} fill="#E9D3AE" />
+      <rect x={0} y={-20} width={420} height={H + 60} fill="#D8BC8E" />
+      <rect x={1500} y={-20} width={420} height={H + 60} fill="#D8BC8E" />
+      <g transform="translate(1600 260)"><rect x={-90} y={-70} width={180} height={140} fill="#fff" stroke={INK} strokeWidth={8} /><rect x={-76} y={-56} width={152} height={112} fill="#9ED8F0" /><circle cx={30} cy={-10} r={24} fill="#FFE45C" /></g>
+      <rect x={720} y={60} width={480} height={260} fill="#FFF4D6" stroke={INK} strokeWidth={8} />
+      <rect x={740} y={80} width={440} height={240} fill="url(#warm)" opacity={0.8} />
+      {Array.from({ length: 7 }, (_, i) => { const t = i / 7, y0 = 320 + Math.pow(t, 1.4) * 760, y1 = 320 + Math.pow((i + 1) / 7, 1.4) * 760, x0 = 720 - t * 600, x1 = 720 - ((i + 1) / 7) * 600; return <g key={i}><path d={`M${x0} ${y0} L${W - x0} ${y0} L${W - x1} ${y1} L${x1} ${y1} Z`} fill={i % 2 ? '#B07D50' : '#C99A68'} stroke={INK} strokeWidth={6} /><rect x={x0} y={y0} width={W - 2 * x0} height={10 + t * 10} fill="#7A4A22" /></g>; })}
+      <path d="M1500 -20 L1260 330 L1880 1100" stroke="#7A4A22" strokeWidth={46} fill="none" strokeLinecap="round" />
+      <path d="M1500 -20 L1260 330 L1880 1100" stroke="#A86B3A" strokeWidth={26} fill="none" strokeLinecap="round" />
+      <At x={0} y={-bob + 60}><Hands reach={0.15} /></At>
+    </g>
+  );
+};
+const ScanKitchen: React.FC<{ f: number }> = ({ f }) => (
+  <g><KitchenPOV />
+    {([[400, 475, 190, 210], [640, 500, 230, 170], [870, 490, 200, 190], [1060, 515, 110, 120], [1210, 505, 250, 130], [930, 150, 150, 150], [1410, 290, 580, 440], [145, 330, 280, 520], [1000, 80, 160, 120], [1300, 470, 140, 200]] as const).map(([x, y, w, h], i) => <Brackets key={i} x={x} y={y} w={w} h={h} p={lerp(f, i * 2, i * 2 + 6, 0, 1)} />)}
+    <rect width={W} height={H} fill="#FFD45C" opacity={lerp(f, 0, 20, 0.25, 0)} />
+    <Meter p={0.25} />
+  </g>
+);
+const CerealClose: React.FC<{ f: number }> = ({ f }) => {
+  const n = Math.round(lerp(f, 0, 40, 0, 1204));
+  return (
+    <g><rect width={W} height={H} fill="url(#warm)" />
+      <g transform="translate(860 560) rotate(-4)"><rect x={-420} y={-470} width={840} height={980} rx={26} fill="#E53935" stroke={INK} strokeWidth={10} /><rect x={-360} y={-420} width={720} height={240} rx={18} fill="#FFD21F" stroke={INK} strokeWidth={7} /><Label x={0} y={-300} t="CRUNCH" size={130} color={INK} />
+        <rect x={-360} y={-140} width={720} height={600} rx={14} fill="#FFF7DC" stroke={INK} strokeWidth={6} />
+        {Array.from({ length: 22 }, (_, i) => { const lit = i < f / 2; return <rect key={i} x={-330} y={-115 + i * 26} width={300 + rnd(i, 4) * 360} height={12} rx={6} fill={lit ? '#2F6FD6' : '#C9BFA8'} opacity={lit ? 1 : 0.8} />; })}
+        <rect x={-340} y={-128 + Math.min(21, Math.floor(f / 2)) * 26} width={680} height={34} rx={8} fill="#FFD45C" opacity={0.5} />
+      </g>
+      <At x={1540} y={300} r={6}><rect x={-230} y={-80} width={460} height={160} rx={80} fill="#0B0620" stroke={GOLD} strokeWidth={6} /><Label x={0} y={0} t={`${n.toLocaleString('en-US')} WORDS`} size={58} color={GOLD} /></At>
+      <Meter p={0.25} />
+    </g>
+  );
+};
+const CEIL_CRACKS = Array.from({ length: 14 }, (_, i) => { const x = 140 + rnd(i, 7) * 1640, y = 140 + rnd(i, 8) * 760; let d = `M${x} ${y}`, cx = x, cy = y; for (let k = 0; k < 5; k++) { cx += (rnd(i * 9 + k, 2) - 0.5) * 180; cy += (rnd(i * 9 + k, 3) - 0.5) * 140; d += ` L${cx} ${cy}`; } return d; });
+const CeilingCracks: React.FC<{ f: number }> = ({ f }) => (
+  <g><rect width={W} height={H} fill="#EFE6D6" />
+    {Array.from({ length: 8 }, (_, i) => <line key={i} x1={0} y1={i * 150} x2={W} y2={i * 150 + 60} stroke="#E2D6C0" strokeWidth={30} />)}
+    <g transform="translate(960 540)"><circle r={90} fill="#FFF8C4" stroke={INK} strokeWidth={8} filter="url(#glow)" /><circle r={130} fill="none" stroke="#E2D6C0" strokeWidth={14} /></g>
+    {CEIL_CRACKS.map((d, i) => <g key={i} opacity={f > i * 1.5 ? 1 : 0}><path d={d} stroke="#6B5A44" strokeWidth={5} fill="none" /><path d={d} stroke={BOX.y} strokeWidth={10} fill="none" opacity={0.6} filter="url(#glow)" /></g>)}
+    <At x={960} y={780}><rect x={-240} y={-62} width={480} height={124} rx={62} fill="#0B0620" stroke={GOLD} strokeWidth={6} /><Label x={0} y={0} t={`${Math.min(214, Math.round(f * 9))} CRACKS`} size={60} color={GOLD} /></At>
+    <Meter p={0.25} />
+  </g>
+);
+const ToasterClose: React.FC<{ f: number }> = ({ f }) => {
+  const pop = 60, up = f >= pop ? Math.min(1, (f - pop) / 5) : 0;
+  const t = Math.max(0, (pop - f) / 30);
+  return (
+    <g><rect width={W} height={H} fill="url(#warm)" /><rect y={760} width={W} height={320} fill="#C99A68" stroke={INK} strokeWidth={8} />
+      <g transform="translate(820 760)">
+        {[-130, 130].map((x) => <g key={x} transform={`translate(${x} ${-430 - up * 220}) rotate(${up * (x > 0 ? 12 : -10)})`}><rect x={-100} y={-90} width={200} height={190} rx={50} fill="#E2A15B" stroke={INK} strokeWidth={8} /><rect x={-80} y={-70} width={160} height={150} rx={40} fill="#F2C98A" /></g>)}
+        <rect x={-340} y={-420} width={680} height={420} rx={90} fill="#C7CDD8" stroke={INK} strokeWidth={10} />
+        <rect x={-300} y={-390} width={90} height={360} rx={30} fill="#fff" opacity={0.4} />
+        <rect x={340} y={-260} width={60} height={40} rx={10} fill={INK} transform={`translate(0 ${up * -80})`} />
+      </g>
+      <At x={1470} y={420}><circle r={170} fill="#0B0620" stroke={f >= pop ? '#3DBE7A' : GOLD} strokeWidth={10} /><circle r={150} fill="none" stroke={f >= pop ? '#3DBE7A' : GOLD} strokeWidth={18} strokeDasharray={`${942 * Math.min(1, t / 2)} 942`} transform="rotate(-90)" /><Label x={0} y={0} t={f >= pop ? 'POP!' : t.toFixed(1) + 's'} size={86} color={f >= pop ? '#3DBE7A' : GOLD} /></At>
+      <Meter p={0.25} />
+    </g>
+  );
+};
+const BITS = ['#FFD45C', '#6FD3FF', '#FF8AD8', '#3DBE7A', '#FF8A1F'];
+const Eye: React.FC<{ s?: number }> = ({ s = 1 }) => (
+  <g transform={`scale(${s})`}><ellipse rx={180} ry={120} fill="#fff" stroke={INK} strokeWidth={10} /><circle r={78} fill="#2F6FD6" stroke={INK} strokeWidth={8} /><circle r={38} fill={INK} /><circle cx={-22} cy={-24} r={14} fill="#fff" /></g>
+);
+const SmallBrain: React.FC = () => <path d="M-200 40 Q-240 -120 -80 -160 Q0 -220 80 -160 Q240 -120 200 40 Q200 140 80 140 Q0 180 -80 140 Q-200 140 -200 40 Z" fill="#FF9FD0" stroke={INK} strokeWidth={10} />;
+const Firehose: React.FC<{ f: number; trickle?: boolean }> = ({ f, trickle }) => (
+  <g><rect width={W} height={H} fill="#1F2347" />
+    <At x={280} y={540}><Eye s={1.2} /></At>
+    <path d={trickle ? 'M500 470 Q900 420 1180 470 L1180 610 Q900 660 500 610 Z' : 'M500 470 Q1000 400 1460 470 L1460 610 Q1000 680 500 610 Z'} fill="#2B2150" stroke={INK} strokeWidth={8} />
+    {Array.from({ length: 60 }, (_, i) => { const len = trickle ? 680 : 960; const x = 520 + ((rnd(i) * len + f * 22) % len); return <rect key={i} x={x} y={490 + rnd(i, 2) * 90} width={26} height={26} rx={5} fill={BITS[i % 5]} />; })}
+    {trickle ? <g>
+      <path d="M1180 420 L1420 540 L1180 660 Z" fill="#9AA3B5" stroke={INK} strokeWidth={8} />
+      {Array.from({ length: 30 }, (_, i) => { const t = (rnd(i, 5) + f / 25) % 1; return <rect key={i} x={1430 + t * 360} y={300 + (rnd(i, 6) - 0.5) * 300 + t * t * 700} width={22} height={22} rx={4} fill={BITS[i % 5]} opacity={0.8} />; })}
+      <At x={1720} y={760}><rect x={-140} y={-110} width={280} height={140} rx={14} fill="#4A5568" stroke={INK} strokeWidth={8} /><Label x={0} y={-40} t="TRASH" size={52} color="#E2E8F0" /></At>
+      <circle cx={1420} cy={560 + ((f * 3) % 60)} r={12} fill={GOLD} filter="url(#glow)" />
+      <At x={1420} y={680}><path d="M-70 -60 L70 -60 L56 70 L-56 70 Z" fill="#FFF7DC" stroke={INK} strokeWidth={8} /><rect x={-56} y={50} width={112} height={18} fill={GOLD} /></At>
+      <Label x={1420} y={800} t="YOU NOTICE" size={44} color={GOLD} />
+    </g> : <g><At x={1660} y={540}><SmallBrain /></At><Label x={1000} y={300} t="MILLIONS / SEC" size={84} color={GOLD} /></g>}
+  </g>
+);
+const Dumpster: React.FC<{ f: number; closed?: boolean }> = ({ f, closed }) => (
+  <g><BrainCity lit={closed ? 0.6 : 0.25} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.45} />
+    <g transform="translate(1180 900)"><rect x={-300} y={-300} width={600} height={300} rx={20} fill="#3DBE7A" stroke={INK} strokeWidth={10} /><rect x={-300} y={-300} width={600} height={40} fill="#2E9A60" />
+      <path d={closed ? 'M-320 -320 L320 -320 L320 -290 L-320 -290 Z' : `M-320 -300 L320 -300 L${280} ${-560} L${-360} ${-520} Z`} fill="#2E9A60" stroke={INK} strokeWidth={10} />
+      <Label x={0} y={-150} t={closed ? 'CLOSED' : 'TRASH'} size={84} color="#fff" />
+      {closed && <g transform="rotate(-8) translate(0 -380)"><rect x={-200} y={-50} width={400} height={100} rx={12} fill="#E53935" stroke={INK} strokeWidth={8} /><Label x={0} y={0} t="NO DUMPING" size={50} color="#fff" /></g>}
+    </g>
+    {Array.from({ length: closed ? 90 : 26 }, (_, i) => { if (closed) { const t = Math.min(1, (f / 50) * rnd(i, 4) + 0.1); return <rect key={i} x={rnd(i) * W} y={1080 - t * (120 + rnd(i, 2) * 520)} width={34} height={34} rx={6} fill={BITS[i % 5]} stroke={INK} strokeWidth={3} />; } const t = ((rnd(i, 3) + f / 30) % 1); return <rect key={i} x={460 + t * 700} y={560 - Math.sin(t * Math.PI) * 300 + rnd(i, 5) * 60} width={34} height={34} rx={6} fill={BITS[i % 5]} stroke={INK} strokeWidth={3} />; })}
+    <At x={closed ? 560 : 420} y={1060} s={2}><Neil mood={closed ? 'shock' : 'happy'} /></At>
+    <Meter p={0.25} />
+  </g>
+);
+const Hole: React.FC<{ r: number; ring?: number }> = ({ r, ring = 0 }) => (
+  <g transform="translate(1180 360)"><circle r={r} fill="#05040A" filter="url(#soft)" /><circle r={r * 0.85} fill="#000" />{ring > 0 && <circle r={r + 30} fill="none" stroke={GOLD} strokeWidth={8} strokeDasharray="26 16" opacity={ring} transform={`rotate(${ring * 40})`} />}</g>
+);
+const EyeSection: React.FC<{ f: number }> = ({ f }) => (
+  <g><rect width={W} height={H} fill="#1F2347" />
+    {[-1, 0, 1].map((k) => <line key={k} x1={0} y1={540 + k * 160} x2={540} y2={540 + k * 40} stroke="#FFF2A8" strokeWidth={8} opacity={0.6} />)}
+    <g transform="translate(900 540)">
+      <circle r={360} fill="#FFF7EC" stroke={INK} strokeWidth={12} />
+      <path d="M-330 -140 Q-400 0 -330 140" fill="#2F6FD6" stroke={INK} strokeWidth={10} />
+      <ellipse cx={-280} rx={44} ry={110} fill="#BEE3F8" stroke={INK} strokeWidth={8} opacity={0.9} />
+      <path d="M-120 -320 A360 360 0 0 1 340 -120 L320 -100 A340 340 0 0 0 -110 -300 Z" fill="#F2A3B8" />
+      <path d="M240 260 A360 360 0 0 1 -120 320 L-110 300 A340 340 0 0 0 225 245 Z" fill="#F2A3B8" />
+      <path d="M330 -110 L340 -40 L340 40 L330 110" stroke="#F2A3B8" strokeWidth={22} fill="none" />
+      <path d={`M340 0 Q520 0 ${560 + 200} ${-40}`} stroke="#F6C27A" strokeWidth={90} fill="none" strokeLinecap="round" />
+      <path d={`M340 0 Q520 0 ${560 + 200} ${-40}`} stroke={INK} strokeWidth={6} fill="none" strokeDasharray="0" opacity={0.2} />
+      <circle cx={345} cy={0} r={54 + Math.sin(f / 4) * 6} fill="none" stroke="#E53935" strokeWidth={10} filter="url(#glow)" />
+    </g>
+    <At x={1250} y={340} s={lerp(f, 8, 16, 0.4, 1)}><rect x={-200} y={-56} width={400} height={112} rx={56} fill="#0B0620" stroke="#E53935" strokeWidth={6} /><Label x={0} y={0} t="BLIND SPOT" size={58} color="#FF7A6E" /></At>
+    <Label x={1560} y={600} t="NERVE" size={46} color="#F6C27A" />
+  </g>
+);
+const PaintOver: React.FC<{ f: number }> = ({ f }) => {
+  const p = lerp(f, 6, 46, 0, 1);
+  return (
+    <g><g transform="translate(-700 -40) scale(1.6)"><KitchenPOV /></g>
+      <g transform="translate(960 470)"><circle r={200} fill="#000" /><clipPath id="paintC"><rect x={-240} y={-240} width={480 * p} height={480} /></clipPath><g clipPath="url(#paintC)"><circle r={204} fill="#9ED8F0" /><ellipse cx={-30} cy={110} rx={200} ry={130} fill="#6BB36F" /><circle cx={0} cy={0} r={204} fill="none" stroke="#9ED8F0" strokeWidth={8} /></g></g>
+      <g transform={`translate(${760 + p * 420} ${300 + Math.sin(f / 3) * 40})`}><rect x={-24} y={-150} width={48} height={300} rx={16} fill="#FFD21F" stroke={INK} strokeWidth={8} /><rect x={-10} y={150} width={20} height={200} fill="#7A4A22" stroke={INK} strokeWidth={5} /></g>
+      <At x={360} y={1060} s={2}><Neil mood="happy" /></At>
+      <At x={1560} y={760} r={-4}><rect x={-210} y={-60} width={420} height={120} rx={20} fill="#FFF7DC" stroke={INK} strokeWidth={8} /><Label x={0} y={0} t="AUTO-FILL" size={64} color="#2F6FD6" /></At>
+    </g>
+  );
+};
+const MemFly: React.FC<{ f: number }> = ({ f }) => (
+  <g><BrainCity lit={['mem']} labels={false} />
+    {Array.from({ length: 16 }, (_, i) => { const t = ((rnd(i, 3) + f / 45) % 1); const x = 700 + rnd(i) * 520 + (rnd(i, 2) - 0.5) * t * 1100, y = 520 - t * 520; return <g key={i} transform={`translate(${x} ${y}) rotate(${(rnd(i, 4) - 0.5) * 60 + Math.sin(f / 4 + i) * 20})`} opacity={1 - t * 0.5}><path d="M0 0 L-60 -18 L-60 34 L0 52 Z" fill={BITS[i % 5]} stroke={INK} strokeWidth={5} /><path d="M0 0 L60 -18 L60 34 L0 52 Z" fill="#FFF7DC" stroke={INK} strokeWidth={5} /></g>; })}
+    <At x={960} y={160}><rect x={-280} y={-54} width={560} height={108} rx={54} fill="#0B0620" opacity={0.85} stroke={GOLD} strokeWidth={4} /><Label x={0} y={0} t="REMEMBERING" size={60} color={GOLD} /></At>
+    <Meter p={0.25} />
+  </g>
+);
+const Pin: React.FC<{ x: number; y: number; p: number; label: string; children: React.ReactNode }> = ({ x, y, p, label, children }) => p <= 0 ? null : (
+  <g transform={`translate(${x} ${y}) scale(${lerp(p, 0, 1, 1.6, 1)})`} opacity={Math.min(1, p * 2)}>
+    <rect x={-190} y={-190} width={380} height={380} rx={12} fill="#FFF7DC" stroke={INK} strokeWidth={8} transform="rotate(-3)" />
+    {children}
+    <circle cy={-180} r={22} fill="#E53935" stroke={INK} strokeWidth={6} />
+    <Label x={0} y={140} t={label} size={52} color={INK} />
+  </g>
+);
+const PinBoard: React.FC<{ f: number }> = ({ f }) => (
+  <g><rect width={W} height={H} fill="#B07D50" />{Array.from({ length: 120 }, (_, i) => <circle key={i} cx={rnd(i) * W} cy={rnd(i, 2) * H} r={4} fill="#8A5A30" />)}
+    <path d={`M560 420 Q960 ${300 + Math.sin(f / 8) * 20} 1360 420`} stroke="#E53935" strokeWidth={6} fill="none" opacity={f > 24 ? 1 : 0} />
+    <Pin x={560} y={520} p={lerp(f, 0, 6, 0, 1)} label="UNDER COUCH"><g transform="translate(0 -20) rotate(-20)"><rect x={-40} y={-110} width={80} height={220} rx={30} fill="#2D3748" stroke={INK} strokeWidth={7} /><circle cy={-70} r={16} fill="#E53935" />{[0, 1, 2].map((k) => <circle key={k} cx={-16 + k * 16} cy={-10} r={8} fill="#9AA3B5" />)}{[0, 1, 2].map((k) => <circle key={k} cx={-16 + k * 16} cy={30} r={8} fill="#9AA3B5" />)}</g></Pin>
+    <Pin x={1360} y={520} p={lerp(f, 24, 30, 0, 1)} label="AGE 6"><g transform="translate(0 -20)"><path d="M-70 -70 Q-70 -110 -30 -100 Q0 -90 30 -100 Q70 -110 70 -70 Q74 0 50 70 Q36 100 20 50 Q0 20 -20 50 Q-36 100 -50 70 Q-74 0 -70 -70 Z" fill="#fff" stroke={INK} strokeWidth={8} /><circle cx={-24} cy={-50} r={10} fill={INK} /><circle cx={24} cy={-50} r={10} fill={INK} /><path d="M-16 -20 Q0 -6 16 -20" stroke={INK} strokeWidth={6} fill="none" /></g></Pin>
+    <Meter p={0.25} />
+  </g>
+);
+const PW = ['fluffy123', 'password1', 'qwerty!!', 'iloveCAT', 'p@ssw0rd', 'letmein', '123456', 'sunshine9'];
+const Passwords: React.FC<{ f: number }> = ({ f }) => (
+  <g><rect width={W} height={H} fill="#1F2347" />
+    {Array.from({ length: 34 }, (_, i) => { const t0 = i * 1.4; if (f < t0) return null; const y = Math.min(260 + rnd(i, 2) * 700, -200 + (f - t0) * 90); return <g key={i} transform={`translate(${160 + rnd(i) * 1600} ${y}) rotate(${(rnd(i, 3) - 0.5) * 30})`}><rect x={-120} y={-80} width={240} height={160} fill={['#FFE45C', '#FF8AD8', '#6FD3FF', '#9BE07A'][i % 4]} stroke={INK} strokeWidth={5} /><Label x={0} y={0} t={PW[i % PW.length]} size={30} color={INK} /></g>; })}
+    <At x={960} y={160}><rect x={-330} y={-64} width={660} height={128} rx={64} fill="#0B0620" stroke={GOLD} strokeWidth={6} /><Label x={0} y={0} t={`${Math.min(412, Math.round(f * 7))} PASSWORDS`} size={60} color={GOLD} /></At>
+    <Meter p={0.25} />
+  </g>
+);
+const CatStare: React.FC<{ f: number; meh?: boolean }> = ({ f, meh }) => (
+  <g><g transform="translate(-300 -200) scale(1.3)"><KitchenPOV /></g><rect width={W} height={H} fill="#000" opacity={0.15} />
+    <At x={1050} y={1000} s={3.2}><Cat eye={meh ? 'shut' : 'open'} /></At>
+    {meh && <At x={1380} y={300}><Stamp t="NOT IMPRESSED" p={lerp(f, 18, 26, 0, 1)} size={84} /></At>}
+    <Meter p={0.25} />
+  </g>
+);
+
 const X = {
   wake: sc((f) => <St><Ceiling f={f} sharp={lerp(f, 6, 20, 0, 1)} /><Lids open={lerp(f, 0, 10, 0, 1)} /></St>, HOLDC),
   alarm: sc((f) => <St><AlarmClock f={f} /></St>, PUSH),
@@ -157,6 +329,28 @@ const X = {
   district: (k: 'see' | 'mem' | 'alarm', t: string) => sc((f) => <St><BrainCity lit={[k]} labels={false} />{k === 'alarm' && <At x={1500 + Math.sin(f / 6) * 20} y={420} s={lerp(f, 4, 12, 0.3, 1.6)}><ellipse rx={60} ry={50} fill={INK} />{Array.from({ length: 8 }, (_, i) => <path key={i} d={`M${i < 4 ? -40 : 40} ${-20 + (i % 4) * 14} q${i < 4 ? -60 : 60} ${-30} ${i < 4 ? -90 : 90} ${30}`} stroke={INK} strokeWidth={10} fill="none" />)}<circle cx={-16} cy={-10} r={8} fill="#FF5A6E" /><circle cx={16} cy={-10} r={8} fill="#FF5A6E" /></At>}<At x={960} y={170}><rect x={-260} y={-54} width={520} height={108} rx={54} fill="#0B0620" opacity={0.85} stroke={GOLD} strokeWidth={4} /><Label x={0} y={0} t={t} size={60} color={GOLD} /></At></St>, HOLDC),
   waking: sc((f) => <St><BrainCity lit={lerp(f, 0, 40, 0.05, 0.5)} labels={false} /></St>, { a: { z: 1 }, b: { z: 1.04 } }),
   coffeeDrop: sc((f) => <St><BrainCity lit={0.5} labels={false} /><At x={760} y={1060} s={2.4}><Neil mood="shock" /></At><At x={1120} y={600 + lerp(f, 0, 14, 0, 300)} r={lerp(f, 0, 14, 0, 140)} s={2}><rect x={-28} y={-32} width={56} height={64} rx={10} fill="#fff" stroke={INK} strokeWidth={5} /><rect x={-28} y={-8} width={56} height={14} fill="#E53935" /></At><Meter p={lerp(f, 6, 30, 0.1, 0.25)} /></St>, { a: { z: 1 }, b: { z: 1.03 }, shake: 0.3 }),
+  // ---- 3 twenty-five percent
+  meter25: sc((f) => <St><BrainCity lit={0.5} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.55} /><At x={960} y={500} s={lerp(f, 0, 8, 1.3, 1)}><BigNum text="25%" size={300} color={GOLD} /></At><Meter p={lerp(f, 4, 20, 0.1, 0.25)} /></St>, HOLDC),
+  stairs: sc((f) => <St><Stairs f={f} /></St>, { a: { z: 1 }, b: { z: 1.06 } }),
+  scan: sc((f) => <St><ScanKitchen f={f} /></St>, HOLDC),
+  cereal: sc((f) => <St><CerealClose f={f} /></St>, PUSH),
+  cracks: sc((f) => <St><CeilingCracks f={f} /></St>, HOLDC),
+  toast: sc((f) => <St><ToasterClose f={f} /></St>, { a: { z: 1 }, b: { z: 1.04 }, shake: 0.2 }),
+  real: sc((f) => <St><Rays bg="#1F2347" ray="#2B3166" t={f} /><At x={960} y={560} r={-3}><rect x={-300} y={-360} width={600} height={720} rx={24} fill="#FFF7DC" stroke={INK} strokeWidth={10} /><rect x={-100} y={-390} width={200} height={70} rx={14} fill="#9AA3B5" stroke={INK} strokeWidth={8} /><g transform="translate(0 -120) scale(0.9)"><Eye /></g>{[0, 1, 2, 3].map((k) => <rect key={k} x={-220} y={80 + k * 50} width={300 + (k % 2) * 140} height={18} rx={9} fill="#C9BFA8" />)}</At><At x={1060} y={640}><Stamp t="REAL" p={lerp(f, 8, 16, 0, 1)} size={150} color="#3DBE7A" /></At></St>, PUSH),
+  hose: sc((f) => <St><Firehose f={f} /></St>, HOLDC),
+  trickle: sc((f) => <St><Firehose f={f} trickle /></St>, HOLDC),
+  dump: sc((f) => <St><Dumpster f={f} /></St>, PUSH),
+  flood: sc((f) => <St><Dumpster f={f} closed /></St>, { a: { z: 1 }, b: { z: 1.04 }, shake: 0.3 }),
+  calm: sc((f) => <St><KitchenPOV /><rect width={W} height={H} fill="#0B0620" opacity={lerp(f, 0, 40, 0, 0.25)} /><Meter p={0.25} /></St>, { a: { z: 1 }, b: { z: 1.04 } }),
+  hole: sc((f) => <St><KitchenPOV /><Hole r={lerp(f, 0, 16, 0, 130)} /><Meter p={0.25} /></St>, HOLDC),
+  eyeCut: sc((f) => <St><EyeSection f={f} /></St>, PUSH),
+  paint: sc((f) => <St><PaintOver f={f} /></St>, HOLDC),
+  seeHole: sc((f) => <St><KitchenPOV /><Hole r={130} ring={lerp(f, 0, 12, 0, 1)} /><Label x={1180} y={580} t="HOLE" size={64} color={GOLD} /><Meter p={0.25} /></St>, HOLDC),
+  memFly: sc((f) => <St><MemFly f={f} /></St>, { a: { z: 1 }, b: { z: 1.04 } }),
+  pins: sc((f) => <St><PinBoard f={f} /></St>, HOLDC),
+  passwords: sc((f) => <St><Passwords f={f} /></St>, HOLDC),
+  catStare: sc((f) => <St><CatStare f={f} /></St>, PUSH),
+  catMeh: sc((f) => <St><CatStare f={f} meh /></St>, HOLDC),
 };
 
 type El = (d: number) => React.ReactNode;
@@ -200,9 +394,33 @@ export const S2_CUES: Cue[] = [
   c(2, 'Today the whole', X.coffeeDrop, [[0, 'slap', 0.3]]),
 ];
 
+export const S3_CUES: Cue[] = [
+  [secStart(3), X.meter25, [[0, 'tick', 0.3]]],
+  c(3, 'You walk downstairs', X.stairs),
+  c(3, 'everything', X.scan, [[0, 'whoosh', 0.25]]),
+  c(3, 'Every word on', X.cereal, [[0, 'counter', 0.2]]),
+  c(3, 'Every crack', X.cracks),
+  c(3, 'The exact moment', X.toast, [[60, 'pop', 0.3]]),
+  c(3, 'And this part', X.real, [[8, 'slap', 0.25]]),
+  c(3, 'Your eyes send', X.hose, [[0, 'whoosh', 0.3]]),
+  c(3, 'But scientists', X.trickle),
+  c(3, 'Your brain throws', X.dump),
+  c(3, 'stopped throwing', X.flood, [[0, 'lowhit', 0.35]]),
+  c(3, "And here's something", X.calm),
+  c(3, "There's a hole", X.hole, [[0, 'lowhit', 0.3]]),
+  c(3, 'Every eye has', X.eyeCut),
+  c(3, 'Your brain simply', X.paint),
+  c(3, 'you can see the hole', X.seeHole, [[0, 'tick', 0.25]]),
+  c(3, 'You also remember', X.memFly, [[0, 'whoosh', 0.25]]),
+  c(3, 'The TV remote', X.pins, [[0, 'pop', 0.25], [24, 'pop', 0.25]]),
+  c(3, 'Every password', X.passwords, [[0, 'counter', 0.2]]),
+  c(3, 'Your cat is staring', X.catStare),
+  c(3, 'Your cat is not', X.catMeh, [[18, 'slap', 0.3]]),
+];
+
 const SOFT = (n: string) => staticFile(`mem/sfx/${n}.mp3`);
 export const S1_FRAMES = secEnd(1) + 75;
-const SECTIONS: Record<number, Cue[]> = { 1: S1_CUES, 2: S2_CUES };
+const SECTIONS: Record<number, Cue[]> = { 1: S1_CUES, 2: S2_CUES, 3: S3_CUES };
 /** one section as a stand-alone test clip (starts at the section, ends 1.5 s after it) */
 export const sectionClip = (n: number) => {
   const from = secStart(n) - (n === 1 ? secStart(1) : 15), to = secEnd(n) + 45;
@@ -230,6 +448,7 @@ export const sectionClip = (n: number) => {
   return { Clip, frames: to - from };
 };
 export const S2 = sectionClip(2);
+export const S3 = sectionClip(3);
 
 /** section 1 test clip for approval */
 export const BrainS1: React.FC = () => {
