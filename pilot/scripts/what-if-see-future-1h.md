@@ -1,7 +1,7 @@
 # What If You Could See 1 Hour Into the Future?
 
 Thumbnail: Max's horrified face up close, glowing clock in his eyes, a giant duck balloon and fireworks behind him. Text: **DON'T GO.** (backup: **TOO LATE.**)
-Length: ~6:30 (narration ~5:50 plus holds and set pieces). Narrator only.
+Length: ~5:30 (narration ~4:55 plus holds, fireworks and landing set pieces). Narrator only.
 
 **Spine:** at 9 a.m. Max blinks and sees 10 a.m.: he is in a runaway balloon over the city, fireworks exploding beneath him. And in the vision, future Max looks straight at him and shouts two words: **"DON'T GO!"** He has 60 minutes to stop it. Every move he makes drags him closer, and the stakes grow every time he blinks.
 
