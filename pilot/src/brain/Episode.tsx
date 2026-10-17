@@ -10,6 +10,7 @@ import { at, secStart, secEnd, CAPTION_WORDS } from './timing';
 
 const St: React.FC<{ children: React.ReactNode; bg?: string }> = ({ children, bg }) => <Stage bg={bg}><Defs />{children}</Stage>;
 const STILL = HOLDC;
+const Worker: React.FC = () => <g><circle cx={0} cy={-130} r={70} fill="url(#neilG)" stroke={INK} strokeWidth={7} />{[-20, 20].map((x) => <g key={x}><circle cx={x} cy={-140} r={14} fill="#fff" stroke={INK} strokeWidth={4} /><circle cx={x} cy={-138} r={7} fill={INK} /></g>)}<path d="M-14 -105 Q0 -96 14 -105" stroke={INK} strokeWidth={5} fill="none" /><line x1={-50} y1={-120} x2={-110} y2={-170} stroke="#6FC0FF" strokeWidth={12} strokeLinecap="round" /><line x1={50} y1={-120} x2={110} y2={-170} stroke="#6FC0FF" strokeWidth={12} strokeLinecap="round" /><line x1={-16} y1={-62} x2={-20} y2={0} stroke={INK} strokeWidth={10} /><line x1={16} y1={-62} x2={20} y2={0} stroke={INK} strokeWidth={10} /></g>;
 
 // ---------- first-person bedroom ----------
 const Ceiling: React.FC<{ f: number; sharp?: number }> = ({ f, sharp = 1 }) => (
@@ -142,6 +143,20 @@ const X = {
   blackout: sc((f) => <St><BrainCity lit={1} black={f > 3} white={f <= 3 ? 0.8 : 0} labels={false} /></St>, HOLDC),
   neilTorch: sc((f) => <St><rect width={W} height={H} fill="#000" /><path d={`M${880} 760 L${300 + Math.sin(f / 10) * 200} 200 L${700 + Math.sin(f / 10) * 200} 160 Z`} fill="#FFF6C2" opacity={0.25} /><At x={960} y={980} s={1.6}><Neil mood="shock" /></At><circle cx={900} cy={770} r={18} fill="#FFF6C2" filter="url(#glow)" /></St>, HOLDC),
   title: sc((f) => <St><BrainCity lit={0.35} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.6} /><At x={960} y={470} s={lerp(f, 0, 6, 1.25, 1)}><BigNum text="100% BRAIN" size={210} color={GOLD} /></At><Label x={960} y={640} t="WHAT IF YOU USED" size={56} /><Meter p={1} /></St>, { a: { z: 1 }, b: { z: 1.03 }, shake: 0.4 }),
+  // ---- 2 inside the city
+  door: sc((f) => <St><rect width={W} height={H} fill="#1E2452" /><g transform="translate(960 640) scale(1.45)"><path d="M-300 380 Q-340 -60 -120 -300 Q60 -420 240 -280 Q380 -160 330 60 Q380 160 300 200 Q320 300 200 320 L120 380 Z" fill="#141414" stroke="#3A3F58" strokeWidth={10} /><g transform="translate(40 -170)"><rect x={-60} y={-80} width={120} height={160} rx={10} fill="#2B2160" stroke={INK} strokeWidth={6} /><path d={`M-60 -80 L${-60 + lerp(f, 6, 22, 120, 30)} ${-80 + lerp(f, 6, 22, 0, 12)} L${-60 + lerp(f, 6, 22, 120, 30)} ${80 - lerp(f, 6, 22, 0, 12)} L-60 80 Z`} fill="#8E5BD6" stroke={INK} strokeWidth={6} /><rect x={-56} y={-76} width={112} height={152} fill="#FFD45C" opacity={lerp(f, 6, 22, 0, 0.6)} filter="url(#glow)" /><Label x={0} y={-118} t="STAFF ONLY" size={30} color={GOLD} /></g></g></St>, PUSH),
+  cityWide: (lit: number | ('see' | 'mem' | 'alarm' | 'word' | 'ctrl')[], labels = false) => sc((f) => <St><BrainCity lit={lit} labels={labels} /></St>, { a: { z: 1 }, b: { z: 1.03 } }),
+  count86: sc((f) => <St><BrainCity lit={0.3} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.55} /><At x={960} y={470}><BigNum text={Math.round(lerp(f, 0, 30, 0, 86)) + ' BILLION'} size={170} color={GOLD} /></At><Label x={960} y={640} t="NEURONS" size={70} color="#E9C8FF" /></St>, HOLDC),
+  chain: (bulb: boolean) => sc((f) => { const p = (f % 30) / 30; return <St><BrainCity lit={0.15} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.6} />{Array.from({ length: 5 }, (_, i) => <g key={i}><At x={240 + i * 330} y={820} s={0.9}><Worker /></At>{i < 4 && <path d={`M${300 + i * 330} 640 Q${405 + i * 330} 560 ${510 + i * 330} 640`} stroke="#B98CFF" strokeWidth={10} fill="none" strokeDasharray="30 10" />}</g>)}<circle cx={300 + (bulb ? Math.min(1, f / 40) : p) * 1320} cy={600} r={22} fill="#FFF2A8" filter="url(#glow)" />{bulb && f > 40 && <g><At x={1760} y={420} s={lerp(f, 40, 48, 0.4, 1)}><circle r={80} fill="#FFF8C4" stroke={INK} strokeWidth={8} filter="url(#glow)" /><rect x={-30} y={70} width={60} height={50} fill="#9AA3B5" stroke={INK} strokeWidth={6} /></At><Label x={1500} y={240} t="THOUGHT: TOAST?" size={44} color={GOLD} /></g>}</St>; }, HOLDC),
+  trails: sc((f) => <St><BrainCity lit={0.4} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.35} />{Array.from({ length: 40 }, (_, i) => { const y = 120 + rnd(i) * 760; const x = ((rnd(i, 2) * W) + f * (30 + rnd(i, 3) * 40)) % (W + 300) - 150; return <line key={i} x1={x - 180} y1={y} x2={x} y2={y} stroke={['#FFF2A8', '#6FD3FF', '#FF8AD8'][i % 3]} strokeWidth={6} strokeLinecap="round" filter="url(#glow)" />; })}<Label x={960} y={160} t="BILLIONS / SECOND" size={64} color={GOLD} /></St>, HOLDC),
+  neilIntro: sc((f) => <St><BrainCity lit={0.2} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.4} /><At x={860} y={1000} s={2.3}><Neil mood="happy" /></At><At x={1460} y={440} r={-4} s={lerp(f, 4, 10, 0.4, 1)}><rect x={-200} y={-90} width={400} height={180} rx={20} fill="#FFF7DC" stroke={INK} strokeWidth={8} /><Label x={0} y={-30} t="NEIL" size={80} color={INK} /><Label x={0} y={50} t="FOREMAN" size={40} color="#2F6FD6" /></At></St>, PUSH),
+  neilBadge: sc((f) => <St><rect width={W} height={H} fill="#1F2347" /><At x={620} y={980} s={2.2}><Neil mood="happy" /></At><At x={1340} y={520} r={4}><rect x={-260} y={-300} width={520} height={600} rx={24} fill="#FFF7DC" stroke={INK} strokeWidth={8} /><rect x={-200} y={-240} width={400} height={300} fill="#F6E3B4" stroke={INK} strokeWidth={6} /><circle cx={0} cy={-90} r={80} fill={INK} /><circle cx={-26} cy={-100} r={14} fill="#fff" /><circle cx={26} cy={-100} r={14} fill="#fff" /><Label x={0} y={140} t="ON DUTY SINCE" size={40} color={INK} /><Label x={0} y={210} t="BEFORE YOU" size={46} color="#E53935" /></At></St>, PUSH),
+  neilTired: sc((f) => <St><BrainCity lit={0.15} labels={false} /><rect width={W} height={H} fill="#0B0620" opacity={0.5} /><At x={960} y={1060} s={3}><Neil coffee mood={(f % 60) < 30 ? 'tired' : 'sleep'} /></At></St>, HOLDC),
+  dark: sc((f) => <St><BrainCity lit={0.03} labels={false} /></St>, { a: { z: 1 }, b: { z: 1.03 } }),
+  turns: sc((f) => { const k = (['see', 'mem', 'alarm', 'word', 'ctrl'] as const)[Math.floor(f / 12) % 5]; return <St><BrainCity lit={[k]} labels={false} /></St>; }, HOLDC),
+  district: (k: 'see' | 'mem' | 'alarm', t: string) => sc((f) => <St><BrainCity lit={[k]} labels={false} />{k === 'alarm' && <At x={1500 + Math.sin(f / 6) * 20} y={420} s={lerp(f, 4, 12, 0.3, 1.6)}><ellipse rx={60} ry={50} fill={INK} />{Array.from({ length: 8 }, (_, i) => <path key={i} d={`M${i < 4 ? -40 : 40} ${-20 + (i % 4) * 14} q${i < 4 ? -60 : 60} ${-30} ${i < 4 ? -90 : 90} ${30}`} stroke={INK} strokeWidth={10} fill="none" />)}<circle cx={-16} cy={-10} r={8} fill="#FF5A6E" /><circle cx={16} cy={-10} r={8} fill="#FF5A6E" /></At>}<At x={960} y={170}><rect x={-260} y={-54} width={520} height={108} rx={54} fill="#0B0620" opacity={0.85} stroke={GOLD} strokeWidth={4} /><Label x={0} y={0} t={t} size={60} color={GOLD} /></At></St>, HOLDC),
+  waking: sc((f) => <St><BrainCity lit={lerp(f, 0, 40, 0.05, 0.5)} labels={false} /></St>, { a: { z: 1 }, b: { z: 1.04 } }),
+  coffeeDrop: sc((f) => <St><BrainCity lit={0.5} labels={false} /><At x={760} y={1060} s={2.4}><Neil mood="shock" /></At><At x={1120} y={600 + lerp(f, 0, 14, 0, 300)} r={lerp(f, 0, 14, 0, 140)} s={2}><rect x={-28} y={-32} width={56} height={64} rx={10} fill="#fff" stroke={INK} strokeWidth={5} /><rect x={-28} y={-8} width={56} height={14} fill="#E53935" /></At><Meter p={lerp(f, 6, 30, 0.1, 0.25)} /></St>, { a: { z: 1 }, b: { z: 1.03 }, shake: 0.3 }),
 };
 
 type El = (d: number) => React.ReactNode;
@@ -166,8 +181,55 @@ export const S1_CUES: Cue[] = [
   c(1, 'Probably', X.title, [[0, 'lowhit', 0.4]]),
 ];
 
+export const S2_CUES: Cue[] = [
+  [secStart(2), X.door, [[6, 'whoosh', 0.3]]],
+  c(2, 'This is your brain', X.cityWide(['see', 'mem'])),
+  c(2, 'A city of', X.count86, [[0, 'counter', 0.25]]),
+  c(2, 'Every neuron is', X.chain(false)),
+  c(2, "That's a thought", X.chain(true), [[40, 'pop', 0.3]]),
+  c(2, 'Billions of times', X.trails, [[0, 'whoosh', 0.25]]),
+  c(2, 'This is Neil', X.neilIntro, [[6, 'pop', 0.3]]),
+  c(2, 'Neil has worked', X.neilBadge),
+  c(2, 'Neil is tired', X.neilTired),
+  c(2, "And here's the weird", X.dark),
+  c(2, 'Only small groups', X.turns),
+  c(2, 'A district for seeing', X.district('see', 'SEEING')),
+  c(2, 'A district for remembering', X.district('mem', 'REMEMBERING')),
+  c(2, 'A district for being', X.district('alarm', 'SPIDERS!'), [[4, 'boing', 0.25]]),
+  c(2, 'But not today', X.waking, [[0, 'tick', 0.3]]),
+  c(2, 'Today the whole', X.coffeeDrop, [[0, 'slap', 0.3]]),
+];
+
 const SOFT = (n: string) => staticFile(`mem/sfx/${n}.mp3`);
 export const S1_FRAMES = secEnd(1) + 75;
+const SECTIONS: Record<number, Cue[]> = { 1: S1_CUES, 2: S2_CUES };
+/** one section as a stand-alone test clip (starts at the section, ends 1.5 s after it) */
+export const sectionClip = (n: number) => {
+  const from = secStart(n) - (n === 1 ? secStart(1) : 15), to = secEnd(n) + 45;
+  const Clip: React.FC = () => {
+    const cues = [...SECTIONS[n]].sort((a, b) => a[0] - b[0]);
+    return (
+      <AbsoluteFill style={{ background: '#000' }}>
+        <Sequence from={-from}>
+          {cues.map(([t, el, sfx], i) => {
+            const d = (cues[i + 1]?.[0] ?? to) - t;
+            return (
+              <Sequence key={i} from={t} durationInFrames={Math.max(1, d)}>
+                {el(d)}
+                {(sfx ?? []).map(([o, nm, v], j) => <Sequence key={j} from={o} durationInFrames={120}><Audio src={SOFT(nm)} volume={v * 0.9} /></Sequence>)}
+              </Sequence>
+            );
+          })}
+          <Captions words={CAPTION_WORDS} />
+          <Sequence from={secStart(n)}><Audio src={staticFile(`brain/vo${String(n).padStart(2, '0')}.mp3`)} /></Sequence>
+        </Sequence>
+        <Audio src={staticFile('ep/music-fun.mp3')} volume={0.07} />
+      </AbsoluteFill>
+    );
+  };
+  return { Clip, frames: to - from };
+};
+export const S2 = sectionClip(2);
 
 /** section 1 test clip for approval */
 export const BrainS1: React.FC = () => {
