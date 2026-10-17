@@ -1,6 +1,6 @@
 # Upload package: What If You Could See 1 Hour Into the Future?
 
-File: `pilot/out/future-episode-youtube.mp4` · Thumbnail: `pilot/out/thumb-see-future.jpg` (pending: "DON'T GO.")
+File: `pilot/out/future-episode-youtube.mp4` · Thumbnails for Test & Compare: `pilot/out/thumb-see-future.jpg` (A: DON'T GO.) and `pilot/out/thumb-see-future-B.jpg` (B: TOO LATE.)
 
 ## When to publish
 Thursday 29 Oct, 6:00 PM IST (4 days after the read-minds episode). Upload by 4:00 PM and schedule it.

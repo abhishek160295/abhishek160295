@@ -22,3 +22,5 @@ Cap: 8,000 per episode. Estimate first, ask, then log here.
 | 2026-10-17 | see-future | Voice test, cold open (v4, 1 take, 407 chars) | 407 |
 | 2026-10-17 | see-future | Narration sections 2–11 (v4, 1 take each, 5,772 chars) | 5,771 |
 | | see-future | **Episode total so far** | **6,178** |
+| 2026-10-17 | see-future | Thumbnail art, 1 image | 190 |
+| | see-future | **Episode total (final)** | **6,368** |
