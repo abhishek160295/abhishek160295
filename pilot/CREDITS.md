@@ -17,3 +17,5 @@ Cap: 8,000 per episode. Estimate first, ask, then log here.
 | 2026-10-17 | read-minds | Voice test, cold open (v4, 1 take, 426 chars) | 426 |
 | 2026-10-17 | read-minds | Narration sections 2–9 (v4, 1 take each, 5,422 chars) | 5,422 |
 | | read-minds | **Episode total so far** | **5,848** |
+| 2026-10-17 | read-minds | Thumbnail art, 1 image | 190 |
+| | read-minds | **Episode total (final)** | **6,038** |
