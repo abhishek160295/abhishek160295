@@ -9,8 +9,10 @@ export const ATHLETE: Look = { jacket: '#E53935', jacketDark: '#A82522', pants: 
 
 const rnd = (i: number, k = 1) => { const s = Math.sin((i + 1) * 12.9898 * k) * 43758.5453; return s - Math.floor(s); };
 
+const isDark = (c: string) => { const m = /^#([0-9a-f]{6})$/i.exec(c); if (!m) return false; const n = parseInt(m[1], 16); return ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000 < 90; };
 export const Label: React.FC<{ x: number; y: number; t: string; size?: number; color?: string; anchor?: 'middle' | 'start' | 'end' }> = ({ x, y, t, size = 64, color = '#fff', anchor = 'middle' }) => (
-  <text x={x} y={y} textAnchor={anchor} dominantBaseline="central" fontFamily={FONT} fontWeight={900} fontSize={size} fill={color} stroke={INK} strokeWidth={size / 7} paintOrder="stroke" letterSpacing={-1}>{t}</text>
+  // dark text gets no black outline (an outline would merge the letters into a blob)
+  <text x={x} y={y} textAnchor={anchor} dominantBaseline="central" fontFamily={FONT} fontWeight={900} fontSize={size} fill={color} stroke={isDark(color) ? 'none' : INK} strokeWidth={size / 7} paintOrder="stroke" letterSpacing={isDark(color) ? 1 : -1}>{t}</text>
 );
 
 export const Rays: React.FC<{ bg: string; ray: string; cx?: number; cy?: number; t?: number; n?: number }> = ({ bg, ray, cx = 960, cy = 540, t = 0, n = 14 }) => (
