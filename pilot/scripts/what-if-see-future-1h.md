@@ -1,7 +1,7 @@
 # What If You Could See 1 Hour Into the Future?
 
 Thumbnail: Max's horrified face up close, glowing clock in his eyes, a giant duck balloon and fireworks behind him. Text: **DON'T GO.** (backup: **TOO LATE.**)
-Length: ~5:30 (narration ~4:55 plus holds, fireworks and landing set pieces). Narrator only.
+Length: ~6:30 (narration ~5:55 plus holds, fireworks and landing set pieces). Narrator only.
 
 **Spine:** at 9 a.m. Max blinks and sees 10 a.m.: he is in a runaway balloon over the city, fireworks exploding beneath him. And in the vision, future Max looks straight at him and shouts two words: **"DON'T GO!"** He has 60 minutes to stop it. Every move he makes drags him closer, and the stakes grow every time he blinks.
 
@@ -9,7 +9,7 @@ Length: ~5:30 (narration ~4:55 plus holds, fireworks and landing set pieces). Na
 - **Open loop, 0:20 → 5:15:** who is future Max shouting "DON'T GO!" at? Viewers think it's a warning to himself. It isn't.
 - **A countdown is on screen the whole time** (60:00 → 00:00), and it gets bigger and redder.
 - **A re-hook about every 40 s:** each new vision shows something worse (a duck balloon, then Dave in the basket, then fireworks).
-- **The stakes grow:** kitchen → street → market → rooftops → festival → sky → fireworks → a 60,000-seat stadium.
+- **The stakes grow:** kitchen → street → market → rooftops → festival chase → sky → fireworks → fuel running out → a 60,000-seat stadium.
 - **A heart beat:** Max uses his power to calm a terrified friend, which is also the science payoff.
 - **The last line pays off the first joke.**
 
@@ -19,7 +19,7 @@ Key: `VO` = narration · `▶` = visual · `SLO` = slow motion · `FRZ` = freeze
 
 ---
 
-## 1. Cold open: the vision (0:00–0:35)
+## 1. Cold open: the vision (0:00–0:32)
 
 VO: [excited] This is Max. At nine a.m. today, Max blinked… and saw ten a.m.
 ▶ Max at breakfast. Blink. WHITE FLASH. Vision frame (blue tint, film grain): wind, sky, the city far below.
@@ -38,7 +38,7 @@ VO: [sarcastic] I'd tell you how it ends. But Max won't give me spoilers.
 
 ---
 
-## 2. Testing the power (0:35–1:15)
+## 2. Testing the power (0:32–1:08)
 
 VO: [playful] Nine-oh-two. Max tests it. He sees the bus will be late. He sees Mum will ask about his homework. He sees a pigeon in his future. Not a nice one.
 ▶ Fast cuts: a bus timetable stamped LATE. Mum with a book-shaped speech bubble. A pigeon circling, labelled 10:01.
@@ -54,7 +54,7 @@ VO: [sarcastic] Max, quick question. Do I get the promotion this year? Max? …H
 
 ---
 
-## 3. Your brain already sees the future (1:15–2:00)
+## 3. Your brain already sees the future (1:08–1:49)
 
 VO: [curious] Here's the thing. You can already see the future. Just not very far.
 ▶ Max points at the camera. The viewer's silhouette appears.
@@ -73,7 +73,7 @@ VO: [tense] Nine-oh-eight. Max blinks again. And the vision is worse.
 
 ---
 
-## 4. Plan A: stay home (2:00–2:40)
+## 4. Plan A: stay home (1:49–2:25)
 
 VO: [tense] A festival. Thousands of people. A poster: "Fireworks, ten a.m. sharp." And the balloon… is shaped like a duck.
 ▶ Vision frame: festival flags, a crowd, a poster, then the giant yellow duck balloon rising.
@@ -89,7 +89,7 @@ VO: [urgent] He's through the dog flap. He's gone. Plan A lasted four minutes.
 
 ---
 
-## 5. The chase (2:40–3:35)
+## 5. The chase (2:25–3:29)
 
 VO: [building] So Max runs. Through the market. Past the bakery. Down the hill.
 ▶ SET PIECE, fast cuts: Max sprinting, low hero angle. Sir Biscuit far ahead, chasing the van.
@@ -109,12 +109,21 @@ VO: [building] Max has never done parkour. Jump one. Perfect. Jump two. Perfect.
 VO: [deadpan] …less perfect.
 ▶ FRZ. Unfreeze. He crashes through a washing line into a pile of laundry, pants on his head. A cat watches, unimpressed.
 
+VO: [curious] Lying in the laundry, Max gets the weirdest feeling. Like he's been here before. Déjà vu.
+▶ Max frozen, pants still on his head. The screen briefly doubles, like an echo.
+
+VO: And that's real, but it's not the future. Some scientists think déjà vu is your brain's memory checker spotting a tiny mix-up, and flagging it. It's actually a sign your memory is working properly.
+▶ GFX: a brain with a little inspector holding a magnifying glass over two matching memory cards. A green tick.
+
+VO: [deadpan] Max's memory is working properly. His day is not.
+▶ Max pulls the pants off his head.
+
 VO: [tense] Nine-thirty. He blinks. Dave is in the basket too. Screaming. Because the balloon is a duck.
 ▶ Vision frame: Dave in the basket staring up at the duck's face. Countdown: 30:00.
 
 ---
 
-## 6. Plan B and the butterfly effect (3:35–4:25)
+## 6. Plan B and the butterfly effect (3:29–4:01)
 
 VO: [determined] Plan B. Max phones Dave. "Dave, whatever happens, stay away from the festival."
 ▶ Split screen: Max running with his phone, Dave on his sofa eating cereal.
@@ -136,10 +145,35 @@ VO: [tense] Which means every orange Max knocked over… pushed him a little clo
 
 ---
 
-## 7. The duck (4:25–5:05)
+## 7. Plan C: pop the duck (4:01–4:46)
 
-VO: [building] Nine-fifty-five. The festival. And in the middle, the biggest balloon Max has ever seen. Sir Biscuit is in the basket. Eating the sausage.
-▶ Wide shot: crowds, the towering duck. The dog sits proudly in the basket, sausage in mouth. Countdown: 05:00.
+VO: [determined] Plan C. No balloon, no problem. Max is going to pop the duck.
+▶ Max holding up a single pin, eyes narrowed. Dramatic music sting. Countdown: 12:00.
+
+VO: [building] Nine-forty-eight. He sneaks into the festival. Past the hot dog stand. Under the stage. Right up to the duck.
+▶ Low angles, Max creeping between legs and tables. The duck looms, enormous.
+
+VO: [tense] And a security guard sees him.
+▶ The guard's flashlight swings onto Max. FRZ on Max's face, pin raised.
+
+VO: [urgent] Max runs. Through the bouncy castle. Through the hall of mirrors, where there are suddenly twelve Maxes and the guard has no idea which one is real.
+▶ Max bouncing in giant slow arcs. Then the mirror maze: a dozen Maxes, the guard spinning in circles.
+
+VO: [building] Through the dodgems. Over the dodgems. Into a giant fluffy cloud of candy floss.
+▶ Max hopping across dodgem cars. Then a pink explosion of candy floss.
+
+VO: [deadpan] He escapes. He's sticky. And he's lost the pin.
+▶ Max, coated pink, patting his empty pockets. The guard runs past without seeing him.
+
+VO: [tense] And when he looks up… he's right next to the balloon. Exactly where the vision said he'd be.
+▶ Max slowly looks up. The duck's giant face looks down at him. Countdown: 05:00.
+
+---
+
+## 8. The duck (4:46–5:18)
+
+VO: [building] Nine-fifty-five. And who's sitting in the basket? Sir Biscuit. Eating the sausage. Like he planned this.
+▶ Wide shot: crowds, the towering duck. The dog sits proudly in the basket, sausage in mouth. Countdown: 04:00.
 
 VO: [urgent] Max jumps in to grab him. And who's been handed the rope? Dave.
 ▶ Max leaps into the basket. Dave outside, holding the rope, looking up.
@@ -158,7 +192,7 @@ VO: [building] And right on time… the fireworks.
 
 ---
 
-## 8. "DON'T GO!" (5:05–5:45)
+## 9. "DON'T GO!" (5:18–5:54)
 
 VO: [tense] Dave can't take it. He climbs onto the edge of the basket. He's going to jump.
 ▶ Dave, one leg over the edge, eyes shut, the city far below.
@@ -180,9 +214,12 @@ VO: [warm] So Max takes the not-knowing away. "In ten minutes, we land. In twent
 
 ---
 
-## 9. The landing (5:45–6:15)
+## 10. The landing (5:54–6:21)
 
-VO: [curious] One problem. You can't steer a hot-air balloon. It just goes where the wind goes. But the wind blows different ways at different heights.
+VO: [tense] Then the burner coughs. The flame shrinks. The fuel gauge drops into the red.
+▶ Close on the gauge needle sliding into red. The flame sputtering. Dave's face.
+
+VO: [curious] Second problem. You can't steer a hot-air balloon. It just goes where the wind goes. But the wind blows different ways at different heights.
 ▶ GFX: the sky in layers, arrows pointing different ways at each height.
 
 VO: [excited] So pilots go up and down to find a wind going the right way. Up. Wrong way. Down. Wrong way. Up a tiny bit… there.
@@ -196,7 +233,7 @@ VO: [warm] The festival gives Max free sausages for life. Sir Biscuit has never 
 
 ---
 
-## 10. Ending and outro (6:15–6:35)
+## 11. Ending and outro (6:21–6:35)
 
 VO: [warm] Max learned two things today. You can't always stop the future. But you can make sure nobody faces it alone.
 ▶ Max, Dave and Sir Biscuit sitting on the basket in the empty stadium, sunset.
@@ -217,4 +254,5 @@ VO: [sarcastic] And Max, the promotion? Anything? …He says to watch out for pi
 - Butterfly effect: Edward Lorenz, 1961, re-ran a weather model with 0.506 instead of 0.506127 and got a completely different result; he named it in a 1972 talk.
 - Forecast skill: a 5-day forecast is right about 90% of the time; a 10-day forecast only about half the time (NOAA SciJinks).
 - Uncertainty and stress: de Berker et al., Nature Communications, 2016. Stress peaked when the chance of a shock was about 50%, higher than when it was certain.
+- Déjà vu: one leading idea is that it's the brain's memory-checking system noticing a conflict (O'Connor et al., 2016); it's common in healthy people and isn't precognition.
 - Hot-air balloons can't steer; pilots change altitude to catch winds blowing in different directions.
