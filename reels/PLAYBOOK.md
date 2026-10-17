@@ -27,6 +27,16 @@ These rules come from the 10 reference reels (`reference-analysis.md`). Every re
 - 7 to 8.5s: payoff. The winner glows and the loser dims.
 - 8.5 to 10s: payoff line types in. Hold, then loop.
 
+## Viral rubric (ship only at 9/10 or higher)
+
+Score each item 0 to 2 and add them up. If a reel scores lower than 9, rework it.
+
+1. **Hook in 1s:** the frame-0 picture alone makes someone stop and want to know what happens.
+2. **Twist:** an expectation flips (the early leader loses, the invisible becomes visible, a number explodes).
+3. **Payoff clarity:** the message lands with the sound off and without reading the caption.
+4. **Share or save trigger:** it says something people want to send to a friend or identify with.
+5. **Loop and polish:** 9 to 13s, clean motion, no overlaps, the ending flows back into the start.
+
 ## Captions
 
 Line 1 restates the contrast as a punchy two-liner. Then one insight line. End with a question, a "save this" or a "tag someone". Short sentences, no emoji spam, 6 to 8 hashtags.

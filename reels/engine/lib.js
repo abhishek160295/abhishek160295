@@ -298,3 +298,58 @@ function burst(ctx, x, y, p, color, n = 14, r = 120) {
     circle(ctx, x + Math.cos(a) * d, y + Math.sin(a) * d, 4 * (1 - p) + 1.5, { fill: true, color, glow: 12, alpha: 1 - p });
   }
 }
+
+// ---------- organic growth ----------
+
+// Deterministic random generator so renders are identical every time.
+function rng(seed) {
+  let s = seed >>> 0;
+  return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+}
+
+// Branching structure (roots, trees, lightning, neurons). Returns segments sorted
+// by growth order; each has an `at` value in 0..1 telling when it starts to appear.
+function branches(seed, x, y, angle, len, depth, o = {}) {
+  const r = rng(seed), segs = [];
+  const spread = o.spread ?? 0.55, shrink = o.shrink ?? 0.74, kids = o.kids ?? 2;
+  const grow = (x1, y1, a, l, d, t0) => {
+    const x2 = x1 + Math.cos(a) * l, y2 = y1 + Math.sin(a) * l;
+    segs.push({ x1, y1, x2, y2, d, t0, t1: t0 + l });
+    if (d <= 0) return;
+    const n = kids + (r() < 0.35 ? 1 : 0);
+    for (let i = 0; i < n; i++) {
+      const na = a + (i - (n - 1) / 2) * spread + (r() - 0.5) * 0.5;
+      grow(x2, y2, na, l * (shrink + (r() - 0.5) * 0.15), d - 1, t0 + l);
+    }
+  };
+  grow(x, y, angle, len, depth, 0);
+  const max = Math.max(...segs.map((s) => s.t1));
+  for (const s of segs) { s.at = s.t0 / max; s.until = s.t1 / max; }
+  return segs;
+}
+
+// Draws branches revealed up to progress p (0..1).
+function drawBranches(ctx, segs, p, o = {}) {
+  stroke(ctx, (c) => {
+    for (const s of segs) {
+      if (p <= s.at) continue;
+      const k = clamp((p - s.at) / (s.until - s.at));
+      c.moveTo(s.x1, s.y1);
+      c.lineTo(lerp(s.x1, s.x2, k), lerp(s.y1, s.y2, k));
+    }
+  }, o);
+}
+
+// Simple leaf: pointed oval from (x, y) in direction a, length l, scale k (0..1).
+function leaf(ctx, x, y, a, l, k, o = {}) {
+  if (k <= 0) return;
+  const L = l * k, w = L * 0.32;
+  const ex = x + Math.cos(a) * L, ey = y + Math.sin(a) * L;
+  const nx = -Math.sin(a) * w, ny = Math.cos(a) * w;
+  const mx = (x + ex) / 2, my = (y + ey) / 2;
+  stroke(ctx, (c) => {
+    c.moveTo(x, y);
+    c.quadraticCurveTo(mx + nx, my + ny, ex, ey);
+    c.quadraticCurveTo(mx - nx, my - ny, x, y);
+  }, { width: 4, ...o });
+}

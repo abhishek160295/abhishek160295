@@ -23,7 +23,6 @@ Each line is topic, then the visual metaphor. Remove an idea once it's produced.
 
 ## Curve or math
 - Plateau of latent potential: expectation line vs reality curve that's below for a while, then crosses above
-- Bamboo: 4 years underground (roots growing), then 90 feet in 6 weeks
 - Iceberg of success: the tip says "success", below: failures, discipline, sacrifice, habits
 - Pareto: 20% of the bars glow and fill 80% of the meter
 - Time vs money: one line goes down while the other goes up
