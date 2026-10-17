@@ -171,7 +171,7 @@ const BusIn: React.FC = () => (
     {[0, 1, 2, 3].map((i) => <rect key={'b' + i} x={80 + i * 470 + ((F() * 8) % 400)} y={300} width={60} height={140} fill="#7FB685" opacity={0.6} />)}
     <rect y={760} width={W} height={320} fill="#3A3F58" /><rect x={0} y={80} width={W} height={20} fill="#FFD21F" /></g>
 );
-const Cafe: React.FC = () => <g><rect width={W} height={H} fill="#E8C9A0" />{Array.from({ length: 10 }, (_, i) => <rect key={i} x={i * 200} y={0} width={100} height={700} fill="#E1BE92" />)}<rect y={700} width={W} height={380} fill="#8E6845" /><rect x={600} y={740} width={720} height={40} rx={10} fill="#5A3A20" /></g>;
+export const Cafe: React.FC = () => <g><rect width={W} height={H} fill="#E8C9A0" />{Array.from({ length: 10 }, (_, i) => <rect key={i} x={i * 200} y={0} width={100} height={700} fill="#E1BE92" />)}<rect y={700} width={W} height={380} fill="#8E6845" /><rect x={600} y={740} width={720} height={40} rx={10} fill="#5A3A20" /></g>;
 const Lab: React.FC<{ on?: number }> = ({ on = 1 }) => (
   <g><rect width={W} height={H} fill="#DDF2FA" /><rect y={800} width={W} height={280} fill="#B9D3DE" />
     <circle cx={760} cy={560} r={330} fill="#F2F6F8" stroke={INK} strokeWidth={12} /><circle cx={760} cy={560} r={170} fill="#22252E" stroke={INK} strokeWidth={10} />
