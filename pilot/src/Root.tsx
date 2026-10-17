@@ -9,9 +9,11 @@ import { ColdOpen, COLD_OPEN_FRAMES } from './mem/ColdOpen';
 import { MemEpisode, MEM_FRAMES } from './mem/Episode';
 import { InvEpisode, INV_FRAMES } from './inv/Episode';
 import { MindEpisode, MIND_FRAMES } from './mind/Episode';
+import { FutureEpisode, FUTURE_FRAMES } from './future/Episode';
 
 export const Root: React.FC = () => (
   <>
+    <Composition id="FutureEpisode" component={FutureEpisode} durationInFrames={FUTURE_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MindEpisode" component={MindEpisode} durationInFrames={MIND_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="InvEpisode" component={InvEpisode} durationInFrames={INV_FRAMES} fps={30} width={1920} height={1080} />
     <Composition id="MemEpisode" component={MemEpisode} durationInFrames={MEM_FRAMES} fps={30} width={1920} height={1080} />

@@ -6,15 +6,15 @@ import { Cam, CamKey, Stage, Captions, Burst, Confetti, BigNum, Vignette, ExamHa
 import { WOMAN, Label, Rays, Bedroom, Office, Sepia, Cake, MicStand, Stamp, Bus } from '../mem/lib';
 import { at, secStart, TOTAL_FRAMES, CAPTION_WORDS } from './timing';
 
-const F = () => useCurrentFrame();
+export const F = () => useCurrentFrame();
 const ZOE: Look = WOMAN;
-const CLERK: Look = { ...WOMAN, jacket: '#3FA7A0', jacketDark: '#2A7A75', hairColor: '#7A3A1A', shoes: '#2B2B2B' };
-const STRANGER: Look = { jacket: '#9AA3B5', jacketDark: '#6E7787', pants: '#3A3F58', shoes: '#2B2B2B', sole: '#888', skin: INK };
-const GOLD = '#FFE45C';
-const At: React.FC<{ x: number; y: number; s?: number; r?: number; o?: number; children: React.ReactNode }> = ({ x, y, s = 1, r = 0, o = 1, children }) => (
+export const CLERK: Look = { ...WOMAN, jacket: '#3FA7A0', jacketDark: '#2A7A75', hairColor: '#7A3A1A', shoes: '#2B2B2B' };
+export const STRANGER: Look = { jacket: '#9AA3B5', jacketDark: '#6E7787', pants: '#3A3F58', shoes: '#2B2B2B', sole: '#888', skin: INK };
+export const GOLD = '#FFE45C';
+export const At: React.FC<{ x: number; y: number; s?: number; r?: number; o?: number; children: React.ReactNode }> = ({ x, y, s = 1, r = 0, o = 1, children }) => (
   <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} opacity={o}>{children}</g>
 );
-type MP = MaxProps & { flip?: boolean; glow?: number; paste?: boolean };
+export type MP = MaxProps & { flip?: boolean; glow?: number; paste?: boolean };
 /** glowing mind-reader eyes, drawn in Max's own coordinates */
 const EyeGlow: React.FC<{ k?: number }> = ({ k = 1 }) => {
   const f = F(); const a = k * (0.8 + 0.2 * Math.sin(f / 4));
@@ -29,23 +29,23 @@ const body = (p: MP, head = false) => {
   const inner = <>{head ? <Max headOnly {...mp} /> : <Max {...mp} />}{paste && <Paste />}{glow ? <EyeGlow k={glow} /> : null}</>;
   return flip ? <g transform="scale(-1 1)">{inner}</g> : inner;
 };
-const M = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={y} s={s}>{body(p)}</At>;
+export const M = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={y} s={s}>{body(p)}</At>;
 /** close-ups (s >= 1.7) keep the jacket and shoulders in frame so Max always reads as Max; small icons stay head-only */
-const Head = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={s < 1.7 ? y : y - 110} s={s}><g transform="translate(0 300)">{body(p, s < 1.7)}</g></At>;
-type CamP = { a?: CamKey; b?: CamKey; shake?: number; whip?: number; tilt?: number };
-const sc = (render: (f: number, d: number) => React.ReactNode, cam: CamP = {}) => (d: number) => {
+export const Head = (x: number, y: number, s: number, p: MP = {}) => <At x={x} y={s < 1.7 ? y : y - 110} s={s}><g transform="translate(0 300)">{body(p, s < 1.7)}</g></At>;
+export type CamP = { a?: CamKey; b?: CamKey; shake?: number; whip?: number; tilt?: number };
+export const sc = (render: (f: number, d: number) => React.ReactNode, cam: CamP = {}) => (d: number) => {
   const C = () => { const f = F(); return <>{render(f, d)}</>; };
   return <Cam a={cam.a ?? { z: 1 }} b={cam.b ?? { z: 1.06 }} dur={d} shake={cam.shake} whip={cam.whip} tilt={cam.tilt}><C /></Cam>;
 };
-const PUSH: CamP = { a: { z: 1 }, b: { z: 1.08 } };
-const HOLDC: CamP = { a: { z: 1 }, b: { z: 1 } };
-const LOW: CamP = { a: { z: 1.04, y: 30 }, b: { z: 1.1, y: 50 }, tilt: -4 };
-const dark = (t = 0, bg = '#1F2347', ray = '#262B57') => <Rays bg={bg} ray={ray} t={t} />;
-const rnd = (i: number, k = 1) => { const x = Math.sin(i * 127.1 * k + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+export const PUSH: CamP = { a: { z: 1 }, b: { z: 1.08 } };
+export const HOLDC: CamP = { a: { z: 1 }, b: { z: 1 } };
+export const LOW: CamP = { a: { z: 1.04, y: 30 }, b: { z: 1.1, y: 50 }, tilt: -4 };
+export const dark = (t = 0, bg = '#1F2347', ray = '#262B57') => <Rays bg={bg} ray={ray} t={t} />;
+export const rnd = (i: number, k = 1) => { const x = Math.sin(i * 127.1 * k + k * 311.7) * 43758.5453; return x - Math.floor(x); };
 
 // ---------- graphics ----------
 /** thought bubble; (tx, ty) points from the bubble centre to the thinker's head */
-const Bub: React.FC<{ x: number; y: number; w?: number; h?: number; p?: number; tx?: number; ty?: number; fill?: string; children?: React.ReactNode }> = ({ x, y, w = 440, h = 250, p = 1, tx = 0, ty = 260, fill = '#fff', children }) => {
+export const Bub: React.FC<{ x: number; y: number; w?: number; h?: number; p?: number; tx?: number; ty?: number; fill?: string; children?: React.ReactNode }> = ({ x, y, w = 440, h = 250, p = 1, tx = 0, ty = 260, fill = '#fff', children }) => {
   const n = 11; const lobes = Array.from({ length: n }, (_, i) => { const a = (i / n) * Math.PI * 2; return [Math.cos(a) * w * 0.42, Math.sin(a) * h * 0.4, Math.min(w, h) * 0.3] as const; });
   const s = Math.max(0.001, p);
   return (
@@ -60,15 +60,15 @@ const Bub: React.FC<{ x: number; y: number; w?: number; h?: number; p?: number; 
     </g>
   );
 };
-const Static: React.FC<{ w: number; h: number }> = ({ w, h }) => {
+export const Static: React.FC<{ w: number; h: number }> = ({ w, h }) => {
   const f = F();
   return <g>{Array.from({ length: 70 }, (_, i) => <rect key={i} x={(rnd(i + f * 3) - 0.5) * w * 0.8} y={(rnd(i + f * 5, 2) - 0.5) * h * 0.7} width={18 + rnd(i, 3) * 40} height={6} fill={rnd(i + f, 4) > 0.5 ? '#3A3D48' : '#9AA3B5'} />)}</g>;
 };
-const Notes: React.FC<{ speed?: number; fall?: number }> = ({ speed = 1, fall = 0 }) => {
+export const Notes: React.FC<{ speed?: number; fall?: number }> = ({ speed = 1, fall = 0 }) => {
   const f = F();
   return <g>{[-130, -40, 50, 140].map((x, i) => <g key={i} transform={`translate(${x} ${Math.sin(f / (6 / speed) + i) * 18 + fall * (200 + i * 60)}) rotate(${fall * (i % 2 ? 60 : -50)})`} opacity={1 - fall * 0.8}><ellipse cx={0} cy={20} rx={22} ry={16} fill={INK} /><rect x={16} y={-50} width={8} height={70} fill={INK} /><path d="M24 -50 q30 10 24 34" stroke={INK} strokeWidth={8} fill="none" /></g>)}</g>;
 };
-const Duck: React.FC<{ squeak?: number }> = ({ squeak = 0 }) => (
+export const Duck: React.FC<{ squeak?: number }> = ({ squeak = 0 }) => (
   <g transform={`scale(${1 + squeak * 0.08} ${1 - squeak * 0.08})`}>
     <ellipse cx={0} cy={0} rx={110} ry={70} fill="#FFD21F" stroke={INK} strokeWidth={8} />
     <path d="M60 -10 Q120 -30 110 30" fill="#FFC107" stroke={INK} strokeWidth={6} />
@@ -77,7 +77,7 @@ const Duck: React.FC<{ squeak?: number }> = ({ squeak = 0 }) => (
     <circle cx={-84} cy={-94} r={10} fill={INK} />
   </g>
 );
-const Note: React.FC<{ paw?: number }> = ({ paw = 0 }) => (
+export const Note: React.FC<{ paw?: number }> = ({ paw = 0 }) => (
   <g>
     <rect x={-300} y={-200} width={600} height={400} fill="#FFF7DC" stroke={INK} strokeWidth={8} />
     {[0, 1, 2, 3, 4].map((i) => <line key={i} x1={-260} y1={-110 + i * 70} x2={260} y2={-110 + i * 70} stroke="#C9DDF0" strokeWidth={3} />)}
@@ -91,7 +91,7 @@ const Note: React.FC<{ paw?: number }> = ({ paw = 0 }) => (
     {paw > 0 && <circle cx={220} cy={130} r={90 + Math.sin(paw * 20) * 6} fill="none" stroke="#E53935" strokeWidth={10} />}
   </g>
 );
-const ClockFace: React.FC<{ t: string; red?: boolean }> = ({ t, red }) => {
+export const ClockFace: React.FC<{ t: string; red?: boolean }> = ({ t, red }) => {
   const f = F();
   return <g><rect x={-480} y={-160} width={960} height={320} rx={40} fill="#0B0C18" stroke={red ? '#FF5A4E' : '#FFD21F'} strokeWidth={10} />
     <text textAnchor="middle" dominantBaseline="central" fontFamily="monospace" fontWeight={900} fontSize={210} fill={red ? '#FF5A4E' : '#FFD21F'}>{(f % 30) < 15 ? t : t.replace(':', ' ')}</text></g>;
@@ -141,8 +141,8 @@ const Board: React.FC<{ crossed: string[]; fresh?: string; circled?: string; vie
     </g>
   );
 };
-const MAX_GREY: Look = { jacket: '#666', jacketDark: '#444', pants: '#444', shoes: '#333', sole: '#777', skin: INK };
-const Brain: React.FC<{ seed: number; lit?: number; c?: string }> = ({ seed, lit = 1, c = GOLD }) => {
+export const MAX_GREY: Look = { jacket: '#666', jacketDark: '#444', pants: '#444', shoes: '#333', sole: '#777', skin: INK };
+export const Brain: React.FC<{ seed: number; lit?: number; c?: string }> = ({ seed, lit = 1, c = GOLD }) => {
   const f = F();
   return <g>
     <path d="M-200 40 Q-230 -120 -90 -160 Q0 -220 100 -160 Q230 -130 210 20 Q220 120 110 140 Q0 170 -100 140 Q-210 130 -200 40 Z" fill="#F29BB8" stroke={INK} strokeWidth={10} />
@@ -151,19 +151,19 @@ const Brain: React.FC<{ seed: number; lit?: number; c?: string }> = ({ seed, lit
   </g>;
 };
 const KeyIcon: React.FC = () => <g><circle cx={-90} r={44} fill="none" stroke="#F2C14E" strokeWidth={20} /><path d="M-46 0 L110 0 M70 0 L70 36 M100 0 L100 30" stroke="#F2C14E" strokeWidth={20} strokeLinecap="round" /></g>;
-const Heart: React.FC<{ s?: number }> = ({ s = 1 }) => <path transform={`scale(${s})`} d="M0 30 C-60 -10 -40 -60 0 -30 C40 -60 60 -10 0 30 Z" fill="#E53935" stroke={INK} strokeWidth={5} />;
+export const Heart: React.FC<{ s?: number }> = ({ s = 1 }) => <path transform={`scale(${s})`} d="M0 30 C-60 -10 -40 -60 0 -30 C40 -60 60 -10 0 30 Z" fill="#E53935" stroke={INK} strokeWidth={5} />;
 const Waves: React.FC<{ mode: 'one' | 'red' }> = ({ mode }) => {
   const f = F();
   return <g>{Array.from({ length: 9 }, (_, i) => { const y = 160 + i * 95; const hi = mode === 'one' && i === 4; const col = mode === 'red' ? '#FF5A4E' : hi ? GOLD : '#5A607A';
     return <path key={i} d={Array.from({ length: 49 }, (_, k) => `${k ? 'L' : 'M'}${120 + k * 35} ${y + Math.sin(k / 2 + f / 4 + i) * (hi || mode === 'red' ? 30 : 14)}`).join(' ')} fill="none" stroke={col} strokeWidth={hi ? 14 : 8} opacity={hi || mode === 'red' ? 1 : 0.5} />; })}</g>;
 };
-const Robot: React.FC = () => <g><rect x={-120} y={-140} width={240} height={220} rx={24} fill="#9AA3B5" stroke={INK} strokeWidth={8} /><rect x={-80} y={-90} width={50} height={40} fill="#E53935" /><rect x={30} y={-90} width={50} height={40} fill="#E53935" /><rect x={-60} y={10} width={120} height={20} fill={INK} /><line x1={0} y1={-140} x2={0} y2={-200} stroke={INK} strokeWidth={8} /><circle cy={-210} r={16} fill="#FFD21F" stroke={INK} strokeWidth={5} /></g>;
+export const Robot: React.FC = () => <g><rect x={-120} y={-140} width={240} height={220} rx={24} fill="#9AA3B5" stroke={INK} strokeWidth={8} /><rect x={-80} y={-90} width={50} height={40} fill="#E53935" /><rect x={30} y={-90} width={50} height={40} fill="#E53935" /><rect x={-60} y={10} width={120} height={20} fill={INK} /><line x1={0} y1={-140} x2={0} y2={-200} stroke={INK} strokeWidth={8} /><circle cy={-210} r={16} fill="#FFD21F" stroke={INK} strokeWidth={5} /></g>;
 const Hood: React.FC = () => <g><path d="M-140 160 Q-160 -160 0 -180 Q160 -160 140 160 Z" fill="#2B2F4A" stroke={INK} strokeWidth={8} /><ellipse cx={0} cy={-30} rx={80} ry={90} fill="#0B0C18" /><circle cx={-26} cy={-40} r={8} fill={GOLD} /><circle cx={26} cy={-40} r={8} fill={GOLD} /><g transform="translate(90 100) rotate(10) scale(0.25)"><Note /></g></g>;
 const Sun: React.FC<{ t: number }> = ({ t }) => <circle cx={200 + t * 1520} cy={500 - Math.sin(t * Math.PI) * 380} r={90} fill="#FFD21F" stroke="#FFB300" strokeWidth={8} />;
-const Cup: React.FC = () => <g><rect x={-40} y={-50} width={80} height={80} rx={12} fill="#fff" stroke={INK} strokeWidth={6} /><path d="M40 -30 q30 0 30 25 q0 25 -30 25" fill="none" stroke={INK} strokeWidth={6} /><path d="M-10 -70 q10 -20 0 -40 M14 -70 q10 -20 0 -40" stroke="#fff" strokeWidth={5} fill="none" opacity={0.7} /></g>;
-const Toast: React.FC = () => <g><rect x={-70} y={-60} width={140} height={120} rx={30} fill="#E2A15B" stroke={INK} strokeWidth={7} /><rect x={-54} y={-44} width={108} height={90} rx={22} fill="#F6D6A8" /></g>;
-const Ball: React.FC = () => <g><circle r={50} fill="#fff" stroke={INK} strokeWidth={7} /><path d="M-20 -20 L20 -20 L28 14 L0 34 L-28 14 Z" fill={INK} /></g>;
-const Crayon: React.FC = () => <g><rect x={-90} y={-14} width={170} height={28} rx={6} fill="#E53935" stroke={INK} strokeWidth={5} /><path d="M80 -14 L120 0 L80 14 Z" fill="#E53935" stroke={INK} strokeWidth={5} /></g>;
+export const Cup: React.FC = () => <g><rect x={-40} y={-50} width={80} height={80} rx={12} fill="#fff" stroke={INK} strokeWidth={6} /><path d="M40 -30 q30 0 30 25 q0 25 -30 25" fill="none" stroke={INK} strokeWidth={6} /><path d="M-10 -70 q10 -20 0 -40 M14 -70 q10 -20 0 -40" stroke="#fff" strokeWidth={5} fill="none" opacity={0.7} /></g>;
+export const Toast: React.FC = () => <g><rect x={-70} y={-60} width={140} height={120} rx={30} fill="#E2A15B" stroke={INK} strokeWidth={7} /><rect x={-54} y={-44} width={108} height={90} rx={22} fill="#F6D6A8" /></g>;
+export const Ball: React.FC = () => <g><circle r={50} fill="#fff" stroke={INK} strokeWidth={7} /><path d="M-20 -20 L20 -20 L28 14 L0 34 L-28 14 Z" fill={INK} /></g>;
+export const Crayon: React.FC = () => <g><rect x={-90} y={-14} width={170} height={28} rx={6} fill="#E53935" stroke={INK} strokeWidth={5} /><path d="M80 -14 L120 0 L80 14 Z" fill="#E53935" stroke={INK} strokeWidth={5} /></g>;
 
 // ---------- sets ----------
 const BusIn: React.FC = () => (
@@ -181,7 +181,7 @@ const Lab: React.FC<{ on?: number }> = ({ on = 1 }) => (
   </g>
 );
 const Aisle: React.FC = () => <g><rect width={W} height={H} fill="#F3EEE4" />{[0, 1].map((s) => <g key={s}>{[0, 1, 2, 3].map((r) => <rect key={r} x={s ? 1260 : 0} y={140 + r * 170} width={660} height={20} fill="#9AA3B5" />)}{Array.from({ length: 24 }, (_, i) => <rect key={'c' + i} x={(s ? 1280 : 20) + (i % 6) * 105} y={70 + Math.floor(i / 6) * 170} width={80} height={70} fill={['#E53935', '#FFD21F', '#3DBE7A', '#2F6FD6'][i % 4]} stroke={INK} strokeWidth={4} />)}</g>)}<rect y={820} width={W} height={260} fill="#D8D2C4" /></g>;
-const Stadium: React.FC<{ t?: number; night?: boolean }> = ({ t = 0, night = true }) => (
+export const Stadium: React.FC<{ t?: number; night?: boolean }> = ({ t = 0, night = true }) => (
   <g><rect width={W} height={H} fill={night ? '#14152A' : '#9ED8F0'} />
     {[0, 1, 2, 3, 4].map((r) => <rect key={r} x={0} y={180 + r * 90} width={W} height={90} fill={r % 2 ? '#2B2F4A' : '#262A44'} />)}
     {Array.from({ length: 160 }, (_, i) => <circle key={i} cx={(i % 40) * 49 + 20} cy={210 + Math.floor(i / 40) * 90 + Math.sin(t / 5 + i) * 4} r={16} fill={['#E53935', '#FFD21F', '#2F6FD6', '#F2F2F2'][i % 4]} opacity={0.8} />)}
@@ -190,12 +190,12 @@ const Stadium: React.FC<{ t?: number; night?: boolean }> = ({ t = 0, night = tru
     {[200, 1720].map((x) => <g key={x}><rect x={x - 8} y={0} width={16} height={180} fill="#3A3D48" /><rect x={x - 70} y={0} width={140} height={60} fill="#FFF6C2" /></g>)}
   </g>
 );
-const NightKitchen: React.FC = () => (
+export const NightKitchen: React.FC = () => (
   <g><rect width={W} height={H} fill="#2A2F55" /><rect x={760} y={120} width={400} height={300} fill="#0F1433" stroke={INK} strokeWidth={12} /><circle cx={1060} cy={200} r={40} fill="#F4EBC0" />
     <path d="M960 0 L960 120" stroke={INK} strokeWidth={6} /><path d="M900 120 L1020 120 L990 160 L930 160 Z" fill="#FFD21F" /><path d="M930 160 L520 900 L1400 900 L990 160 Z" fill="#FFE29A" opacity={0.18} />
     <rect y={760} width={W} height={320} fill="#3A3360" /><rect x={480} y={700} width={960} height={50} rx={10} fill="#8E6845" stroke={INK} strokeWidth={8} /><rect x={540} y={750} width={30} height={300} fill="#6B4A2E" /><rect x={1350} y={750} width={30} height={300} fill="#6B4A2E" /></g>
 );
-const DayKitchen: React.FC = () => (
+export const DayKitchen: React.FC = () => (
   <g><rect width={W} height={H} fill="#F6E3B4" /><rect x={760} y={120} width={400} height={300} fill="#BFE6F7" stroke={INK} strokeWidth={12} /><circle cx={1060} cy={210} r={50} fill="#FFD21F" />
     <rect y={760} width={W} height={320} fill="#C9A27A" /><rect x={480} y={700} width={960} height={50} rx={10} fill="#8E6845" stroke={INK} strokeWidth={8} /><rect x={540} y={750} width={30} height={300} fill="#6B4A2E" /><rect x={1350} y={750} width={30} height={300} fill="#6B4A2E" /></g>
 );
