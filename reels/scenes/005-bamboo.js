@@ -35,17 +35,20 @@ Send this to someone who's about to quit.`,
     // Year counter with a small pop on every change
     const yStart = yr === 5 ? 6.4 : years[yr - 1];
     const pop = 1 + 0.18 * (1 - ease.out(seg(t, yStart, yStart + 0.35)));
-    label(ctx, 'Chinese bamboo', 930, 345, { align: 'right', size: 26, color: C.soft });
+    label(ctx, 'Chinese bamboo', 930, 440, { align: 'right', size: 26, color: C.soft });
     ctx.save();
-    ctx.translate(930, 425);
+    ctx.translate(930, 520);
     ctx.scale(pop, pop);
     text(ctx, `YEAR ${yr}`, 0, 0, { size: 86, weight: 800, align: 'right', color: yr === 5 ? C.green : C.white, glow: yr === 5 ? 26 : 0 });
     ctx.restore();
 
     const height = boom > 0 ? `${(27 * ease.out(boom)).toFixed(1)} m` : '0.1 cm';
-    text(ctx, height, 930, 505, { size: 44, weight: 600, align: 'right', color: yr === 5 ? C.green : C.soft, glow: win * 14 });
+    text(ctx, height, 930, 600, { size: 44, weight: 600, align: 'right', color: yr === 5 ? C.green : C.soft, glow: win * 14 });
     const note = yr < 5 ? 'Nothing.' : '6 weeks.';
-    text(ctx, note, 930, 562, { size: 34, weight: 500, align: 'right', color: yr < 5 ? C.dim : C.green, alpha: t > 0.6 ? 1 : seg(t, 0.3, 0.6) });
+    text(ctx, note, 930, 657, { size: 34, weight: 500, align: 'right', color: yr < 5 ? C.dim : C.green, alpha: t > 0.6 ? 1 : seg(t, 0.3, 0.6) });
+
+    // Frame-0 hook, clears out of the way before the stalk launches
+    text(ctx, 'This plant does nothing for 4 years.', W / 2, 330, { size: 46, weight: 700, color: C.white, glow: 8, alpha: 1 - seg(t, 6.0, 6.4) });
 
     // Ground and underground shading
     line(ctx, 90, G, 990, G, { color: C.soft, width: 4 });

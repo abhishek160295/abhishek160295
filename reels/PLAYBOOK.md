@@ -6,6 +6,7 @@ These rules come from the 10 reference reels (`reference-analysis.md`). Every re
 
 - Pure black, 1080x1920, 30fps, 9 to 13 seconds.
 - The scene is on screen at frame 0. Never open on black or a title card.
+- **Hook line at frame 0 (always):** one bold sentence near the top (around y=330, 44 to 48px, white), fully visible from the first frame and never typed in. It must create a question the animation answers ("This plant does nothing for 4 years."). Fade it out only if the payoff needs the space.
 - White line art plus **one** meaning colour: green `#2BFF88` = right path, red `#FF2D55` = wrong path. Gold, blue and violet are for variety, one per reel.
 - Glow only on what matters at that moment. Everything else stays flat white or dim.
 - Labels: 1 to 3 words, uppercase, tracked out. Max one payoff sentence, typed in at the end.
