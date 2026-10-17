@@ -1,7 +1,7 @@
 # What If You Could Read Minds?
 
 Thumbnail: Max in a crowd, glowing eyes, thought bubbles everywhere, staring horrified at one bubble. Text: **THEY HATE ME?!**
-Length: ~6:30. Narrator only. Thought bubbles do the talking (text and icons).
+Length: ~5:45 (narration ~4:35 plus holds and set pieces). Narrator only. Thought bubbles do the talking (text and icons).
 **Spine:** Max wakes up able to read minds and finds a note: "I can read minds too. Midnight." Every scene is Max reading a suspect to find out who wrote it. The answer arrives in the last minute.
 Running gags: (1) **The midnight clock** jumps in between acts. (2) **Dave is terrified of ducks.** (3) **The narrator begs Max to stay out of HIS head.** (4) **Sir Biscuit only ever thinks FOOD** (it's a clue).
 
