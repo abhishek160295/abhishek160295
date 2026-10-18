@@ -454,3 +454,32 @@ function shatter(ctx, x, y, p, o = {}) {
     ctx.restore();
   }
 }
+
+// Cut diamond centred at (x, y), width w. `shine` (0..1) makes facets shimmer.
+function diamond(ctx, x, y, w, o = {}) {
+  const { color = '#9FD8FF', glow = 36, alpha = 1, t = 0 } = o;
+  const s = w / 300;
+  const P = (dx, dy) => [x + dx * s, y + dy * s];
+  const crownL = P(-95, -70), crownR = P(95, -70), girL = P(-150, -15), girR = P(150, -15), culet = P(0, 175);
+  const crown = [P(-95, -70), P(-32, -70), P(32, -70), P(95, -70)];
+  const gird = [P(-150, -15), P(-75, -15), P(0, -15), P(75, -15), P(150, -15)];
+  const outline = (c) => {
+    c.moveTo(...crownL); c.lineTo(...crownR); c.lineTo(...girR); c.lineTo(...culet); c.lineTo(...girL); c.closePath();
+  };
+  fill(ctx, outline, { color: 'rgba(120,190,255,0.10)', alpha });
+  neon(ctx, outline, { color, width: 7 * s, glow, alpha });
+  const facets = [];
+  for (let i = 0; i < 4; i++) facets.push([crown[i], gird[i]], [crown[i], gird[i + 1]]);
+  facets.push([gird[0], gird[4]]);
+  for (let i = 1; i < 4; i++) facets.push([gird[i], culet]);
+  facets.forEach(([a, b], i) => {
+    const sh = 0.45 + 0.55 * Math.max(0, Math.sin(t * 2.4 - i * 0.7));
+    stroke(ctx, (c) => { c.moveTo(...a); c.lineTo(...b); }, { color, width: 3 * s, glow: 10, alpha: alpha * sh });
+  });
+}
+
+// Four-point twinkle.
+function twinkle(ctx, x, y, r, o = {}) {
+  if (r <= 0) return;
+  stroke(ctx, (c) => { c.moveTo(x - r, y); c.lineTo(x + r, y); c.moveTo(x, y - r); c.lineTo(x, y + r); }, { width: 3, glow: 14, ...o });
+}
