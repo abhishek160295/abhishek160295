@@ -4,9 +4,15 @@ These rules come from the 10 reference reels (`reference-analysis.md`). Every re
 
 ## Visual rules
 
+**Reference look (match the reference reels):**
+- One big hero object, centred, filling 50 to 70% of the width. No infographic layouts, no big bold counters.
+- Neon-tube strokes: coloured bloom plus a white-hot core (`neon()` in lib.js).
+- Faint blurred streaks drifting in the background (`ambient()`).
+- Text is one medium-weight sentence (46px) centred above the object around y=400. It changes phrase by phrase (`captionSeq()`). Never put text on top of the object.
+
 - Pure black, 1080x1920, 30fps, 9 to 13 seconds.
 - The scene is on screen at frame 0. Never open on black or a title card.
-- **Hook line at frame 0 (always):** one bold sentence near the top (around y=330, 44 to 48px, white), fully visible from the first frame and never typed in. It must create a question the animation answers ("This plant does nothing for 4 years."). Fade it out only if the payoff needs the space.
+- **Hook line at frame 0 (always):** the first phrase of the top sentence (medium weight, 46px, white, around y=400), fully visible from the first frame and never typed in. It must create a question the animation answers ("This plant does nothing for 4 years."). Fade it out only if the payoff needs the space.
 - White line art plus **one** meaning colour: green `#2BFF88` = right path, red `#FF2D55` = wrong path. Gold, blue and violet are for variety, one per reel.
 - Glow only on what matters at that moment. Everything else stays flat white or dim.
 - Labels: 1 to 3 words, uppercase, tracked out. Max one payoff sentence, typed in at the end.

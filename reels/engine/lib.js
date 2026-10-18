@@ -353,3 +353,65 @@ function leaf(ctx, x, y, a, l, k, o = {}) {
     c.quadraticCurveTo(mx - nx, my - ny, x, y);
   }, { width: 4, ...o });
 }
+
+// ---------- reference look ----------
+
+// Neon tube: coloured bloom plus a white-hot core, the signature look of the reference reels.
+function neon(ctx, path, o = {}) {
+  const { color = C.white, width = 8, glow = 34, alpha = 1, core = 0.42 } = o;
+  if (alpha <= 0) return;
+  stroke(ctx, path, { color, width, glow, alpha });
+  stroke(ctx, path, { color: 'rgba(255,255,255,0.95)', width: Math.max(1.5, width * core), alpha });
+}
+
+// Horizontal line that fades out at both ends.
+function fadeLine(ctx, x1, x2, y, o = {}) {
+  const { color = '255,255,255', alpha = 0.6, width = 3 } = o;
+  ctx.save();
+  const g = ctx.createLinearGradient(x1, 0, x2, 0);
+  g.addColorStop(0, `rgba(${color},0)`);
+  g.addColorStop(0.5, `rgba(${color},${alpha})`);
+  g.addColorStop(1, `rgba(${color},0)`);
+  ctx.strokeStyle = g;
+  ctx.lineWidth = width;
+  ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke();
+  ctx.restore();
+}
+
+// Faint blurred streaks drifting across the background (ambient motion like the references).
+function ambient(ctx, t, seed = 3, n = 12) {
+  const r = rng(seed);
+  ctx.save();
+  ctx.filter = 'blur(3px)';
+  for (let i = 0; i < n; i++) {
+    const y = 120 + r() * 1680, len = 120 + r() * 380, speed = (r() < 0.5 ? -1 : 1) * (20 + r() * 50);
+    const span = W + len * 2;
+    const x = ((r() * span + t * speed) % span + span) % span - len;
+    const a = 0.05 + r() * 0.09;
+    fadeLine(ctx, x, x + len, y, { alpha: a, width: 3 + r() * 5 });
+  }
+  ctx.restore();
+}
+
+// Reference-style sentence: medium weight, soft glow, optional black halo so it reads over art.
+function caption(ctx, str, x, y, o = {}) {
+  const { size = 46, color = C.white, alpha = 1, glow = 12, halo = false, lineH = 1.25 } = o;
+  if (alpha <= 0 || !str) return;
+  const lines = str.split('\n');
+  lines.forEach((ln, i) => {
+    const yy = y + (i - (lines.length - 1) / 2) * size * lineH;
+    if (halo) text(ctx, ln, x, yy, { size, weight: 500, color: '#000', glow: 28, alpha });
+    text(ctx, ln, x, yy, { size, weight: 500, color, glow, alpha });
+  });
+}
+
+// Crossfading sequence of captions: [[startTime, text, opts], ...]
+function captionSeq(ctx, t, seq, x, y, fade = 0.18) {
+  for (let i = 0; i < seq.length; i++) {
+    const [s, str, o = {}] = seq[i];
+    const e = i + 1 < seq.length ? seq[i + 1][0] : Infinity;
+    if (t < s - fade || t > e + fade) continue;
+    const a = Math.min(i === 0 && s <= 0 ? 1 : seg(t, s - fade, s), 1 - seg(t, e - fade, e));
+    caption(ctx, str, x, y, { ...o, alpha: a * (o.alpha ?? 1) });
+  }
+}
