@@ -9,4 +9,4 @@
 | 005 | Chinese Bamboo | Reveal | Neon roots grow underground for 4 years, then the stalk shoots up with speed streaks | gold / green |
 
 ## Already done by reference pages (don't copy these concepts)
-Overthinker vs Doer (bows) · 92/7/1% archers · Comfort/Fear/Learning/Growth zones · Motivation vs Discipline push-ups · Hard now/Easy later carts · Failure vs not failure (basketball) · Work hard/smart/both · Think-Write-Prioritize-Start · Life is like an arrow · Quits at 99 vs Hits 100 (rock) · Doing it motivated vs unmotivated
+Overthinker vs Doer (bows) · 92/7/1% archers · Comfort/Fear/Learning/Growth zones · Motivation vs Discipline push-ups · Hard now/Easy later carts · Failure vs not failure (basketball) · Work hard/smart/both · Think-Write-Prioritize-Start · Life is like an arrow · Quits at 99 vs Hits 100 (rock) · Doing it motivated vs unmotivated · Book vs Phone portals (what you consume)

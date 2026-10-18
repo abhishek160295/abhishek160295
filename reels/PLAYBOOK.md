@@ -1,6 +1,6 @@
 # Playbook
 
-These rules come from the 10 reference reels (`reference-analysis.md`). Every reel follows them.
+These rules come from the 14 reference reels (`reference-analysis.md`). Every reel follows them.
 
 ## Visual rules
 
@@ -29,7 +29,8 @@ These rules come from the 10 reference reels (`reference-analysis.md`). Every re
 2. **Percentage ladder:** 92% / 7% / 1%, or a crowd of dots where most drop out. Shows rarity.
 3. **Curve or math:** a live-drawn graph with a counter (compounding, plateau, the dip, J-curve).
 4. **Transformation:** one object changes as a behaviour repeats (square to circle, seed to tree, empty bar to full).
-5. **Metaphor line:** one sentence typed over a single symbolic animation (bow and arrow, iceberg, bamboo).
+5. **Portal conveyor:** an endless stream of identical figures walks through an object that transforms them (book makes golden people, phone makes frazzled ones). It loops seamlessly by design.
+6. **Metaphor line:** one sentence typed over a single symbolic animation (bow and arrow, iceberg, bamboo).
 
 ## Timing
 

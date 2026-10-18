@@ -137,3 +137,16 @@ Hook line repeating the contrast + one line of insight + a question to drive com
 - **Charcoal variant:** a dark grey gradient with light from the top instead of pure black, paired with gold/yellow accents and a small gold logo.
 - **Destruction payoff:** an object cracks progressively and then shatters into particles.
 - **Text:** a small spaced uppercase pixel/mono label under each row ("QUITS AT 99", "HITS 100"), and the final lesson as 2 small lines above the scene with the last line bold.
+
+## Reference batch 3 (1 reel)
+
+| Reel | Structure | What makes it work |
+|---|---|---|
+| Book vs Phone (@mindset.therapy) | Portal conveyor | Two endless lines of walking figures, one per row. Top: they walk through a giant open book and come out golden, upright, carrying a briefcase. Bottom: they walk through a giant phone and come out with scribbled, frazzled heads. Line: "Watch what you consume into your mind." |
+
+**New style signals**
+- **Portal conveyor:** a continuous stream of identical figures passes through an object that transforms them. Input and output are both on screen at once, so the cause and effect read instantly.
+- **Endless loop by design:** the stream never starts or ends, so the reel loops perfectly with no visible seam.
+- **Light beam from the object:** a soft cone of light spills from the portal onto the walkers.
+- **Solid, recognisable everyday objects** (book, phone) drawn as chunky 3D-ish shapes in strong colours (gold, orange), not line art.
+- **One quiet line of text** between the rows, small and in the accent colour.
