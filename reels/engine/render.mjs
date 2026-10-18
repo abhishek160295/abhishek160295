@@ -27,8 +27,7 @@ const ctx = cv.getContext('2d');
 function renderAt(t) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalAlpha = 1;
-  ctx.fillStyle = C.bg;
-  ctx.fillRect(0, 0, W, H);
+  if (SCENE.bg === 'charcoal') charcoal(ctx); else { ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H); }
   SCENE.draw(ctx, t);
   if (BRAND.handle) text(ctx, BRAND.handle, W / 2, 1520, { size: 26, weight: 600, spacing: 3, color: C.dim });
   const fade = seg(t, SCENE.duration - 0.25, SCENE.duration);

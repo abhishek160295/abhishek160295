@@ -415,3 +415,42 @@ function captionSeq(ctx, t, seq, x, y, fade = 0.18) {
     caption(ctx, str, x, y, { ...o, alpha: a * (o.alpha ?? 1) });
   }
 }
+
+// Glossy floor reflection: draws `fn` mirrored below groundY, fading out with depth.
+function reflect(ctx, groundY, fn, o = {}) {
+  const { alpha = 0.28, depth = 220 } = o;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, groundY, W, depth); ctx.clip();
+  ctx.translate(0, groundY * 2); ctx.scale(1, -1);
+  ctx.globalAlpha *= alpha;
+  ctx.filter = 'blur(2px)';
+  fn();
+  ctx.restore();
+  ctx.save();
+  const g = ctx.createLinearGradient(0, groundY, 0, groundY + depth);
+  g.addColorStop(0, 'rgba(0,0,0,0)');
+  g.addColorStop(1, SCENE.bg === 'charcoal' ? '#141414' : '#000');
+  ctx.fillStyle = g; ctx.fillRect(0, groundY, W, depth);
+  ctx.restore();
+}
+
+// Charcoal background with soft light from the top (alternative to pure black).
+function charcoal(ctx) {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#3a3a3a'); g.addColorStop(0.45, '#1c1c1c'); g.addColorStop(1, '#101010');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+
+// Object shattering into shards: p = 0..1 progress after impact.
+function shatter(ctx, x, y, p, o = {}) {
+  if (p <= 0 || p >= 1) return;
+  const { color = C.white, n = 22, r = 260, seed = 9 } = o;
+  const rr = rng(seed);
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI * (0.1 + 0.8 * rr()), sp = r * (0.4 + rr() * 0.6), s = 6 + rr() * 16, rot = rr() * 6;
+    const px = x + Math.cos(a) * sp * p * (rr() < 0.5 ? -1 : 1), py = y + Math.sin(a) * sp * p + 600 * p * p;
+    ctx.save(); ctx.translate(px, py); ctx.rotate(rot * p);
+    fill(ctx, (c) => { c.moveTo(-s, -s * 0.6); c.lineTo(s, -s * 0.3); c.lineTo(s * 0.2, s * 0.8); c.closePath(); }, { color, glow: 8, alpha: 1 - p });
+    ctx.restore();
+  }
+}

@@ -9,6 +9,10 @@ These rules come from the 10 reference reels (`reference-analysis.md`). Every re
 - Neon-tube strokes: coloured bloom plus a white-hot core (`neon()` in lib.js).
 - Faint blurred streaks drifting in the background (`ambient()`).
 - Text is one medium-weight sentence (46px) centred above the object around y=400. It changes phrase by phrase (`captionSeq()`). Never put text on top of the object.
+- Glossy floor reflections under figures and objects (`reflect()`).
+- Live counters beside the action for "almost" stories (99 in red, 100 in bright white).
+- Alternate between pure black and the charcoal variant (`bg: 'charcoal'` in the scene) with gold accents, so the grid doesn't look repetitive.
+- Payoffs can be destructive: progressive cracks, then a shatter into particles (`shatter()`).
 
 - Pure black, 1080x1920, 30fps, 9 to 13 seconds.
 - The scene is on screen at frame 0. Never open on black or a title card.

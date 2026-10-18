@@ -121,3 +121,19 @@ Hook line repeating the contrast + one line of insight + a question to drive com
 - **Grid look:** black thumbnails with a single glowing object, so the profile reads as one premium brand
 - **Posting:** daily for the first 60 days, then 4 to 5 a week. Keep the same visual system on every post
 - **Edge over the reference pages:** a signature accent colour plus a recurring character (one stick figure with a small trait) people learn to recognise
+
+## Reference batch 2 (3 reels)
+
+| Reel | Structure | What makes it work |
+|---|---|---|
+| Quits at 99 vs Hits 100 (@neuronvisuals) | Split + live counter | Two figures hammer the same rock while counters climb in sync (1, 11, 95, 99). The top one walks away at 99, and a red "1 hit away" appears. The bottom one hits 100 and the rock shatters. Payoff: "You never know which hit breaks it. Keep swinging." |
+| Discipline is: doing it motivated vs unmotivated (@mindset.therapy) | Mirror split | Two identical figures doing push-ups side by side, perfectly in sync. The joke is that nothing looks different, and that is the message. |
+| Comfort → Fear → Learning → Growth → Success (@mindset.therapy) | Nested rings | A glowing 3D marker climbs through concentric gold rings from a red, crackling comfort zone up to a glowing SUCCESS. |
+
+**New style signals**
+- **Live counters next to the action** (1 → 99 → 100) build tension and give a precise "almost" moment. The near-miss number (99) is red; the payoff number (100) is bright white.
+- **Floor reflections:** figures and objects mirror softly under a glossy floor. It costs nothing and looks premium.
+- **Solid glowing figures** (filled, slightly 3D, yellow/gold or white) as well as stick figures.
+- **Charcoal variant:** a dark grey gradient with light from the top instead of pure black, paired with gold/yellow accents and a small gold logo.
+- **Destruction payoff:** an object cracks progressively and then shatters into particles.
+- **Text:** a small spaced uppercase pixel/mono label under each row ("QUITS AT 99", "HITS 100"), and the final lesson as 2 small lines above the scene with the last line bold.
