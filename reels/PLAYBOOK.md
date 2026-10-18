@@ -4,19 +4,24 @@ These rules come from the 14 reference reels (`reference-analysis.md`). Every re
 
 ## Visual rules
 
-**Reference look (match the reference reels):**
-- One big hero object, centred, filling 50 to 70% of the width. No infographic layouts, no big bold counters.
-- Neon-tube strokes: coloured bloom plus a white-hot core (`neon()` in lib.js).
-- Faint blurred streaks drifting in the background (`ambient()`).
-- Text is one medium-weight sentence (46px) centred above the object around y=400. It changes phrase by phrase (`captionSeq()`). Never put text on top of the object.
-- Glossy floor reflections under figures and objects (`reflect()`).
-- Live counters beside the action for "almost" stories (99 in red, 100 in bright white).
-- Alternate between pure black and the charcoal variant (`bg: 'charcoal'` in the scene) with gold accents, so the grid doesn't look repetitive.
-- Payoffs can be destructive: progressive cracks, then a shatter into particles (`shatter()`).
+**Pattern DNA (distilled from all 14 references; don't copy any single one)**
+
+Every reel must hit **at least 6 of these 8**. Check them before rendering.
+
+1. **People in it (11/14 refs):** a figure (stick or solid neon) doing a familiar action, so viewers see themselves.
+2. **Same start, different choice (10/14):** 2 or 3 rows, or 2 paths, start identical and diverge because of one behaviour. Rows run in sync so the difference is obvious.
+3. **Everyday object as the metaphor (12/14):** bow, cart, hoop, rock, book, phone, battery, door. Instantly recognisable, no explaining.
+4. **Labels do the hook (9/14):** short row labels ("QUITS AT 99" / "HITS 100") are on screen from frame 0, so the contrast is the hook. At most one small top line.
+5. **Text budget:** at most 3 text elements on screen at once and at most 4 phrase changes in the whole reel. Small (26 to 46px), clean, medium weight. No paragraphs, no infographic counters unless the number *is* the story.
+6. **A twist or near-miss (8/14):** the expected winner loses, the "almost" moment (99, 1 hit away), or the invisible becomes visible.
+7. **Calm, polished motion:** smooth easing, continuous loop-friendly motion, no harsh full-screen flashes. The payoff gets one accent glow plus a small burst.
+8. **Premium finish:** black or charcoal background, a glossy floor with soft reflections (`reflect()`), faint ambient streaks (`ambient()`), neon-core strokes (`neon()`), and one accent colour that carries the meaning (green or gold = right, red = wrong).
+
+Length 10 to 14s: setup on screen at 0s, divergence by about 3s, payoff around 70 to 80% of the way through, hold, loop.
 
 - Pure black, 1080x1920, 30fps, 9 to 13 seconds.
 - The scene is on screen at frame 0. Never open on black or a title card.
-- **Hook line at frame 0 (always):** the first phrase of the top sentence (medium weight, 46px, white, around y=400), fully visible from the first frame and never typed in. It must create a question the animation answers ("This plant does nothing for 4 years."). Fade it out only if the payoff needs the space.
+- **Hook at frame 0 (always):** the labels and the setup are fully visible on the first frame. An optional small top line can pose the question ("Both start with 5% energy.").
 - White line art plus **one** meaning colour: green `#2BFF88` = right path, red `#FF2D55` = wrong path. Gold, blue and violet are for variety, one per reel.
 - Glow only on what matters at that moment. Everything else stays flat white or dim.
 - Labels: 1 to 3 words, uppercase, tracked out. Max one payoff sentence, typed in at the end.

@@ -6,6 +6,7 @@ This repo makes Instagram reels for a minimal mindset animation page (black canv
 
 - 1 reel per request. Always a brand-new topic and a new visual metaphor, never a remix of a logged one.
 - Viral bar: score the concept and the finished render against the rubric in `reels/PLAYBOOK.md`. Ship only at **9/10 or higher**. If it scores lower, change the idea or the animation and re-render. Never ship below 9.
+- Every reel follows the **Pattern DNA** in `reels/PLAYBOOK.md` (at least 6 of 8 patterns), synthesised from all reference reels rather than copying any single one.
 - Chat output is minimal: send the mp4 and the cover, then the caption in a code block. No explanations, plans, tables or extra advice.
 
 ## Workflow for each request

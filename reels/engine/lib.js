@@ -483,3 +483,15 @@ function twinkle(ctx, x, y, r, o = {}) {
   if (r <= 0) return;
   stroke(ctx, (c) => { c.moveTo(x - r, y); c.lineTo(x + r, y); c.moveTo(x, y - r); c.lineTo(x, y + r); }, { width: 3, glow: 14, ...o });
 }
+
+// Battery meter centred at (x, y). level 0..1. Colour shifts red -> gold -> green unless given.
+function battery(ctx, x, y, level, o = {}) {
+  const { w = 96, h = 46, alpha = 1, glow = 16, showPct = true } = o;
+  const col = o.color || (level < 0.2 ? C.red : level < 0.6 ? C.gold : C.green);
+  const L = x - w / 2, T = y - h / 2;
+  const shell = (c) => { c.roundRect(L, T, w, h, 9); c.moveTo(L + w + 6, y - 9); c.lineTo(L + w + 6, y + 9); };
+  stroke(ctx, shell, { color: C.soft, width: 4, alpha });
+  const fw = Math.max(4, (w - 12) * clamp(level));
+  fill(ctx, (c) => c.roundRect(L + 6, T + 6, fw, h - 12, 4), { color: col, glow, alpha });
+  if (showPct) text(ctx, `${Math.round(level * 100)}%`, x, T - 26, { size: 28, weight: 700, color: col, glow: glow * 0.6, alpha });
+}
