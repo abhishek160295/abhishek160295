@@ -5,10 +5,10 @@ download all slides as a zip (with the chosen cover first), download the PDF, pi
 Reads and writes desk/desk.db; every change is mirrored into config/post_history.json.
 Listens on localhost only.
 """
-import io, json, mimetypes, re, sys, zipfile, argparse
+import io, json, mimetypes, re, sys, zipfile, argparse, subprocess, threading, time, datetime as dt
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, unquote
-from engine.core import ROOT
+from engine.core import ROOT, load, now_ist, python_exe, LOGS
 from engine import store
 
 PAGE = ROOT / "desk" / "index.html"
@@ -47,6 +47,8 @@ class H(BaseHTTPRequestHandler):
         if path == "/api/posts":
             store.sync_from_history()
             return self._send(200, store.posts())
+        if path == "/api/auto":
+            return self._send(200, {"replaceAfterMinutes": load("engine").get("replaceAfterMinutes", 20), "running": AUTO.status()})
         m = re.fullmatch(r"/api/posts/([\w-]+)/slides\.zip", path)
         if m:
             p = next((x for x in store.posts() if x["id"] == m.group(1)), None)
@@ -70,17 +72,64 @@ class H(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         n = int(self.headers.get("Content-Length") or 0)
         body = json.loads(self.rfile.read(n) or b"{}")
-        m = re.fullmatch(r"/api/posts/([\w-]+)/(status|cover)", path)
+        m = re.fullmatch(r"/api/posts/([\w-]+)/(status|cover|replace-now|keep-rejected)", path)
         if not m:
             return self._send(404, {"error": "not found"})
         try:
-            if m.group(2) == "status":
-                store.set_status(m.group(1), body.get("status"))
+            pid, act = m.group(1), m.group(2)
+            if act == "status":
+                store.set_status(pid, body.get("status"))
+            elif act == "cover":
+                store.set_cover(pid, body.get("choice"))
+            elif act == "keep-rejected":
+                store.set_fields(pid, noReplace=True)
             else:
-                store.set_cover(m.group(1), body.get("choice"))
+                store.set_fields(pid, noReplace=False, rejectedAt="2000-01-01T00:00:00+05:30")  # due now
+                AUTO.kick()
         except (KeyError, ValueError) as e:
             return self._send(400, {"error": str(e)})
         self._send(200, {"ok": True})
+
+
+class AutoReplacer:
+    """Every 30 s: a rejected post with no replacement, older than engine.replaceAfterMinutes and not marked
+    'keep rejected', starts replace_rejected.py for its date (one run per date at a time)."""
+    def __init__(self):
+        self.running = {}  # date -> Popen
+        self.ev = threading.Event()
+
+    def kick(self):
+        self.ev.set()
+
+    def status(self):
+        return {d: p.poll() is None for d, p in self.running.items()}
+
+    def loop(self):
+        while True:
+            try:
+                self.tick()
+            except Exception as e:
+                print("auto-replace:", e)
+            self.ev.wait(30); self.ev.clear()
+
+    def tick(self):
+        delay = dt.timedelta(minutes=load("engine").get("replaceAfterMinutes", 20))
+        now = now_ist()
+        due = set()
+        for p in store.posts():
+            if p.get("status") != "rejected" or p.get("replacedBy") or p.get("noReplace") or not p.get("rejectedAt"):
+                continue
+            if now - dt.datetime.fromisoformat(p["rejectedAt"]) >= delay:
+                due.add(p["date"])
+        for date in due:
+            proc = self.running.get(date)
+            if proc and proc.poll() is None:
+                continue
+            print(f"auto-replace: starting replace_rejected.py --date {date}")
+            self.running[date] = subprocess.Popen([python_exe(), "replace_rejected.py", "--date", date], cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)  # it writes logs/<date>_replace.log itself
+
+
+AUTO = AutoReplacer()
 
 
 def main():
@@ -90,6 +139,7 @@ def main():
     n = store.bootstrap_from_history()
     if n:
         print(f"Loaded {n} posts from config/post_history.json into the desk")
+    threading.Thread(target=AUTO.loop, daemon=True).start()
     srv = ThreadingHTTPServer(("127.0.0.1", a.port), H)
     print(f"Desk running at http://127.0.0.1:{a.port}  (Ctrl+C to stop)")
     try:

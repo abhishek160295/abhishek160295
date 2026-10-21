@@ -8,11 +8,12 @@ approved by you in a local desk. Kids series every day at 19:00. No reels.
 | When (IST) | What happens | You do |
 |---|---|---|
 | 05:50 | `make_day.py` plans, writes, verifies, renders 4 posts, notifies you | Open the desk, approve or reject |
-| 11:50, 16:50 | `replace_rejected.py` builds a new post for each rejected slot | Approve the replacement |
+| Any time you reject | The desk counts down 20 minutes (`engine.json` → `replaceAfterMinutes`), then builds a replacement on its own. Buttons: **Replace now** or **Keep rejected** (no replacement) | Approve the replacement |
+| 11:50, 16:50 | `replace_rejected.py` safety net for anything still rejected without a replacement (skips "Keep rejected") | |
 | Before each slot | | Pick cover A/B, download slides (zip), copy caption, post with music, set the DM reply for the keyword, mark posted |
 
 ```bash
-python desk_server.py                 # desk at http://127.0.0.1:8765
+python desk_server.py                 # desk at http://127.0.0.1:8765 (keep it running: it also runs auto-replace)
 ```
 
 ## Setup (once)
@@ -82,6 +83,13 @@ Every run logs to `logs/<date>_make_day.log` / `logs/<date>_replace.log` (+ `log
   DAX and shortcuts need the official doc URL in `meta.verify.manual` / `doc`.
 - **Layout:** overflow, clipped text, emoji wrapping, tiny text, PDF page count.
 - **Quality bar:** `prompts/quality_bar.md` (results on formula rows, sample data, "Pick X if..." on comparisons, sharp hook).
+
+## Hook bank
+`playbook.json → hookBank` holds 7 hook families (pain + payoff, before day one, the round itself, decision settler,
+notes as proof, kids topic, identity) and 5 cover-B mechanics (comment line, save before, sticker number, one sharp fact,
+simple explainer), plus an avoid list. The planner gives every slot the least recently used family for cover A and a
+different mechanic for cover B, and logs usage, so the weekly insights review can show which ones bring follows.
+`identity` stays locked until you add your real story to `storyFacts` and set its status to `test`.
 
 ## The planner
 Reads today's IST weekday row from `playbook.weeklyRotation` (s3 is always KIDS). Checks the last 7 days:

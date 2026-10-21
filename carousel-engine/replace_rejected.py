@@ -14,7 +14,7 @@ from engine.notify import notify, post_lines, dm_reminder
 
 
 def pending_rejections(date, hist):
-    return [p for p in hist if p.get("date") == date and p.get("status") == "rejected" and not p.get("replacedBy")]
+    return [p for p in hist if p.get("date") == date and p.get("status") == "rejected" and not p.get("replacedBy") and not p.get("noReplace")]
 
 
 def pick_format(rej, d, hist, pb, taken):

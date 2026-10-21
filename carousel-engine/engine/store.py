@@ -47,6 +47,8 @@ def set_status(pid, status):
     if status not in STATUSES:
         raise ValueError(status)
     extra = {"postedAt": now_ist().isoformat()} if status == "posted" else {}
+    if status == "rejected":
+        extra.update(rejectedAt=now_ist().isoformat(), noReplace=False)
     with connect() as con:
         r = con.execute("SELECT data FROM posts WHERE id=?", (pid,)).fetchone()
         if not r:
@@ -83,3 +85,13 @@ def bootstrap_from_history():
         if p.get("id") and p.get("slides") and p["id"] not in have:
             upsert(p); n += 1
     return n
+
+
+def set_fields(pid, **fields):
+    with connect() as con:
+        r = con.execute("SELECT data FROM posts WHERE id=?", (pid,)).fetchone()
+        if not r:
+            raise KeyError(pid)
+        d = json.loads(r["data"]); d.update(fields)
+        con.execute("UPDATE posts SET data=?, updatedAt=? WHERE id=?", (json.dumps(d, ensure_ascii=False), now_ist().isoformat(), pid))
+    _sync_history(pid, **fields)

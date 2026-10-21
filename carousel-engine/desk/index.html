@@ -58,6 +58,8 @@ h1{font:800 clamp(30px,5vw,44px)/1 'Bricolage Grotesque',Manrope,sans-serif;marg
 @media (prefers-reduced-motion:no-preference){.post{transition:border-color .15s}}
 
 [hidden]{display:none!important}
+.repl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--bad-bg);color:var(--bad);border-radius:10px;padding:10px 12px;font-weight:600}
+.repl b{font-variant-numeric:tabular-nums}.repl.on{background:var(--pend-bg);color:var(--pend)}
 .daybar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .daybar input{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:8px 10px;font:600 14px Manrope,sans-serif}
 .kw{font:700 13px 'JetBrains Mono',monospace;background:var(--pend-bg);color:var(--pend);padding:4px 10px;border-radius:8px}
@@ -82,13 +84,13 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 <div class="toast" id="toast" hidden></div>
 <script>
 const LABEL={draft:'Needs review',approved:'Approved',rejected:'Rejected',posted:'Posted'};
-let posts=[],filter='all',day=null,allDays=false,lbSet=[],lbI=0;
+let posts=[],filter='all',day=null,allDays=false,lbSet=[],lbI=0,auto={replaceAfterMinutes:20,running:{}};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function toast(t){const e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2200)}
 function fmtDay(d){try{return new Date(d+'T00:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}catch{return d}}
 function istToday(){return new Date(Date.now()+330*60000).toISOString().slice(0,10)}
-async function load(){posts=await (await fetch('/api/posts')).json();
+async function load(){posts=await (await fetch('/api/posts')).json();try{auto=await (await fetch('/api/auto')).json()}catch{}
   if(!day){const days=[...new Set(posts.map(p=>p.date))].sort();day=days.includes(istToday())?istToday():(days.at(-1)||istToday())}
   $('#day').value=day;render()}
 function inScope(p){return allDays||p.date===day}
@@ -103,6 +105,15 @@ function render(){
   const days={};vis.forEach(p=>(days[p.date]??=[]).push(p));
   $('#list').innerHTML=Object.entries(days).map(([d,ps])=>`<section class="day"><h2>${esc(fmtDay(d))} <span class="mono" style="color:var(--muted)">${ps.length} POST${ps.length>1?'S':''}</span></h2>${ps.map(card).join('')}</section>`).join('');
 }
+function replBox(p){
+  if(p.status!=='rejected'||p.replacedBy)return '';
+  if(p.noReplace)return `<div class="repl">Kept rejected, no replacement. <button class="btn" data-replnow="${p.id}">Replace it anyway</button></div>`;
+  if(auto.running&&auto.running[p.date])return `<div class="repl on">Building the replacement now. It lands here as a draft in a few minutes. Log: logs/${p.date}_replace.log</div>`;
+  const due=new Date(p.rejectedAt||Date.now()).getTime()+auto.replaceAfterMinutes*60000,left=Math.max(0,due-Date.now());
+  const mm=Math.floor(left/60000),ss=String(Math.floor(left%60000/1000)).padStart(2,'0');
+  return `<div class="repl">${left>0?`Auto-replacing in <b data-cd="${due}">${mm}:${ss}</b>`:'Replacement queued'} · new format, new topic, new keyword.
+    <button class="btn primary" data-replnow="${p.id}">Replace now</button><button class="btn" data-keep="${p.id}">Keep rejected</button></div>`}
+setInterval(()=>document.querySelectorAll('[data-cd]').forEach(e=>{const l=Math.max(0,+e.dataset.cd-Date.now());e.textContent=Math.floor(l/60000)+':'+String(Math.floor(l%60000/1000)).padStart(2,'0');if(!l)load()}),1000);
 function slidesOf(p){const a=[...(p.slides||[])];if(p.coverAlt&&p.coverChoice==='b'&&a.length)a[0]=p.coverAlt;return a}
 function card(p){
   const sl=slidesOf(p).map((s,i)=>`<button data-lb="${p.id}" data-i="${i}" aria-label="Open slide ${i+1}"><img loading="lazy" src="${esc(s.url)}" alt="Slide ${i+1}"></button>`).join('');
@@ -117,6 +128,7 @@ function card(p){
     <h3>${esc(p.title)}</h3>
     ${p.why?`<div class="src"><strong style="color:var(--ink)">Why this post:</strong> ${esc(p.why)}</div>`:''}
     ${link?`<div class="lk">${link}</div>`:''}
+    ${replBox(p)}
     ${p.coverAlt?`<div class="covers"><div class="lbl">Pick the cover</div><div class="cvrow">
       ${[['a',p.slides[0]],['b',p.coverAlt]].map(([k,c])=>`<button class="cv ${(p.coverChoice||'a')===k?'on':''}" data-cover="${k}" data-id="${p.id}" aria-pressed="${(p.coverChoice||'a')===k}"><img src="${esc(c.url)}" alt="Cover ${k.toUpperCase()}"><span>${(p.coverChoice||'a')===k?'✓ Using ':''}Cover ${k.toUpperCase()}${c.hook?' · '+esc(c.hook):''}</span></button>`).join('')}
     </div></div>`:''}
@@ -131,8 +143,8 @@ function card(p){
     ${src?`<div class="src">Sources: ${src}</div>`:''}
   </article>`}
 async function post(url,body){const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error((await r.json()).error)}
-async function setStatus(id,status){const p=posts.find(x=>x.id===id);const prev=p.status;p.status=status;render();
-  try{await post(`/api/posts/${encodeURIComponent(id)}/status`,{status});toast(LABEL[status])}catch(e){p.status=prev;render();toast('Could not save: '+e.message)}}
+async function setStatus(id,status){const p=posts.find(x=>x.id===id);const prev=p.status;p.status=status;if(status==='rejected'){p.rejectedAt=new Date().toISOString();p.noReplace=false}render();
+  try{await post(`/api/posts/${encodeURIComponent(id)}/status`,{status});toast(status==='rejected'?`Rejected. Auto-replacing in ${auto.replaceAfterMinutes} min`:LABEL[status])}catch(e){p.status=prev;render();toast('Could not save: '+e.message)}}
 async function setCover(id,k){const p=posts.find(x=>x.id===id);if((p.coverChoice||'a')===k)return;const prev=p.coverChoice;p.coverChoice=k;render();
   try{await post(`/api/posts/${encodeURIComponent(id)}/cover`,{choice:k});toast('Cover '+k.toUpperCase()+' selected')}catch(e){p.coverChoice=prev;render();toast('Could not save')}}
 async function copy(text,label,el){try{await navigator.clipboard.writeText(text);toast(label+' copied')}catch{if(el){const r=document.createRange();el.classList.add('open');r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast('Selected. Copy with your keyboard')}}
@@ -145,6 +157,8 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   else if(t.dataset.copy){const p=posts.find(x=>x.id===t.dataset.copy);copy(p.caption+(p.hashtags?'\n\n'+p.hashtags:''),'Caption',$('#cap-'+p.id))}
   else if(t.dataset.kw){copy(posts.find(x=>x.id===t.dataset.kw).keyword,'Keyword')}
   else if(t.dataset.cover)setCover(t.dataset.id,t.dataset.cover);
+  else if(t.dataset.replnow){post(`/api/posts/${encodeURIComponent(t.dataset.replnow)}/replace-now`,{}).then(()=>{toast('Replacement started');setTimeout(load,1500)}).catch(e=>toast('Could not start: '+e.message))}
+  else if(t.dataset.keep){post(`/api/posts/${encodeURIComponent(t.dataset.keep)}/keep-rejected`,{}).then(()=>{toast('Kept rejected');load()}).catch(e=>toast('Could not save: '+e.message))}
   else if(t.dataset.lb)openLb(t.dataset.lb,t.dataset.i);
   else if(t.id==='lbc')$('#lb').hidden=true;
   else if(t.id==='lbn'){lbI=(lbI+1)%lbSet.length;showLb()}
