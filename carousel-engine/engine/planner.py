@@ -156,11 +156,39 @@ PILLAR = {"BIG-NUMBER CHEAT SHEET": "Skills", "NOTES DROP": "Skills", "KIDS (big
           "ROLE VS": "Career", "proven interview list": "Interview", "roadmap/plan": "Roadmap"}
 
 
+def pick_hooks(label, pb, used_today=()):
+    """Cover A family + cover B mechanic from playbook.hookBank, least recently used first."""
+    hb = pb.get("hookBank")
+    if not hb:
+        return None, None
+    last = {}
+    for u in hb.get("usage", []):
+        for k in (u.get("family"), u.get("mechanic")):
+            if k: last[k] = max(last.get(k, ""), u["date"])
+    fams = [f for f in hb["families"] if f["status"] != "locked" and label in f["formats"] and f["id"] not in used_today]
+    fams = fams or [f for f in hb["families"] if f["status"] != "locked" and label in f["formats"]]
+    fam = sorted(fams, key=lambda f: (last.get(f["id"], ""), f["status"] != "proven"))[0] if fams else None
+    mechs = [m for m in hb["coverBMechanics"] if m["formats"] == "all" or label in m["formats"]]
+    if label == "KIDS (big tool/role)":
+        mechs = [m for m in mechs if m["id"] in ("simple-explainer", "comment-line", "save-before")]
+    mech = sorted(mechs, key=lambda m: (m["id"] in used_today, last.get(m["id"], ""), m["id"] != "simple-explainer"))[0] if mechs else None
+    return fam, mech
+
+
 def brief_for(label, slot, d, hist, pb, eng, taken_topics, used_hooks, used_styles, used_layouts, why_prefix=""):
     st, ly = style_layout(label, slot, d, hist, used_styles, used_layouts)
     b = {"slot": slot, "slotTime": SLOTS[slot], "rotation": label, "format": FORMAT_CODE[label],
          "pillar": PILLAR[label], "style": st, "layout": ly, "hookType": hook_for(label, eng, used_hooks),
          "evidence": eng["formatEvidence"][label], "why": (why_prefix + " " if why_prefix else "") + eng["formatEvidence"][label]}
+    fam, mech = pick_hooks(label, pb, used_hooks)
+    if fam:
+        b["hookFamily"] = fam["id"]
+        b["hookA"] = {"family": fam["name"], "why": fam["why"], "patterns": fam["examples"]}
+    if mech:
+        b["coverBMechanic"] = mech["id"]
+        b["hookB"] = {"mechanic": mech["id"], "how": mech["how"], "example": mech["example"]}
+    if fam or mech:
+        used_hooks.extend(x["id"] for x in (fam, mech) if x)
     if label == "KIDS (big tool/role)":
         t = pick_kids_topic(d, pb, hist, exclude=taken_topics.get("kids", ()))
         if not t:

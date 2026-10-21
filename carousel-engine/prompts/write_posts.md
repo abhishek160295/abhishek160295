@@ -6,6 +6,8 @@ Date: {{DATE}} (IST). Mode: {{MODE}}. Write these slot ids: {{SLOTS}}.
 1. Read days/{{DATE}}/plan.json. For each slot id, the brief there (slots[] by slot number, or replacements[<id>]) fixes the
    format, tool/topic/pair, style, layout, hook family and evidence. Do not change those. `banned` lists titles, templates
    and keywords you may not reuse. For a replacement, `avoid` lists the topic and angle of the rejected post: pick a clearly different one.
+   Hooks: brief.hookA names the hook family for cover A (patterns to adapt, never copy a title) and brief.hookB the
+   mechanic for spec.cover_alt (set cover_alt.hook to the mechanic id). playbook.hookBank.avoid is banned.
 2. Read config/playbook.json (formats, kidsRules, hookRules, ctaRule) and config/engine.json (designRules, productRule) and one
    matching example in examples/ for the spec shape. Read render.py's header for slide types.
 3. Use WebSearch (2-4 searches per post) for a fresh angle: what freshers in India are asking about this tool/role right now,

@@ -516,5 +516,159 @@
     "pages": 21
    }
   ]
+ },
+ "hookBank": {
+  "note": "Planner picks one family for cover A (least recently used that fits the format) and one mechanic for cover B, and writes both into the brief. Examples are patterns, not titles to copy: titles still must be new (60-day rule). 'locked' families wait for the owner's true story.",
+  "families": [
+   {
+    "id": "pain-payoff",
+    "name": "Pain + payoff",
+    "status": "proven",
+    "formats": [
+     "BIG-NUMBER CHEAT SHEET",
+     "proven interview list"
+    ],
+    "why": "Names the boring task and promises it disappears. Matches the 31 Excel shortcuts (31K) and only-cheat-sheet (33K) winners.",
+    "examples": [
+     "38 Python lines that do your boring office work",
+     "The 25 Excel formulas behind every MIS report",
+     "40 SQL queries your first manager will ask for",
+     "Stop Googling these 30 pandas lines",
+     "Power BI in one page: every DAX line a fresher actually writes"
+    ]
+   },
+   {
+    "id": "before-day-one",
+    "name": "Before day one",
+    "status": "test",
+    "formats": [
+     "BIG-NUMBER CHEAT SHEET",
+     "NOTES DROP",
+     "proven interview list"
+    ],
+    "why": "Tier 2/3 freshers fear the first job; this frames the post as preparation for it.",
+    "examples": [
+     "Before your first analyst job, learn these 20 Excel things",
+     "The 12 SQL queries you'll run in week one",
+     "Your manager sends a messy Excel. Here's the 15-step clean-up."
+    ]
+   },
+   {
+    "id": "the-round",
+    "name": "The test or round itself",
+    "status": "test",
+    "formats": [
+     "proven interview list",
+     "NOTES DROP",
+     "BIG-NUMBER CHEAT SHEET"
+    ],
+    "why": "Frames the post around the round, never around failing it, so no invented statistic is needed.",
+    "examples": [
+     "Excel round tomorrow? Revise only these 18 pages",
+     "The SQL test has 4 question types. Here's each one, solved.",
+     "Every Power BI question from a fresher interview, answered"
+    ]
+   },
+   {
+    "id": "decision-settler",
+    "name": "Decision settler",
+    "status": "proven",
+    "formats": [
+     "ROLE VS"
+    ],
+    "why": "Role comparisons are the second-best performer (DA vs DS 46,911 / 120 follows).",
+    "examples": [
+     "Data Analyst or Product Analyst? Same SQL, different questions",
+     "B.Com to Data Analyst: what transfers, what you learn new",
+     "Service company analyst vs product company analyst: a normal day",
+     "Fresher vs 2-year analyst: what actually changes"
+    ]
+   },
+   {
+    "id": "notes-proof",
+    "name": "Notes as proof",
+    "status": "test",
+    "formats": [
+     "NOTES DROP"
+    ],
+    "why": "Tajamul model: real pages on the cover are the proof of value.",
+    "examples": [
+     "21 pages of Excel notes. Every formula shows its answer."
+    ]
+   },
+   {
+    "id": "kids-topic",
+    "name": "Kids: the topic is the hook",
+    "status": "proven",
+    "formats": [
+     "KIDS (big tool/role)"
+    ],
+    "why": "Kids Power BI 88,929 / 1,012 follows. Keep the fixed cover; pick big tools/roles only.",
+    "examples": [
+     "How I'd explain ChatGPT for data work to a 5-year-old",
+     "How I'd explain a data analyst interview to a 5-year-old"
+    ]
+   },
+   {
+    "id": "identity",
+    "name": "Identity (owner's story)",
+    "status": "locked",
+    "formats": [
+     "NOTES DROP",
+     "BIG-NUMBER CHEAT SHEET",
+     "ROLE VS",
+     "proven interview list"
+    ],
+    "why": "Often the biggest follow driver, but hookRules allow it only once Abhishek has shared his true story. Set status to 'test' and add storyFacts when he does.",
+    "storyFacts": [],
+    "examples": [
+     "My SQL notes from 7 years of work, in 20 pages",
+     "The notes I wish I had in final year"
+    ]
+   }
+  ],
+  "coverBMechanics": [
+   {
+    "id": "comment-line",
+    "formats": "all",
+    "how": "The comment CTA is the hook on cover B.",
+    "example": "Comment EXCEL and I'll send you all 21 pages"
+   },
+   {
+    "id": "save-before",
+    "formats": "all",
+    "how": "Tie the save to a deadline the reader has.",
+    "example": "Save this before your placement season"
+   },
+   {
+    "id": "sticker-number",
+    "formats": "all",
+    "how": "Short title; the big number lives on the sticker (spec.sticker).",
+    "example": "Title 'Excel notes' + sticker '21 pages'"
+   },
+   {
+    "id": "one-sharp-fact",
+    "formats": "all",
+    "how": "One surprising, verified fact on the cover; the full sheet inside.",
+    "example": "Ctrl + E does what 3 formulas do."
+   },
+   {
+    "id": "simple-explainer",
+    "formats": [
+     "KIDS (big tool/role)"
+    ],
+    "how": "Nicolas-style simple explainer as cover B for kids.",
+    "example": "Machine Learning is simple once you see it like this"
+   }
+  ],
+  "avoid": [
+   "'Top 10' wording",
+   "'Most freshers fail...' or any unsourced statistic",
+   "salary-anchored hooks (12-18 LPA)",
+   "tool vs tool",
+   "quiz / challenge hooks",
+   "myths, analogies, interviewer-POV, single-concept explainers"
+  ],
+  "usage": []
  }
 }

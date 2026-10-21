@@ -111,11 +111,19 @@ def to_post(date, sid, brief, r, eng):
         post["coverChoice"] = "a"
     if brief.get("replaces"):
         post["replaces"] = brief["replaces"]
+    for k in ("hookFamily", "coverBMechanic"):
+        if brief.get(k):
+            post[k] = brief[k]
     return post
 
 
 def record_playbook(posts):
     pb = load("playbook")
+    if "hookBank" in pb:
+        ids = {p["id"] for p in posts}
+        pb["hookBank"]["usage"] = [u for u in pb["hookBank"].get("usage", []) if u.get("post") not in ids] + [
+            {"date": p["date"], "post": p["id"], "family": p.get("hookFamily"), "mechanic": p.get("coverBMechanic")}
+            for p in posts if p.get("hookFamily") or p.get("coverBMechanic")]
     for p in posts:
         t, d = p.get("topic"), p["date"]
         if p["format"] == "mega-kids" and t:
