@@ -1,0 +1,1733 @@
+{
+ "title": "Excel notes for analyst jobs: 18 pages, every formula tested",
+ "slug": "excel-notes-analyst-jobs",
+ "caption": "Formulas, lookups, pivots, cleaning, charts, shortcuts and interview answers. 18 pages.\nYou see the first 8 here. The rest are in the PDF.\nFollow @thedataguy16 and comment XLNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#excel #dataanalyst #exceltips #mis #analystjobs #thedataguy16",
+ "keyword": "XLNOTES",
+ "hookType": "notes-pages",
+ "pillar": "Skills",
+ "why": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides. Excel is the least recent notes tool (SQL 16 Oct, Power BI 17 Oct, Python 18 Oct). Title template varied from 'Complete X Notes'.",
+ "sources": [
+  {
+   "title": "Keyboard shortcuts in Excel",
+   "url": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+  },
+  {
+   "title": "XLOOKUP function",
+   "url": "https://support.microsoft.com/en-us/excel/functions/xlookup-function"
+  },
+  {
+   "title": "UNIQUE function",
+   "url": "https://support.microsoft.com/en-us/excel/functions/unique-function"
+  },
+  {
+   "title": "SORTBY function",
+   "url": "https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f"
+  },
+  {
+   "title": "FILTER function",
+   "url": "https://support.microsoft.com/en-us/excel/functions/filter-function"
+  },
+  {
+   "title": "TEXTSPLIT function",
+   "url": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "x1",
+    "lang": "excel",
+    "cells": {
+     "A2": 250,
+     "B2": 4
+    },
+    "formula": "=A2*B2",
+    "expect": 1000
+   },
+   {
+    "id": "x2",
+    "lang": "excel",
+    "cells": {
+     "A2": 250,
+     "B1": 0.18
+    },
+    "formula": "=A2*$B$1",
+    "expect": 45
+   },
+   {
+    "id": "x3",
+    "lang": "excel",
+    "cells": {
+     "A2": 250,
+     "B1": 0.18
+    },
+    "formula": "=A2*B$1",
+    "expect": 45
+   },
+   {
+    "id": "x4",
+    "lang": "excel",
+    "cells": {
+     "B2": 10,
+     "B3": 20,
+     "B4": 30,
+     "B5": 40,
+     "B6": 50
+    },
+    "formula": "=SUM(B2:B6)",
+    "expect": 150
+   },
+   {
+    "id": "x5",
+    "lang": "excel",
+    "cells": {
+     "B2": 10,
+     "B3": 20,
+     "B4": 30,
+     "B5": 40,
+     "B6": 50
+    },
+    "formula": "=AVERAGE(B2:B6)",
+    "expect": 30
+   },
+   {
+    "id": "x6",
+    "lang": "excel",
+    "cells": {
+     "B2": 10,
+     "B3": 20,
+     "B4": 30,
+     "B5": 40,
+     "B6": 50
+    },
+    "formula": "=MAX(B2:B6)",
+    "expect": 50
+   },
+   {
+    "id": "x7",
+    "lang": "excel",
+    "cells": {
+     "A2": 1,
+     "A3": "x",
+     "A4": 3,
+     "A6": 5
+    },
+    "formula": "=COUNT(A2:A6)",
+    "expect": 3
+   },
+   {
+    "id": "x8",
+    "lang": "excel",
+    "cells": {
+     "A2": 1,
+     "A3": "x",
+     "A4": 3,
+     "A6": 5
+    },
+    "formula": "=COUNTA(A2:A6)",
+    "expect": 4
+   },
+   {
+    "id": "x9",
+    "lang": "excel",
+    "cells": {
+     "A2": 3.14159
+    },
+    "formula": "=ROUND(A2,2)",
+    "expect": 3.14
+   },
+   {
+    "id": "x10",
+    "lang": "excel",
+    "cells": {
+     "A2": 3.14159
+    },
+    "formula": "=ROUNDUP(A2,0)",
+    "expect": 4
+   },
+   {
+    "id": "x11",
+    "lang": "excel",
+    "cells": {
+     "B2": 55
+    },
+    "formula": "=IF(B2>=40,\"Pass\",\"Fail\")",
+    "expect": "Pass"
+   },
+   {
+    "id": "x12",
+    "lang": "excel",
+    "cells": {
+     "B2": 65
+    },
+    "formula": "=IF(B2>=75,\"A\",IF(B2>=60,\"B\",\"C\"))",
+    "expect": "B"
+   },
+   {
+    "id": "x13",
+    "lang": "excel",
+    "cells": {
+     "B2": 65
+    },
+    "formula": "=IFS(B2>=75,\"A\",B2>=60,\"B\",TRUE,\"C\")",
+    "expect": "B"
+   },
+   {
+    "id": "x14",
+    "lang": "excel",
+    "cells": {
+     "B2": 55,
+     "C2": 80
+    },
+    "formula": "=IF(AND(B2>=40,C2>=75),\"Eligible\",\"No\")",
+    "expect": "Eligible"
+   },
+   {
+    "id": "x15",
+    "lang": "excel",
+    "cells": {
+     "D2": "Closed"
+    },
+    "formula": "=IF(OR(D2=\"Delivered\",D2=\"Closed\"),\"Done\",\"Open\")",
+    "expect": "Done"
+   },
+   {
+    "id": "x16",
+    "lang": "excel",
+    "cells": {},
+    "formula": "=IF(ISBLANK(E2),\"Missing\",\"Filled\")",
+    "expect": "Missing"
+   },
+   {
+    "id": "x17",
+    "lang": "excel",
+    "cells": {
+     "A2": 10,
+     "B2": 0
+    },
+    "formula": "=IFERROR(A2/B2,0)",
+    "expect": 0
+   },
+   {
+    "id": "x18",
+    "lang": "excel",
+    "cells": {
+     "A2": "X",
+     "A3": "Y",
+     "A4": "W"
+    },
+    "formula": "=IFNA(MATCH(\"Z\",A2:A4,0),\"Not found\")",
+    "expect": "Not found"
+   },
+   {
+    "id": "x19",
+    "lang": "excel",
+    "cells": {
+     "F2": "S"
+    },
+    "formula": "=SWITCH(F2,\"N\",\"North\",\"S\",\"South\",\"Other\")",
+    "expect": "South"
+   },
+   {
+    "id": "x20",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=COUNTIF(A2:A7,\"North\")",
+    "expect": 3
+   },
+   {
+    "id": "x21",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=COUNTIFS(A2:A7,\"North\",C2:C7,\"Closed\")",
+    "expect": 2
+   },
+   {
+    "id": "x22",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=SUMIF(A2:A7,\"South\",B2:B7)",
+    "expect": 800
+   },
+   {
+    "id": "x23",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=SUMIFS(B2:B7,A2:A7,\"North\",C2:C7,\"Closed\")",
+    "expect": 400
+   },
+   {
+    "id": "x24",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=SUMIF(B2:B7,\">250\")",
+    "expect": 1800
+   },
+   {
+    "id": "x25",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=AVERAGEIF(A2:A7,\"North\",B2:B7)",
+    "expect": 300
+   },
+   {
+    "id": "x26",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=MAXIFS(B2:B7,A2:A7,\"South\")",
+    "expect": 600
+   },
+   {
+    "id": "x27",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=MINIFS(B2:B7,C2:C7,\"Open\")",
+    "expect": 200
+   },
+   {
+    "id": "x28",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=COUNTIF(C2:C7,\"<>Closed\")",
+    "expect": 2
+   },
+   {
+    "id": "x29",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "East",
+     "A6": "North",
+     "A7": "South",
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400,
+     "B6": 500,
+     "B7": 600,
+     "C2": "Closed",
+     "C3": "Open",
+     "C4": "Closed",
+     "C5": "Closed",
+     "C6": "Open",
+     "C7": "Closed",
+     "D2": 1,
+     "D3": 2,
+     "D4": 1,
+     "D5": 1,
+     "D6": 2,
+     "D7": 1
+    },
+    "formula": "=SUMPRODUCT(B2:B7,D2:D7)",
+    "expect": 2800
+   },
+   {
+    "id": "x30",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=VLOOKUP(E2,A2:C4,2,FALSE)",
+    "expect": "Ravi"
+   },
+   {
+    "id": "x31",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=VLOOKUP(E2,A2:C4,3,0)",
+    "expect": "Indore"
+   },
+   {
+    "id": "x32",
+    "lang": "excel",
+    "cells": {
+     "G2": 72000,
+     "H2": 0,
+     "H3": 50000,
+     "H4": 100000,
+     "I2": "Low",
+     "I3": "Mid",
+     "I4": "High"
+    },
+    "formula": "=VLOOKUP(G2,H2:I4,2,TRUE)",
+    "expect": "Mid"
+   },
+   {
+    "id": "x33",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=MATCH(E2,A2:A4,0)",
+    "expect": 2
+   },
+   {
+    "id": "x34",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=INDEX(B2:B4,2)",
+    "expect": "Ravi"
+   },
+   {
+    "id": "x35",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=INDEX(B2:B4,MATCH(E2,A2:A4,0))",
+    "expect": "Ravi"
+   },
+   {
+    "id": "x36",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=INDEX(A2:A4,MATCH(\"Neha\",B2:B4,0))",
+    "expect": 103
+   },
+   {
+    "id": "x37",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=XLOOKUP(E2,A2:A4,B2:B4)",
+    "expect": "Ravi",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/xlookup-function"
+   },
+   {
+    "id": "x38",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102
+    },
+    "formula": "=XLOOKUP(999,A2:A4,B2:B4,\"Not found\")",
+    "expect": "Not found",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/xlookup-function"
+   },
+   {
+    "id": "x39",
+    "lang": "excel",
+    "cells": {
+     "A2": 101,
+     "A3": 102,
+     "A4": 103,
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "C2": "Pune",
+     "C3": "Indore",
+     "C4": "Jaipur",
+     "E2": 102,
+     "A5": 102,
+     "B5": "Ravi K"
+    },
+    "formula": "=XLOOKUP(E2,A2:A5,B2:B5,,0,-1)",
+    "expect": "Ravi K",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/xlookup-function"
+   },
+   {
+    "id": "x40",
+    "lang": "excel",
+    "cells": {
+     "A2": "  ravi   KUMAR  "
+    },
+    "formula": "=TRIM(A2)",
+    "expect": "ravi KUMAR"
+   },
+   {
+    "id": "x41",
+    "lang": "excel",
+    "cells": {
+     "A2": "  ravi   KUMAR  "
+    },
+    "formula": "=PROPER(TRIM(A2))",
+    "expect": "Ravi Kumar"
+   },
+   {
+    "id": "x42",
+    "lang": "excel",
+    "cells": {
+     "B2": "pune"
+    },
+    "formula": "=UPPER(B2)",
+    "expect": "PUNE"
+   },
+   {
+    "id": "x43",
+    "lang": "excel",
+    "cells": {
+     "B2": "PUNE"
+    },
+    "formula": "=LOWER(B2)",
+    "expect": "pune"
+   },
+   {
+    "id": "x44",
+    "lang": "excel",
+    "cells": {
+     "C2": "INV-2041"
+    },
+    "formula": "=LEFT(C2,3)",
+    "expect": "INV"
+   },
+   {
+    "id": "x45",
+    "lang": "excel",
+    "cells": {
+     "C2": "INV-2041"
+    },
+    "formula": "=RIGHT(C2,4)",
+    "expect": "2041"
+   },
+   {
+    "id": "x46",
+    "lang": "excel",
+    "cells": {
+     "C2": "INV-2041"
+    },
+    "formula": "=MID(C2,5,2)",
+    "expect": "20"
+   },
+   {
+    "id": "x47",
+    "lang": "excel",
+    "cells": {
+     "C2": "INV-2041"
+    },
+    "formula": "=LEN(C2)",
+    "expect": 8
+   },
+   {
+    "id": "x48",
+    "lang": "excel",
+    "cells": {
+     "C2": "INV-2041"
+    },
+    "formula": "=FIND(\"-\",C2)",
+    "expect": 4
+   },
+   {
+    "id": "x49",
+    "lang": "excel",
+    "cells": {
+     "D2": "98-200-11111"
+    },
+    "formula": "=SUBSTITUTE(D2,\"-\",\"\")",
+    "expect": "9820011111"
+   },
+   {
+    "id": "x50",
+    "lang": "excel",
+    "cells": {
+     "A2": "Asha",
+     "B2": "Rao"
+    },
+    "formula": "=A2&\" \"&B2",
+    "expect": "Asha Rao"
+   },
+   {
+    "id": "x51",
+    "lang": "excel",
+    "cells": {
+     "A2": "Asha",
+     "B2": "Rao"
+    },
+    "formula": "=CONCAT(A2,\" \",B2)",
+    "expect": "Asha Rao"
+   },
+   {
+    "id": "x52",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A4": "Indore"
+    },
+    "formula": "=TEXTJOIN(\", \",TRUE,A2:A4)",
+    "expect": "Pune, Indore"
+   },
+   {
+    "id": "x53",
+    "lang": "excel",
+    "cells": {
+     "C2": "asha@corp.in"
+    },
+    "formula": "=LEFT(C2,FIND(\"@\",C2)-1)",
+    "expect": "asha"
+   },
+   {
+    "id": "x54",
+    "lang": "excel",
+    "cells": {
+     "C2": "asha@corp.in"
+    },
+    "formula": "=MID(C2,FIND(\"@\",C2)+1,50)",
+    "expect": "corp.in"
+   },
+   {
+    "id": "x55",
+    "lang": "excel",
+    "cells": {
+     "E2": "1250"
+    },
+    "formula": "=VALUE(E2)",
+    "expect": 1250
+   },
+   {
+    "id": "x56",
+    "lang": "excel",
+    "cells": {
+     "F2": 0.256
+    },
+    "formula": "=TEXT(F2,\"0.0%\")",
+    "expect": "25.6%"
+   },
+   {
+    "id": "x57",
+    "lang": "excel",
+    "cells": {
+     "G2": "2026-03-05"
+    },
+    "formula": "=TEXT(G2,\"dd-mmm-yyyy\")",
+    "expect": "05-Mar-2026"
+   },
+   {
+    "id": "x58",
+    "lang": "excel",
+    "cells": {
+     "H2": 4
+    },
+    "formula": "=REPT(\"*\",H2)",
+    "expect": "****"
+   },
+   {
+    "id": "x59",
+    "lang": "excel",
+    "cells": {},
+    "formula": "=TODAY()>DATE(2026,1,1)",
+    "expect": true
+   },
+   {
+    "id": "x60",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=YEAR(A2)",
+    "expect": 2026
+   },
+   {
+    "id": "x61",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=MONTH(A2)",
+    "expect": 3
+   },
+   {
+    "id": "x62",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=TEXT(A2,\"mmm\")",
+    "expect": "Mar"
+   },
+   {
+    "id": "x63",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=EOMONTH(A2,0)",
+    "expect": "2026-03-31"
+   },
+   {
+    "id": "x64",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=EDATE(A2,3)",
+    "expect": "2026-06-15"
+   },
+   {
+    "id": "x65",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=DATEDIF(A2,B2,\"m\")",
+    "expect": 7
+   },
+   {
+    "id": "x66",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=NETWORKDAYS(A2,B2)",
+    "expect": 154
+   },
+   {
+    "id": "x67",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=WEEKDAY(A2,2)",
+    "expect": 7
+   },
+   {
+    "id": "x68",
+    "lang": "excel",
+    "cells": {
+     "A2": "2026-03-15",
+     "B2": "2026-10-15"
+    },
+    "formula": "=A2+30",
+    "expect": "2026-04-14"
+   },
+   {
+    "id": "x69",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=UNIQUE(A2:A5)",
+    "expect": "Pune",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/unique-function"
+   },
+   {
+    "id": "x70",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=UNIQUE(A2:A5,,TRUE)",
+    "expect": "Indore",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/unique-function"
+   },
+   {
+    "id": "x71",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=ROWS(UNIQUE(A2:A5))",
+    "expect": 3,
+    "doc": "https://support.microsoft.com/en-us/excel/functions/unique-function"
+   },
+   {
+    "id": "x72",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=SORTBY(A2:C5,C2:C5,-1)",
+    "expect": "Indore",
+    "doc": "https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f"
+   },
+   {
+    "id": "x73",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=FILTER(A2:C5,C2:C5>500)",
+    "expect": "Indore",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/filter-function"
+   },
+   {
+    "id": "x74",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=FILTER(A2:C5,C2:C5>5000,\"None\")",
+    "expect": "None",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/filter-function"
+   },
+   {
+    "id": "x75",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=FILTER(A2:C5,(A2:A5=\"Pune\")*(C2:C5>500))",
+    "expect": "Pune",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/filter-function"
+   },
+   {
+    "id": "x76",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=TEXTSPLIT(D2,\",\")",
+    "expect": "Pune",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
+   },
+   {
+    "id": "x77",
+    "lang": "excel",
+    "cells": {
+     "A2": "Pune",
+     "A3": "Indore",
+     "A4": "Pune",
+     "A5": "Jaipur",
+     "B2": "Asha",
+     "B3": "Ravi",
+     "B4": "Neha",
+     "B5": "Imran",
+     "C2": 300,
+     "C3": 900,
+     "C4": 700,
+     "C5": 200,
+     "D2": "Pune,Indore,Jaipur"
+    },
+    "formula": "=TEXTSPLIT(D2,\",\",,TRUE)",
+    "expect": "Pune",
+    "doc": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
+   },
+   {
+    "id": "x78",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400
+    },
+    "formula": "=B2/SUM($B$2:$B$5)",
+    "expect": 0.1
+   },
+   {
+    "id": "x79",
+    "lang": "excel",
+    "cells": {
+     "B2": 200,
+     "C2": 250
+    },
+    "formula": "=(C2-B2)/B2",
+    "expect": 0.25
+   },
+   {
+    "id": "x80",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400
+    },
+    "formula": "=SUM($B$2:B4)",
+    "expect": 600
+   },
+   {
+    "id": "x81",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400
+    },
+    "formula": "=RANK.EQ(B3,$B$2:$B$5)",
+    "expect": 3
+   },
+   {
+    "id": "x82",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400
+    },
+    "formula": "=LARGE(B2:B5,2)",
+    "expect": 300
+   },
+   {
+    "id": "x83",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "B3": 200,
+     "B4": 300,
+     "B5": 400
+    },
+    "formula": "=SMALL(B2:B5,1)",
+    "expect": 100
+   },
+   {
+    "id": "x84",
+    "lang": "excel",
+    "cells": {
+     "B2": 100,
+     "C2": 133.1
+    },
+    "formula": "=(C2/B2)^(1/3)-1",
+    "expect": 0.1
+   },
+   {
+    "id": "x85",
+    "lang": "excel",
+    "cells": {
+     "B2": 1,
+     "C2": 3
+    },
+    "formula": "=ROUND(B2/C2*100,1)&\"%\"",
+    "expect": "33.3%"
+   },
+   {
+    "id": "x86",
+    "lang": "excel",
+    "cells": {
+     "B2": 0,
+     "C2": 50
+    },
+    "formula": "=IFERROR((C2-B2)/B2,\"\")",
+    "expect": ""
+   },
+   {
+    "id": "x87",
+    "lang": "excel",
+    "cells": {
+     "A2": "x",
+     "A3": "y",
+     "A4": "x",
+     "A5": "z",
+     "A6": "w"
+    },
+    "formula": "=COUNTIF($A$2:$A$6,A2)>1",
+    "expect": true
+   },
+   {
+    "id": "x88",
+    "lang": "excel",
+    "cells": {
+     "A2": "x",
+     "A3": "y",
+     "A4": "x",
+     "A5": "z",
+     "A6": "w"
+    },
+    "formula": "=IF(COUNTIF($A$2:$A$6,A2)>1,\"Duplicate\",\"\")",
+    "expect": "Duplicate"
+   },
+   {
+    "id": "x89",
+    "lang": "excel",
+    "cells": {},
+    "formula": "=ISBLANK(B2)",
+    "expect": true
+   },
+   {
+    "id": "x90",
+    "lang": "excel",
+    "cells": {
+     "C2": "125"
+    },
+    "formula": "=ISNUMBER(C2)",
+    "expect": false
+   },
+   {
+    "id": "x91",
+    "lang": "excel",
+    "cells": {
+     "C2": " 125 "
+    },
+    "formula": "=VALUE(TRIM(C2))",
+    "expect": 125
+   },
+   {
+    "id": "x92",
+    "lang": "excel",
+    "cells": {
+     "D2": "Pune\nWest"
+    },
+    "formula": "=CLEAN(D2)",
+    "expect": "PuneWest"
+   },
+   {
+    "id": "x93",
+    "lang": "excel",
+    "cells": {
+     "B3": 1,
+     "B5": 2,
+     "B6": 3
+    },
+    "formula": "=COUNTBLANK(B2:B6)",
+    "expect": 2
+   },
+   {
+    "id": "x94",
+    "lang": "excel",
+    "cells": {
+     "F2": "Ravi  Kumar "
+    },
+    "formula": "=LEN(F2)-LEN(TRIM(F2))",
+    "expect": 2
+   },
+   {
+    "id": "x95",
+    "lang": "excel",
+    "cells": {
+     "G2": "Pune",
+     "H2": "pune"
+    },
+    "formula": "=EXACT(G2,H2)",
+    "expect": false
+   },
+   {
+    "id": "x96",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=$C2>1000",
+    "expect": true
+   },
+   {
+    "id": "x97",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=$D2=\"Pending\"",
+    "expect": true
+   },
+   {
+    "id": "x98",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=COUNTIF($A:$A,$A2)>1",
+    "expect": true
+   },
+   {
+    "id": "x99",
+    "lang": "excel",
+    "cells": {
+     "C2": 900,
+     "C3": 500
+    },
+    "formula": "=C2=MAX($C$2:$C$10)",
+    "expect": true
+   },
+   {
+    "id": "x100",
+    "lang": "excel",
+    "cells": {},
+    "formula": "=MOD(ROW(),2)=0",
+    "expect": true,
+    "at": "Z2"
+   },
+   {
+    "id": "x101",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=$E2<TODAY()",
+    "expect": true
+   },
+   {
+    "id": "x102",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=ISBLANK($B2)",
+    "expect": true
+   },
+   {
+    "id": "x103",
+    "lang": "excel",
+    "cells": {
+     "C2": 700
+    },
+    "formula": "=AND($C2>=500,$C2<1000)",
+    "expect": true
+   },
+   {
+    "id": "x104",
+    "lang": "excel",
+    "cells": {
+     "E2": "2026-03-15"
+    },
+    "formula": "=WEEKDAY($E2,2)>5",
+    "expect": true
+   },
+   {
+    "id": "x105",
+    "lang": "excel",
+    "cells": {
+     "C2": 1500,
+     "D2": "Pending",
+     "A2": "x",
+     "A3": "x",
+     "E2": "2020-01-01",
+     "F2": "New Delhi"
+    },
+    "formula": "=ISNUMBER(SEARCH(\"delhi\",$F2))",
+    "expect": true
+   },
+   {
+    "id": "x106",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "North",
+     "B2": "Jan",
+     "B3": "Jan",
+     "B4": "Feb",
+     "B5": "Mar",
+     "C2": 100,
+     "C3": 200,
+     "C4": 300,
+     "C5": 400
+    },
+    "formula": "=SUMIFS(C:C,B:B,\"Jan\")",
+    "expect": 300
+   },
+   {
+    "id": "x107",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "North",
+     "B2": "Jan",
+     "B3": "Jan",
+     "B4": "Feb",
+     "B5": "Mar",
+     "C2": 100,
+     "C3": 200,
+     "C4": 300,
+     "C5": 400
+    },
+    "formula": "=SUMIFS(C:C,A:A,\"North\",B:B,\"Jan\")",
+    "expect": 100
+   },
+   {
+    "id": "x108",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "North",
+     "B2": "Jan",
+     "B3": "Jan",
+     "B4": "Feb",
+     "B5": "Mar",
+     "C2": 100,
+     "C3": 200,
+     "C4": 300,
+     "C5": 400
+    },
+    "formula": "=COUNTIFS(B:B,\"Mar\")",
+    "expect": 1
+   },
+   {
+    "id": "x109",
+    "lang": "excel",
+    "cells": {
+     "A2": "North",
+     "A3": "South",
+     "A4": "North",
+     "A5": "North",
+     "B2": "Jan",
+     "B3": "Jan",
+     "B4": "Feb",
+     "B5": "Mar",
+     "C2": 100,
+     "C3": 200,
+     "C4": 300,
+     "C5": 400
+    },
+    "formula": "=SUMIF(A:A,\"North\",C:C)/SUM(C:C)",
+    "expect": 0.8
+   },
+   {
+    "id": "x110",
+    "lang": "excel",
+    "cells": {
+     "D2": 120,
+     "E2": 100
+    },
+    "formula": "=IF(D2>=E2,\"Met\",\"Missed\")",
+    "expect": "Met"
+   },
+   {
+    "id": "x111",
+    "lang": "excel",
+    "cells": {
+     "D2": 120,
+     "E2": 100
+    },
+    "formula": "=D2/E2",
+    "expect": 1.2
+   },
+   {
+    "id": "x112",
+    "lang": "excel",
+    "cells": {
+     "D2": 100,
+     "D3": 120
+    },
+    "formula": "=D3/D2-1",
+    "expect": 0.2
+   },
+   {
+    "id": "x113",
+    "lang": "excel",
+    "cells": {
+     "F2": 10,
+     "F3": 20,
+     "F4": 30,
+     "G2": 1,
+     "G3": 1,
+     "G4": 2
+    },
+    "formula": "=SUMPRODUCT(F2:F4,G2:G4)/SUM(G2:G4)",
+    "expect": 22.5
+   },
+   {
+    "id": "x114",
+    "lang": "excel",
+    "cells": {
+     "D2": 100,
+     "D3": 120,
+     "D4": 130
+    },
+    "formula": "=SUM($D$2:D4)",
+    "expect": 350
+   },
+   {
+    "id": "x115",
+    "lang": "excel",
+    "cells": {
+     "D2": 80,
+     "E2": 100
+    },
+    "formula": "=MAX(0,E2-D2)",
+    "expect": 20
+   }
+  ],
+  "manual": [
+   {
+    "snippet": "Ctrl + T",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + Shift + L",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Alt + =",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + E",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Alt + F1",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "F11",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + 1",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "F4",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + D",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "F2",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Alt + Enter",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + Space",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Shift + Space",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + ;",
+    "source": "https://support.microsoft.com/nl-nl/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + Alt + V",
+    "source": "https://support.microsoft.com/nl-nl/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "snippet": "Ctrl + Arrow key",
+    "source": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   }
+  ],
+  "prose_slides": [
+   12,
+   15,
+   17,
+   18,
+   19
+  ]
+ }
+}

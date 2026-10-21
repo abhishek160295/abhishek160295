@@ -1,0 +1,972 @@
+{
+ "series": "Excel notes",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "preview_pages": 8,
+ "cover_alt": {
+  "title": "18 pages of<br>Excel notes.<br>Save, don't scroll.",
+  "sub": "Formulas, pivots, charts, shortcuts.",
+  "hook": "notes-pages"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Excel Notes<br>for Analyst Jobs",
+   "sub": "18 pages. Formulas, pivots, shortcuts.<br>Every formula tested."
+  },
+  {
+   "type": "sheet",
+   "title": "1. Cell ~references~",
+   "ribbon": "The base of every formula",
+   "rows": [
+    {
+     "name": "Multiply two cells",
+     "formula": "=A2*B2"
+    },
+    {
+     "name": "Lock a cell with $",
+     "formula": "=A2*$B$1"
+    },
+    {
+     "name": "Lock only the row",
+     "formula": "=A2*B$1"
+    },
+    {
+     "name": "Add a range",
+     "formula": "=SUM(B2:B6)"
+    },
+    {
+     "name": "Average",
+     "formula": "=AVERAGE(B2:B6)"
+    },
+    {
+     "name": "Largest value",
+     "formula": "=MAX(B2:B6)"
+    },
+    {
+     "name": "Count numbers only",
+     "formula": "=COUNT(A2:A6)"
+    },
+    {
+     "name": "Count filled cells",
+     "formula": "=COUNTA(A2:A6)"
+    },
+    {
+     "name": "Round to 2 places",
+     "formula": "=ROUND(A2,2)"
+    },
+    {
+     "name": "Always round up",
+     "formula": "=ROUNDUP(A2,0)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "2. ~IF~ logic",
+   "ribbon": "Let Excel decide",
+   "rows": [
+    {
+     "name": "Pass or fail",
+     "formula": "=IF(B2>=40,\"Pass\",\"Fail\")"
+    },
+    {
+     "name": "Grade with nested IF",
+     "formula": "=IF(B2>=75,\"A\",IF(B2>=60,\"B\",\"C\"))"
+    },
+    {
+     "name": "Same grade with IFS",
+     "formula": "=IFS(B2>=75,\"A\",B2>=60,\"B\",TRUE,\"C\")"
+    },
+    {
+     "name": "Both must be true",
+     "formula": "=IF(AND(B2>=40,C2>=75),\"Eligible\",\"No\")"
+    },
+    {
+     "name": "Any one true",
+     "formula": "=IF(OR(D2=\"Delivered\",D2=\"Closed\"),\"Done\",\"Open\")"
+    },
+    {
+     "name": "Is the cell empty?",
+     "formula": "=IF(ISBLANK(E2),\"Missing\",\"Filled\")"
+    },
+    {
+     "name": "Hide errors",
+     "formula": "=IFERROR(A2/B2,0)"
+    },
+    {
+     "name": "Only hide #N/A",
+     "formula": "=IFNA(MATCH(\"Z\",A2:A4,0),\"Not found\")"
+    },
+    {
+     "name": "Codes to names",
+     "formula": "=SWITCH(F2,\"N\",\"North\",\"S\",\"South\",\"Other\")"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "3. Sum with ~conditions~",
+   "ribbon": "SUMIFS runs half of MIS",
+   "rows": [
+    {
+     "name": "Count one region",
+     "formula": "=COUNTIF(A2:A7,\"North\")"
+    },
+    {
+     "name": "Count with 2 conditions",
+     "formula": "=COUNTIFS(A2:A7,\"North\",C2:C7,\"Closed\")"
+    },
+    {
+     "name": "Sum one region",
+     "formula": "=SUMIF(A2:A7,\"South\",B2:B7)"
+    },
+    {
+     "name": "Sum with 2 conditions",
+     "formula": "=SUMIFS(B2:B7,A2:A7,\"North\",C2:C7,\"Closed\")"
+    },
+    {
+     "name": "Sum values above 250",
+     "formula": "=SUMIF(B2:B7,\">250\")"
+    },
+    {
+     "name": "Average one region",
+     "formula": "=AVERAGEIF(A2:A7,\"North\",B2:B7)"
+    },
+    {
+     "name": "Biggest sale in South",
+     "formula": "=MAXIFS(B2:B7,A2:A7,\"South\")"
+    },
+    {
+     "name": "Smallest open sale",
+     "formula": "=MINIFS(B2:B7,C2:C7,\"Open\")"
+    },
+    {
+     "name": "Count not closed",
+     "formula": "=COUNTIF(C2:C7,\"<>Closed\")"
+    },
+    {
+     "name": "Price x qty, summed",
+     "formula": "=SUMPRODUCT(B2:B7,D2:D7)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "4. ~Lookups~",
+   "ribbon": "VLOOKUP to XLOOKUP",
+   "rows": [
+    {
+     "name": "Exact match",
+     "formula": "=VLOOKUP(E2,A2:C4,2,FALSE)"
+    },
+    {
+     "name": "Third column",
+     "formula": "=VLOOKUP(E2,A2:C4,3,0)"
+    },
+    {
+     "name": "Find a band (slab)",
+     "formula": "=VLOOKUP(G2,H2:I4,2,TRUE)"
+    },
+    {
+     "name": "Position in a list",
+     "formula": "=MATCH(E2,A2:A4,0)"
+    },
+    {
+     "name": "Value at a position",
+     "formula": "=INDEX(B2:B4,2)"
+    },
+    {
+     "name": "INDEX + MATCH",
+     "formula": "=INDEX(B2:B4,MATCH(E2,A2:A4,0))"
+    },
+    {
+     "name": "Look to the left",
+     "formula": "=INDEX(A2:A4,MATCH(\"Neha\",B2:B4,0))"
+    },
+    {
+     "name": "XLOOKUP (Excel 365)",
+     "formula": "=XLOOKUP(E2,A2:A4,B2:B4)"
+    },
+    {
+     "name": "With a not-found value",
+     "formula": "=XLOOKUP(999,A2:A4,B2:B4,\"Not found\")"
+    },
+    {
+     "name": "Last match, not first",
+     "formula": "=XLOOKUP(E2,A2:A5,B2:B5,,0,-1)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "5. Clean ~text~",
+   "ribbon": "Messy names, fixed",
+   "rows": [
+    {
+     "name": "Remove extra spaces",
+     "formula": "=TRIM(A2)"
+    },
+    {
+     "name": "Proper case",
+     "formula": "=PROPER(TRIM(A2))"
+    },
+    {
+     "name": "Capital letters",
+     "formula": "=UPPER(B2)"
+    },
+    {
+     "name": "Small letters",
+     "formula": "=LOWER(B2)"
+    },
+    {
+     "name": "First 3 characters",
+     "formula": "=LEFT(C2,3)"
+    },
+    {
+     "name": "Last 4 characters",
+     "formula": "=RIGHT(C2,4)"
+    },
+    {
+     "name": "From the middle",
+     "formula": "=MID(C2,5,2)"
+    },
+    {
+     "name": "Length",
+     "formula": "=LEN(C2)"
+    },
+    {
+     "name": "Position of a dash",
+     "formula": "=FIND(\"-\",C2)"
+    },
+    {
+     "name": "Remove dashes",
+     "formula": "=SUBSTITUTE(D2,\"-\",\"\")"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "6. Join and ~split~",
+   "ribbon": "Names, emails, labels",
+   "rows": [
+    {
+     "name": "Join with a space",
+     "formula": "=A2&\" \"&B2"
+    },
+    {
+     "name": "Same with CONCAT",
+     "formula": "=CONCAT(A2,\" \",B2)"
+    },
+    {
+     "name": "Join a list, skip blanks",
+     "formula": "=TEXTJOIN(\", \",TRUE,A2:A4)"
+    },
+    {
+     "name": "Name before the @",
+     "formula": "=LEFT(C2,FIND(\"@\",C2)-1)"
+    },
+    {
+     "name": "Domain after the @",
+     "formula": "=MID(C2,FIND(\"@\",C2)+1,50)"
+    },
+    {
+     "name": "Text to number",
+     "formula": "=VALUE(E2)"
+    },
+    {
+     "name": "Show as percent",
+     "formula": "=TEXT(F2,\"0.0%\")"
+    },
+    {
+     "name": "Show a date your way",
+     "formula": "=TEXT(G2,\"dd-mmm-yyyy\")"
+    },
+    {
+     "name": "Repeat a character",
+     "formula": "=REPT(\"*\",H2)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "7. ~Dates~",
+   "ribbon": "Reports run on dates",
+   "rows": [
+    {
+     "name": "Today's date",
+     "formula": "=TODAY()>DATE(2026,1,1)"
+    },
+    {
+     "name": "Year",
+     "formula": "=YEAR(A2)"
+    },
+    {
+     "name": "Month number",
+     "formula": "=MONTH(A2)"
+    },
+    {
+     "name": "Month name",
+     "formula": "=TEXT(A2,\"mmm\")"
+    },
+    {
+     "name": "Last day of the month",
+     "formula": "=EOMONTH(A2,0)"
+    },
+    {
+     "name": "Same day, 3 months later",
+     "formula": "=EDATE(A2,3)"
+    },
+    {
+     "name": "Months between",
+     "formula": "=DATEDIF(A2,B2,\"m\")"
+    },
+    {
+     "name": "Working days between",
+     "formula": "=NETWORKDAYS(A2,B2)"
+    },
+    {
+     "name": "Weekday (Mon = 1)",
+     "formula": "=WEEKDAY(A2,2)"
+    },
+    {
+     "name": "30 days later",
+     "formula": "=A2+30"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "8. Excel ~365~ formulas",
+   "ribbon": "Not in Excel 2016 or 2019",
+   "rows": [
+    {
+     "name": "Each city once",
+     "formula": "=UNIQUE(A2:A5)"
+    },
+    {
+     "name": "Cities seen only once",
+     "formula": "=UNIQUE(A2:A5,,TRUE)"
+    },
+    {
+     "name": "Count distinct cities",
+     "formula": "=ROWS(UNIQUE(A2:A5))"
+    },
+    {
+     "name": "Sort by sales, high first",
+     "formula": "=SORTBY(A2:C5,C2:C5,-1)"
+    },
+    {
+     "name": "Rows with sales over 500",
+     "formula": "=FILTER(A2:C5,C2:C5>500)"
+    },
+    {
+     "name": "Same, with a fallback",
+     "formula": "=FILTER(A2:C5,C2:C5>5000,\"None\")"
+    },
+    {
+     "name": "Two conditions (AND)",
+     "formula": "=FILTER(A2:C5,(A2:A5=\"Pune\")*(C2:C5>500))"
+    },
+    {
+     "name": "Split at commas",
+     "formula": "=TEXTSPLIT(D2,\",\")"
+    },
+    {
+     "name": "Split, skip empty bits",
+     "formula": "=TEXTSPLIT(D2,\",\",,TRUE)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "9. Percent and ~growth~",
+   "ribbon": "Every MIS review asks these",
+   "rows": [
+    {
+     "name": "Share of total",
+     "formula": "=B2/SUM($B$2:$B$5)"
+    },
+    {
+     "name": "Growth vs last month",
+     "formula": "=(C2-B2)/B2"
+    },
+    {
+     "name": "Running total",
+     "formula": "=SUM($B$2:B4)"
+    },
+    {
+     "name": "Rank, highest = 1",
+     "formula": "=RANK.EQ(B3,$B$2:$B$5)"
+    },
+    {
+     "name": "Second highest",
+     "formula": "=LARGE(B2:B5,2)"
+    },
+    {
+     "name": "Lowest",
+     "formula": "=SMALL(B2:B5,1)"
+    },
+    {
+     "name": "Yearly growth over 3 years",
+     "formula": "=(C2/B2)^(1/3)-1"
+    },
+    {
+     "name": "Percent as a label",
+     "formula": "=ROUND(B2/C2*100,1)&\"%\""
+    },
+    {
+     "name": "Growth, safe from zero",
+     "formula": "=IFERROR((C2-B2)/B2,\"\")"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "10. Spot ~dirty~ data",
+   "ribbon": "Check before you analyse",
+   "rows": [
+    {
+     "name": "Flag duplicates",
+     "formula": "=COUNTIF($A$2:$A$6,A2)>1"
+    },
+    {
+     "name": "Label duplicates",
+     "formula": "=IF(COUNTIF($A$2:$A$6,A2)>1,\"Duplicate\",\"\")"
+    },
+    {
+     "name": "Is it blank?",
+     "formula": "=ISBLANK(B2)"
+    },
+    {
+     "name": "Is it a real number?",
+     "formula": "=ISNUMBER(C2)"
+    },
+    {
+     "name": "Fix number-as-text",
+     "formula": "=VALUE(TRIM(C2))"
+    },
+    {
+     "name": "Remove line breaks",
+     "formula": "=CLEAN(D2)"
+    },
+    {
+     "name": "Count blank cells",
+     "formula": "=COUNTBLANK(B2:B6)"
+    },
+    {
+     "name": "Extra spaces hiding",
+     "formula": "=LEN(F2)-LEN(TRIM(F2))"
+    },
+    {
+     "name": "Same text, same case?",
+     "formula": "=EXACT(G2,H2)"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "11. Pivot tables, step by step",
+   "cols": [
+    "#",
+    "Step",
+    "How"
+   ],
+   "rows": [
+    [
+     "Turn data into a table",
+     "Click inside the data, Insert > Table"
+    ],
+    [
+     "Insert the pivot",
+     "Insert > PivotTable > New Worksheet"
+    ],
+    [
+     "Sales by region",
+     "Drag Region to Rows, Sales to Values"
+    ],
+    [
+     "Split by month",
+     "Drag Month to Columns"
+    ],
+    [
+     "Count instead of sum",
+     "Value Field Settings > Count"
+    ],
+    [
+     "Show % of total",
+     "Show Values As > % of Grand Total"
+    ],
+    [
+     "Group dates by month",
+     "Right-click a date > Group > Months"
+    ],
+    [
+     "Filter one region",
+     "Drag Region to Filters"
+    ],
+    [
+     "Clickable filter buttons",
+     "PivotTable Analyze > Insert Slicer"
+    ],
+    [
+     "Biggest first",
+     "Right-click a value > Sort > Largest to Smallest"
+    ],
+    [
+     "Show only the best 5",
+     "Row label filter > Value Filters, set it to 5"
+    ],
+    [
+     "New data added",
+     "Right-click the pivot > Refresh"
+    ],
+    [
+     "Blanks should show 0",
+     "PivotTable Options > For empty cells show: 0"
+    ],
+    [
+     "Make a chart from it",
+     "PivotTable Analyze > PivotChart"
+    ],
+    [
+     "See rows behind a number",
+     "Double-click that number"
+    ],
+    [
+     "Flat, report-style layout",
+     "Design > Report Layout > Show in Tabular Form"
+    ]
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "12. Conditional ~formatting~",
+   "ribbon": "Rules that use a formula",
+   "rows": [
+    {
+     "name": "Sales above 1000",
+     "formula": "=$C2>1000"
+    },
+    {
+     "name": "Pending orders",
+     "formula": "=$D2=\"Pending\""
+    },
+    {
+     "name": "Duplicates in column A",
+     "formula": "=COUNTIF($A:$A,$A2)>1"
+    },
+    {
+     "name": "Highest value",
+     "formula": "=C2=MAX($C$2:$C$10)"
+    },
+    {
+     "name": "Every other row",
+     "formula": "=MOD(ROW(),2)=0"
+    },
+    {
+     "name": "Overdue dates",
+     "formula": "=$E2<TODAY()"
+    },
+    {
+     "name": "Empty cells",
+     "formula": "=ISBLANK($B2)"
+    },
+    {
+     "name": "Between 500 and 999",
+     "formula": "=AND($C2>=500,$C2<1000)"
+    },
+    {
+     "name": "Weekend dates",
+     "formula": "=WEEKDAY($E2,2)>5"
+    },
+    {
+     "name": "Text contains delhi",
+     "formula": "=ISNUMBER(SEARCH(\"delhi\",$F2))"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "13. MIS report ~formulas~",
+   "ribbon": "Monthly review, sorted",
+   "rows": [
+    {
+     "name": "Month total",
+     "formula": "=SUMIFS(C:C,B:B,\"Jan\")"
+    },
+    {
+     "name": "Region + month",
+     "formula": "=SUMIFS(C:C,A:A,\"North\",B:B,\"Jan\")"
+    },
+    {
+     "name": "Orders in a month",
+     "formula": "=COUNTIFS(B:B,\"Mar\")"
+    },
+    {
+     "name": "Share of one region",
+     "formula": "=SUMIF(A:A,\"North\",C:C)/SUM(C:C)"
+    },
+    {
+     "name": "Target met?",
+     "formula": "=IF(D2>=E2,\"Met\",\"Missed\")"
+    },
+    {
+     "name": "Achievement %",
+     "formula": "=D2/E2"
+    },
+    {
+     "name": "Month on month",
+     "formula": "=D3/D2-1"
+    },
+    {
+     "name": "Weighted average price",
+     "formula": "=SUMPRODUCT(F2:F4,G2:G4)/SUM(G2:G4)"
+    },
+    {
+     "name": "Year to date",
+     "formula": "=SUM($D$2:D4)"
+    },
+    {
+     "name": "Gap to target",
+     "formula": "=MAX(0,E2-D2)"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "14. Which chart, when",
+   "cols": [
+    "#",
+    "You want to show",
+    "Use"
+   ],
+   "rows": [
+    [
+     "Change over months",
+     "Line chart"
+    ],
+    [
+     "Compare a few categories",
+     "Column chart"
+    ],
+    [
+     "Long category names",
+     "Horizontal bar chart"
+    ],
+    [
+     "Rank many items",
+     "Bar chart, sorted"
+    ],
+    [
+     "Share of a whole, 2 to 4 parts",
+     "Pie or doughnut"
+    ],
+    [
+     "Share, month by month",
+     "Stacked column"
+    ],
+    [
+     "Two measures, different scales",
+     "Combo chart with a secondary axis"
+    ],
+    [
+     "Link between two numbers",
+     "Scatter chart"
+    ],
+    [
+     "How values are spread",
+     "Histogram"
+    ],
+    [
+     "Ups and downs to a final total",
+     "Waterfall chart"
+    ],
+    [
+     "One headline number",
+     "A big number with a label"
+    ],
+    [
+     "Actual vs target",
+     "Column with a target line"
+    ],
+    [
+     "Few causes, most of the effect",
+     "Pareto chart"
+    ],
+    [
+     "Sales by state",
+     "Map chart (Excel 365)"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "15. Shortcuts that save time",
+   "cols": [
+    "#",
+    "Do this",
+    "Keys (Windows)"
+   ],
+   "rows": [
+    [
+     "Make a table",
+     "Ctrl + T"
+    ],
+    [
+     "Filters on or off",
+     "Ctrl + Shift + L"
+    ],
+    [
+     "AutoSum",
+     "Alt + ="
+    ],
+    [
+     "Flash Fill",
+     "Ctrl + E"
+    ],
+    [
+     "Quick chart",
+     "Alt + F1"
+    ],
+    [
+     "Chart on a new sheet",
+     "F11"
+    ],
+    [
+     "Format Cells",
+     "Ctrl + 1"
+    ],
+    [
+     "Add $ to a reference",
+     "F4"
+    ],
+    [
+     "Fill down",
+     "Ctrl + D"
+    ],
+    [
+     "Edit the cell",
+     "F2"
+    ],
+    [
+     "New line inside a cell",
+     "Alt + Enter"
+    ],
+    [
+     "Select the column",
+     "Ctrl + Space"
+    ],
+    [
+     "Select the row",
+     "Shift + Space"
+    ],
+    [
+     "Insert today's date",
+     "Ctrl + ;"
+    ],
+    [
+     "Paste Special",
+     "Ctrl + Alt + V"
+    ],
+    [
+     "Jump to the edge of data",
+     "Ctrl + Arrow key"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "16. Errors and how to fix them",
+   "cols": [
+    "#",
+    "Error",
+    "What it usually means"
+   ],
+   "rows": [
+    [
+     "#N/A",
+     "Lookup value not found. Check spaces, text vs number."
+    ],
+    [
+     "#VALUE!",
+     "Text where a number was expected."
+    ],
+    [
+     "#REF!",
+     "The formula points to a deleted cell."
+    ],
+    [
+     "#DIV/0!",
+     "Dividing by zero or a blank cell."
+    ],
+    [
+     "#NAME?",
+     "Misspelt function, missing quotes, or not in your version."
+    ],
+    [
+     "#SPILL!",
+     "A 365 formula has no room. Clear the cells below."
+    ],
+    [
+     "#NUM!",
+     "An impossible number, like a bad date sum."
+    ],
+    [
+     "#####",
+     "Column too narrow. Widen it."
+    ],
+    [
+     "Total looks wrong",
+     "Numbers stored as text. They sit on the left."
+    ],
+    [
+     "VLOOKUP picks a wrong row",
+     "Last argument missing. Use FALSE."
+    ],
+    [
+     "Formula not updating",
+     "Formulas > Calculation Options > Automatic."
+    ],
+    [
+     "Circular reference",
+     "The formula uses its own cell."
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "17. Interview questions, short answers",
+   "cols": [
+    "#",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "VLOOKUP vs XLOOKUP?",
+     "XLOOKUP can look left, has a not-found value and is exact by default."
+    ],
+    [
+     "What does $ do in $A$1?",
+     "Locks the column and row when you copy."
+    ],
+    [
+     "COUNT vs COUNTA?",
+     "COUNT: numbers only. COUNTA: any filled cell."
+    ],
+    [
+     "Remove duplicates?",
+     "Data > Remove Duplicates, or UNIQUE in 365."
+    ],
+    [
+     "SUMIF vs SUMIFS?",
+     "SUMIF: one condition. SUMIFS: many, sum range first."
+    ],
+    [
+     "What is a pivot table?",
+     "A drag-and-drop summary. No formulas needed."
+    ],
+    [
+     "Find duplicates, keep data?",
+     "COUNTIF(range, cell)>1 or highlight rules."
+    ],
+    [
+     "What is Flash Fill?",
+     "Ctrl + E. Excel repeats the pattern you typed."
+    ],
+    [
+     "Why INDEX + MATCH?",
+     "Looks both ways and survives inserted columns."
+    ],
+    [
+     "How do you handle errors?",
+     "Fix the cause, then IFERROR or IFNA."
+    ],
+    [
+     "Relative vs absolute?",
+     "Relative moves when copied. Absolute stays."
+    ],
+    [
+     "What is data validation?",
+     "Rules for what a cell accepts, like a drop-down."
+    ],
+    [
+     "Freeze the header row?",
+     "View > Freeze Panes > Freeze Top Row."
+    ],
+    [
+     "What is Power Query for?",
+     "Repeatable cleaning: import, clean, combine, refresh."
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "18. Practise these 12 tasks",
+   "cols": [
+    "#",
+    "Task",
+    "You will use"
+   ],
+   "rows": [
+    [
+     "Total sales by region and month",
+     "SUMIFS or a pivot"
+    ],
+    [
+     "Fill a customer's city from another sheet",
+     "XLOOKUP or INDEX + MATCH"
+    ],
+    [
+     "Clean 500 messy names",
+     "TRIM, PROPER"
+    ],
+    [
+     "Split emails into name and domain",
+     "LEFT, MID, FIND"
+    ],
+    [
+     "Flag duplicate invoices",
+     "COUNTIF"
+    ],
+    [
+     "Grade students into A/B/C",
+     "IFS"
+    ],
+    [
+     "Month-on-month growth table",
+     "Percent formulas"
+    ],
+    [
+     "Overdue payments in red",
+     "Conditional formatting"
+    ],
+    [
+     "Best 5 products by revenue",
+     "SORTBY or a sorted pivot"
+    ],
+    [
+     "Working days per order",
+     "NETWORKDAYS"
+    ],
+    [
+     "One-page sales dashboard",
+     "Pivot + slicer + chart"
+    ],
+    [
+     "Target vs actual report",
+     "IF, percent, column chart"
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Read one page<br>a ~day~.",
+   "body": "Comment XLNOTES and I'll DM you the full 21-page PDF.",
+   "keyword": "XLNOTES",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

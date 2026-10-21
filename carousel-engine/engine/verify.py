@@ -125,6 +125,10 @@ def soffice():
     return None
 
 
+# Functions newer than Excel 2007 are stored as _xlfn.NAME inside .xlsx files; without it LibreOffice reads #NAME?
+XLFN = re.compile(r"(?<![\w.])(IFS|SWITCH|MAXIFS|MINIFS|CONCAT|TEXTJOIN|RANK\.EQ|RANK\.AVG|IFNA|XLOOKUP|XMATCH|UNIQUE|SORTBY|SORT|FILTER|SEQUENCE|TEXTSPLIT|TEXTBEFORE|TEXTAFTER|LET|DAYS|STDEV\.S|STDEV\.P)\(")
+
+
 def run_excel(checks):
     """checks: [{id, cells:{'A1': v, ...}, formula:'=...', expect}] -> {id: (ok, got)}"""
     exe = soffice()
@@ -140,7 +144,7 @@ def run_excel(checks):
                 import datetime as _dt
                 v = _dt.datetime.fromisoformat(v)
             ws[ref] = v
-        ws[c.get("at", "Z1")] = c["formula"]
+        ws[c.get("at", "Z1")] = XLFN.sub(lambda m: "_xlfn." + m.group(1), c["formula"])
     src = tmp / "checks.xlsx"; wb.save(src)
     out = tmp / "out"; out.mkdir()
     subprocess.run([exe, "--headless", "--calc", "--convert-to", "ods", "--outdir", str(out), str(src)],
@@ -159,6 +163,8 @@ def run_excel(checks):
                 got = (_dt.date(1899, 12, 30) + _dt.timedelta(days=int(got))).isoformat()
             elif isinstance(got, _dt.datetime):
                 got = got.date().isoformat()
+        if got is None and exp == "":
+            got = ""
         ok = (got == exp) or (isinstance(got, (int, float)) and isinstance(exp, (int, float)) and abs(got - exp) < 1e-6)
         if isinstance(got, str) and (got.startswith("#") or got.startswith("Err:")) and c.get("doc"):
             ok = None  # function unknown to this LibreOffice build; the doc link is the evidence

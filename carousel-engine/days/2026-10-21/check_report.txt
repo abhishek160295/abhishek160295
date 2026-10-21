@@ -1,3 +1,130 @@
 == s1 08:30 BIG-NUMBER CHEAT SHEET :: 38 Python lines that do your boring office work [6-page PDF, 6 post slides]
   ok  python office-script: office ok
+== s2 10:30 NOTES DROP :: Excel notes for analyst jobs: 18 pages, every formula tested [21-page PDF, 11 post slides]
+  ERROR [x13] Excel =IFS(B2>=75,"A",B2>=60,"B",TRUE,"C") gave '#NAME?', expected 'B'
+  ERROR [x19] Excel =SWITCH(F2,"N","North","S","South","Other") gave '#NAME?', expected 'South'
+  ERROR [x26] Excel =MAXIFS(B2:B7,A2:A7,"South") gave '#NAME?', expected 600
+  ERROR [x27] Excel =MINIFS(B2:B7,C2:C7,"Open") gave '#NAME?', expected 200
+  ERROR [x51] Excel =CONCAT(A2," ",B2) gave '#NAME?', expected 'Asha Rao'
+  ERROR [x52] Excel =TEXTJOIN(", ",TRUE,A2:A4) gave '#NAME?', expected 'Pune, Indore'
+  ERROR [x81] Excel =RANK.EQ(B3,$B$2:$B$5) gave '#NAME?', expected 3
+  ERROR [x86] Excel =IFERROR((C2-B2)/B2,"") gave None, expected ''
+  ERROR slide 3: unverified excel snippet '=IFS(B2>=75,"A",B2>=60,"B",TRUE,"C")' (add a check or a manual entry with a source)
+  ERROR slide 3: unverified excel snippet '=SWITCH(F2,"N","North","S","South","Other")' (add a check or a manual entry with a source)
+  ERROR slide 4: unverified excel snippet '=MAXIFS(B2:B7,A2:A7,"South")' (add a check or a manual entry with a source)
+  ERROR slide 4: unverified excel snippet '=MINIFS(B2:B7,C2:C7,"Open")' (add a check or a manual entry with a source)
+  ERROR slide 7: unverified excel snippet '=CONCAT(A2," ",B2)' (add a check or a manual entry with a source)
+  ERROR slide 7: unverified excel snippet '=TEXTJOIN(", ",TRUE,A2:A4)' (add a check or a manual entry with a source)
+  ERROR slide 10: unverified excel snippet '=RANK.EQ(B3,$B$2:$B$5)' (add a check or a manual entry with a source)
+  ERROR slide 10: unverified excel snippet '=IFERROR((C2-B2)/B2,"")' (add a check or a manual entry with a source)
+  ok  excel  x1: 1000
+  ok  excel  x2: 45
+  ok  excel  x3: 45
+  ok  excel  x4: 150
+  ok  excel  x5: 30
+  ok  excel  x6: 50
+  ok  excel  x7: 3
+  ok  excel  x8: 4
+  ok  excel  x9: 3.14
+  ok  excel  x10: 4
+  ok  excel  x11: Pass
+  ok  excel  x12: B
+  ok  excel  x14: Eligible
+  ok  excel  x15: Done
+  ok  excel  x16: Missing
+  ok  excel  x17: 0
+  ok  excel  x18: Not found
+  ok  excel  x20: 3
+  ok  excel  x21: 2
+  ok  excel  x22: 800
+  ok  excel  x23: 400
+  ok  excel  x24: 1800
+  ok  excel  x25: 300
+  ok  excel  x28: 2
+  ok  excel  x29: 2800
+  ok  excel  x30: Ravi
+  ok  excel  x31: Indore
+  ok  excel  x32: Mid
+  ok  excel  x33: 2
+  ok  excel  x34: Ravi
+  ok  excel  x35: Ravi
+  ok  excel  x36: 103
+  doc excel  x37: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/xlookup-function
+  doc excel  x38: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/xlookup-function
+  doc excel  x39: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/xlookup-function
+  ok  excel  x40: ravi KUMAR
+  ok  excel  x41: Ravi Kumar
+  ok  excel  x42: PUNE
+  ok  excel  x43: pune
+  ok  excel  x44: INV
+  ok  excel  x45: 2041
+  ok  excel  x46: 20
+  ok  excel  x47: 8
+  ok  excel  x48: 4
+  ok  excel  x49: 9820011111
+  ok  excel  x50: Asha Rao
+  ok  excel  x53: asha
+  ok  excel  x54: corp.in
+  ok  excel  x55: 1250
+  ok  excel  x56: 25.6%
+  ok  excel  x57: 05-Mar-2026
+  ok  excel  x58: ****
+  ok  excel  x59: 1
+  ok  excel  x60: 2026
+  ok  excel  x61: 3
+  ok  excel  x62: Mar
+  ok  excel  x63: 2026-03-31
+  ok  excel  x64: 2026-06-15
+  ok  excel  x65: 7
+  ok  excel  x66: 154
+  ok  excel  x67: 7
+  ok  excel  x68: 2026-04-14
+  doc excel  x69: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/unique-function
+  doc excel  x70: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/unique-function
+  doc excel  x71: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/unique-function
+  doc excel  x72: local engine says #NAME?; verified against https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f
+  doc excel  x73: local engine says #VALUE!; verified against https://support.microsoft.com/en-us/excel/functions/filter-function
+  doc excel  x74: local engine says #VALUE!; verified against https://support.microsoft.com/en-us/excel/functions/filter-function
+  doc excel  x75: local engine says #VALUE!; verified against https://support.microsoft.com/en-us/excel/functions/filter-function
+  doc excel  x76: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/textsplit-function
+  doc excel  x77: local engine says #NAME?; verified against https://support.microsoft.com/en-us/excel/functions/textsplit-function
+  ok  excel  x78: 0.1
+  ok  excel  x79: 0.25
+  ok  excel  x80: 600
+  ok  excel  x82: 300
+  ok  excel  x83: 100
+  ok  excel  x84: 0.1
+  ok  excel  x85: 33.3%
+  ok  excel  x87: 1
+  ok  excel  x88: Duplicate
+  ok  excel  x89: True
+  ok  excel  x90: False
+  ok  excel  x91: 125
+  ok  excel  x92: PuneWest
+  ok  excel  x93: 2
+  ok  excel  x94: 2
+  ok  excel  x95: False
+  ok  excel  x96: 1
+  ok  excel  x97: 1
+  ok  excel  x98: 1
+  ok  excel  x99: 1
+  ok  excel  x100: 1
+  ok  excel  x101: 1
+  ok  excel  x102: True
+  ok  excel  x103: True
+  ok  excel  x104: 1
+  ok  excel  x105: True
+  ok  excel  x106: 300
+  ok  excel  x107: 100
+  ok  excel  x108: 1
+  ok  excel  x109: 0.8
+  ok  excel  x110: Met
+  ok  excel  x111: 1.2
+  ok  excel  x112: 0.2
+  ok  excel  x113: 22.5
+  ok  excel  x114: 350
+  ok  excel  x115: 20
+== s3 19:00 KIDS (big tool/role) :: How I'd explain Machine Learning to a 5-year-old [5-page PDF, 5 post slides]
+  ok  python sklearn-lines: ml ok
+== s4 21:00 ROLE VS :: Data Analyst vs Product Analyst: same SQL, different questions [10-page PDF, 10 post slides]
 contact sheet: posts/2026-10-21/contact.jpg
