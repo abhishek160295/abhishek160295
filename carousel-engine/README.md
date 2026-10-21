@@ -6,7 +6,9 @@ approved by you in a local desk. Kids series every day at 19:00, learning reel a
 ## The daily learning reel
 `reels/reel.py` runs real Python, traces every line, and turns the trace into a 15-35 s vertical video: characters with
 the numbers on their bellies compare, swap and change value while the matching code line lights up, variables update
-live, and the real output prints at the end. Silent on purpose: add music in Instagram. Topics come from
+live, and the real output prints at the end. It ships with original sound made in code (reels/sfx.py): a soft music
+bed plus effects locked to every compare, jump, landing and lock-in, so it is never silent and never copyrighted.
+In Instagram keep the original audio, or add a trending track and lower the original to about 30%. Topics come from
 `playbook.reelRules.queue` (basics to data science, no repeat in 60 days). Try one:
 `python reels/reel.py reels/specs/bubble_sort.json out/reels/bubble`
 

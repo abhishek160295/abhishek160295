@@ -136,7 +136,7 @@ function card(p){
       ${[['a',p.slides[0]],['b',p.coverAlt]].map(([k,c])=>`<button class="cv ${(p.coverChoice||'a')===k?'on':''}" data-cover="${k}" data-id="${p.id}" aria-pressed="${(p.coverChoice||'a')===k}"><img src="${esc(c.url)}" alt="Cover ${k.toUpperCase()}"><span>${(p.coverChoice||'a')===k?'✓ Using ':''}Cover ${k.toUpperCase()}${c.hook?' · '+esc(c.hook):''}</span></button>`).join('')}
     </div></div>`:''}
     ${p.kind==='reel'&&p.video?`<div class="reelbox"><video src="${esc(p.video.url)}" poster="${esc(p.cover?p.cover.url:'')}" controls playsinline preload="metadata"></video>
-      <div class="reelmeta"><div class="lbl">Learning reel · ${esc(String(p.seconds||''))} s · silent, add music in Instagram</div>
+      <div class="reelmeta"><div class="lbl">Learning reel · ${esc(String(p.seconds||''))} s · original sound, synced</div>
       <a class="btn" href="${esc(p.video.url)}?dl=1" download="${esc(p.video.name)}">Video (mp4)</a>
       ${p.cover?`<a class="btn" href="${esc(p.cover.url)}?dl=1" download="${esc(p.slug)}_cover.jpg">Cover (jpg)</a>`:''}</div></div>`:`<div class="strip">${sl}</div>`}
     <div class="cap" id="cap-${p.id}">${esc(p.caption)}${p.hashtags?'\n\n'+esc(p.hashtags):''}</div>

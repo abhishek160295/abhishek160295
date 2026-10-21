@@ -1,4 +1,4 @@
-"""Learning reel renderer (1080x1920, 30 fps, silent: add music in the Instagram app).
+"""Learning reel renderer (1080x1920, 30 fps, with original synced sound from reels/sfx.py; spec.sound=false for silent).
 
   python reels/reel.py reels/specs/<name>.json out/reels/<name>
 
@@ -160,6 +160,13 @@ async def render(spec, out):
         await pg.evaluate(f"setT({tl['total'] - 0.2})"); await pg.screenshot(path=str(out / "end.jpg"), type="jpeg", quality=94)
         await b.close()
     ff.stdin.close(); ff.wait()
+    if spec.get("sound", True):  # original synced sound (reels/sfx.py), muxed over the silent render
+        from sfx import build as build_sound
+        wav = build_sound(tl, INTRO, out / "sound.wav")
+        silent = out / "silent.mp4"; (out / "reel.mp4").rename(silent)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(silent), "-i", str(wav), "-map", "0:v", "-map", "1:a",
+                        "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(out / "reel.mp4")], check=True)
+        silent.unlink(); wav.unlink()
     qa = {"seconds": round(tl["total"], 1), "steps": len(tl["segs"]), "stdout": tl["stdout"], "final": tl["final"]}
     json.dump(qa, open(out / "qa.json", "w"), indent=1)
     return out / "reel.mp4", qa
