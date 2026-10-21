@@ -144,7 +144,7 @@ def lint(spec, meta, brief, pages, day_metas=(), hist=()):
     used = {p.get("keyword") for p in hist if p.get("id") != meta.get("id")}
     if kw in used:
         E.append(f"keyword {kw} already used")
-    if sum(1 for m2 in day_metas if m2.get("keyword") == kw) > 1:
+    if sum(1 for m2 in day_metas if m2.get("keyword") == kw) > 1:  # day_metas includes this post once
         E.append(f"keyword {kw} used twice today")
 
     # ---- freshness (titles/angles) ----

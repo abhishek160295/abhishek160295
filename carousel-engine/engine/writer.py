@@ -3,7 +3,7 @@ Claude edits files in days/<date>/ and runs `python make_day.py check`; Python t
 import shutil, subprocess, os
 from .core import ROOT, DAYS
 
-TOOLS = "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python *),Bash(.venv/bin/python *),Bash(.venv\\Scripts\\python *)"
+TOOLS = "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(python:*),Bash(python3:*),Bash(.venv/bin/python:*),Bash(.venv\\Scripts\\python:*)"
 
 
 def claude_exe():

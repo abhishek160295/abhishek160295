@@ -1,4 +1,5 @@
 You are writing carousel posts for @thedataguy16. Read CLAUDE.md first: its hard rules override everything.
+Then read prompts/quality_bar.md. Score every draft against it and rewrite anything under 8/10 before checking.
 
 Date: {{DATE}} (IST). Mode: {{MODE}}. Write these slot ids: {{SLOTS}}.
 
@@ -10,7 +11,7 @@ Date: {{DATE}} (IST). Mode: {{MODE}}. Write these slot ids: {{SLOTS}}.
 3. Use WebSearch (2-4 searches per post) for a fresh angle: what freshers in India are asking about this tool/role right now,
    current official docs for any shortcut or function. Prefer official docs (learn.microsoft.com, support.microsoft.com,
    docs.python.org, pandas.pydata.org, scikit-learn.org, sqlite.org). Put the URLs you relied on in meta.sources.
-4. For each slot id write two files:
+4. For each slot id write two files (sheet rows: add "result" = the verified value, and a "data" line describing the sample cells):
    days/{{DATE}}/<id>.spec.json  renderer spec. Set style and layout from the brief. Mascot path: assets/mascot.jpg.
    days/{{DATE}}/<id>.meta.json  {title, slug, caption, hashtags (5-6, one string), keyword (new, 4-12 A-Z0-9),
        hookType, pillar, why ("Proven: ..." copy brief.evidence, plus any swap note), sources:[{title,url}],

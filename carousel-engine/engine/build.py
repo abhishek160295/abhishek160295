@@ -36,6 +36,7 @@ def outdir(date, meta):
 
 def check_one(date, sid, brief, plan, day_metas, hist):
     spec, meta = load_post(date, sid)
+    meta.setdefault("id", f"{date}-{sid}")  # so a re-check never clashes with this post's own history entry
     res = {"sid": sid, "errors": [], "warnings": [], "verify": []}
     spec.setdefault("style", brief["style"]); spec.setdefault("layout", brief["layout"])
     pages = R.page_count(spec)
