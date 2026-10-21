@@ -5,7 +5,7 @@ download all slides as a zip (with the chosen cover first), download the PDF, pi
 Reads and writes desk/desk.db; every change is mirrored into config/post_history.json.
 Listens on localhost only.
 """
-import io, json, mimetypes, re, sys, zipfile, argparse, subprocess, threading, time, datetime as dt
+import io, json, mimetypes, re, sys, zipfile, argparse, subprocess, threading, time, secrets, socket, datetime as dt
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, unquote
 from engine.core import ROOT, load, now_ist, python_exe, LOGS
@@ -22,7 +22,27 @@ def slides_for(p):
     return sl
 
 
+TOKEN = None  # set with --lan: every request must carry it (link ?k=... once, then a cookie)
+
+
+def lan_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("10.255.255.255", 1)); return s.getsockname()[0]
+    except Exception:
+        return "127.0.0.1"
+    finally:
+        s.close()
+
+
 class H(BaseHTTPRequestHandler):
+    def _authed(self):
+        if not TOKEN:
+            return True
+        q = re.search(r"[?&]k=([\w-]+)", self.path)
+        c = re.search(r"(?:^|;\s*)k=([\w-]+)", self.headers.get("Cookie") or "")
+        return (q and secrets.compare_digest(q.group(1), TOKEN)) or (c and secrets.compare_digest(c.group(1), TOKEN))
+
     def _send(self, code, body, ctype="application/json", extra=None):
         if isinstance(body, (dict, list)):
             body = json.dumps(body, ensure_ascii=False).encode()
@@ -42,8 +62,11 @@ class H(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = unquote(urlparse(self.path).path)
+        if not self._authed():
+            return self._send(403, "Open the full link the desk printed (it carries ?k=...).", "text/plain")
         if path in ("/", "/index.html"):
-            return self._send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
+            extra = {"Set-Cookie": f"k={TOKEN}; Path=/; HttpOnly; SameSite=Strict; Max-Age=2592000"} if TOKEN else None
+            return self._send(200, PAGE.read_bytes(), "text/html; charset=utf-8", extra)
         if path == "/api/posts":
             store.sync_from_history()
             return self._send(200, store.posts())
@@ -81,6 +104,8 @@ class H(BaseHTTPRequestHandler):
 
     def do_POST(self):
         path = urlparse(self.path).path
+        if not self._authed():
+            return self._send(403, {"error": "forbidden"})
         n = int(self.headers.get("Content-Length") or 0)
         body = json.loads(self.rfile.read(n) or b"{}")
         m = re.fullmatch(r"/api/posts/([\w-]+)/(status|cover|replace-now|keep-rejected)", path)
@@ -146,13 +171,21 @@ AUTO = AutoReplacer()
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8765)
+    ap.add_argument("--lan", action="store_true", help="also reachable from your phone on the same Wi-Fi (private link key)")
     a = ap.parse_args()
+    global TOKEN
     n = store.bootstrap_from_history()
     if n:
         print(f"Loaded {n} posts from config/post_history.json into the desk")
     threading.Thread(target=AUTO.loop, daemon=True).start()
-    srv = ThreadingHTTPServer(("127.0.0.1", a.port), H)
-    print(f"Desk running at http://127.0.0.1:{a.port}  (Ctrl+C to stop)")
+    host = "127.0.0.1"
+    if a.lan:
+        TOKEN = secrets.token_urlsafe(9); host = "0.0.0.0"
+    srv = ThreadingHTTPServer((host, a.port), H)
+    print(f"Desk running at http://127.0.0.1:{a.port}" + (f"?k={TOKEN}" if TOKEN else "") + "  (Ctrl+C to stop)")
+    if a.lan:
+        print(f"On your phone (same Wi-Fi): http://{lan_ip()}:{a.port}/?k={TOKEN}")
+        print("Anyone on this Wi-Fi without that link gets 403. A new key is made every start.")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

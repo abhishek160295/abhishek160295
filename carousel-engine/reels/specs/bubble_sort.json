@@ -26,5 +26,6 @@
   "no": "keep"
  },
  "target_seconds": 34,
- "done": "list(range(n - i, n))"
+ "done": "list(range(n - i, n))",
+ "theme": "snow"
 }

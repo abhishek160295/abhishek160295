@@ -21,6 +21,7 @@ live, and the real output prints at the end. Silent on purpose: add music in Ins
 
 ```bash
 python desk_server.py                 # desk at http://127.0.0.1:8765 (keep it running: it also runs auto-replace)
+python desk_server.py --lan           # same desk on your phone over home Wi-Fi; it prints a private link with a key
 ```
 
 ## Setup (once)

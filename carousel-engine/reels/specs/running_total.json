@@ -20,5 +20,6 @@
   "line_has": "sales[i] = sales[i] + sales[i - 1]",
   "text": "f'{sales[i]} + {sales[i - 1]} = {sales[i] + sales[i - 1]}'"
  },
- "min_seconds": 15
+ "min_seconds": 15,
+ "theme": "dawn"
 }
