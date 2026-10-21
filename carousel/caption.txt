@@ -1,0 +1,12 @@
+Excel feels scary until you realise it's just a lemonade stand 🍋
+
+Rows, formulas, IF, XLOOKUP, pivot tables, charts.
+Every one of these is something a data analyst uses daily, and every one of them fits into a kid's lemonade business.
+
+If you're starting your data journey, start here. Excel is still the most asked skill in fresher analyst interviews.
+
+Comment EXCEL and I'll DM you 30 practice questions on this same dataset.
+
+Save this for your interview prep. Send it to the friend who keeps saying "Excel is boring."
+
+#dataanalyst #excel #exceltips #learnexcel #dataanalytics #xlookup #pivottable #careerindata #freshers #mis #powerbi #sql #upskill #jobready #thedataguy16

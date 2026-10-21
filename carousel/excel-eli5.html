@@ -1,0 +1,202 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--bg:#0C0D11;--card:#15171D;--line:#262932;--ink:#F4F1EA;--mute:#8B8F9A;--y:#FFD23F;--g:#22C55E;--gd:#0F2A1A;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:Inter,sans-serif;color:var(--ink)}
+.slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;padding:96px 88px;display:flex;flex-direction:column;margin-bottom:20px}
+.slide::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px;opacity:.22;mask-image:radial-gradient(circle at 80% 10%,#000 0,transparent 70%)}
+.slide>*{position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:72px}
+.pill{background:var(--y);color:#111;font-weight:800;font-size:24px;letter-spacing:.14em;padding:12px 22px;border-radius:999px}
+.num{font-family:"JetBrains Mono";color:var(--mute);font-size:26px}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:26px;color:var(--mute);padding-top:40px;border-top:1px solid var(--line)}
+.foot b{color:var(--ink);font-weight:700}
+.swipe{color:var(--y);font-weight:700}
+h1{font-family:"Inter Display";font-weight:900;font-size:128px;line-height:.98;letter-spacing:-.035em}
+h2{font-family:"Inter Display";font-weight:800;font-size:80px;line-height:1.02;letter-spacing:-.03em;margin-bottom:36px}
+.y{color:var(--y)} .g{color:var(--g)}
+p{font-size:38px;line-height:1.38;color:#D6D3CC}
+p+p{margin-top:24px}
+.kid{display:inline-block;font-size:26px;font-weight:700;letter-spacing:.12em;color:var(--mute);margin-bottom:22px}
+.code{font-family:"JetBrains Mono";font-weight:700;font-size:40px;background:var(--gd);color:#7CF0A6;border:2px solid #1F5C37;border-radius:20px;padding:28px 34px;margin:36px 0 28px}
+.code small{display:block;font-size:26px;color:#5FB884;font-weight:500;margin-top:14px;font-family:Inter}
+table{border-collapse:collapse;width:100%;font-size:32px;margin:34px 0;background:var(--card);border-radius:18px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:18px 20px;text-align:left}
+th{background:#1C1F27;color:var(--mute);font-family:"JetBrains Mono";font-size:24px;font-weight:500}
+td.h{background:#1C1F27;color:var(--mute);font-family:"JetBrains Mono";font-size:24px;width:64px;text-align:center}
+td.hl{outline:4px solid var(--y);outline-offset:-4px;color:var(--y);font-weight:800}
+.row-hl td:not(.h){background:#2A2510}
+.big-emoji{font-size:150px;line-height:1;margin-bottom:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:34px 38px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}
+.grid2 .card b{display:block;font-size:34px;margin-bottom:8px}
+.grid2 .card span{font-size:28px;color:var(--mute);line-height:1.35}
+.bars{display:flex;align-items:flex-end;gap:36px;height:360px;margin:40px 0 18px;padding:0 20px;border-bottom:3px solid var(--line)}
+.bar{flex:1;border-radius:14px 14px 0 0;background:#2B2F3A;position:relative}
+.bar.win{background:var(--y)}
+.bar i{position:absolute;top:-52px;left:0;right:0;text-align:center;font-style:normal;font-size:30px;font-weight:800}
+.labels{display:flex;gap:36px;padding:0 20px;font-size:28px;color:var(--mute)}
+.labels span{flex:1;text-align:center}
+.list{list-style:none;margin-top:10px}
+.list li{display:flex;gap:26px;align-items:baseline;font-size:38px;padding:22px 0;border-bottom:1px solid var(--line)}
+.list li em{font-style:normal;font-family:"JetBrains Mono";color:var(--y);font-size:30px;width:64px}
+.list li b{width:250px}
+.list li span{color:var(--mute);font-size:32px}
+.cta-word{font-family:"Inter Display";font-weight:900;font-size:170px;letter-spacing:-.03em;color:#111;background:var(--y);display:inline-block;padding:6px 40px 16px;border-radius:28px;transform:rotate(-2deg);margin:30px 0 44px}
+.glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,63,.20),transparent 65%);right:-220px;top:-200px}
+</style></head><body>
+
+<!-- 1 COVER -->
+<section class="slide">
+  <div class="glow"></div>
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">01/11</span></div>
+  <div class="big-emoji">🍋</div>
+  <h1>How I'd explain <span class="y">Excel</span> to a <span style="white-space:nowrap">5-year-old.</span></h1>
+  <p style="margin-top:44px;font-size:40px;color:var(--mute)">One lemonade stand. Every skill an analyst uses daily.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">Swipe →</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">02/11</span></div>
+  <span class="kid">THE SHEET</span>
+  <h2>You run a <span class="y">lemonade stand.</span></h2>
+  <p>Every cup you sell, you write it down in a notebook.</p>
+  <p>That notebook is an <b class="g">Excel sheet.</b></p>
+  <table>
+    <tr><th></th><th>A · Date</th><th>B · Flavour</th><th>C · Cups</th><th>D · Price</th></tr>
+    <tr><td class="h">2</td><td>Mon</td><td>Lemon</td><td>12</td><td>₹20</td></tr>
+    <tr><td class="h">3</td><td>Mon</td><td>Mango</td><td>8</td><td>₹25</td></tr>
+    <tr><td class="h">4</td><td>Tue</td><td>Lemon</td><td>15</td><td>₹20</td></tr>
+  </table>
+  <p style="font-size:32px;color:var(--mute)"><b style="color:var(--ink)">Rows</b> = each sale. <b style="color:var(--ink)">Columns</b> = details about it.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">03/11</span></div>
+  <span class="kid">CELLS</span>
+  <h2>Every box has a <span class="y">home address.</span></h2>
+  <p>Column letter + row number. That's it.</p>
+  <table>
+    <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+    <tr><td class="h">2</td><td>Mon</td><td>Lemon</td><td class="hl">12</td><td>₹20</td></tr>
+    <tr><td class="h">3</td><td>Mon</td><td>Mango</td><td>8</td><td>₹25</td></tr>
+  </table>
+  <p>The yellow box lives at <b class="y">C2</b>. Like a house on Street C, Number 2.</p>
+  <p style="color:var(--mute);font-size:32px">Every formula you'll ever write just points at addresses.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">04/11</span></div>
+  <span class="kid">FORMULAS</span>
+  <h2>A calculator that <span class="y">never gets tired.</span></h2>
+  <p>How much money did you make from one sale?</p>
+  <div class="code">=C2*D2<small>12 cups × ₹20 = ₹240</small></div>
+  <p>Sell 20 cups instead of 12? Change C2 and the answer <b class="g">updates by itself.</b></p>
+  <p style="color:var(--mute);font-size:32px">Every formula starts with <b style="color:var(--ink)">=</b>. That's how Excel knows it's maths.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">05/11</span></div>
+  <span class="kid">SUM · AVERAGE</span>
+  <h2>Counting your <span class="y">piggy bank.</span></h2>
+  <p>Total money this week:</p>
+  <div class="code">=SUM(E2:E8)<small>Adds every box from E2 down to E8</small></div>
+  <p>A normal day looks like:</p>
+  <div class="code">=AVERAGE(E2:E8)<small>Total ÷ number of days</small></div>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">06/11</span></div>
+  <span class="kid">IF</span>
+  <h2>Excel can <span class="y">make decisions.</span></h2>
+  <p>"If I sold more than 10 cups, it was a great day. Otherwise, slow day."</p>
+  <div class="code">=IF(C2&gt;10,"Great","Slow")<small>Question → answer if yes → answer if no</small></div>
+  <p>Companies use this exact logic to flag late orders, low stock and VIP customers.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">07/11</span></div>
+  <span class="kid">XLOOKUP</span>
+  <h2>Asking mom for the <span class="y">price list.</span></h2>
+  <p>Prices are stuck on the fridge. You don't remember them. You just ask.</p>
+  <div class="code">=XLOOKUP(B2,Menu!A:A,Menu!B:B)<small>"Find Lemon on the menu. Bring me its price."</small></div>
+  <p>This one formula replaces hours of copy-paste. Interviewers <b class="g">always</b> ask about it.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">08/11</span></div>
+  <span class="kid">PIVOT TABLE</span>
+  <h2>Sorting your toys <span class="y">into boxes.</span></h2>
+  <p>500 rows of sales. One question: <b>which flavour sells most?</b></p>
+  <table>
+    <tr><th>Flavour</th><th>Sum of Cups</th></tr>
+    <tr class="row-hl"><td>Lemon</td><td><b>214</b></td></tr>
+    <tr><td>Mango</td><td>163</td></tr>
+    <tr><td>Mint</td><td>97</td></tr>
+  </table>
+  <p>Drag <b class="y">Flavour</b> to Rows, <b class="y">Cups</b> to Values. Answer in 5 seconds.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">09/11</span></div>
+  <span class="kid">CHARTS</span>
+  <h2>A picture your <span class="y">parents get</span> in 1 second.</h2>
+  <div class="bars">
+    <div class="bar win" style="height:100%"><i class="y">214</i></div>
+    <div class="bar" style="height:76%"><i>163</i></div>
+    <div class="bar" style="height:45%"><i>97</i></div>
+  </div>
+  <div class="labels"><span>Lemon</span><span>Mango</span><span>Mint</span></div>
+  <p style="margin-top:44px">Nobody reads 500 rows. Everyone reads a chart. <b class="g">This is how analysts get heard.</b></p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">10/11</span></div>
+  <span class="kid">THE PLOT TWIST</span>
+  <h2>That's literally a <span class="y">Data Analyst's job.</span></h2>
+  <ul class="list">
+    <li><em>01</em><b>Record</b><span>Rows & columns</span></li>
+    <li><em>02</em><b>Calculate</b><span>Formulas, SUM</span></li>
+    <li><em>03</em><b>Decide</b><span>IF</span></li>
+    <li><em>04</em><b>Find</b><span>XLOOKUP</span></li>
+    <li><em>05</em><b>Summarise</b><span>Pivot tables</span></li>
+    <li><em>06</em><b>Show</b><span>Charts</span></li>
+  </ul>
+  <p style="margin-top:34px;font-size:34px;color:var(--mute)">Same skills. Bigger lemonade stand.</p>
+  <div class="foot"><span><b>@thedataguy16</b></span><span class="swipe">→</span></div>
+</section>
+
+<!-- 11 CTA -->
+<section class="slide">
+  <div class="glow"></div>
+  <div class="top"><span class="pill">EXPLAIN LIKE I'M 5</span><span class="num">11/11</span></div>
+  <h2 style="font-size:72px">Want 30 practice questions on this exact dataset?</h2>
+  <p>Comment</p>
+  <div><span class="cta-word">EXCEL</span></div>
+  <p>and I'll DM you the file, free.</p>
+  <div class="grid2" style="margin-top:54px">
+    <div class="card"><b>🔖 Save it</b><span>For your next interview prep</span></div>
+    <div class="card"><b>📤 Send it</b><span>To the friend still scared of Excel</span></div>
+  </div>
+  <div class="foot"><span><b>@thedataguy16</b> · Follow for the Data Analyst path</span></div>
+</section>
+
+</body></html>
