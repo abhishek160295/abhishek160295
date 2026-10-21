@@ -1,0 +1,211 @@
+<title>Data Guy Content Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F6F6F2;--surface:#FFFFFF;--ink:#17191E;--muted:#676B73;--line:#E3E3DC;--accent:#0E6B68;--accent-ink:#FFFFFF;--pend:#B7791F;--pend-bg:#FBF1DE;--ok:#23804A;--ok-bg:#E3F3E8;--bad:#B4382E;--bad-bg:#F8E4E1;--done:#4B4F9C;--done-bg:#E7E8F7;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121418;--surface:#1B1E24;--ink:#ECECE6;--muted:#9A9EA6;--line:#2C3038;--accent:#3FB5AE;--accent-ink:#0B1413;--pend:#E7B45A;--pend-bg:#3A2E17;--ok:#5CCB86;--ok-bg:#16301F;--bad:#EE7C70;--bad-bg:#3A1C19;--done:#A5A9F0;--done-bg:#23254A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121418;--surface:#1B1E24;--ink:#ECECE6;--muted:#9A9EA6;--line:#2C3038;--accent:#3FB5AE;--accent-ink:#0B1413;--pend:#E7B45A;--pend-bg:#3A2E17;--ok:#5CCB86;--ok-bg:#16301F;--bad:#EE7C70;--bad-bg:#3A1C19;--done:#A5A9F0;--done-bg:#23254A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 Manrope,system-ui,sans-serif;padding-inline:16px;padding-block:28px 60px}
+.wrap{max-width:1100px;margin:0 auto;display:grid;gap:28px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px}
+h1{font:800 clamp(30px,5vw,44px)/1 'Bricolage Grotesque',Manrope,sans-serif;margin:0;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:6px 0 0}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em}
+.counts{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:600 13px Manrope,sans-serif;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip b{font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.day{display:grid;gap:14px}
+.day h2{font:600 18px 'Bricolage Grotesque',sans-serif;margin:0;display:flex;gap:10px;align-items:baseline}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:14px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;color:var(--muted)}
+.st{font:700 11px Manrope,sans-serif;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border-radius:999px}
+.st.draft{color:var(--pend);background:var(--pend-bg)}.st.approved{color:var(--ok);background:var(--ok-bg)}.st.rejected{color:var(--bad);background:var(--bad-bg)}.st.posted{color:var(--done);background:var(--done-bg)}
+.post h3{font:600 21px/1.25 'Bricolage Grotesque',sans-serif;margin:0;text-wrap:balance}
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.strip button{flex:0 0 auto;width:min(150px,38vw);aspect-ratio:4/5;border:1px solid var(--line);border-radius:8px;padding:0;overflow:hidden;cursor:zoom-in;background:var(--bg);scroll-snap-align:start}
+.strip img{width:100%;height:100%;object-fit:cover;display:block}
+.cap{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;white-space:pre-wrap;max-height:130px;overflow:auto;font-size:14px}
+.cap.open{max-height:none}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:9px 14px;font:600 14px Manrope,sans-serif;cursor:pointer}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.warn{color:var(--bad)}
+.btn[disabled]{opacity:.45;cursor:default}
+.sp{flex:1}
+.src{font-size:13px;color:var(--muted)}.src a{color:var(--accent)}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600}
+.lb{position:fixed;inset:0;background:rgba(10,11,14,.88);display:grid;place-items:center;padding:16px;z-index:9}
+.lb img{max-height:86vh;max-width:min(100%,560px);border-radius:10px}
+.lb .nav{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding-inline:12px}
+.lb .btn{background:#fff;color:#111;border-color:#fff}
+.lbl{font:700 12px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.cvrow{display:flex;gap:12px;flex-wrap:wrap}
+.cv{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:6px;cursor:pointer;display:flex;flex-direction:column;gap:6px;width:min(170px,42vw);color:var(--ink);font:600 13px Manrope,sans-serif;text-align:left}
+.cv img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;display:block}
+.cv.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.rvrow{display:flex;gap:14px;flex-wrap:wrap}
+.rv{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;max-width:100%}
+.kit{margin:12px 0;border:1.5px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}.kit .kr{margin-bottom:12px}.kit .kv{white-space:pre-wrap;font-size:15px;line-height:1.5}.kit .hk{font-weight:800;font-size:18px}.rtag{background:#E0561F;color:#fff;padding:2px 8px;border-radius:6px;font:700 12px 'JetBrains Mono',monospace}
+.rv video{width:min(150px,36vw);aspect-ratio:9/16;border-radius:8px;background:#000;display:block}
+.rvm{display:flex;flex-direction:column;gap:8px;font-size:14px;min-width:0}
+@media (prefers-reduced-motion:no-preference){.post{transition:border-color .15s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="mono" style="color:var(--accent)">@THEDATAGUY16 · CAROUSEL PIPELINE</div>
+      <h1>Content Desk</h1>
+      <p class="sub">Three researched carousels land here every morning. Approve what goes live.</p>
+    </div>
+    <div class="counts" id="filters" role="group" aria-label="Filter by status"></div>
+  </header>
+  <main id="list"><p class="empty">Loading the queue…</p></main>
+</div>
+<div class="lb" id="lb" hidden><img id="lbimg" alt=""><div class="nav"><button class="btn" id="lbp">← Prev</button><button class="btn" id="lbc">Close</button><button class="btn" id="lbs">Save slide</button><button class="btn" id="lbn">Next →</button></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const LABEL={draft:'Needs review',approved:'Approved',rejected:'Rejected',posted:'Posted'};
+let posts=[],filter='draft',db=null,dl=null,canWrite=true,lbSet=[],lbI=0;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t){const e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2200)}
+function fmtDay(d){try{return new Date(d+'T00:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}catch{return d}}
+
+function renderFilters(){
+  const n=k=>k==='all'?posts.length:posts.filter(p=>p.status===k).length;
+  $('#filters').innerHTML=['draft','approved','posted','rejected','all'].map(k=>
+    `<button class="chip" data-f="${k}" aria-pressed="${filter===k}">${k==='all'?'All':LABEL[k]} <b>${n(k)}</b></button>`).join('');
+}
+function render(){
+  renderFilters();
+  const vis=posts.filter(p=>filter==='all'||p.status===filter).sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(a.slotTime||'99').localeCompare(b.slotTime||'99'));
+  if(!vis.length){$('#list').innerHTML=`<p class="empty">${filter==='draft'?'Nothing waiting. The next batch arrives tomorrow morning.':'No posts here yet.'}</p>`;return}
+  const days={};vis.forEach(p=>(days[p.date]??=[]).push(p));
+  $('#list').innerHTML=Object.entries(days).map(([d,ps])=>`<section class="day"><h2>${esc(fmtDay(d))} <span class="mono" style="color:var(--muted)">${ps.length} POST${ps.length>1?'S':''}</span></h2>${ps.map(card).join('')}</section>`).join('');
+}
+function slidesOf(p){const a=[...(p.slides||[])];if(p.coverAlt&&p.coverChoice==='b'&&a.length)a[0]=p.coverAlt;return a}
+function card(p){
+  const sl=slidesOf(p).map((s,i)=>`<button data-lb="${p.id}" data-i="${i}" aria-label="Open slide ${i+1}"><img loading="lazy" src="${esc(s.url)}" alt="Slide ${i+1}"></button>`).join('');
+  const src=(p.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(' · ');
+  const act=canWrite?`
+    ${p.status!=='approved'&&p.status!=='posted'?`<button class="btn primary" data-act="approved" data-id="${p.id}">Approve</button>`:''}
+    ${p.status==='approved'?`<button class="btn primary" data-act="posted" data-id="${p.id}">Mark posted</button>`:''}
+    ${p.status==='draft'?`<button class="btn warn" data-act="rejected" data-id="${p.id}">Reject</button>`:''}
+    ${p.status==='approved'||p.status==='rejected'?`<button class="btn" data-act="draft" data-id="${p.id}">Back to review</button>`:''}`:'';
+  return `<article class="post">
+    <div class="meta">${p.kind==='reel'?'<span class="rtag">REEL</span>':''}<span class="st ${p.status}">${LABEL[p.status]||p.status}</span><span class="mono">SLOT ${p.slot} · ${esc(p.slotTime||'')} IST</span><span class="mono">${esc((p.pillar||'').toUpperCase())}</span><span class="mono">${(p.slides||[]).length} SLIDES</span>${p.format?`<span class="mono">${esc(p.format.toUpperCase())}</span>`:''}${p.hookType?`<span class="mono">HOOK: ${esc(p.hookType.toUpperCase())}</span>`:''}${p.music?`<span class="mono">♪ ${esc(p.music.toUpperCase())}</span>`:''}</div>
+    <h3>${esc(p.title)}</h3>
+    ${p.why?`<div class="src"><strong style="color:var(--ink)">Why this post:</strong> ${esc(p.why)}</div>`:''}
+    ${p.kind==='reel'&&p.reelKit?`<div class="kit"><div class="lbl">Reel kit · record the hook, then drop in the scroll video</div>
+      <div class="kr"><div class="lbl">On-screen hook text</div><div class="kv hk">${esc(p.reelKit.hookText)}</div><button class="btn" data-kit="${p.id}" data-k="hookText">Copy hook</button></div>
+      <div class="kr"><div class="lbl">Say this (first 3 seconds, then the scroll)</div><div class="kv">${esc(p.reelKit.script)}</div><button class="btn" data-kit="${p.id}" data-k="script">Copy script</button></div>
+      ${p.reelKit.edit?`<div class="kr"><div class="lbl">Edit</div><div class="kv">${esc(p.reelKit.edit)}</div></div>`:''}</div>`:''}
+    ${p.coverAlt?`<div class="covers"><div class="lbl">Pick the cover hook</div><div class="cvrow">
+      ${[['a',p.slides[0]],['b',p.coverAlt]].map(([k,c])=>`<button class="cv ${ (p.coverChoice||'a')===k?'on':''}" data-cover="${k}" data-id="${p.id}" aria-pressed="${(p.coverChoice||'a')===k}"><img src="${esc(c.url)}" alt="Cover ${k.toUpperCase()}"><span>${(p.coverChoice||'a')===k?'✓ Using ':''}Cover ${k.toUpperCase()}${c.hook?' · '+esc(c.hook):''}</span></button>`).join('')}
+    </div></div>`:''}
+    ${(p.reels||[]).length?`<div class="reels"><div class="lbl">${p.kind==='reel'?'Scroll video (9:16) for after your hook':'Reels from this post'}</div><div class="rvrow">${p.reels.map((r,i)=>`<div class="rv"><video src="${esc(r.url)}" ${r.poster?`poster="${esc(r.poster.url)}"`:''} controls playsinline preload="none"></video><div class="rvm"><b>${esc(r.title||r.type)}</b>${r.slotTime?`<span class="mono">${esc(r.slotTime)} IST</span>`:''}${dl?`<button class="btn" data-reel="${p.id}" data-ri="${i}">Save reel</button>`:''}</div></div>`).join('')}</div></div>`:''}
+    <div class="strip">${sl}</div>
+    <div class="cap" id="cap-${p.id}">${esc(p.caption)}${p.hashtags?'\n\n'+esc(p.hashtags):''}</div>
+    <div class="row">${act}<span class="sp"></span>
+      <button class="btn" data-copy="${p.id}">Copy caption</button>
+      ${dl&&p.pdf?`<button class="btn" data-pdf="${p.id}">Download PDF</button>`:''}
+      ${dl?`<button class="btn" data-save="${p.id}">${saveProg[p.id]?`Continue from slide ${saveProg[p.id]+1}`:'Save slides to phone'}</button>`:''}
+    </div>
+    ${src?`<div class="src">Sources: ${src}</div>`:''}
+  </article>`;
+}
+async function setStatus(id,status){
+  const p=posts.find(x=>x.id===id);if(!p||!db)return;
+  const prev=p.status;p.status=status;render();
+  try{await db.doc('posts/'+id).update({status,updatedAt:new Date().toISOString(),...(status==='posted'?{postedAt:new Date().toISOString()}:{})});toast(LABEL[status])}
+  catch(e){p.status=prev;render();if(e.code==='invalid_argument'){canWrite=false;render();toast('You can view this queue but not change it')}else toast('Could not save. Try again.')}
+}
+async function copyKit(id,k){const p=posts.find(x=>x.id===id);try{await navigator.clipboard.writeText(p.reelKit[k]);toast('Copied')}catch{toast('Copy blocked. Long-press the text instead')}}
+async function copyCap(id){
+  const p=posts.find(x=>x.id===id);const t=p.caption+(p.hashtags?'\n\n'+p.hashtags:'');
+  try{await navigator.clipboard.writeText(t);toast('Caption copied')}
+  catch{const r=document.createRange();const el=$('#cap-'+id);el.classList.add('open');r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Selected. Copy with your keyboard')}
+}
+async function saveOne(p,i){
+  const b=await (await fetch(slidesOf(p)[i].url)).blob();
+  return dl.save({filename:`${p.slug||'post'}_${String(i+1).padStart(2,'0')}.jpg`,data:b});
+}
+const saveProg={};
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function saveAll(id,btn){
+  const p=posts.find(x=>x.id===id);btn.disabled=true;
+  let i=saveProg[id]||0;
+  try{
+    const N=slidesOf(p).length;for(;i<N;i++){
+      btn.textContent=`Saving ${i+1} of ${N}…`;
+      let tries=0;
+      for(;;){
+        try{await saveOne(p,i);break}
+        catch(e){
+          if(e&&e.code==='rate_limited'&&tries<6){tries++;btn.textContent=`Slide ${i+1}: waiting for phone…`;await wait(2500*tries);continue}
+          throw e;
+        }
+      }
+      saveProg[id]=i+1;
+      await wait(900);
+    }
+    delete saveProg[id];toast('All slides saved');btn.textContent='Save slides to phone';
+  }catch(e){
+    saveProg[id]=i;
+    toast(e&&e.code==='declined'?'Paused. Tap to continue.':'Paused at slide '+(i+1)+'. Tap to continue.');
+    btn.textContent=`Continue from slide ${i+1}`;
+  }
+  btn.disabled=false;
+}
+async function savePdf(id,btn){
+  const p=posts.find(x=>x.id===id);btn.disabled=true;btn.textContent='Preparing PDF…';
+  try{const b=await (await fetch(p.pdf.url)).blob();await dl.save({filename:p.pdf.name||'carousel.pdf',data:b});toast('PDF saved')}
+  catch(e){if(!(e&&e.code==='declined'))toast('PDF download failed. Try again.')}
+  btn.disabled=false;btn.textContent='Download PDF';
+}
+async function setCover(id,k){
+  const p=posts.find(x=>x.id===id);if(!p||!db||(p.coverChoice||'a')===k)return;
+  const prev=p.coverChoice;p.coverChoice=k;render();
+  try{await db.doc('posts/'+id).update({coverChoice:k});toast('Cover '+k.toUpperCase()+' selected')}catch(e){p.coverChoice=prev;render();toast('Could not save. Try again.')}
+}
+async function saveReel(id,i,btn){
+  const r=posts.find(x=>x.id===id).reels[i];btn.disabled=true;btn.textContent='Preparing…';
+  try{const b=await (await fetch(r.url)).blob();await dl.save({filename:(r.name||'reel.mp4'),data:b});toast('Reel saved')}
+  catch(e){if(!(e&&e.code==='declined'))toast('Reel download failed. Try again.')}
+  btn.disabled=false;btn.textContent='Save reel';
+}
+let lbPost=null;
+function openLb(id,i){lbPost=posts.find(p=>p.id===id);lbSet=slidesOf(lbPost);lbI=+i;showLb();$('#lb').hidden=false}
+function showLb(){$('#lbimg').src=lbSet[lbI].url;$('#lbimg').alt='Slide '+(lbI+1)}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.f){filter=t.dataset.f;render()}
+  else if(t.dataset.act)setStatus(t.dataset.id,t.dataset.act);
+  else if(t.dataset.copy)copyCap(t.dataset.copy);
+  else if(t.dataset.kit)copyKit(t.dataset.kit,t.dataset.k);
+  else if(t.dataset.save)saveAll(t.dataset.save,t);
+  else if(t.dataset.pdf)savePdf(t.dataset.pdf,t);
+  else if(t.dataset.cover)setCover(t.dataset.id,t.dataset.cover);
+  else if(t.dataset.reel)saveReel(t.dataset.reel,+t.dataset.ri,t);
+  else if(t.id==='lbs'){saveOne(lbPost,lbI).then(()=>toast('Slide saved')).catch(e=>{if(e&&e.code!=='declined')toast('Save failed')})}
+  else if(t.dataset.lb)openLb(t.dataset.lb,t.dataset.i);
+  else if(t.id==='lbc')$('#lb').hidden=true;
+  else if(t.id==='lbn'){lbI=(lbI+1)%lbSet.length;showLb()}
+  else if(t.id==='lbp'){lbI=(lbI-1+lbSet.length)%lbSet.length;showLb()}
+});
+document.addEventListener('keydown',e=>{if($('#lb').hidden)return;if(e.key==='Escape')$('#lb').hidden=true;if(e.key==='ArrowRight')$('#lbn').click();if(e.key==='ArrowLeft')$('#lbp').click()});
+(async()=>{
+  const c=window.claude;if(!c){$('#list').innerHTML='<p class="empty">Open this page in Claude to see the queue.</p>';return}
+  [db,dl]=await Promise.all([c.use('db'),c.use('downloads')]);
+  const u=await c.use('user');const w=u?await u.can('data.write'):null;if(w===false)canWrite=false;
+  if(!db){$('#list').innerHTML='<p class="empty">The queue is unavailable in this view.</p>';return}
+  db.collection('posts').limit(500).onSnapshot(s=>{posts=s.docs.map(d=>({id:d.id,...d.data()}));render()},()=>{$('#list').innerHTML='<p class="empty">Lost connection to the queue. Reload the page.</p>'});
+})();
+</script>

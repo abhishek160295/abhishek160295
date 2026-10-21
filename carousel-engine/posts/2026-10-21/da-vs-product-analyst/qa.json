@@ -1,0 +1,92 @@
+[
+ {
+  "slide": 1,
+  "type": "marker_cover",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 2,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 3,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 4,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 5,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 6,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 7,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 8,
+  "type": "split",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 9,
+  "type": "product",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18
+ },
+ {
+  "slide": 10,
+  "type": "cta",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30.9563
+ }
+]

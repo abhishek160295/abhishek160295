@@ -1,0 +1,500 @@
+{
+ "benchmark": {
+  "account": "@nicolasboucherfinance (507K)",
+  "flops": "AI tool promo carousels 117-197 likes; X vs Y 432-947",
+  "style": "red marker on paper covers, one dense cheat sheet inside, 'By <name>' on every sheet, comment keyword on caption line 2",
+  "wins": "How I'd explain Tax to a 5-year-old 9.8K likes/730 shares; Top 10 accounting formulas 4K/258; 100 Office tips 3K/218; EBITDA to a 5-year-old 2.2K"
+ },
+ "calendar": {
+  "Fri": "Interview sets",
+  "Mon": "Interview Room (SQL / Power BI questions)",
+  "Sat": "Mixed skills (verified job-openings post is phase 3)",
+  "Sun": "Mixed skills (proof post is phase 3)",
+  "Thu": "Python / pandas",
+  "Tue": "Excel shortcuts",
+  "Wed": "Roadmap / plan in N days"
+ },
+ "competitors_oct": {
+  "nicolasboucherfinance": "Winner still the curated '40 Copilot prompts' (5,658 likes) and Excel shortcuts; simple explainers 1-2K. His October flood of AI promo / collab posts gets 20-500 likes. Follow-gated CTA 'Follow me + comment X' on every post.",
+  "tajamul.codes": "110K, almost no reels. Carousels = cover with big 3D object + 2-word title ('SQL Notes') + photo/name, then real PDF pages as slides (proof of value), caption 1 line + 'Follow @tajamul.codes and comment SQL to get the notes'. Winners: remote job websites 13.3K and 9.6K likes, Complete Python Notes 9.1K, 300+ real-world SQL queries 4.8K, resume that got me shortlisted at 30+ companies 4.9K, ML cheat sheet 4K, 700+ remote jobs 3.9K. Losers: generic 'Python for beginners' 474, 'SQL interview questions' 460, Fabric notes 343, free blueprints 351."
+ },
+ "ctaRule": "Every caption: 1-3 short lines + 'Follow @thedataguy16 and comment <KEYWORD>. I'll DM you the <full N-page / complete> PDF.' (both competitors gate the DM behind a follow). Then 'Want the complete 90-day system? Link in bio.'",
+ "evidence": {
+  "proven (90-day data)": [
+   "carousels over reels",
+   "big-number list hooks",
+   "roadmap / plan-in-N-days",
+   "Power BI interview topic",
+   "comment-keyword CTA",
+   "posting 19:00-24:00 and 06:00-11:00",
+   "SQL, Python programs, Excel formulas topics"
+  ],
+  "testing (not yet proven on this account)": [
+   "hook types other than big-list and time-boxed",
+   "daily Get Hired slot (career n=5 so far)",
+   "3 posts a day (you averaged about 1.4)",
+   "product pitch slide inside posts",
+   "new visual styles and layouts",
+   "2 cover options",
+   "versus, mistakes, cheat-sheet, before-after formats",
+   "mega-sheet series and 5 posts a day"
+  ]
+ },
+ "evidence_oct": {
+  "losers": [
+   "Analogy: Excel as IPL auction 9,172 / 0 / 2%; Python using cricket 14,630 / 4",
+   "Flowchart Which JOIN 10,562 / 2",
+   "VLOOKUP or XLOOKUP split 10,267 / 2",
+   "Top 10 DAX mega 9,566 / 3",
+   "30 SQL questions 9,536 / 2",
+   "Plans: interview in 2 weeks 11,275 / 2; Advanced SQL 14 days 11,299 / 4; Power BI 30 days 14,960 / 9",
+   "A-Z glossaries 14-17K / 4-5",
+   "7 myths 12,300 / 5",
+   "Reels time-pressure 7.8-15.8K / 1-12; JD reels 13-16K / 7-9"
+  ],
+  "patterns": [
+   "Kids explode only on BIG tools/roles (Power BI 89K, Python 71K, SQL 58K); sub-topics fall to 16-26K (pivot, dashboards, cleaning, DAX). Daily kids = fatigue.",
+   "Career-ROLE comparisons win (DA vs DS, DA vs BA); tool-vs-tool comparisons do not.",
+   "Big-number shortcut lists and 'the only X cheat sheet you need' beat 'Top 10 X'.",
+   "Everything that only reaches followers (<10% non-followers) brings 0-5 follows: cut it."
+  ],
+  "period": "2-15 Oct 2026, 32 posts, IG insights (views / follows / non-follower %)",
+  "winners": [
+   "Kids Power BI 88,929 / 1,012 / 61%",
+   "Split DA vs DS 46,911 / 120 / 53%",
+   "31 Excel shortcuts 31,148 / 82 / 44%",
+   "The only Power BI cheat sheet 33,464 / 60 / 32%",
+   "Split DA vs BA 29,835 / 53 / 30%",
+   "Kids DAX 26,092 / 49",
+   "Reel 'If I started DAX from zero' 25,910 / 34 / 68%",
+   "Excel vs Power BI split 15,826 / 24",
+   "20 pandas one-liners 24,823 / 9",
+   "Top 10 SQL functions 21,676 / 12"
+  ]
+ },
+ "evidence_week1": {
+  "period": "26 Sep-1 Oct 2026 (IG insights, browsed by owner request)",
+  "rows": [
+   "Kids Python carousel: 71,511 views, 1,059 follows, 6,368 saves, 5,279 shares, 71.5% non-followers",
+   "Kids SQL carousel: 58,262 views, 530 follows, 3,328 saves, 1,901 shares",
+   "Reel JD says advanced Excel: 44,516 views, 91 follows, 80% non-followers",
+   "Carousel 45-day roadmap: 29,498 views, 95 follows",
+   "16 SQL problems: 21,718 / 14 follows; Top 10 Excel mega: 21,413 / 19; SQL cheat sheet mega: 16,193 / 0",
+   "12 Python programs: 14,265 / 7; SQL in 30 days: 13,510 / 6; Top 10 pandas mega: 12,590 / 3",
+   "Reels: Python 48h 11,882 / 19; DAX stop-memorizing 10,546 / 7; Python 12-18 LPA 10,253 / 9; Python 1-hour plan 8,256 / 8; JD Power BI 8,200 (day 1); Charts 4,371 / 1; SQL free sites 3,918 (day 1)",
+   "30 Power BI Q&A 11,844 / 0; Excel 21 days 9,104 / 4; 12 Excel tasks 8,400 / 0; SQL interviewer-checks 5,841 / 0; LEFT JOIN 4 rows 5,532 / 0; Excel text mega 5,192 (day 1)",
+   "Normal carousels reach 85-97% followers; kids and JD reels are the only pieces reaching mostly non-followers."
+  ]
+ },
+ "formatRules": [
+  "5 carousels a day. Slots: 1 = 08:30 MEGA, 2 = 10:30 skills, 3 = 18:00 MEGA, 4 = 20:00 skills (strongest topic), 5 = 21:45 'Get hired' on Mon/Wed/Fri, skills otherwise. No reels. No question/quiz/challenge carousels (never use quiz slides).",
+  "Skills and Get-hired posts: 'Get hired' = resume, LinkedIn, portfolio/GitHub, interview process, job search, offers (no invented numbers).",
+  "The 3 non-mega posts use 3 different formats, styles, layouts (cards, grid, editorial, notebook) and hookTypes; a slot never repeats yesterday's format or layout. The 2 mega posts use different topics and different reference types (one sheet-led, one bigtable-led where possible).",
+  "Set spec.style and spec.layout (mega posts: style paper, layout editorial), store post.format and post.layout."
+ ],
+ "formats": {
+  "before-after": "compare + table showing transformation (resume, query, dashboard)",
+  "cheatsheet": "table slides, dense reference",
+  "list": "numbered Q&A or code list (list slides)",
+  "mega": "Mega-sheet series: marker_cover (red marker on paper, same look every time) + 1-3 dense reference slides (sheet = notebook formula sheet, bigtable = 18-22 row table) + auto product + cta. 3-6 slides total.",
+  "mistakes": "compare slides (wrong vs right) with code",
+  "plan": "time-boxed roadmap with timeline slides + table",
+  "versus": "compare/table heavy: X vs Y with verdict"
+ },
+ "freshnessRules": [
+  "NO REELS (owner rule, 16 Oct): carousels only, 4 a day. Never make reel kits, scroll videos or reel scripts.",
+  "BIG-NUMBER CHEAT SHEET daily-ish but never the same tool two days running.",
+  "Roadmap/plan max 2 per week (declining: 11-15K, 2-9 follows).",
+  "No title template twice in 3 days.",
+  "RETIRED (proven losers): analogy series and analogy reels, flowcharts, A-Z glossaries, myth vs fact, tool-vs-tool splits, 'Top 10 X' wording, practice packs, Q&A reels, salary-anchored reels, kids reels, prompt sheets, get-hired carousels.",
+  "ROLE VS max 5 per week, never the same pair twice in 60 days.",
+  "KIDS: one every day at 19:00; never the same topic twice in 60 days (part 2s allowed after 21 days)."
+ ],
+ "hookRules": [
+  "Each post: pick hookType for the main cover and a DIFFERENT hookType for spec.cover_alt; store post.hookType and coverAlt.hook (2-4 word label).",
+  "No hookType twice in the same day; do not reuse a hookType within 7 days; big-list in about 40% of posts.",
+  "Never invent statistics in hooks ('most freshers fail' is banned unless sourced); use dares or questions instead.",
+  "identity hook only once the owner has shared his true story (not yet)."
+ ],
+ "hookTypes": {
+  "before-after": "Your resume vs a resume that gets calls",
+  "big-list": "40 SQL questions that decide your offer",
+  "contrarian": "Stop learning Python first. Do this instead.",
+  "curiosity": "The Power BI question nobody prepares for",
+  "identity": "Tier-3 college, no coding background. The exact path.",
+  "interviewer-pov": "What the interviewer actually checks in your SQL answer",
+  "mistakes": "7 Excel mistakes interviewers notice in 10 seconds",
+  "money": "The skills that separate a 3 LPA offer from 6 LPA",
+  "shortcut": "One Excel formula that replaces five",
+  "time-boxed": "If I had 30 days to crack a Power BI interview",
+  "versus": "SQL vs Excel vs Python: what to learn first"
+ },
+ "kidsRules": {
+  "rules": [
+   "DAILY at 18:00 (owner data 26 Sep-1 Oct: Python kids 71.5K views, 1,059 follows; SQL kids 58.3K, 530 follows = ~80% of all new follows that week; 50-72% non-follower reach vs 3-9% for normal carousels).",
+   "Structure: marker_cover 'How I'd explain <X><br>to a<br>5-year-old' + 2 'kids' slides (6 cells each) + auto product + cta 'Now teach<br>a ~friend~.', style paper, format 'mega-kids'.",
+   "Each cell: term, kid (one plain analogy from an Indian kid's day: toys, tiffin, class register, cricket, pocket money, school bus, sweets; max 22 words, technically faithful), sql (the real syntax, 1-2 short lines, correct), emoji (1-2 Noto emoji that draw the analogy, e.g. '🧸📦').",
+   "NO CANVA (owner rule, 1 Oct; credits exhausted). Pictures are cell.emoji only. Mascot: Artifact read url=queue path=config.engine.mascotAssetId and pass the saved path as slide.mascot.",
+   "Never fall back to a bigtable/sheet when the slot is kids (owner rejected that twice). Never repeat a kidsDone topic.",
+   "kidsDone: SQL, Excel, Python, Power BI, Statistics, Pivot tables, SQL JOINs, DAX, Charts and dashboards, Data cleaning, Data modelling, The data analyst job, ETL and pipelines, Git. kidsQueue (use in order, skip if recently covered by a carousel): pandas, A/B testing, Probability, Excel formulas part 2, Machine learning basics, Cloud data warehouse. Append each finished topic to kidsDone in this rule.",
+   "Kids REEL test done 2 Oct 2026: pandas (PANDASKID). pandas stays in kidsQueue for a carousel later, but leave 2+ weeks gap.",
+   "18 Oct update: DAILY at 19:00, classic format only (see newFormats['KIDS (big tool/role)']). Machine-readable state lives in queue/done below; make_day.py reads and updates them."
+  ],
+  "slotTime": "19:00",
+  "noRepeatDays": 60,
+  "partTwoAfterDays": 21,
+  "queue": [
+   "Machine Learning",
+   "ChatGPT/AI for data analysts",
+   "pandas",
+   "Excel formulas part 2 (lookups, IF, SUMIFS)",
+   "SQL part 2 (GROUP BY, JOINs, window functions)",
+   "Power Query",
+   "Excel charts",
+   "Python part 2 (loops, functions, lists)",
+   "Power BI part 2 (visuals and reports)",
+   "A data analyst interview",
+   "Excel shortcuts",
+   "SQL interview questions",
+   "Tableau-free BI basics",
+   "Data analyst vs data scientist"
+  ],
+  "done": [
+   {
+    "topic": "SQL",
+    "date": "2026-09-27"
+   },
+   {
+    "topic": "Excel",
+    "date": "2026-09-27"
+   },
+   {
+    "topic": "Python",
+    "date": "2026-09-28"
+   },
+   {
+    "topic": "Power BI",
+    "date": "2026-10-02"
+   },
+   {
+    "topic": "Pivot tables",
+    "date": "2026-10-03"
+   },
+   {
+    "topic": "SQL JOINs",
+    "date": "2026-10-04"
+   },
+   {
+    "topic": "DAX",
+    "date": "2026-10-05"
+   },
+   {
+    "topic": "Dashboards",
+    "date": "2026-10-06"
+   },
+   {
+    "topic": "Data cleaning",
+    "date": "2026-10-09"
+   },
+   {
+    "topic": "The data analyst's job",
+    "date": "2026-10-11"
+   }
+  ],
+  "rejectedTopics": [
+   "Statistics",
+   "Data modelling",
+   "Git",
+   "ETL and pipelines",
+   "Charts and dashboards (as analogy)"
+  ]
+ },
+ "layouts": {
+  "cards": "bordered cards, art-bottom cover (default look)",
+  "editorial": "no cover art, giant outlined number; magazine rules, serif italic numerals, stacked before/after",
+  "grid": "art on top, headline anchored bottom; centred titles; accent-bar tiles; joined split panels",
+  "notebook": "sticky notes with tape, marker highlights, tilted cards"
+ },
+ "megaRules": [
+  "Mega-sheet posts are a recognisable SERIES: always marker_cover, always paper, 'By @thedataguy16' on every sheet (keeps credit when shared). Model: @nicolasboucherfinance cheat-sheet carousels.",
+  "Topics: evergreen fundamentals everyone needs (Excel formulas/shortcuts, SQL queries/clauses, Power BI DAX, pandas methods, statistics terms, interview Q&A, analyst vocabulary). Complete-in-one-page value.",
+  "Hooks (mega only): 'Top 10 most important X', 'How I'd explain X to a 5-year-old' (plain-language analogies in a sheet/bigtable), 'N X tips that pay you forever', 'The only X cheat sheet you need', 'X in one page'. Avoid 'X vs Y' (weakest in the benchmark).",
+  "Every formula/query/shortcut must be verified correct. No invented statistics."
+ ],
+ "mixRule": "Proven only for the 4 carousels: kids (daily 18:00), one mega sheet (08:30), and two from {roadmap / 'X in N days' plan, big interview list like '16 SQL problems' / '30 Power BI questions'} at 10:30 and 20:00. Week 1 data: 45-day roadmap 29.5K views / 95 follows; Top-10 Excel mega 21.4K; 16 SQL problems 21.7K; SQL cheat sheet mega 16.2K; 12 Python programs 14.3K. Say 'Proven:' in post.why with the number it copies.",
+ "newFormats": {
+  "A-Z GLOSSARY": "Mega paper: marker_cover 'Data analytics A to Z' (or SQL/Power BI/Excel A to Z) + 2 bigtable slides (term | one plain line) covering 26 letters. Never repeat a glossary tool. Used: Data analytics A to Z (10 Oct 2026); Power BI A to Z (13 Oct 2026).",
+  "ANALOGY SERIES": "Kids mechanism with a new skin each time: '<Tool> explained with cricket' / 'as a kirana store' / 'as a wedding in the family' / 'as an IPL auction' / 'as a railway station'. Same structure as kids (marker_cover '<Tool> explained<br>with <theme>' + 2 kids slides, emoji pictures + real syntax + cta). Never reuse a tool+theme pair. Expected 2nd best follow driver after kids. Used: SQL + kirana store (8 Oct 2026); Python + cricket (analogy reel, 9 Oct 2026); Excel + IPL auction (10 Oct 2026); SQL + Indian wedding (analogy reel, 11 Oct 2026); Power BI + railway station (analogy reel, 12 Oct 2026); Python + kirana store (13 Oct 2026); SQL + cricket (15 Oct 2026).",
+  "BIG-NUMBER CHEAT SHEET": "Mega paper series. Titles like '31 Excel shortcuts that pay you forever', 'The only Power BI cheat sheet you need', '50 SQL queries you will write at work', '40 pandas one-liners'. Odd/large numbers (25-60), sheet/bigtable pages, marker_cover. Rotate Excel, SQL, Power BI, pandas, Python, statistics. Proven 31K/82 and 33K/60. Used: The only Excel formula cheat sheet, 40 formulas (16 Oct 2026); 45 pandas lines you'll write in every analysis (17 Oct 2026); 50 SQL queries you'll write at work (18 Oct 2026).",
+  "FLOWCHART": "Mega paper: marker_cover 'Which <X> should I use?' + 1-2 'flow' slides (4-6 yes/no steps, correct answers) + cta. Topics: lookup, chart, join, Python vs SQL vs Excel for a task, Power BI visual, aggregate function, date function, which certification first. Used: Which Excel formula + Which COUNT formula (9 Oct 2026); Which SQL JOIN + Which clause filters it (13 Oct 2026).",
+  "JD TEARDOWN carousel": "Carousel version of the 44.5K JD reel: an illustrative composite job description (label it 'sample JD, built from common postings'), each line highlighted with what it really means and what to learn. Never present it as a real company's posting. Used: sample analyst JD, 8 lines (11 Oct 2026).",
+  "KIDS (big tool/role)": "DAILY at 19:00 (owner asked to bring the '5-year-old' series back, 18 Oct). Classic format only: marker_cover 'How I'd explain <X><br>to a<br>5-year-old' + 2 kids slides (6 cells, emoji pictures, real syntax) + cta. Topics must be a tool or a career thing people search for, never abstract plumbing (owner rejected Git, ETL, data modelling, statistics; analogy variants like IPL/cricket/kirana are retired). Done: SQL, Excel, Python, Power BI, DAX, pivot tables, dashboards, data cleaning, the data analyst's job. kidsQueue (in order): Machine Learning, ChatGPT/AI for data analysts, pandas, Excel formulas part 2 (lookups, IF, SUMIFS), SQL part 2 (GROUP BY, JOINs, window functions), Power Query, Excel charts, Python part 2 (loops, functions, lists), Power BI part 2 (visuals and reports), A data analyst interview, Excel shortcuts, SQL interview questions, Tableau-free BI basics, Data analyst vs data scientist. A 'part 2' of a done tool is allowed 21+ days after part 1. Move each used topic into Done.",
+  "MYTH vs FACT": "split slides with labels 'Myth' / 'Fact' (top/bottom): 'You need coding to be an analyst', 'Power BI replaces Excel', 'Certificates get you hired'. Facts must be defensible, no invented numbers. Used: Data analyst myths (8 Oct 2026); Excel myths (11 Oct 2026); Python myths (15 Oct 2026).",
+  "NOTES DROP": "Tajamul 'Complete X Notes' model: build a real 15-25 page notes PDF (sheet/bigtable/list pages in paper style) on one tool, e.g. 'Complete SQL Notes', 'Complete Power BI Notes', 'Excel formulas notes', 'Python for data analysis notes', '100+ SQL interview queries with answers'. The carousel shows the cover + the first 7-8 real pages + cta; the DM PDF has ALL pages. Cover: marker_cover with big number or 'Complete'. Caption: 1-2 lines + follow-gated CTA. Say in the CTA exactly how many pages the PDF has. Used: Complete SQL Notes, 20 notes pages / 23-page PDF (16 Oct 2026); Complete Power BI Notes, 20 notes pages / 23-page PDF (17 Oct 2026); Python for Data Analysis notes, 21 notes pages / 24-page PDF (18 Oct 2026). Vary the title template (not 'Complete X Notes' 3 days running).",
+  "PRACTICE PACK": "One small dataset shown as a table on slide 2, then 8-10 questions with the exact SQL/Excel/pandas answer (run and verify every answer). Used: SQL orders pack (9 Oct 2026); DAX 10 measures pack (13 Oct 2026).",
+  "Q&A reel": "Owner answers one real question from his comments/DMs on camera; we write the hook text, a 3-line answer script and the scroll carousel. If no real question is available in the queue data, use the most common beginner question type and say 'You keep asking me...' only when true; otherwise 'Most freshers ask me...'.",
+  "ROLE VS": "split format, CAREER ROLES only: DA vs Data Engineer, DA vs MIS Executive, DA vs Financial Analyst, DA vs Product Analyst, Service vs Product company analyst, Fresher vs 2-year analyst, Analyst vs Consultant, BI Developer vs DA, Data Analyst vs AI Engineer. 5-7 split slides (what they do, tools, day, output, maths, entry route for freshers, typical skills asked). Proven 46.9K/120 and 29.8K/53. No tool-vs-tool. Used: DA vs DS (2 Oct 2026); DA vs BA (5 Oct 2026); DA vs Data Engineer (16 Oct 2026); DA vs MIS Executive (17 Oct 2026); DA vs Financial Analyst (18 Oct 2026).",
+  "analogy reel": "Talking-head hook 'I explained <tool> using cricket' + scroll of an analogy carousel on a DIFFERENT tool/theme than that day's analogy carousel.",
+  "proven interview list": "Big interview lists (16 SQL problems 21.7K, 12 Python programs 14.3K, 20 pandas one-liners 24.8K): 15-30 items with real answers/code, numbered, list slides.",
+  "restart/zero reel": "'If I started <tool> from zero today, I'd learn these N things first' (25.9K, 68% non-followers - best reel type this month)."
+ },
+ "nicolasStudy_1oct": "Last ~28 posts: winners = curated prompt sheets (4,650), curated Excel shortcuts (4,055), 'Economics vs Finance' split (2,869), simple explainers (1,808 / 1,021). Losers = AI tool news/use-case posts (26-219 likes) and masterclass promos (41-807). Recent reels 2.9K-23K views on 512K followers (only 3 pinned AI-demo reels hit 106-193K): carousels are his engine. Every post: one keyword CTA in caption line 2-4, 'By Nicolas Boucher' on every page, paper texture, highlighter labels.",
+ "reels": {
+  "archetypes": [
+   "STOP-MEMORIZING: 'Stop memorizing/learning 100 X. These N are enough.' (#1: 685K; 173K; 132K; 78.5K)",
+   "TIME-PRESSURE PREP: 'If I had a <tool> interview in <24h/48h/7 days>, I'd only revise this.' (505K, 271K, 225K, 205K, 116K, 104K)",
+   "RESTART / ZERO: 'If I started <tool> again in 2026 / 0 knowledge of X, I'd do this first.' (389K, 302K, 289K, 119K)",
+   "SALARY-ANCHORED: 'Every <X> a data analyst needs at a 12-18 LPA job.' (295K, 156K, 116K) - frame as what the job expects, never claim salary data",
+   "DAILY PLAN: '1-hour daily <X> plan' (227K, 113K)",
+   "RESOURCES: 'N must-watch free playlists/resources' (244K) - only real, verifiable resources with exact names",
+   "JD DECODER: 'When a job description says <X>, it means this' (221K)",
+   "INTERVIEW SCENARIO: 'Interviewer: <real problem>. What do you check first?' (178K)",
+   "PATTERNS: 'The N patterns that cover most <X> interviews' (162K, 225K)"
+  ],
+  "pastReels": [
+   "Stop Memorizing 100 Excel Formulas, These 10 Are Enough (685K)",
+   "If I Had to Prepare for a Data Analyst Interview in 24 Hours (505K)",
+   "If I Started Learning SQL & Excel Again in 2026, I'd Do This First (389K)",
+   "If I Had to Learn Power BI From Zero for a Job in 7 Days (302K)",
+   "Every Excel Formula a Data Analyst Needs at 12-18 LPA (295K)",
+   "If I have 0 knowledge of Python, expert in 30 days (289K)",
+   "Data Analyst Interview Tomorrow With Only 4 Hours to Prepare (271K)",
+   "5 Must Watch YouTube Playlists to become a Data Analyst (244K)",
+   "1-Hour Daily SQL & Excel Plan (227K)",
+   "SQL Interview in 48 Hours, only these 7 patterns (225K)",
+   "When a Data Job Description Says Python (221K)",
+   "Excel Interview in 7 Days (205K)",
+   "30 questions, not ready for a DA interview (191K)",
+   "One Unusual SQL JOIN Method (182K)",
+   "VLOOKUP returning #N/A, 3 things to check (178K)",
+   "Stop remembering 100 Excel functions, these 15 (173K)",
+   "7 Patterns That Cover 80% of SQL Interviews (162K)",
+   "SQL in 14 Days, exact plan (161K)",
+   "95% of companies ask the same SQL questions (160K)",
+   "Every SQL Query a DA should know at 12-20 LPA (156K)",
+   "0 To Job Ready Data Analyst Roadmap (151K)",
+   "Stop memorising 100 SQL commands, master these 8 (132K)",
+   "Data Analyst or Data Scientist? (121K)",
+   "Excel formulas that make you smartest in the room (121K)",
+   "1 real-world SQL project landed 3 offers (119K)",
+   "0 knowledge of Excel, how to become pro (119K)",
+   "5 Excel skills every 15 LPA DA must master (116K)",
+   "Excel interview in 48 hours, only thing I'd revise (116K)",
+   "1-hour daily schedule if in college/working (113K)",
+   "Stop watching Python tutorials (109K)",
+   "Only 12 Excel functions used in 90% of analyst jobs (107K)",
+   "Power BI interview in 24 hrs (104K)",
+   "How real analysts use SQL inside companies (98K)",
+   "Best way to clean data in Excel (97K)",
+   "Only 10 Python topics to crack any DA interview (97K)",
+   "Every Excel formula HR tests in interviews (97K)",
+   "Only 25 SQL questions for any company (96K)",
+   "Used Excel 14 years, only these 10 matter (94K)",
+   "1 real-world dashboard project got 2 offers (91K)",
+   "50 SQL questions before any interview (88K)",
+   "Dashboard from messy Excel data in 2 hours (83K)",
+   "3 Excel skills = 90% of DA work (81K)",
+   "Stop practicing 50 SQL queries, these 7 (78.5K)",
+   "Master Excel in 48 hours before an interview (77.7K)",
+   "3 levels of Python for data (76.6K)",
+   "20 Power BI DAX formulas non-negotiable (72.8K)",
+   "Don't know anything in Excel, become master (71.3K)",
+   "1 real-world SQL project solves 80% of interview Qs (70.5K)",
+   "6L vs 18L DA portfolios (68.2K)",
+   "1 Excel project, multiple job opportunities (66K)",
+   "Land a DA job in 30 days, day-by-day plan (65.9K)",
+   "0 knowledge of SQL (64K)",
+   "If I learned data analytics again: daily study schedule (63.3K)",
+   "5 SQL concepts cover 90% of DA tasks (62.1K)",
+   "R1 2026-09-28: Python interview in 48 hours, revise only this",
+   "R2 2026-09-28: Stop learning 50 Excel charts, these 6 are enough",
+   "R1 2026-09-29: When a JD says 'advanced Excel', it means these 8 things",
+   "R2 2026-09-29: Every Python skill a 12-18 LPA analyst job expects",
+   "R1 2026-09-30: Stop memorizing every DAX function. These 10 are enough",
+   "R2 2026-09-30: Interviewer: sales dropped 15% last month. What do you check first?",
+   "R2 2026-09-30 (replacement): 1 hour a day, the Python plan I would actually follow",
+   "R1 2026-10-01: When a JD says 'Power BI', it means these 8 things",
+   "R2 2026-10-01: 6 free sites to learn SQL for interviews",
+   "R1 2026-10-02: When a JD says 'strong SQL', it means these 8 things",
+   "R2 2026-10-02: I explained pandas to a 5-year-old (kids reel test)",
+   "R1 2026-10-03: When a JD says 'MIS reporting', it means these 8 things",
+   "R2 2026-10-03: Every Power Query step a 12-18 LPA analyst job expects",
+   "R2 2026-10-03 (replacement): Stop memorizing 50 KPIs. These 8 are enough for case rounds",
+   "R2 2026-10-03 (replacement 2): Dashboard assignment due in 48 hours? I'd do only this",
+   "R1 2026-10-04: Google Sheets test in 24 hours? I'd practise only these 8 formulas",
+   "R2 2026-10-04: Every stats formula a 12-18 LPA analyst job expects",
+   "R1 2026-10-05: When a JD says 'stakeholder management', it means these 8 things",
+   "R2 2026-10-05: Every data modelling concept a 12-18 LPA analyst job expects",
+   "R1 2026-10-05 (replacement): My 1-hour daily Power BI plan for 4 weeks",
+   "R2 2026-10-05 (replacement): Stop memorizing 100 pandas functions. These 10 are enough",
+   "R1 2026-10-06: When a JD says 'data cleaning', it means these 8 things",
+   "R2 2026-10-06: Online test in 48 hours? I'd practise only these 8 things",
+   "R1 2026-10-06 (replacement): If I started DAX from zero, I'd learn these 8 ideas first",
+   "R2 2026-10-06 (replacement): The 8 pandas patterns I'd use in any take-home task",
+   "R1 2026-10-08: How much SQL is enough for your first analyst job? This much (Q&A reel)",
+   "R2 2026-10-08: 8 Excel formula combos I'd master before any Excel test",
+   "R1 2026-10-09: When a JD says 'dashboarding', it means these 8 things",
+   "R2 2026-10-09: I explained Python using cricket (analogy reel)",
+   "R1 2026-10-10: If I started Python for data from zero, I'd learn these 8 things first",
+   "R2 2026-10-10: Most freshers ask me which projects to build. Build these 3 (Q&A reel)",
+   "R1 2026-10-11: I explained SQL using an Indian wedding (analogy reel)",
+   "R2 2026-10-11: Stop memorizing 150 Python programs. These 8 patterns are enough",
+   "R1 2026-10-11 (replacement): When a JD says 'ad-hoc analysis', it means these 8 things",
+   "R2 2026-10-11 (replacement): Excel assignment due tomorrow? I'd do only this",
+   "R1 2026-10-12: The 8 DAX patterns behind most Power BI interview tasks",
+   "R2 2026-10-12: Most freshers ask me what to learn first. This order (Q&A reel)",
+   "R1 2026-10-12 (replacement): I explained Power BI using a railway station (analogy reel)",
+   "R2 2026-10-12 (replacement): 1 hour a day, 21 days. The SQL plan I'd follow",
+   "R1 2026-10-13: If I started an MIS job tomorrow, I'd master these 8 Excel tasks first",
+   "R2 2026-10-13: 24 hours for a SQL case study? This is the exact order I'd follow",
+   "R1 2026-10-15: New dataset? I run these 8 checks before any analysis",
+   "R2 2026-10-15: Power BI total not matching Excel? I'd check these 8 things first",
+   "R1 2026-10-16: If I started Power Query from zero, I'd learn these 8 steps first",
+   "R2 2026-10-16: Stats round in 48 hours? I'd revise only these 8"
+  ],
+  "rules": [
+   "Every reel uses one proven archetype with a NEW topic/tool/angle; never repeat a title or tool+archetype pair from pastReels or the last 60 days of posts.",
+   "Rotate tools across the week: Excel, SQL, Power BI, Python, career. The 2 daily reels use different archetypes and different tools.",
+   "Hook text: plain, specific, first person where natural, numbers as digits, no emojis, no hype. 14 words max.",
+   "Script: line 1 = hook said out loud; line 2 = what they get; then [scroll video]; last line = 'Comment <KEYWORD> and I'll send you the PDF.'",
+   "Reel carousel: light style, dense and scannable (it is read while scrolling), 6-8 content slides, correct code only.",
+   "Unique keyword per reel (not reused from any past post)."
+  ],
+  "weights": "Week 1 reels: JD-decoder 44.5K (80% non-followers, 91 follows) >> time-pressure 11.9K > stop-memorizing DAX 10.5K = salary-anchored 10.3K > daily-plan 8.3K > stop-learning charts 4.4K > free resources 3.9K. Use JD-decoder at least 3 times a week (rotate tools: SQL, Python, Tableau-free; 'data analyst', 'SQL', 'Python', 'dashboard', 'stakeholder', 'MIS'); time-pressure and salary-anchored fill the rest. TEST once a week: a kids reel ('I explained <X> to a 5-year-old') using a kids carousel on a topic NOT posted as a carousel that day.",
+  "what": "2 talking-head REELS a day. Owner records the hook on camera (face, hook text in the top band), then drops in our scroll video (all slides scrolling, 9:16), then ends on his face saying the keyword. We make: topic, on-screen hookText (<=14 words), 3-line script, a carousel of 7-9 slides (+ auto product), carousel.pdf for DMs, scroll.mp4 via render.py --scroll."
+ },
+ "removed": [
+  "Interviewer-POV / versus / curiosity carousels (LEFT JOIN 4 rows: 5.5K views, 0 follows; 'what the interviewer checks': 5.8K, 0)",
+  "Mistakes-format carousels and get-hired carousels (rejected 5 times)",
+  "Question/quiz/challenge carousels",
+  "Dark themes",
+  "Canva images",
+  "'Stop learning' reels on non-formula topics (Charts reel 4.4K) and free-resource lists (SQL sites reel 3.9K at day 1)"
+ ],
+ "testFormats": [
+  "VS-SPLIT (2x/week, slot 2 or 4): Nicolas 'Economics vs Finance' (2,869 likes in 1 day). marker_cover 'X<br>vs<br>Y' + 5-7 'split' slides (one comparison dimension each: what it answers, tools, output, when to use, example, entry route) + cta, style paper. Topics: WHERE vs HAVING, Measure vs Calculated column, INNER vs LEFT JOIN, Mean vs Median, Power BI vs Tableau, Primary key vs Foreign key. Not the old interviewer/puzzle 'versus' format.",
+  "AI PROMPT SHEET (1x/week, test): Nicolas '40 Copilot prompts' (4,650 likes, his top recent post). Mega sheet: '25 ChatGPT prompts that do a data analyst's grunt work' (Excel formulas, SQL from plain English, cleaning, dashboard text, interview prep). bigtable with Task | Prompt; prompts must be specific (column names, ranges, expected output). This is practical prompts, not AI news (AI news still loses).",
+  "SIMPLE-EXPLAINER HOOK (rotate into mega/kids covers): 'X is simple once you explain it like this' (Nicolas CapEx 1,808 likes; 'If you can explain finance simply' 1,021)."
+ ],
+ "weeklyRotation": {
+  "Fri": [
+   "BIG-NUMBER CHEAT SHEET",
+   "proven interview list",
+   "KIDS (big tool/role)",
+   "ROLE VS"
+  ],
+  "Mon": [
+   "BIG-NUMBER CHEAT SHEET",
+   "ROLE VS",
+   "KIDS (big tool/role)",
+   "proven interview list"
+  ],
+  "Sat": [
+   "NOTES DROP",
+   "BIG-NUMBER CHEAT SHEET",
+   "KIDS (big tool/role)",
+   "ROLE VS"
+  ],
+  "Sun": [
+   "BIG-NUMBER CHEAT SHEET",
+   "proven interview list",
+   "KIDS (big tool/role)",
+   "NOTES DROP"
+  ],
+  "Thu": [
+   "ROLE VS",
+   "BIG-NUMBER CHEAT SHEET",
+   "KIDS (big tool/role)",
+   "NOTES DROP"
+  ],
+  "Tue": [
+   "NOTES DROP",
+   "BIG-NUMBER CHEAT SHEET",
+   "KIDS (big tool/role)",
+   "proven interview list"
+  ],
+  "Wed": [
+   "BIG-NUMBER CHEAT SHEET",
+   "NOTES DROP",
+   "KIDS (big tool/role)",
+   "roadmap/plan"
+  ],
+  "note": "18 Oct: 4 carousels a day, no reels, KIDS ('explain to a 5-year-old') every day at 19:00. Slots: s1 08:30 | s2 10:30 | s3 19:00 | s4 21:00."
+ },
+ "roleVs": {
+  "note": "CAREER ROLES only, max 5 per week, never the same pair twice in 60 days. make_day.py picks the first unused pair from queue and records it in used.",
+  "queue": [
+   "Data Analyst vs Product Analyst",
+   "Service vs Product company analyst",
+   "Fresher analyst vs 2-year analyst",
+   "Data Analyst vs Consultant",
+   "BI Developer vs Data Analyst",
+   "Data Analyst vs AI Engineer"
+  ],
+  "used": [
+   {
+    "pair": "Data Analyst vs Data Scientist",
+    "date": "2026-10-02"
+   },
+   {
+    "pair": "Data Analyst vs Business Analyst",
+    "date": "2026-10-05"
+   },
+   {
+    "pair": "Data Analyst vs Data Engineer",
+    "date": "2026-10-16"
+   },
+   {
+    "pair": "Data Analyst vs MIS Executive",
+    "date": "2026-10-17"
+   },
+   {
+    "pair": "Data Analyst vs Financial Analyst",
+    "date": "2026-10-18"
+   }
+  ]
+ },
+ "cheatSheet": {
+  "note": "BIG-NUMBER CHEAT SHEET tool log; never the same tool two days running.",
+  "tools": [
+   "Excel",
+   "SQL",
+   "Power BI",
+   "pandas",
+   "Python"
+  ],
+  "used": [
+   {
+    "tool": "Excel",
+    "date": "2026-10-16"
+   },
+   {
+    "tool": "pandas",
+    "date": "2026-10-17"
+   },
+   {
+    "tool": "SQL",
+    "date": "2026-10-18"
+   }
+  ]
+ },
+ "notesDrop": {
+  "used": [
+   {
+    "tool": "SQL",
+    "date": "2026-10-16",
+    "template": "Complete X Notes"
+   },
+   {
+    "tool": "Power BI",
+    "date": "2026-10-17",
+    "template": "Complete X Notes"
+   },
+   {
+    "tool": "Python",
+    "date": "2026-10-18",
+    "template": "X for Data Analysis notes"
+   }
+  ]
+ }
+}

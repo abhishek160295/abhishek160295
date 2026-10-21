@@ -1,0 +1,14 @@
+{
+  "period": "2026-06-28..2026-09-25 (90d, 128 IG feed posts)",
+  "summary": [
+    "Carousels beat reels: median saves 496 vs 253, total follows 5494 vs 2288. Default format = carousel.",
+    "Big-number curated lists (>=10 items) in hook: median reach 10.8K vs 6.2K, follows 17 vs 4.",
+    "'Roadmap/plan in N days' hooks: median reach 125K, follows 352 (n=4).",
+    "Comment-keyword CTA: median reach 66K, follows 105 (n=3). Use on most posts.",
+    "Topics by median reach/follows: Power BI interview 57K/140 (n=3), SQL 8.4K/7 (n=43, highest volume), Excel 8.6K/17, Python 7.2K/15.",
+    "Losers: Tableau (3K, 0 follows), AI news (3.4K), Day-N series, basic syntax cheatsheets, single-concept explainers (e.g. 'GROUP BY deletes rows' 3.8K).",
+    "Time: 19-24h and 06-11h best; 11-15h worst.",
+    "Trend: late Sept median reach fell to 5.5K and follows to 521/half-month (vs 2.6-3.2K) as mix drifted to single-concept, Tableau, cheatsheets.",
+    "Top follow drivers: 150 Python programs (867), 50 SQL questions (735), 60-day roadmap (620), 15 Excel formulas (561), 60 advanced SQL queries (416)."
+  ]
+}

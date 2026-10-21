@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+out/
+logs/*.log
+desk/desk.db
+days/*/claude_*.txt

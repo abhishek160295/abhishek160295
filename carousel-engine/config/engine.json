@@ -1,0 +1,106 @@
+{
+ "dailyMix": "4 carousels a day from playbook.weeklyRotation. NO REELS (owner rule, 16 Oct). KIDS daily at 19:00.",
+ "designRules": "Renderer v2 (premium). Read the header comment of render.py for all slide types. Non-mega covers MUST set art (sql|powerbi|python|excel|roadmap|career) and badge (e.g. '30 Q&A'); mega posts start with marker_cover instead. Put exactly one accent word in ~tildes~ (serif italic) in cover, list and CTA titles (not in marker_cover). Every list slide gets a tag and a punchy title. Max 3 text items or 2 code items per list slide. Roadmaps use timeline slides (2 phases per slide). Use table slides for numeric comparisons and compare slides for do/don't. CTA slides must set keyword. Code lines 38 chars max.",
+ "handle": "@thedataguy16",
+ "music": "search 'anime', pick from top 10",
+ "pdfRule": "Render with: python3 render.py spec.json outN --pdf. The PDF sits next to the slides in posts/<date>/<slug>/carousel.pdf and is served by the local desk. The PDF = all slides + a clickable product page for the 90-Day System (topmate.io/abhishek_kumar1085/1990922). CTA and caption must promise exactly this: 'Comment <KEYWORD> and I'll DM you ... as a PDF.' Never promise extra content that isn't in the PDF.",
+ "posting": "manual from phone with music",
+ "productRule": "render.py auto-inserts a styled 90-Day System pitch slide before the CTA in every post (4 phases, 27 projects, 100+ Q&As, 365-day mentor access). Never mention the price anywhere (slides, captions, PDFs). Add the line 'Want the complete 90-day system? Link in bio.' before the keyword CTA in every caption.",
+ "rendererVersion": 7,
+ "slots": [
+  {
+   "slot": 1,
+   "time": "08:30"
+  },
+  {
+   "slot": 2,
+   "time": "10:30"
+  },
+  {
+   "slot": 3,
+   "time": "19:00",
+   "kids": true
+  },
+  {
+   "slot": 4,
+   "time": "21:00"
+  }
+ ],
+ "styleRule": "NO DARK THEMES (owner rule, 27 Sep 2026): every slide, cover, CTA, product page and cover_alt must have a light background; no dark cards, dark code windows or dark panels. The renderer's 4 styles (ember, mist, terracotta, paper) are all light; 'midnight' is a legacy alias for mist. Set spec.style on every post. The 3 non-mega posts of a day each use a different style, and a slot does not repeat yesterday's style. Mega posts always use style paper. All slides inside one post share one style. Never add a theme:'ink' or any dark override.",
+ "styles": [
+  "ember",
+  "mist",
+  "terracotta",
+  "paper"
+ ],
+ "mascot": "assets/mascot.jpg",
+ "renderCmd": "python render.py <spec> <outdir> --pdf",
+ "formatEvidence": {
+  "BIG-NUMBER CHEAT SHEET": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+  "NOTES DROP": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides.",
+  "KIDS (big tool/role)": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059.",
+  "ROLE VS": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53.",
+  "proven interview list": "Proven: 16 SQL problems 21,718 views / 14 follows; 20 pandas one-liners 24,823 / 9.",
+  "roadmap/plan": "Proven: 45-day roadmap carousel 29,498 views / 95 follows; 'plan in N days' hooks median reach 125K (n=4)."
+ },
+ "formatHooks": {
+  "BIG-NUMBER CHEAT SHEET": [
+   "big-list",
+   "only-cheat-sheet",
+   "tips-forever"
+  ],
+  "NOTES DROP": [
+   "complete-notes",
+   "notes-pages",
+   "big-list"
+  ],
+  "KIDS (big tool/role)": [
+   "explain-to-kid"
+  ],
+  "ROLE VS": [
+   "role-vs"
+  ],
+  "proven interview list": [
+   "big-list",
+   "shortcut"
+  ],
+  "roadmap/plan": [
+   "time-boxed"
+  ]
+ },
+ "hypeWords": [
+  "game-changer",
+  "game changer",
+  "ultimate",
+  "secret",
+  "hack",
+  "hacks",
+  "insane",
+  "crazy",
+  "mind-blowing",
+  "unlock",
+  "supercharge",
+  "skyrocket",
+  "revolutionize",
+  "revolutionise",
+  "must-have",
+  "elevate",
+  "delve",
+  "leverage",
+  "seamless",
+  "effortless",
+  "guaranteed",
+  "10x",
+  "next level",
+  "next-level",
+  "dive into",
+  "journey",
+  "unleash",
+  "boost your career",
+  "rockstar",
+  "ninja",
+  "jaw-dropping",
+  "in today's world",
+  "fast-paced"
+ ]
+}

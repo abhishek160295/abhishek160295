@@ -1,0 +1,30 @@
+{
+ "title": "38 Python lines that do your boring office work",
+ "slug": "python-office-work",
+ "caption": "Renaming 40 files. Merging 12 monthly sheets. Fixing names with extra spaces.\nPython does each in one line. All of them are on these pages, tested.\nFollow @thedataguy16 and comment PYOFFICE. I'll DM you the full 6-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#python #pandas #excel #dataanalyst #automation #thedataguy16",
+ "keyword": "PYOFFICE",
+ "hookType": "big-list",
+ "pillar": "Skills",
+ "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. s1: topic 'Power BI' -> 'Python' by hand. Power BI shortcut docs (learn.microsoft.com) were unreachable from the build machine, so they could not be verified (hard rule 6); next least-recent cheat sheet tool. Fresh angle: office automation for MIS and Excel-heavy jobs, not a basic syntax sheet.",
+ "sources": [
+  {
+   "title": "pandas.read_excel",
+   "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html"
+  },
+  {
+   "title": "pathlib",
+   "url": "https://docs.python.org/3/library/pathlib.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "office-script",
+    "lang": "python",
+    "code": "import os, tempfile\nos.chdir(tempfile.mkdtemp())\nimport shutil, pandas as pd\nfrom pathlib import Path\nfrom datetime import date\nos.makedirs(\"reports\")\nbase = df.copy()\nfor m in [\"jan\", \"feb\"]:\n    base.to_excel(f\"reports/{m}.xlsx\", index=False)\nwith pd.ExcelWriter(\"sales.xlsx\") as w:\n    base.to_excel(w, sheet_name=\"Jan\", index=False); base.to_excel(w, sheet_name=\"Feb\", index=False)\nPath(\"old.csv\").write_text(\"a,b\")\nfiles = list(Path(\"reports\").glob(\"*.xlsx\"))\nassert len(files) == 2\nPath(\"output\").mkdir(exist_ok=True)\nPath(\"old.csv\").rename(\"new.csv\")\nassert Path(\"new.csv\").exists()\nshutil.copy(\"sales.xlsx\", \"output/sales.xlsx\")\nassert Path(\"sales.xlsx\").exists()\nassert Path(\"jan_sales.xlsx\").stem == \"jan_sales\"\nname = f\"report_{date.today():%Y%m%d}.xlsx\"\nassert name.startswith(\"report_2\") and name.endswith(\".xlsx\")\ndf = pd.read_excel(\"sales.xlsx\", sheet_name=\"Jan\")\nassert len(df) == len(base)\nsheets = pd.read_excel(\"sales.xlsx\", sheet_name=None)\nassert list(sheets) == [\"Jan\", \"Feb\"]\ndf = pd.concat(sheets.values(), ignore_index=True)\nassert len(df) == 2 * len(base)\ndf = pd.concat(pd.read_excel(f) for f in files)\nassert len(df) == 2 * len(base)\ndf.to_excel(\"output/final.xlsx\", index=False)\ndf.to_csv(\"output/final.csv\", index=False)\npv = df.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\")\nassert pv.loc[\"South\", \"sales\"] == 2 * 3000\nprices = pd.DataFrame({\"product\": [\"Pen\", \"Mouse\"], \"list_price\": [10, 450]})\nmg = df.merge(prices, on=\"product\", how=\"left\")\nassert len(mg) == len(df)\ndf = df.drop_duplicates()\nassert len(df) == len(base) - 1\ndf[\"name\"] = df[\"name\"].str.strip()\nassert df[\"name\"].iloc[0] == \"amit\"\ndf.isna().sum()\ndf[\"city\"].value_counts()\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\nbym = df.groupby(df[\"date\"].dt.month)[\"sales\"].sum()\nassert bym.loc[1] == 1400\ndf[\"sales\"] = df[\"sales\"].fillna(0)\nassert len(df[df[\"sales\"] > 1000]) == 2\nassert df.sort_values(\"sales\", ascending=False)[\"sales\"].iloc[0] == 1800\nassert df.nlargest(5, \"sales\")[\"sales\"].tolist() == [1800, 1200, 900, 500, 450]\ndf[\"total\"] = df[\"qty\"] * df[\"price\"]\ndf[\"city\"] = df[\"city\"].str.upper()\nassert df[\"name\"].str.split(\" \", expand=True).shape[0] == len(df)\ndf = df.rename(columns={\"qty\": \"units\"})\ndf = df.drop(columns=[\"email\"])\nassert abs((df[\"sales\"] / df[\"sales\"].sum() * 100).sum() - 100) < 1e-9\nassert df[\"sales\"].cumsum().iloc[-1] == df[\"sales\"].sum()\ndf[\"sales\"].round(2)\nassert len(df[df.duplicated(\"customer_id\", keep=False)]) == 4\nassert df.shape[0] == 7\nprint(\"office ok\")",
+    "expect_stdout": "office ok"
+   }
+  ]
+ }
+}

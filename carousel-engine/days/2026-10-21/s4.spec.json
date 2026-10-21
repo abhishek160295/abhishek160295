@@ -1,0 +1,178 @@
+{
+ "series": "vs",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "Product Analyst<br>or<br>Data Analyst?",
+  "sub": "Which one should a fresher aim for?",
+  "hook": "question"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Data Analyst<br>vs<br>Product Analyst",
+   "sub": "Same SQL. Different questions."
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Answers",
+    "points": [
+     "What happened in the business, and why?",
+     "Sales fell in March: which region, which product"
+    ],
+    "line": "Serves the whole business."
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Answers",
+    "points": [
+     "How do people use the app, and what should change?",
+     "Where users drop off before paying"
+    ],
+    "line": "Serves one product team."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Daily tools",
+    "points": [
+     "Excel, SQL",
+     "Power BI or Tableau",
+     "Some Python (pandas)"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Daily tools",
+    "points": [
+     "SQL, a lot of it",
+     "Mixpanel or Amplitude style event tools",
+     "Sheets, some Python"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "A normal day",
+    "points": [
+     "Refresh the sales dashboard",
+     "Answer a manager's quick question",
+     "Clean a messy Excel export"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "A normal day",
+    "points": [
+     "Check yesterday's sign-up funnel",
+     "Size a feature idea with event data",
+     "Read an A/B test with the product manager"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Output",
+    "points": [
+     "Dashboards and weekly reports",
+     "A clear answer for a manager"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Output",
+    "points": [
+     "Funnel and retention charts",
+     "A call: ship it, change it or roll it back"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Maths needed",
+    "points": [
+     "Averages, percentages, growth",
+     "Basic statistics"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Maths needed",
+    "points": [
+     "Conversion rates, cohorts",
+     "A/B testing basics"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Entry route for freshers",
+    "points": [
+     "Excel + SQL + one BI tool",
+     "2-3 dashboard projects"
+    ],
+    "line": "Hired in almost every industry."
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Entry route for freshers",
+    "points": [
+     "Strong SQL + product sense",
+     "Projects on app or e-commerce data"
+    ],
+    "line": "Mostly product companies and startups."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Data Analyst",
+    "head": "Interviews ask",
+    "points": [
+     "SQL joins and GROUP BY",
+     "Lookups and pivots in Excel",
+     "Walk me through your dashboard"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product Analyst",
+    "head": "Interviews ask",
+    "points": [
+     "SQL on event tables",
+     "How would you measure this feature?",
+     "Read this A/B test result"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "cta",
+   "title": "Pick your ~lane~.",
+   "body": "Comment DAVSPA and I'll DM you the full 10-page PDF.",
+   "keyword": "DAVSPA",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

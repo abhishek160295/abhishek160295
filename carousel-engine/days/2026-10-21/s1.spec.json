@@ -1,0 +1,207 @@
+{
+ "series": "Python",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "Stop doing<br>this by hand.<br>Python does it.",
+  "sub": "38 lines for files, Excel and messy data.",
+  "hook": "contrarian"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "38 Python lines<br>that do your<br>boring office work",
+   "sub": "Files, Excel sheets, messy data.<br>Copy, run, go home on time."
+  },
+  {
+   "type": "sheet",
+   "title": "Python",
+   "ribbon": "Files and folders",
+   "lang": "python",
+   "rows": [
+    {
+     "name": "Imports for this page",
+     "formula": "import shutil, pandas as pd"
+    },
+    {
+     "name": "Paths made easy",
+     "formula": "from pathlib import Path"
+    },
+    {
+     "name": "Today's date",
+     "formula": "from datetime import date"
+    },
+    {
+     "name": "Every Excel file in a folder",
+     "formula": "files = list(Path(\"reports\").glob(\"*.xlsx\"))"
+    },
+    {
+     "name": "Make a folder if missing",
+     "formula": "Path(\"output\").mkdir(exist_ok=True)"
+    },
+    {
+     "name": "Rename a file",
+     "formula": "Path(\"old.csv\").rename(\"new.csv\")"
+    },
+    {
+     "name": "Copy a file",
+     "formula": "shutil.copy(\"sales.xlsx\", \"output/sales.xlsx\")"
+    },
+    {
+     "name": "Does the file exist?",
+     "formula": "Path(\"sales.xlsx\").exists()"
+    },
+    {
+     "name": "File name without .xlsx",
+     "formula": "Path(\"jan_sales.xlsx\").stem"
+    },
+    {
+     "name": "Date-stamped file name",
+     "formula": "f\"report_{date.today():%Y%m%d}.xlsx\""
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "Python",
+   "ribbon": "Excel work, done",
+   "lang": "python",
+   "start": 11,
+   "rows": [
+    {
+     "name": "Read one sheet",
+     "formula": "df = pd.read_excel(\"sales.xlsx\", sheet_name=\"Jan\")"
+    },
+    {
+     "name": "Read every sheet",
+     "formula": "sheets = pd.read_excel(\"sales.xlsx\", sheet_name=None)"
+    },
+    {
+     "name": "Stack all sheets",
+     "formula": "df = pd.concat(sheets.values(), ignore_index=True)"
+    },
+    {
+     "name": "Combine every file",
+     "formula": "df = pd.concat(pd.read_excel(f) for f in files)"
+    },
+    {
+     "name": "Save to Excel",
+     "formula": "df.to_excel(\"output/final.xlsx\", index=False)"
+    },
+    {
+     "name": "Save as CSV",
+     "formula": "df.to_csv(\"output/final.csv\", index=False)"
+    },
+    {
+     "name": "Pivot, like Excel",
+     "formula": "df.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\")"
+    },
+    {
+     "name": "VLOOKUP, the pandas way",
+     "formula": "df.merge(prices, on=\"product\", how=\"left\")"
+    },
+    {
+     "name": "Remove duplicate rows",
+     "formula": "df = df.drop_duplicates()"
+    },
+    {
+     "name": "Trim extra spaces",
+     "formula": "df[\"name\"] = df[\"name\"].str.strip()"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "How do I...",
+   "lang": "python",
+   "cols": [
+    "#",
+    "How do I...",
+    "pandas"
+   ],
+   "start": 21,
+   "rows": [
+    [
+     "Count blanks per column",
+     "df.isna().sum()"
+    ],
+    [
+     "Count rows per city",
+     "df[\"city\"].value_counts()"
+    ],
+    [
+     "Turn text into dates",
+     "df[\"date\"] = pd.to_datetime(df[\"date\"])"
+    ],
+    [
+     "Total sales by month",
+     "df.groupby(df[\"date\"].dt.month)[\"sales\"].sum()"
+    ],
+    [
+     "Fill blank sales with 0",
+     "df[\"sales\"] = df[\"sales\"].fillna(0)"
+    ],
+    [
+     "Keep sales above 1000",
+     "df[df[\"sales\"] > 1000]"
+    ],
+    [
+     "Sort, highest first",
+     "df.sort_values(\"sales\", ascending=False)"
+    ],
+    [
+     "Top 5 rows by sales",
+     "df.nlargest(5, \"sales\")"
+    ],
+    [
+     "Add a total column",
+     "df[\"total\"] = df[\"qty\"] * df[\"price\"]"
+    ],
+    [
+     "Capital letters",
+     "df[\"city\"] = df[\"city\"].str.upper()"
+    ],
+    [
+     "Split full names",
+     "df[\"name\"].str.split(\" \", expand=True)"
+    ],
+    [
+     "Rename a column",
+     "df = df.rename(columns={\"qty\": \"units\"})"
+    ],
+    [
+     "Drop a column",
+     "df = df.drop(columns=[\"email\"])"
+    ],
+    [
+     "Percent of total",
+     "df[\"sales\"] / df[\"sales\"].sum() * 100"
+    ],
+    [
+     "Running total",
+     "df[\"sales\"].cumsum()"
+    ],
+    [
+     "Round to 2 decimals",
+     "df[\"sales\"].round(2)"
+    ],
+    [
+     "Find repeated customers",
+     "df[df.duplicated(\"customer_id\", keep=False)]"
+    ],
+    [
+     "Rows and columns",
+     "df.shape"
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Save it.<br>Run it ~Monday~.",
+   "body": "Comment PYOFFICE and I'll DM you the full 6-page PDF.",
+   "keyword": "PYOFFICE",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

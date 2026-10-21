@@ -1,0 +1,113 @@
+{
+ "series": "Machine Learning",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "Machine Learning<br>is simple once<br>you see it<br>like this",
+  "sub": "12 ideas. One school day.",
+  "hook": "simple-explainer"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "How I'd explain<br>Machine Learning<br>to a 5-year-old",
+   "sub": "12 ideas. One school day."
+  },
+  {
+   "type": "kids",
+   "title": "Machine Learning",
+   "subtitle": "explained to kids (1/2)",
+   "mascot": "assets/mascot.jpg",
+   "cells": [
+    {
+     "term": "Data",
+     "kid": "Your class register. Every row is one child, every column is one fact about them.",
+     "sql": "pd.read_csv(\"class.csv\")",
+     "emoji": "📒✏️"
+    },
+    {
+     "term": "Features (X)",
+     "kid": "The clues you look at before guessing: height, age, how fast you run.",
+     "sql": "X = df[[\"height\", \"age\"]]",
+     "emoji": "🔍📏"
+    },
+    {
+     "term": "Label (y)",
+     "kid": "The answer you want to guess, like who wins the school race.",
+     "sql": "y = df[\"won_race\"]",
+     "emoji": "🏆🏃"
+    },
+    {
+     "term": "Training",
+     "kid": "Show a child many mango pictures until they can spot a mango alone.",
+     "sql": "model.fit(X, y)",
+     "emoji": "🥭🧠"
+    },
+    {
+     "term": "Prediction",
+     "kid": "You see dark clouds in the morning, so you pack an umbrella for school.",
+     "sql": "model.predict(X_new)",
+     "emoji": "☁️☂️"
+    },
+    {
+     "term": "Train / test split",
+     "kid": "Teacher keeps some questions hidden for the final exam, not the practice sheet.",
+     "sql": "train_test_split(X, y, test_size=0.2)",
+     "emoji": "📝🙈"
+    }
+   ]
+  },
+  {
+   "type": "kids",
+   "title": "Machine Learning",
+   "subtitle": "explained to kids (2/2)",
+   "mascot": "assets/mascot.jpg",
+   "cells": [
+    {
+     "term": "Classification",
+     "kid": "Sort every sweet into one of two boxes: chocolate or not chocolate.",
+     "sql": "LogisticRegression()",
+     "emoji": "🍫📦"
+    },
+    {
+     "term": "Regression",
+     "kid": "Guess how many runs your team will score. A number, not a box.",
+     "sql": "LinearRegression()",
+     "emoji": "🏏🔢"
+    },
+    {
+     "term": "Clustering",
+     "kid": "At lunch, kids make their own groups. Nobody tells them who sits where.",
+     "sql": "KMeans(n_clusters=3)",
+     "emoji": "👫🍱"
+    },
+    {
+     "term": "Decision tree",
+     "kid": "Twenty questions game. Is it red? Is it round? Then it is an apple.",
+     "sql": "DecisionTreeClassifier()",
+     "emoji": "🌳🍎"
+    },
+    {
+     "term": "Accuracy",
+     "kid": "Out of 10 spelling words, you wrote 8 correctly. That is 80 percent.",
+     "sql": "accuracy_score(y_test, y_pred)",
+     "emoji": "✅📝"
+    },
+    {
+     "term": "Overfitting",
+     "kid": "Mugging up the answer key. Full marks in practice, lost in the real exam.",
+     "sql": "model.score(X_test, y_test)",
+     "emoji": "📚😵"
+    }
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Now teach<br>a ~friend~.",
+   "body": "Comment MLKIDS and I'll DM you the full 5-page PDF.",
+   "keyword": "MLKIDS",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

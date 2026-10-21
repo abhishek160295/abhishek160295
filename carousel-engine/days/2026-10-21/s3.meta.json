@@ -1,0 +1,26 @@
+{
+ "title": "How I'd explain Machine Learning to a 5-year-old",
+ "slug": "ml-to-a-5-year-old",
+ "caption": "Machine learning sounds scary. Most of it is a kid learning from examples.\n12 ideas from one school day, each with the real Python line under it.\nFollow @thedataguy16 and comment MLKIDS. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#machinelearning #dataanalyst #python #datascience #learnpython #thedataguy16",
+ "keyword": "MLKIDS",
+ "hookType": "explain-to-kid",
+ "pillar": "Kids",
+ "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. First topic in kidsRules.queue; ML never covered by a kids post.",
+ "sources": [
+  {
+   "title": "scikit-learn: getting started",
+   "url": "https://scikit-learn.org/stable/getting_started.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "sklearn-lines",
+    "lang": "python",
+    "code": "import os, tempfile\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression, LinearRegression\nfrom sklearn.cluster import KMeans\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.metrics import accuracy_score\nos.chdir(tempfile.mkdtemp())\npd.DataFrame({\"height\": [110,115,120,125,118,130,112,128,122,116], \"age\": [5,6,6,7,6,7,5,7,6,6],\n              \"won_race\": [0,0,1,1,0,1,0,1,1,0]}).to_csv(\"class.csv\", index=False)\ndf = pd.read_csv(\"class.csv\")\nX = df[[\"height\", \"age\"]]\ny = df[\"won_race\"]\ntrain_test_split(X, y, test_size=0.2)\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)\nfor model in [LogisticRegression(), DecisionTreeClassifier()]:\n    model.fit(X, y)\n    X_new = pd.DataFrame({\"height\": [127], \"age\": [7]})\n    assert model.predict(X_new).shape == (1,)\n    model.fit(X_train, y_train)\n    y_pred = model.predict(X_test)\n    a = accuracy_score(y_test, y_pred); s = model.score(X_test, y_test)\n    assert 0 <= a <= 1 and abs(a - s) < 1e-9\nassert len(X_test) == 2\nLinearRegression().fit(X, df[\"height\"])\nkm = KMeans(n_clusters=3, n_init=10, random_state=0).fit(X)\nassert len(set(km.labels_)) == 3\nKMeans(n_clusters=3)\nprint(\"ml ok\")",
+    "expect_stdout": "ml ok"
+   }
+  ]
+ }
+}

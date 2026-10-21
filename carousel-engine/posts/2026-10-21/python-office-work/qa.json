@@ -1,0 +1,56 @@
+[
+ {
+  "slide": 1,
+  "type": "marker_cover",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 2,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 29
+ },
+ {
+  "slide": 3,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 29
+ },
+ {
+  "slide": 4,
+  "type": "bigtable",
+  "shrinks": 4,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 16.2901
+ },
+ {
+  "slide": 5,
+  "type": "product",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18
+ },
+ {
+  "slide": 6,
+  "type": "cta",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 28.0783
+ }
+]

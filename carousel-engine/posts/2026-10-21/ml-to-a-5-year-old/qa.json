@@ -1,0 +1,47 @@
+[
+ {
+  "slide": 1,
+  "type": "marker_cover",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 2,
+  "type": "kids",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19
+ },
+ {
+  "slide": 3,
+  "type": "kids",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19
+ },
+ {
+  "slide": 4,
+  "type": "product",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18
+ },
+ {
+  "slide": 5,
+  "type": "cta",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30.9563
+ }
+]

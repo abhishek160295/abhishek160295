@@ -1,0 +1,6 @@
+playwright>=1.45
+pillow>=10
+pypdf>=4
+pandas>=2
+openpyxl>=3.1
+scikit-learn>=1.4
