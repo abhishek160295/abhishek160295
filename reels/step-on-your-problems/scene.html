@@ -3,7 +3,8 @@
 <script>
 const W=1080,H=1920,SURF=780,PD=700,PB=SURF+PD,SLH=70,NS=10,PW=330,SLW=314,LC=290,RC=790;
 const WORDS=['DOUBT','BILLS','REJECTION','FAILURE','STRESS','CRITICISM','DEBT','HEARTBREAK','PRESSURE','LOSS'];
-const LAND=k=>2+k*.5,FALL=.42;
+const LS=[2,2.7,4.5,5.05,5.53,5.95,6.32,6.65,6.95,7.23],LAND=k=>LS[k],FALL=.42;
+const FZ0=5.82,FZD=1,FZK=.04,toS=t=>t<FZ0?t:t<FZ0+FZD?FZ0+(t-FZ0)*FZK:t-FZD*(1-FZK);
 const C=document.getElementById('c'),X=C.getContext('2d');
 const mk=(w=W,h=H)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
 const FIG=mk(),FX=FIG.getContext('2d'),B1=mk(270,480),B1X=B1.getContext('2d'),B2=mk(90,160),B2X=B2.getContext('2d');
@@ -17,6 +18,7 @@ function spr(c,S,x,y,w,h,a){if(a<=.002)return;c.globalAlpha=Math.min(1,a);c.draw
 const GR=[];for(let k=0;k<6;k++){const g=mk(540,960),gx=g.getContext('2d'),id=gx.createImageData(540,960),r=rng(k+7);for(let i=0;i<id.data.length;i+=4){const v=128+(r()-.5)*200;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gx.putImageData(id,0,0);GR.push(g)}
 const R=rng(5),TINT=[...Array(NS)].map(()=>R()*.18-.09);
 const DUSTP=[...Array(NS)].map(()=>[...Array(18)].map(()=>({side:R()<.5?-1:1,v:80+R()*260,vy:-(20+R()*90),s:14+R()*30,l:.5+R()*.6})));
+const PEB=[...Array(160)].map(()=>{let x,y;do{x=R()*W;y=SURF+20+R()*(H-SURF)}while(y<PB+10&&(Math.abs(x-LC)<185||Math.abs(x-RC)<185));return{x,y,w:2+R()*7,h:1+R()*3,a:.03+R()*.05}});
 const MOTES=[...Array(70)].map(()=>({x:R()*W,y:R()*SURF*1.6,v:3+R()*8,ph:R()*7,s:.6+R()*1.5}));
 
 function elbow(s,h,dir){const L=82,dx=h[0]-s[0],dy=h[1]-s[1],d=Math.max(1,Math.hypot(dx,dy)),dd=Math.min(d,163.9),a=Math.sqrt(Math.max(0,L*L-(dd/2)**2));return[s[0]+dx/2-dy/d*a*dir,s[1]+dy/2+dx/d*a*dir]}
@@ -26,12 +28,14 @@ function figure(f,lights){
  FX.setTransform(1,0,0,1,0,0);FX.globalCompositeOperation='source-over';FX.clearRect(0,0,W,H);
  const hipY=f.feet-172+f.crouch*80+f.tuck*30,neck=[f.x,hipY-148+f.crouch*10],head=[neck[0]+(f.look||0)*12,neck[1]-52+(f.duck||0)*26];
  const sL=[neck[0]-22,neck[1]+18],sR=[neck[0]+22,neck[1]+18],hip=[f.x,hipY];const hd=f.hands(hipY,neck,head);
- FX.strokeStyle=FX.fillStyle=`rgb(${f.base})`;FX.lineCap=FX.lineJoin='round';
+ FX.lineCap=FX.lineJoin='round';
+ const part=(pts,w)=>{FX.globalCompositeOperation='destination-out';FX.strokeStyle='#000';line(FX,pts,w+9);FX.globalCompositeOperation='source-over';FX.strokeStyle=`rgb(${f.base})`;line(FX,pts,w)};
  const kO=18+f.crouch*34+f.tuck*20,kY=(hipY+f.feet)/2-f.crouch*22-f.tuck*30,fy=f.feet-8-f.tuck*30;
- line(FX,[hip,[f.x-kO,kY],[f.x-38,fy]],20);line(FX,[hip,[f.x+kO,kY],[f.x+38,fy]],20);
- line(FX,[neck,hip],23);line(FX,[neck,head],14);
- line(FX,[sL,elbow(sL,hd[0],1),hd[0]],18);line(FX,[sR,elbow(sR,hd[1],-1),hd[1]],18);
- FX.beginPath();FX.arc(head[0],head[1],34,0,7);FX.fill();
+ part([hip,[f.x-kO,kY],[f.x-38,fy]],20);part([hip,[f.x+kO,kY],[f.x+38,fy]],20);
+ part([neck,hip],23);part([neck,head],14);
+ FX.globalCompositeOperation='destination-out';FX.beginPath();FX.arc(head[0],head[1],38.5,0,7);FX.fill();FX.globalCompositeOperation='source-over';FX.fillStyle=`rgb(${f.base})`;FX.beginPath();FX.arc(head[0],head[1],34,0,7);FX.fill();
+ const dl=hd[0][1]<head[1]-40?-1:1,dr=hd[1][1]<head[1]-40?1:-1;part([sL,elbow(sL,hd[0],dl),hd[0]],18);part([sR,elbow(sR,hd[1],dr),hd[1]],18);
+ for(const hp of hd){FX.globalCompositeOperation='destination-out';FX.beginPath();FX.arc(hp[0],hp[1],15,0,7);FX.fill();FX.globalCompositeOperation='source-over';FX.fillStyle=`rgb(${f.base})`;FX.beginPath();FX.arc(hp[0],hp[1],11.5,0,7);FX.fill()}
  FX.globalCompositeOperation='source-atop';
  for(const[lx,ly,r,col,a]of lights){if(a<=0)continue;const g=FX.createRadialGradient(lx,ly,0,lx,ly,r);g.addColorStop(0,`rgba(${col},${clamp(a)})`);g.addColorStop(1,`rgba(${col},0)`);FX.fillStyle=g;FX.fillRect(0,0,W,H)}
  X.save();X.shadowColor=f.glow;X.shadowBlur=34;X.drawImage(FIG,0,0);X.restore()}
@@ -54,17 +58,18 @@ function stag(str,cx,y,o){const{font,track=0,col='255,255,255',a=1,t0,per=.025,d
  const ao=1-eio(seg(T,out,out+od));X.save();X.textBaseline='alphabetic';X.textAlign='left';if(glow){X.shadowColor=`rgba(${gcol},.55)`;X.shadowBlur=glow}
  ch.forEach((c,i)=>{const p=eo(seg(T,t0+i*per,t0+i*per+dur)),al=a*p*ao;if(al>.003){X.fillStyle=`rgba(${col},${al})`;X.fillText(c,x,y+(1-p)*rise)}x+=ws[i]+track});X.restore()}
 
-function frame(t){T=t;
- const sun=eio(seg(t,6.7,8.6)),lspot=lerp(1,.22,eio(seg(t,6.6,7.8))),rspot=1;
- let shk=0;for(let k=0;k<NS;k++){const d=t-LAND(k);if(d>0&&d<.25)shk+=Math.exp(-d*18)*3}
- const z=1+.035*eio(seg(t,0,12)),sx=Math.sin(t*61)*shk,sy=Math.cos(t*53)*shk;
- X.setTransform(z,0,0,z,540-540*z+sx,1000-1000*z+sy);X.globalCompositeOperation='source-over';X.globalAlpha=1;
+function frame(rt){T=rt;const t=toS(rt),fz=eo(seg(rt,FZ0,FZ0+.15))*(1-eio(seg(rt,FZ0+FZD-.05,FZ0+FZD+.25)));
+ const sun=eio(seg(t,7.35,9)),lspot=lerp(1,.18,eio(seg(t,6.7,7.6)))*(1+.5*fz),rspot=1-.6*fz;
+ let shk=0;for(let k=0;k<NS;k++){const d=t-LAND(k);if(d>0&&d<.3)shk+=Math.exp(-d*16)*(k==5?14:2+k*.5)}
+ const z=1+.035*eio(seg(rt,0,13))+.13*eio(fz),fx_=lerp(540,LC+40,eio(fz)),fy_=lerp(1000,1020,eio(fz)),sx=Math.sin(rt*61)*shk,sy=Math.cos(rt*53)*shk;
+ X.setTransform(z,0,0,z,fx_-fx_*z+sx+(540-fx_),fy_-fy_*z+sy);X.globalCompositeOperation='source-over';X.globalAlpha=1;
  // sky
  let g=X.createLinearGradient(0,0,0,SURF);g.addColorStop(0,'#040406');g.addColorStop(1,`rgb(${Math.round(lerp(14,52,sun))},${Math.round(lerp(14,30,sun))},${Math.round(lerp(18,18,sun))})`);X.fillStyle=g;X.fillRect(-200,-200,W+400,SURF+200);
  X.globalCompositeOperation='lighter';spr(X,SA,RC,SURF,2400*sun,1300*sun,.5*sun);spr(X,SW,RC,SURF,1100*sun,520*sun,.7*sun);spr(X,SH,RC,SURF,420*sun,80*sun,.9*sun);spr(X,SCOOL,RC,SURF,1800*sun,10,.5*sun);
  X.globalCompositeOperation='source-over';
  // ground block
  g=X.createLinearGradient(0,SURF,0,H);g.addColorStop(0,'#17161a');g.addColorStop(.4,'#0d0d10');g.addColorStop(1,'#060607');X.fillStyle=g;X.fillRect(-200,SURF,W+400,H);
+ for(const pb of PEB){X.fillStyle=`rgba(255,240,220,${pb.a})`;X.beginPath();X.ellipse(pb.x,pb.y,pb.w,pb.h,0,0,7);X.fill()}
  X.strokeStyle='rgba(255,255,255,.035)';X.lineWidth=1.5;for(let i=1;i<14;i++){const y=SURF+i*62;X.beginPath();for(let x=-200;x<=W+200;x+=40)X.lineTo(x,y+Math.sin(x*.013+i*1.7)*6);X.stroke()}
  // pits
  for(const[cx,sp]of[[LC,lspot],[RC,rspot]]){const x0=cx-PW/2;
@@ -77,11 +82,24 @@ function frame(t){T=t;
  // surface edge
  X.globalCompositeOperation='lighter';X.fillStyle=`rgba(255,${Math.round(lerp(255,200,sun))},${Math.round(lerp(255,150,sun))},${.25+.5*sun})`;X.fillRect(-200,SURF-1,W+400,2);X.globalCompositeOperation='source-over';
 
- // complainer (behind slabs)
- const cr=.35*eio(seg(t,1.4,2.1)),shiver=t>1.6&&t<5?Math.sin(t*44)*2.2:0;
- figure({x:LC+shiver,feet:PB,crouch:cr,tuck:0,duck:cr*.5,base:'205,208,218',glow:'rgba(190,210,255,.35)',
-  hands:(hy,n,h)=>{const q=eio(seg(t,1.4,2.1));return[[lerp(LC-50,h[0]-36,q),lerp(hy+34,h[1]-4,q)],[lerp(LC+50,h[0]+36,q),lerp(hy+34,h[1]-4,q)]]}},
+ const q1=eio(seg(t,1.4,2)),face=(h,sg)=>[h[0]+sg*13,h[1]+12];
+ // complainer: face in hands, then one hand reaching up as the last bricks come
+ const rch=eio(seg(t,5.35,5.85)),shiver=t>2&&t<5.35?Math.sin(rt*44)*2.2:0;
+ figure({x:LC+shiver,feet:PB,crouch:.32*q1*(1-.7*rch),tuck:0,duck:.55*q1-1.1*rch,base:'205,208,218',glow:'rgba(190,210,255,.35)',
+  hands:(hy,n,h)=>{const rest=[[LC-50,hy+30],[LC+50,hy+30]],fc=[face(h,-1),face(h,1)],up=[LC+22,h[1]-190];
+   const l=[lerp(rest[0][0],fc[0][0],q1),lerp(rest[0][1],fc[0][1],q1)],r=[lerp(rest[1][0],fc[1][0],q1),lerp(rest[1][1],fc[1][1],q1)];
+   return[l,[lerp(r[0],up[0],rch),lerp(r[1],up[1],rch)]]}},
   [[LC,-40,1700,'225,235,255',.55*lspot]]);
+ // climber: same fear, then decides
+ const dec=eio(seg(t,3,3.45));let feet=PB,crouch=.3*q1*(1-dec),tuck=0,jump=0;
+ {const q=seg(t,3.6,4.15);feet-=140*eio(q)+40*bump(q);tuck+=.9*bump(q);jump+=bump(q);crouch+=.5*bump(seg(t,3.42,3.6))+.35*bump(seg(t,4.15,4.3))}
+ for(let k=2;k<NS;k++){const L=LAND(k),a=Math.min(.26,.85*(L-LAND(k-1))),q=seg(t,L-a,L+.03);feet-=SLH*eio(q)+42*bump(q);tuck+=.8*bump(q);jump+=bump(q);crouch+=.4*bump(seg(t,L-a-.1,L-a))+.3*bump(seg(t,L+.03,L+.14))}
+ const vic=eio(seg(t,7.45,7.95))*(1-eio(seg(t,8.35,8.8))),opn=eio(seg(t,8.35,8.8));
+ const climber=()=>figure({x:RC,feet,crouch,tuck,look:0,duck:.55*q1*(1-dec)-.35*dec*(1-eio(seg(t,4.3,4.6))),base:'232,230,226',glow:`rgba(255,200,140,${.15+.25*dec+.4*sun})`,
+  hands:(hy,n,h)=>[-1,1].map((sg,i)=>{let p=[RC+sg*50,hy+30];const fc=face(h,sg);p=[lerp(p[0],fc[0],q1*(1-dec)),lerp(p[1],fc[1],q1*(1-dec))];
+   p=[lerp(p[0],RC+sg*78,clamp(jump)),lerp(p[1],n[1]-40,clamp(jump))];p=[lerp(p[0],RC+sg*108,vic),lerp(p[1],n[1]-118,vic)];return[lerp(p[0],RC+sg*90,opn),lerp(p[1],hy-6,opn)]})},
+  [[RC,-40,1700,'225,235,255',.5*rspot],[RC,SURF,900,'255,190,120',.95*sun]]);
+ if(t<3.95)climber();
  // slabs
  const climbLight=k=>1;
  for(let k=0;k<NS;k++){const y=slabY(k,t);if(y===null)continue;slab(LC,y,k,lerp(.55,.95,lspot)*(y<SURF?1:.9));slab(RC,y,k,y<SURF?1:.92)}
@@ -89,34 +107,33 @@ function frame(t){T=t;
  X.globalCompositeOperation='lighter';
  for(let k=0;k<NS;k++){const d=t-LAND(k);if(d<0||d>1.2)continue;const by=PB-SLH*k;for(const cx of[LC,RC])for(const p of DUSTP[k]){if(d>p.l)continue;const q=d/p.l,dx=p.side*p.v*eo(q)*.45,x=cx+p.side*(SLW/2-10)+dx*.35,y=by-4+p.vy*eo(q)*.5;spr(X,SDUST,clamp(x,cx-PW/2+10,cx+PW/2-10),y,p.s*(1+q*2),p.s*(1+q*2),.22*(1-q))}}
  X.globalCompositeOperation='source-over';
- // climber
- let feet=PB,crouch=0,tuck=0,jump=0;for(let k=0;k<NS;k++){const L=LAND(k),q=seg(t,L-.26,L+.04);feet-=SLH*eio(q)+46*bump(q);tuck+=.8*bump(q);jump+=bump(q);crouch+=.45*bump(seg(t,L-.38,L-.26))+.35*bump(seg(t,L+.04,L+.18))}
- const proud=eio(seg(t,7.0,7.8));
- figure({x:RC,feet,crouch,tuck,look:0,duck:0,base:'232,230,226',glow:`rgba(255,200,140,${.35+.4*sun})`,
-  hands:(hy,n,h)=>{const rest=[[RC-52,hy+30],[RC+52,hy+30]],up=[[RC-78,n[1]-40],[RC+78,n[1]-40]],open=[[RC-92,hy-4],[RC+92,hy-4]];
-   return rest.map((r,i)=>{let p=[lerp(r[0],up[i][0],clamp(jump)),lerp(r[1],up[i][1],clamp(jump))];return[lerp(p[0],open[i][0],proud),lerp(p[1],open[i][1],proud)]})}},
-  [[RC,-40,1700,'225,235,255',.5],[RC,SURF,900,'255,190,120',.95*sun]]);
+ if(t>=3.95)climber();
+ if(fz>0){const g2=X.createLinearGradient(380,0,700,0);g2.addColorStop(0,'rgba(0,0,0,0)');g2.addColorStop(1,`rgba(0,0,0,${.6*fz})`);X.fillStyle=g2;X.fillRect(380,-300,1200,H+600)}
  // motes
- X.globalCompositeOperation='lighter';for(const m of MOTES){const y=((m.y-m.v*t)%(SURF*1.6)+SURF*1.6)%(SURF*1.6),x=m.x+Math.sin(t*.5+m.ph)*20;spr(X,SH,x,y,m.s*4,m.s*4,.12+.25*sun)}
+ X.globalCompositeOperation='lighter';for(const m of MOTES){const y=((m.y-m.v*t)%(SURF*1.6)+SURF*1.6)%(SURF*1.6),x=m.x+Math.sin(rt*.5+m.ph)*20;spr(X,SH,x,y,m.s*4,m.s*4,.12+.25*sun)}
  X.globalCompositeOperation='source-over';
 
  // post
  X.setTransform(1,0,0,1,0,0);B1X.drawImage(C,0,0,270,480);B2X.drawImage(B1,0,0,90,160);
  X.globalCompositeOperation='screen';X.globalAlpha=.18;X.drawImage(B1,0,0,W,H);X.globalAlpha=.25;X.drawImage(B2,0,0,W,H);X.globalAlpha=1;X.globalCompositeOperation='source-over';
  g=X.createRadialGradient(540,950,350,540,950,1250);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.78)');X.fillStyle=g;X.fillRect(0,0,W,H);
- if(t>8.05){X.globalCompositeOperation='lighter';X.fillStyle=`rgba(255,220,180,${.22*Math.exp(-(t-8.05)*5)})`;X.fillRect(0,0,W,H);X.globalCompositeOperation='source-over'}
+ if(rt>9.4){X.globalCompositeOperation='lighter';X.fillStyle=`rgba(255,220,180,${.22*Math.exp(-(rt-9.4)*5)})`;X.fillRect(0,0,W,H);X.globalCompositeOperation='source-over'}
 
  // type
- stag('LIFE THROWS THE SAME',540,215,{font:'600 42px Inter',track:7,t0:.4,out:6.6,a:.95});
- stag('PROBLEMS AT EVERYONE.',540,275,{font:'600 42px Inter',track:7,t0:.75,out:6.6,col:'255,206,150',a:.95});
+ stag('LIFE THROWS THE SAME',540,215,{font:'600 42px Inter',track:7,t0:.4,out:8.6,a:.95});
+ stag('PROBLEMS AT EVERYONE.',540,275,{font:'600 42px Inter',track:7,t0:.75,out:8.6,col:'255,206,150',a:.95});
+ stag('Both were scared.',540,470,{font:'300 50px Inter',t0:2.25,out:3.25});
+ stag('One decided to climb.',540,470,{font:'300 50px Inter',t0:3.35,out:4.6,col:'255,214,170'});
  stag('COMPLAINER',LC,PB+82,{font:'700 34px Inter',track:8,t0:.9,a:.9,rise:10});
  stag('CLIMBER',RC,PB+82,{font:'700 34px Inter',track:8,t0:1.05,a:.9,rise:10});
- stag('STAYED STUCK',LC,PB+130,{font:'600 26px Inter',track:6,t0:7.3,col:'255,110,95',a:.95,rise:8});
- stag('GOT OUT',RC,PB+130,{font:'600 26px Inter',track:6,t0:7.45,col:'255,206,150',a:.95,rise:8});
- stag('STEP ON YOUR',540,215,{font:'700 104px "Inter Display"',track:4,t0:8.05,per:.03,glow:36,rise:24});
- stag('PROBLEMS.',540,325,{font:'700 104px "Inter Display"',track:4,t0:8.25,per:.03,col:'255,206,150',glow:46,rise:24});
- X.globalCompositeOperation='overlay';X.globalAlpha=.09;X.drawImage(GR[Math.floor(t*24)%6],0,0,W,H);X.globalAlpha=1;X.globalCompositeOperation='source-over';
- const fade=1-eo(seg(t,0,.6))+eio(seg(t,12.4,13));if(fade>0){X.fillStyle=`rgba(0,0,0,${clamp(fade)})`;X.fillRect(0,0,W,H)}
+ stag('BURIED',LC,PB+134,{font:'700 30px Inter',track:9,t0:7.75,col:'255,96,84',rise:8});
+ stag('FREE',RC,PB+134,{font:'700 30px Inter',track:9,t0:8.55,col:'255,206,150',rise:8});
+ stag('SAME BRICKS.',540,195,{font:'700 96px "Inter Display"',track:3,t0:9.4,per:.03,glow:36,rise:24});
+ stag('GRAVE OR STAIRS.',540,300,{font:'700 96px "Inter Display"',track:3,t0:9.75,per:.03,col:'255,206,150',glow:46,rise:24});
+ stag('Problems bury you or lift you.',540,1720,{font:'400 42px Inter',t0:10.6,per:.018,a:.92});
+ stag('You choose.',540,1782,{font:'600 42px Inter',t0:11.3,per:.04,col:'255,206,150'});
+ X.globalCompositeOperation='overlay';X.globalAlpha=.09;X.drawImage(GR[Math.floor(rt*24)%6],0,0,W,H);X.globalAlpha=1;X.globalCompositeOperation='source-over';
+ const fade=1-eo(seg(rt,0,.6))+eio(seg(rt,13.4,14));if(fade>0){X.fillStyle=`rgba(0,0,0,${clamp(fade)})`;X.fillRect(0,0,W,H)}
  return C.toDataURL('image/png')}
 window.frame=frame;
 Promise.all([document.fonts.load('700 100px "Inter Display"'),document.fonts.load('600 40px Inter'),document.fonts.load('700 40px Inter')]).then(()=>window.ready=true);
