@@ -6,7 +6,7 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 24
+  "minFont": 30
  },
  {
   "slide": 2,
@@ -37,20 +37,20 @@
  },
  {
   "slide": 5,
-  "type": "product",
+  "type": "mproduct",
   "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18
+  "minFont": 21
  },
  {
   "slide": 6,
-  "type": "cta",
+  "type": "mcta",
   "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 28.0783
+  "minFont": 20
  }
 ]

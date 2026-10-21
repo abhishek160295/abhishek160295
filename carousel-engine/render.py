@@ -538,6 +538,58 @@ CSS += r"""
 .s3vs{align-self:center;margin:-38px 0;z-index:3;width:92px;height:92px;border-radius:50%;background:#1B1A17;color:#FFD12E;display:grid;place-items:center;font:800 34px Bricolage;letter-spacing:1px;box-shadow:0 0 0 8px #F7F4EE}
 """
 
+CSS += r"""
+/* ===== v4 brand system ===== */
+.mono{width:64px;height:64px;flex:none;filter:drop-shadow(0 4px 8px rgba(27,26,23,.25))}
+.sig3 .h{display:flex;align-items:center;gap:10px}.sig3 .h .mono{width:38px;height:38px;filter:none}
+.bth h2{background:linear-gradient(100deg,transparent 1%,#FFD12E 3%,#FFD12E 97%,transparent 99%)!important;color:#1B1A17!important}
+.btt th{background:#1B1A17!important;color:#FFD12E!important}
+.btt tr:nth-child(even) td{background:rgba(255,209,46,.09)}
+/* product */
+.mprod{background:#F6F3EC}
+.mpw{position:absolute;inset:0;padding:74px 64px 120px;display:flex;flex-direction:column;gap:30px}
+.mpk{align-self:flex-start;display:flex;align-items:center;gap:10px;font:700 22px JBMono;letter-spacing:2px;text-transform:uppercase;background:#FFD12E;color:#1B1A17;padding:12px 22px;transform:rotate(-1.5deg);box-shadow:0 8px 18px -8px rgba(120,80,0,.5)}
+.mpt{font:400 124px/1.0 Marker,Kalam,cursive;color:#B3121B;letter-spacing:-1px;transform:rotate(-1deg);transform-origin:left}
+.mpt em{font-family:Marker,Kalam,cursive;font-style:normal;color:#1B1A17;background:linear-gradient(100deg,transparent 2%,#FFE15A 4%,#FFD12E 94%,transparent 97%);background-size:100% 60%;background-position:0 80%;background-repeat:no-repeat;padding:0 8px}
+.mpb{font:500 34px/1.35 Inter;color:#3A352E;max-width:900px}
+.mproad{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.mproad .line{position:absolute;left:6%;right:6%;top:62px;border-top:5px dashed #B3121B;opacity:.7}
+.mpp{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative}
+.mpp .d{font:700 21px JBMono;color:#7C7468;letter-spacing:1px}
+.mpp .dot{width:30px;height:30px;border-radius:50%;background:#B3121B;box-shadow:0 0 0 8px #F6F3EC,0 0 0 11px #B3121B}
+.mpp b{font:800 30px/1.1 Bricolage;color:#1B1A17}
+.mpg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mps{background:#fff;border:3px solid #1B1A17;border-radius:22px;padding:26px 24px;box-shadow:6px 7px 0 #1B1A17;display:flex;align-items:center;gap:18px}
+.mps b{font:400 70px/1 Marker,Kalam,cursive;color:#B3121B;min-width:150px}
+.mps span{font:600 27px/1.25 Inter;color:#26221E}
+.mpbuy{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:18px;background:#1B1A17;color:#fff;border-radius:26px;padding:24px 28px;text-decoration:none}
+.mpbuy .bt{font:800 36px/1.1 Bricolage}.mpbuy .by{font:500 22px Inter;color:#C9C2B6;margin-top:6px}
+.mpbuy .go{flex:none;display:flex;align-items:center;gap:10px;background:#FFD12E;color:#1B1A17;font:800 30px Bricolage;border-radius:40px;padding:16px 26px}
+/* cta */
+.mcta{background:#F6F3EC}
+.mcw{position:absolute;inset:0;padding:96px 70px 120px;display:flex;flex-direction:column}
+.mct{font:400 150px/0.98 Marker,Kalam,cursive;color:#B3121B;transform:rotate(-1.5deg);transform-origin:left;letter-spacing:-1px}
+.mct em{font-family:Marker,Kalam,cursive;font-style:normal;color:#1B1A17;background:linear-gradient(100deg,transparent 2%,#FFE15A 4%,#FFD12E 94%,transparent 97%);background-size:100% 58%;background-position:0 82%;background-repeat:no-repeat;padding:0 10px}
+.mcb{font:400 46px/1.25 Hand,cursive;color:#3A352E;margin-top:26px;max-width:720px}
+.mcw .doodle{position:absolute;right:120px;top:470px;width:200px;transform:rotate(8deg)}
+.igc{margin-top:70px;background:#fff;border:3px solid #1B1A17;border-radius:30px;padding:26px;box-shadow:8px 10px 0 #1B1A17;display:flex;flex-direction:column;gap:22px}
+.igr{display:flex;align-items:center;gap:16px}
+.igr .you{width:64px;height:64px;border-radius:50%;background:#ECE6DA;display:grid;place-items:center;font:700 20px Inter;color:#6C6356;flex:none}
+.igi{flex:1;border:2.5px solid #D9D3C7;border-radius:40px;padding:20px 26px;font:800 50px JBMono;color:#1B1A17;letter-spacing:1px;display:flex;align-items:center}
+.igi .car{display:inline-block;width:4px;height:42px;background:#B3121B;margin-left:6px}
+.igr .post{font:800 30px Inter;color:#0095F6}
+.dmr{display:flex;gap:16px;align-items:flex-end}
+.dmr .mono{width:58px;height:58px}
+.bub{background:#F1EEE8;border-radius:28px 28px 28px 8px;padding:20px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.bub .bt{font:600 34px Inter;color:#1B1A17}
+.file{display:flex;align-items:center;gap:18px;background:#fff;border:2px solid #E2DCD0;border-radius:18px;padding:20px 22px;color:#B3121B}
+.file b{display:block;font:700 31px Inter;color:#1B1A17}.file span{font:600 25px JBMono;color:#7C7468}
+.mca{margin-top:auto;display:flex;gap:16px}
+.mca span{flex:1;justify-content:center;white-space:nowrap;display:flex;align-items:center;gap:12px;font:800 31px Bricolage;border-radius:40px;padding:20px 24px}
+.mca .fol{background:#B3121B;color:#fff;box-shadow:0 14px 28px -10px rgba(179,18,27,.6)}
+.mca .msh{border:3px solid #1B1A17;color:#1B1A17;background:#fff}
+"""
+
 KW = r"\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|FULL JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|HAVING|LIMIT|OFFSET|OVER|PARTITION BY|ROWS BETWEEN|PRECEDING|CURRENT ROW|CASE|WHEN|THEN|ELSE|END|WITH|DISTINCT|UNION|ALL|DESC|ASC|INTERVAL|import|from|def|return|for|in|if|elif|else|print|lambda|True|False|None|as|with|class|VAR|RETURN)\b"
 
 def inl(t):
@@ -730,17 +782,24 @@ def _src(p):
         return f"data:{mt};base64," + base64.b64encode(open(p, "rb").read()).decode()
     return p
 
+MONO = ('<svg class="mono" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#1B1A17"/>'
+        '<rect x="15" y="33" width="9" height="15" rx="2.5" fill="#FFD12E"/><rect x="27.5" y="25" width="9" height="23" rx="2.5" fill="#FFFFFF"/>'
+        '<rect x="40" y="15" width="9" height="33" rx="2.5" fill="#E8333B"/></svg>')
+ARROW = ('<svg class="doodle" viewBox="0 0 220 150" aria-hidden="true"><path d="M14 22 C 90 2, 170 30, 186 118" stroke="#B3121B" stroke-width="7" fill="none" stroke-linecap="round"/>'
+         '<path d="M160 104 L188 126 L202 94" stroke="#B3121B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
 def mega_page(s, i, n):
     """Mega-sheet series slides: marker_cover | sheet | bigtable (no app chrome; series look)."""
     t = s["type"]
     segs = "".join(f'<i class="{"on" if k <= i else ""}"></i>' for k in range(1, n + 1))
-    sig = (f'<div class="sig sig3"><span class="h">@thedataguy16</span><span class="dots">{segs}</span>'
+    sig = (f'<div class="sig sig3"><span class="h">{MONO}@thedataguy16</span><span class="dots">{segs}</span>'
            f'<span class="pg">{"Save this" if i == n else f"{i:02d} / {n:02d}"}{icon("bookmark", 26, 2.4) if i == n else icon("arrow-right", 26, 2.6)}</span></div>')
     if t == "marker_cover":
         prev = s.get("_previews") or []
         fan = "".join(f'<img class="f{k}" src="{p}">' for k, p in enumerate(prev[:3]))
         kw = s.get("_keyword")
-        inner = (f'<div class="cv3"><div class="cvtop"><div class="who"><span class="av">DG</span><b>thedataguy16</b>{icon("badge-check", 30, 2.4)}</div>'
+        inner = (f'<div class="cv3"><div class="cvtop"><div class="who">{MONO}<b>thedataguy16</b>{icon("badge-check", 30, 2.4)}</div>'
                  f'<span class="chip">{icon("bookmark", 26, 2.4)}Save for later</span></div>'
                  f'<div class="cvh"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
                  + (f'<div class="fan n{len(prev[:3])}">{fan}</div>' if fan else "")
@@ -749,6 +808,25 @@ def mega_page(s, i, n):
                  + f'<span class="swp">Swipe{icon("arrow-right", 30, 2.8)}</span></div></div>')
         cls = "mg mc3" + (" nofan" if not fan else "")
         return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
+    elif t == "mproduct":
+        ph = "".join(f'<div class="mpp"><span class="d">{html.escape(r)}</span><span class="dot"></span><b>{inl(nm)}</b></div>' for r, nm in s.get("phases", []))
+        st = "".join(f'<div class="mps"><b>{inl(v)}</b><span>{inl(l)}</span></div>' for v, l in s.get("stats", []))
+        inner = (f'<div class="mpw"><div class="mpk">{icon("star", 26, 2.6)}{inl(s.get("kicker",""))}</div>'
+                 f'<div class="mpt">{inl(s["title"])}</div><div class="mpb">{inl(s.get("body",""))}</div>'
+                 f'<div class="mproad"><div class="line"></div>{ph}</div><div class="mpg">{st}</div>'
+                 f'<a class="mpbuy" href="{html.escape(s["url"])}"><div><div class="bt">{inl(s.get("buy_title",""))}</div><div class="by">{inl(s.get("byline",""))}</div></div>'
+                 f'<span class="go">{inl(s.get("button","Link in bio"))}{icon("arrow-right", 30, 2.8)}</span></a></div>')
+        cls = "mg mprod"
+    elif t == "mcta":
+        kw = s.get("keyword", "")
+        pages = s.get("_pdf_pages")
+        inner = (f'<div class="mcw"><div class="mct">{inl(s["title"])}</div><div class="mcb">{inl(s.get("body","").replace("-page", "\u2011page"))}</div>{ARROW}'
+                 f'<div class="igc"><div class="igr"><span class="you">You</span><div class="igi">{html.escape(kw)}<i class="car"></i></div><span class="post">Post</span></div>'
+                 f'<div class="dmr">{MONO}<div class="bub"><div class="bt">Here is your PDF. Save it.</div>'
+                 f'<div class="file">{icon("book-open", 34, 2.4)}<div><b>{html.escape(s.get("_series","notes"))} by @thedataguy16</b><span>PDF' + (f' · {pages} pages' if pages else '') + '</span></div></div></div></div></div>'
+                 f'<div class="mca"><span class="fol">{icon("user-check", 32, 2.4)}{inl(s.get("action","Follow @thedataguy16"))}</span>'
+                 f'<span class="msh">{icon("send", 30, 2.4)}Send to a friend</span></div></div>')
+        cls = "mg mcta"
     elif t == "sheet":
         def fxrow(r):
             fx = f'<div class="fx">{html.escape(r["formula"])}</div>'
@@ -793,7 +871,7 @@ def mega_page(s, i, n):
         cls = "mg bt"
     return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}{sig}<div class="grain"></div></div></body></html>')
 
-MEGA_TYPES = ("marker_cover", "sheet", "bigtable", "kids", "split", "flow")
+MEGA_TYPES = ("marker_cover", "sheet", "bigtable", "kids", "split", "flow", "mproduct", "mcta")
 
 LAYOUTS = ["cards", "grid", "editorial", "notebook"]
 # Post styles: every slide in a post shares one style; the 3 daily posts must use different styles.
@@ -880,7 +958,7 @@ async def render(spec, out):
     async with async_playwright() as p:
         b = await launch(p)
         pg = await b.new_page(viewport={"width": W, "height": H})
-        kw = next((x.get("keyword") for x in sl if x["type"] == "cta"), None)
+        kw = next((x.get("keyword") for x in sl if x["type"] in ("cta", "mcta")), None)
         sticker = spec.get("sticker") or (f"{spec.get('_pdf_pages') or len(sl)}-page<br>PDF" if kw else None)
         content = [k for k, x in enumerate(sl) if x["type"] in ("sheet", "bigtable", "kids", "split", "flow")]
         nsplit = 0
@@ -938,23 +1016,31 @@ PRODUCT = {"type": "product", "kicker": "The 90-Day System · 5.0 Best Seller",
     "button": "Link in bio", "url": "https://topmate.io/abhishek_kumar1085/1990922"}
 
 def with_product(spec):
-    """Insert the product pitch slide right before the CTA (default on; spec.product=false disables)."""
+    """Insert the product pitch slide right before the CTA (default on; spec.product=false disables).
+    Marker-series posts get the brand versions: mproduct + mcta."""
     sl = list(spec["slides"])
-    if spec.get("product") is False or any(x["type"] == "product" for x in sl): return sl
+    series = bool(sl) and sl[0]["type"] == "marker_cover"
+    if series:
+        sl = [dict(x, type="mcta", _pdf_pages=spec.get("_pdf_pages"), _series=spec.get("series", "")) if x["type"] == "cta" else x for x in sl]
+    if spec.get("product") is False or any(x["type"] in ("product", "mproduct") for x in sl): return sl
     p = dict(PRODUCT, **(spec.get("product") if isinstance(spec.get("product"), dict) else {}))
-    k = len(sl) - 1 if sl and sl[-1]["type"] == "cta" else len(sl)
+    if series: p["type"] = "mproduct"
+    k = len(sl) - 1 if sl and sl[-1]["type"] in ("cta", "mcta") else len(sl)
     return sl[:k] + [p] + sl[k:]
 
 async def build_pdf(spec, files, out_pdf):
     """PDF for DM delivery: every slide as rendered; the product slide is live HTML so its button is a clickable link."""
     import base64
-    sl = with_product(spec); style = spec.get("style") or list(STYLES)[sum(map(ord, spec.get("series", ""))) % len(STYLES)]
+    sl = with_product(dict(spec, _pdf_pages=page_count(spec))); style = spec.get("style") or list(STYLES)[sum(map(ord, spec.get("series", ""))) % len(STYLES)]
     async with async_playwright() as p:
         b = await launch(p)
         pg = await b.new_page(viewport={"width": W, "height": H})
         parts = []
         for i, (s, f) in enumerate(zip(sl, files), 1):
-            if s["type"] == "product":
+            if s["type"] == "mproduct":
+                await pg.set_content(mega_page(s, i, len(sl))); await pg.evaluate("document.fonts.ready")
+                parts.append('<div class="pp">' + await pg.evaluate("document.querySelector('.mg').outerHTML") + '</div>')
+            elif s["type"] == "product":
                 await pg.set_content(page(s, i, len(sl), spec.get("series", ""), style, spec.get("layout") or "cards")); await pg.evaluate("document.fonts.ready")
                 await fit(pg)
                 parts.append('<div class="pp">' + await pg.evaluate("document.querySelector('.s').outerHTML") + '</div>')
