@@ -58,6 +58,9 @@ h1{font:800 clamp(30px,5vw,44px)/1 'Bricolage Grotesque',Manrope,sans-serif;marg
 @media (prefers-reduced-motion:no-preference){.post{transition:border-color .15s}}
 
 [hidden]{display:none!important}
+.reelbox{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.reelbox video{width:min(280px,70vw);aspect-ratio:9/16;border-radius:14px;background:#000;display:block}
+.reelmeta{display:grid;gap:10px;align-content:start}
 .repl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--bad-bg);color:var(--bad);border-radius:10px;padding:10px 12px;font-weight:600}
 .repl b{font-variant-numeric:tabular-nums}.repl.on{background:var(--pend-bg);color:var(--pend)}
 .daybar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -124,7 +127,7 @@ function card(p){
   const link=[p.replaces?`Replaces <b>${esc(p.replaces)}</b>`:'',p.replacedBy?`Replaced by <b>${esc(p.replacedBy)}</b>`:''].filter(Boolean).join(' · ');
   const src=(p.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>`).join(' · ');
   return `<article class="post" id="post-${p.id}">
-    <div class="meta"><span class="st ${p.status}">${LABEL[p.status]||p.status}</span><span class="mono">SLOT ${p.slot} · ${esc(p.slotTime||'')} IST</span><span class="mono">${esc((p.pillar||'').toUpperCase())}</span><span class="mono">${esc((p.format||'').toUpperCase())}</span><span class="mono">${(p.slides||[]).length} SLIDES · ${p.pdf?p.pdf.pages:'?'}-PAGE PDF</span><span class="kw">${esc(p.keyword)}</span>${p.music?`<span class="mono">♪ ${esc(p.music)}</span>`:''}</div>
+    <div class="meta"><span class="st ${p.status}">${LABEL[p.status]||p.status}</span><span class="mono">SLOT ${p.slot} · ${esc(p.slotTime||'')} IST</span><span class="mono">${esc((p.pillar||'').toUpperCase())}</span><span class="mono">${esc((p.format||'').toUpperCase())}</span><span class="mono">${p.kind==='reel'?'REEL · '+(p.seconds||'?')+' S':(p.slides||[]).length+' SLIDES · '+(p.pdf?p.pdf.pages:'?')+'-PAGE PDF'}</span><span class="kw">${esc(p.keyword)}</span>${p.music?`<span class="mono">♪ ${esc(p.music)}</span>`:''}</div>
     <h3>${esc(p.title)}</h3>
     ${p.why?`<div class="src"><strong style="color:var(--ink)">Why this post:</strong> ${esc(p.why)}</div>`:''}
     ${link?`<div class="lk">${link}</div>`:''}
@@ -132,12 +135,15 @@ function card(p){
     ${p.coverAlt?`<div class="covers"><div class="lbl">Pick the cover</div><div class="cvrow">
       ${[['a',p.slides[0]],['b',p.coverAlt]].map(([k,c])=>`<button class="cv ${(p.coverChoice||'a')===k?'on':''}" data-cover="${k}" data-id="${p.id}" aria-pressed="${(p.coverChoice||'a')===k}"><img src="${esc(c.url)}" alt="Cover ${k.toUpperCase()}"><span>${(p.coverChoice||'a')===k?'✓ Using ':''}Cover ${k.toUpperCase()}${c.hook?' · '+esc(c.hook):''}</span></button>`).join('')}
     </div></div>`:''}
-    <div class="strip">${sl}</div>
+    ${p.kind==='reel'&&p.video?`<div class="reelbox"><video src="${esc(p.video.url)}" poster="${esc(p.cover?p.cover.url:'')}" controls playsinline preload="metadata"></video>
+      <div class="reelmeta"><div class="lbl">Learning reel · ${esc(String(p.seconds||''))} s · silent, add music in Instagram</div>
+      <a class="btn" href="${esc(p.video.url)}?dl=1" download="${esc(p.video.name)}">Video (mp4)</a>
+      ${p.cover?`<a class="btn" href="${esc(p.cover.url)}?dl=1" download="${esc(p.slug)}_cover.jpg">Cover (jpg)</a>`:''}</div></div>`:`<div class="strip">${sl}</div>`}
     <div class="cap" id="cap-${p.id}">${esc(p.caption)}${p.hashtags?'\n\n'+esc(p.hashtags):''}</div>
     <div class="row">${act}<span class="sp"></span>
       <button class="btn" data-copy="${p.id}">Copy caption</button>
       <button class="btn" data-kw="${p.id}">Copy keyword</button>
-      <a class="btn" href="/api/posts/${encodeURIComponent(p.id)}/slides.zip">Slides (zip)</a>
+      ${p.kind==='reel'?'':`<a class="btn" href="/api/posts/${encodeURIComponent(p.id)}/slides.zip">Slides (zip)</a>`}
       ${p.pdf?`<a class="btn" href="${esc(p.pdf.url)}?dl=1" download="${esc(p.pdf.name)}">PDF</a>`:''}
     </div>
     ${src?`<div class="src">Sources: ${src}</div>`:''}

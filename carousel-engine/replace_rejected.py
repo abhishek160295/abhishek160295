@@ -52,8 +52,16 @@ def plan_replacements(d, L=print):
     new = []
     for rej in todo:
         slot = rej["slot"]
-        n = 1 + sum(1 for k in plan["replacements"] if k.startswith(f"s{slot}-r"))
+        n = 1 + sum(1 for k in plan["replacements"] if k.startswith(f"s{slot}-r") or (slot == "R" and k.startswith("r1-r")))
         sid = f"s{slot}-r{n}"
+        if rej["format"] == "reel":
+            from engine.planner import reel_brief
+            b = reel_brief(d, pb, exclude=[rej.get("topic")], why_prefix=f"Replaces {rej['id']} (reel slot stays a learning reel, new topic).")
+            b.update(replaces=rej["id"], avoid={"title": rej["title"], "topic": rej.get("topic"), "format": "reel", "keyword": rej.get("keyword")})
+            sid = f"r1-r{n}"
+            plan["replacements"][sid] = b; new.append(sid)
+            L(f"replace {rej['id']} (reel: {rej['title']}) -> {sid}: reel [{b['topic']}]")
+            continue
         if rej["format"] == "mega-kids":
             label = "KIDS (big tool/role)"
             kr = pb["kidsRules"]  # owner said no to this topic: never offer it again

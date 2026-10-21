@@ -223,6 +223,31 @@ def brief_for(label, slot, d, hist, pb, eng, taken_topics, used_hooks, used_styl
     return b
 
 
+def pick_reel_topic(d, pb, exclude=()):
+    rr = pb.get("reelRules")
+    if not rr:
+        return None
+    done = {x["topic"]: x["date"] for x in rr.get("done", [])}
+    for q in rr["queue"]:
+        if q["topic"] in exclude:
+            continue
+        if q["topic"] in done and days_between(d, done[q["topic"]]) <= rr.get("noRepeatDays", 60):
+            continue
+        return q
+    return None
+
+
+def reel_brief(d, pb, exclude=(), why_prefix=""):
+    rr = pb["reelRules"]
+    q = pick_reel_topic(d, pb, exclude)
+    if not q:
+        raise RuntimeError("reelRules.queue is exhausted: add topics")
+    return {"slot": "R", "slotTime": rr.get("slotTime", "20:00"), "rotation": "LEARNING REEL", "format": "reel", "pillar": "Learning",
+            "topic": q["topic"], "angle": q["angle"], "level": q["level"], "hookType": "watch-it-run",
+            "evidence": rr["why"], "why": (why_prefix + " " if why_prefix else "") + rr["why"],
+            "brief": f"Learning reel on '{q['topic']}' ({q['angle']}). " + rr["format"]}
+
+
 def plan_day(d, write=True):
     pb, eng, hist = load("playbook"), load("engine"), history()
     wd = weekday(d)
@@ -251,6 +276,8 @@ def plan_day(d, write=True):
         used_hooks.append(b["hookType"]); used_styles.append(b["style"]); used_layouts.append(b["layout"])
         slots.append(b)
     plan = {"date": d.isoformat(), "weekday": wd, "slots": slots, "swaps": notes, "banned": banned(d, hist)}
+    if pb.get("reelRules"):
+        plan["reel"] = reel_brief(d, pb)
     if write:
         out = DAYS / d.isoformat(); out.mkdir(parents=True, exist_ok=True)
         json.dump(plan, open(out / "plan.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)

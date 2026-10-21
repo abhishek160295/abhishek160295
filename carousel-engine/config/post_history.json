@@ -2342,5 +2342,56 @@
    "hook": "question"
   },
   "coverChoice": "a"
+ },
+ {
+  "id": "2026-10-21-r1",
+  "date": "2026-10-21",
+  "slot": "R",
+  "slotTime": "20:00",
+  "kind": "reel",
+  "status": "draft",
+  "format": "reel",
+  "hookType": "watch-it-run",
+  "pillar": "Learning",
+  "slug": "reel-bubble-sort",
+  "title": "Bubble Sort, visualised in Python",
+  "caption": "Every sorting question starts here. Watch each swap happen, line by line.\nSave it before your next coding round.\nFollow @thedataguy16 and comment SORT. I'll DM you the code.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#python #coding #datastructures #learnpython #dataanalyst #thedataguy16",
+  "keyword": "SORT",
+  "why": "Proven: reference reel 15M views; Reel 'If I started DAX from zero' 25,910 / 34 follows / 68% non-followers on this account; kids-style visuals bring 50-72% non-follower reach. Topic 1 of reelRules.queue; same concept as the 15M-view reference, rebuilt in the brand with live variables, compare bubble and locked-in ticks.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Bubble Sort",
+  "seconds": 24.1,
+  "video": {
+   "path": "posts/2026-10-21/reel-bubble-sort/reel.mp4",
+   "url": "/files/posts/2026-10-21/reel-bubble-sort/reel.mp4",
+   "name": "reel-bubble-sort.mp4"
+  },
+  "cover": {
+   "path": "posts/2026-10-21/reel-bubble-sort/cover.jpg",
+   "url": "/files/posts/2026-10-21/reel-bubble-sort/cover.jpg"
+  },
+  "slides": [
+   {
+    "path": "posts/2026-10-21/reel-bubble-sort/frame_01.jpg",
+    "url": "/files/posts/2026-10-21/reel-bubble-sort/frame_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/reel-bubble-sort/frame_02.jpg",
+    "url": "/files/posts/2026-10-21/reel-bubble-sort/frame_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/reel-bubble-sort/frame_03.jpg",
+    "url": "/files/posts/2026-10-21/reel-bubble-sort/frame_03.jpg"
+   }
+  ],
+  "spec": "days/2026-10-21/r1.reel.json",
+  "sources": [
+   {
+    "title": "Python docs: list",
+    "url": "https://docs.python.org/3/tutorial/datastructures.html"
+   }
+  ],
+  "createdAt": "2026-10-21T19:42:21.435454+05:30"
  }
 ]

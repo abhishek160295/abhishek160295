@@ -1,7 +1,14 @@
 # @thedataguy16 carousel engine
 
-Four carousels a day, researched and written by Claude Code, verified by code, rendered locally,
-approved by you in a local desk. Kids series every day at 19:00. No reels.
+Four carousels and one learning reel a day, researched and written by Claude Code, verified by code, rendered locally,
+approved by you in a local desk. Kids series every day at 19:00, learning reel at 20:00.
+
+## The daily learning reel
+`reels/reel.py` runs real Python, traces every line, and turns the trace into a 15-35 s vertical video: characters with
+the numbers on their bellies compare, swap and change value while the matching code line lights up, variables update
+live, and the real output prints at the end. Silent on purpose: add music in Instagram. Topics come from
+`playbook.reelRules.queue` (basics to data science, no repeat in 60 days). Try one:
+`python reels/reel.py reels/specs/bubble_sort.json out/reels/bubble`
 
 ## Daily routine (2 minutes)
 

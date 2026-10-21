@@ -34,3 +34,16 @@ Date: {{DATE}} (IST). Mode: {{MODE}}. Write these slot ids: {{SLOTS}}.
    wrapping, emoji on two lines, tiny text, two slides that look the same, or a slide that clashes with the rest. Fix the
    specs and run the check one more time. Stop when the check prints no ERROR lines.
 Do not edit config/, render.py or engine/. Do not touch other days. Never post, never open Instagram.
+
+## The daily learning reel (slot id r1, or r1-rN for a replacement)
+The brief is plan.reel (or replacements[<id>]). Write:
+   days/<date>/<id>.reel.json  spec for reels/reel.py (see its header and reels/specs/*.json): title (the concept, 2-3 words),
+       lang, sub, hook (one line, may use <em>word</em>), endline, keyword, code (<= 14 lines, each <= 58 chars, one list of
+       5-9 numbers that the code changes in place, prints the result), list_var, show_vars, focus, compare or bubble, done,
+       target_seconds (<= 34), min_seconds (>= 15), expect_stdout (what the code really prints).
+   days/<date>/<id>.meta.json  {title, slug ("reel-..."), caption, hashtags (5-6), keyword (new), why, sources}
+   Caption = 1-3 short lines, then exactly:
+       Follow @thedataguy16 and comment <KEYWORD>. I'll DM you the code.
+       Want the complete 90-day system? Link in bio.
+The code must teach one real idea people search for; pick inputs that make every step visible (a few swaps, no
+trivial no-op runs). Then run the same check command and look at posts/<date>/<slug>/frame_*.jpg.

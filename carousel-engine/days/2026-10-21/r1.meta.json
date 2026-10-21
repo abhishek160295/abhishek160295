@@ -1,0 +1,14 @@
+{
+ "title": "Bubble Sort, visualised in Python",
+ "slug": "reel-bubble-sort",
+ "keyword": "SORT",
+ "caption": "Every sorting question starts here. Watch each swap happen, line by line.\nSave it before your next coding round.\nFollow @thedataguy16 and comment SORT. I'll DM you the code.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#python #coding #datastructures #learnpython #dataanalyst #thedataguy16",
+ "why": "Proven: reference reel 15M views; Reel 'If I started DAX from zero' 25,910 / 34 follows / 68% non-followers on this account; kids-style visuals bring 50-72% non-follower reach. Topic 1 of reelRules.queue; same concept as the 15M-view reference, rebuilt in the brand with live variables, compare bubble and locked-in ticks.",
+ "sources": [
+  {
+   "title": "Python docs: list",
+   "url": "https://docs.python.org/3/tutorial/datastructures.html"
+  }
+ ]
+}

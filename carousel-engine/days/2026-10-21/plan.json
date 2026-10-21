@@ -441,5 +441,19 @@
    "XLTASK24",
    "XLVSPBI"
   ]
+ },
+ "reel": {
+  "slot": "R",
+  "slotTime": "20:00",
+  "rotation": "LEARNING REEL",
+  "format": "reel",
+  "pillar": "Reel",
+  "topic": "Bubble Sort",
+  "angle": "the biggest number bubbles to the end",
+  "level": "basics",
+  "hookType": "watch-it-run",
+  "evidence": "Proven: reference reel 15M views; Reel 'If I started DAX from zero' 25,910 / 34 follows / 68% non-followers on this account; kids-style visuals bring 50-72% non-follower reach.",
+  "why": "Proven: reference reel 15M views; Reel 'If I started DAX from zero' 25,910 / 34 follows / 68% non-followers on this account; kids-style visuals bring 50-72% non-follower reach.",
+  "brief": "Learning reel on 'Bubble Sort' (the biggest number bubbles to the end). Scene 'trace-list': one list of 5-9 numbers, code of at most 14 lines (each <= 52 chars), real stdout at the end. 15-35 s. Title = the concept name (2-3 words). Hook line on the intro card names why it matters. Ends with 'Comment KEYWORD and I'll DM you the code'."
  }
 }

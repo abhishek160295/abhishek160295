@@ -4,7 +4,8 @@ Instagram carousels for data-analytics freshers (tier 2/3 India, ~82K followers)
 desk and uploads by hand from his phone with music. Commenters get the PDF by DM; the PDF ends with the 90-Day System page.
 
 ## Hard rules (never break)
-1. 4 carousels a day: s1 08:30, s2 10:30, s3 19:00 KIDS, s4 21:00 (IST). No reels of any kind: no scripts, scroll videos, reel kits.
+1. 4 carousels a day: s1 08:30, s2 10:30, s3 19:00 KIDS, s4 21:00 (IST), plus 1 learning reel at 20:00 in the code-visual
+   format only (reels/reel.py; owner changed this on 21 Oct 2026). No other reels: no talking-head, scroll videos or reel kits.
 2. Light themes only: ember, mist, terracotta, paper. Never theme "ink", no dark panels.
 3. No Canva or AI images. Kids pictures are Noto Color Emoji only (cell.emoji).
 4. KIDS ("explain it like I'm 5") every day at 19:00, big tools/roles from playbook.kidsRules.queue only. No repeat within 60 days;
@@ -26,5 +27,6 @@ Content must also clear prompts/quality_bar.md (tested result on every formula r
 - make_day.py: plan -> Claude writes (prompts/write_posts.md) -> check -> finalize -> desk -> notification
 - engine/: planner (rotation + freshness), validate (rules), verify (runs code), build (render/QA/history), store (desk SQLite)
 - days/<date>/: plan.json, sN.spec.json, sN.meta.json, check_report.txt | posts/<date>/<slug>/: slides, cover_b, carousel.pdf
+- reels/reel.py: learning reel renderer (trace-driven animation). Specs: days/<date>/r1.reel.json
 - desk_server.py + desk/index.html: local approval desk | replace_rejected.py | insights_update.py + prompts/insights_review.md
 - config/: engine.json, playbook.json (rotation, rules, kids/roleVs/cheatSheet/notesDrop state), insights.json, post_history.json

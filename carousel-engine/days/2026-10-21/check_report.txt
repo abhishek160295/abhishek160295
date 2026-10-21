@@ -122,4 +122,6 @@
 == s4 21:00 ROLE VS :: Data Analyst vs Product Analyst: same SQL, different questions [10-page PDF, 10 post slides]
   ok  sql    da-query: [['Central', 4350.0], ['North', 300.0], ['West', 4250.0]]
   ok  sql    pa-query: [['Cancelled', 1], ['Delivered', 6], ['Returned', 1]]
+== r1 20:00 LEARNING REEL :: Bubble Sort, visualised in Python [24.1 s video]
+  ok  python reel code ran: 24 chars of output -> [1, 2, 3, 4, 5, 6, 7, 8]
 contact sheet: posts/2026-10-21/contact.jpg

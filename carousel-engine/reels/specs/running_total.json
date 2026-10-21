@@ -1,0 +1,24 @@
+{
+ "title": "Running Total",
+ "lang": "Python",
+ "sub": "the cumulative sum behind every MIS report",
+ "hook": "Your manager asks for <em>sales to date</em>. Here is what Python does.",
+ "endline": "That's cumsum(). Now you know.",
+ "keyword": "CUMSUM",
+ "code": "sales = [120, 80, 150, 60, 200, 90]\nfor i in range(1, len(sales)):\n    sales[i] = sales[i] + sales[i - 1]\nprint(sales)",
+ "list_var": "sales",
+ "show_vars": [
+  "i"
+ ],
+ "focus": [
+  "i - 1",
+  "i"
+ ],
+ "done": "list(range(0, i))",
+ "target_seconds": 16,
+ "bubble": {
+  "line_has": "sales[i] = sales[i] + sales[i - 1]",
+  "text": "f'{sales[i]} + {sales[i - 1]} = {sales[i] + sales[i - 1]}'"
+ },
+ "min_seconds": 15
+}

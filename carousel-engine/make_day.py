@@ -53,7 +53,7 @@ def main():
     if a.cmd == "run" and not a.no_write:
         from engine.writer import write_with_claude
         plan = json.load(open(DAYS / date / "plan.json"))
-        write_with_claude(date, sids or [f"s{s['slot']}" for s in plan["slots"]], "day", L)
+        write_with_claude(date, sids or [f"s{s['slot']}" for s in plan["slots"]] + (["r1"] if plan.get("reel") else []), "day", L)
     posts = finalize(date, sids, L)
     L(f"finalized {len(posts)} posts for {date}")
     body = post_lines(posts) + "\n" + dm_reminder(posts)

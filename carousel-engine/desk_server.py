@@ -64,8 +64,19 @@ class H(BaseHTTPRequestHandler):
             f = (ROOT / path[len("/files/"):]).resolve()
             if not any(str(f).startswith(str(d.resolve())) for d in SERVE) or not f.is_file():
                 return self._send(404, {"error": "not found"})
-            extra = {"Content-Disposition": f'attachment; filename="{f.parent.name}.pdf"'} if f.suffix == ".pdf" and "dl=1" in self.path else None
-            return self._send(200, f.read_bytes(), mimetypes.guess_type(f.name)[0] or "application/octet-stream", extra)
+            ctype = mimetypes.guess_type(f.name)[0] or "application/octet-stream"
+            extra = {"Accept-Ranges": "bytes"}
+            if "dl=1" in self.path:
+                extra["Content-Disposition"] = f'attachment; filename="{f.parent.name}{f.suffix}"'
+            data = f.read_bytes()
+            rng = re.fullmatch(r"bytes=(\d*)-(\d*)", self.headers.get("Range") or "")
+            if rng and (rng.group(1) or rng.group(2)):  # Safari needs byte ranges to play video
+                a = int(rng.group(1)) if rng.group(1) else len(data) - int(rng.group(2))
+                b = int(rng.group(2)) if rng.group(1) and rng.group(2) else len(data) - 1
+                b = min(b, len(data) - 1)
+                extra["Content-Range"] = f"bytes {a}-{b}/{len(data)}"
+                return self._send(206, data[a:b + 1], ctype, extra)
+            return self._send(200, data, ctype, extra)
         self._send(404, {"error": "not found"})
 
     def do_POST(self):

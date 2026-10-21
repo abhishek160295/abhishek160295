@@ -20,6 +20,8 @@ def plan_of(date):
 
 def briefs(plan):
     out = {f"s{b['slot']}": b for b in plan["slots"]}
+    if plan.get("reel"):
+        out["r1"] = plan["reel"]
     out.update(plan.get("replacements", {}))
     return out
 
@@ -69,13 +71,19 @@ def check_one(date, sid, brief, plan, day_metas, hist):
 def check_day(date, sids=None, log=print):
     plan, hist = plan_of(date), history()
     bs = briefs(plan)
-    sids = sids or [s for s in bs if (DAYS / date / f"{s}.spec.json").exists()]
+    sids = sids or [s for s in bs if (DAYS / date / f"{s}.spec.json").exists() or (DAYS / date / f"{s}.reel.json").exists()]
     metas = [json.load(open(DAYS / date / f"{s}.meta.json")) for s in bs if (DAYS / date / f"{s}.meta.json").exists()]
     results, lines = [], []
     for sid in sids:
-        r = check_one(date, sid, bs[sid], plan, metas, hist)
-        results.append(r)
-        lines.append(f"== {sid} {bs[sid]['slotTime']} {bs[sid]['rotation']} :: {r['meta']['title']} [{r['pages']}-page PDF, {len(r['files'])} post slides]")
+        if bs[sid].get("format") == "reel":
+            from .reelbuild import check_reel
+            r = check_reel(date, sid, bs[sid], hist, metas)
+            results.append(r)
+            lines.append(f"== {sid} {bs[sid]['slotTime']} LEARNING REEL :: {r['meta']['title']} [{r.get('seconds', '?')} s video]")
+        else:
+            r = check_one(date, sid, bs[sid], plan, metas, hist)
+            results.append(r)
+            lines.append(f"== {sid} {bs[sid]['slotTime']} {bs[sid]['rotation']} :: {r['meta']['title']} [{r['pages']}-page PDF, {len(r['files'])} post slides]")
         lines += [f"  ERROR {x}" for x in r["errors"]] + [f"  warn  {x}" for x in r["warnings"]] + [f"  {x}" for x in r["verify"]]
     cs = POSTS / date / "contact.jpg"
     sheet(cs, [r["out"] for r in results])
@@ -92,6 +100,20 @@ def _rel(p):
 
 def to_post(date, sid, brief, r, eng):
     meta, spec = r["meta"], r["spec"]
+    if r.get("kind") == "reel":
+        post = {"id": f"{date}-{sid}", "date": date, "slot": brief["slot"], "slotTime": brief["slotTime"], "kind": "reel",
+                "status": "draft", "format": "reel", "hookType": "watch-it-run", "pillar": "Learning", "slug": meta["slug"],
+                "title": meta["title"], "caption": meta["caption"],
+                "hashtags": meta["hashtags"] if isinstance(meta["hashtags"], str) else " ".join(meta["hashtags"]),
+                "keyword": meta["keyword"], "why": meta["why"], "music": eng.get("music", "search 'anime', pick from top 10"),
+                "topic": brief.get("topic"), "seconds": r["seconds"],
+                "video": {"path": _rel(r["video"]), "url": "/files/" + _rel(r["video"]), "name": f"{meta['slug']}.mp4"},
+                "cover": {"path": _rel(r["cover"]), "url": "/files/" + _rel(r["cover"])},
+                "slides": [{"path": _rel(f), "url": "/files/" + _rel(f)} for f in r["files"]],
+                "spec": f"days/{date}/{sid}.reel.json", "sources": meta.get("sources", []), "createdAt": now_ist().isoformat()}
+        if brief.get("replaces"):
+            post["replaces"] = brief["replaces"]
+        return post
     out = pathlib.Path(r["out"])
     slot = brief["slot"]
     post = {
@@ -126,6 +148,10 @@ def record_playbook(posts):
             for p in posts if p.get("hookFamily") or p.get("coverBMechanic")]
     for p in posts:
         t, d = p.get("topic"), p["date"]
+        if p["format"] == "reel" and t and "reelRules" in pb:
+            rr = pb["reelRules"]
+            rr["done"] = [x for x in rr.get("done", []) if x["topic"] != t] + [{"topic": t, "date": d, "keyword": p["keyword"]}]
+            continue
         if p["format"] == "mega-kids" and t:
             kr = pb["kidsRules"]
             if t in kr["queue"]: kr["queue"].remove(t)

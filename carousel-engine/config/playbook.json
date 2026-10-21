@@ -102,7 +102,7 @@
   "versus": "compare/table heavy: X vs Y with verdict"
  },
  "freshnessRules": [
-  "NO REELS (owner rule, 16 Oct): carousels only, 4 a day. Never make reel kits, scroll videos or reel scripts.",
+  "REELS (owner rule updated 21 Oct 2026): exactly 1 learning reel a day at 20:00 in the code-visual format (reels/reel.py: real code runs, characters act it out, the active line lights up). Every other reel type stays retired: talking-head, scroll videos, reel kits, Q&A, salary, kids, analogy reels. 4 carousels a day as before.",
   "BIG-NUMBER CHEAT SHEET daily-ish but never the same tool two days running.",
   "Roadmap/plan max 2 per week (declining: 11-15K, 2-9 follows).",
   "No title template twice in 3 days.",
@@ -670,5 +670,96 @@
    "myths, analogies, interviewer-POV, single-concept explainers"
   ],
   "usage": []
+ },
+ "reelRules": {
+  "slotTime": "20:00",
+  "noRepeatDays": 60,
+  "reference": "15M-view 'Bubble Sort / Python' reel: 25 s, silent loop with music, cute characters with numbers act out the code while the matching line is highlighted, ends on the printed output.",
+  "format": "Scene 'trace-list': one list of 5-9 numbers, code of at most 14 lines (each <= 58 chars), real stdout at the end. 15-35 s. Title = the concept name (2-3 words). Hook line on the intro card names why it matters. Ends with 'Comment KEYWORD and I'll DM you the code'.",
+  "why": "Proven: reference reel 15M views; Reel 'If I started DAX from zero' 25,910 / 34 follows / 68% non-followers on this account; kids-style visuals bring 50-72% non-follower reach.",
+  "queue": [
+   {
+    "topic": "Bubble Sort",
+    "angle": "the biggest number bubbles to the end",
+    "level": "basics"
+   },
+   {
+    "topic": "Running Total",
+    "angle": "cumsum behind every MIS report",
+    "level": "analyst"
+   },
+   {
+    "topic": "Binary Search",
+    "angle": "find a number in a sorted list by halving",
+    "level": "basics"
+   },
+   {
+    "topic": "Min-Max Normalisation",
+    "angle": "rescale any column to 0-1 before ML",
+    "level": "data science"
+   },
+   {
+    "topic": "Selection Sort",
+    "angle": "pick the smallest, put it first, repeat",
+    "level": "basics"
+   },
+   {
+    "topic": "Forward Fill Missing Values",
+    "angle": "what ffill() does to blanks",
+    "level": "analyst"
+   },
+   {
+    "topic": "Two Pointers: Reverse a List",
+    "angle": "swap from both ends",
+    "level": "basics"
+   },
+   {
+    "topic": "Percent Change",
+    "angle": "month-on-month growth, one line",
+    "level": "analyst"
+   },
+   {
+    "topic": "Insertion Sort",
+    "angle": "how you sort playing cards in your hand",
+    "level": "basics"
+   },
+   {
+    "topic": "Capping Outliers",
+    "angle": "clip extreme values before you average",
+    "level": "data science"
+   },
+   {
+    "topic": "Find the Maximum",
+    "angle": "what max() does under the hood",
+    "level": "basics"
+   },
+   {
+    "topic": "Moving Zeros to the End",
+    "angle": "a classic interview question",
+    "level": "interview"
+   },
+   {
+    "topic": "Kadane's Max Subarray",
+    "angle": "best streak of sales in one pass",
+    "level": "interview"
+   },
+   {
+    "topic": "Ranking Values",
+    "angle": "what RANK() does to a sales list",
+    "level": "analyst"
+   },
+   {
+    "topic": "Gradient Step on a List",
+    "angle": "one ML training step, visualised",
+    "level": "data science"
+   }
+  ],
+  "done": [
+   {
+    "topic": "Bubble Sort",
+    "date": "2026-10-21",
+    "keyword": "SORT"
+   }
+  ]
  }
 }
