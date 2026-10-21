@@ -72,3 +72,14 @@ def sync_from_history():
             hp = h.get(r["id"])
             if hp and hp.get("status") and hp["status"] != r["status"]:
                 con.execute("UPDATE posts SET status=? WHERE id=?", (hp["status"], r["id"]))
+
+
+def bootstrap_from_history():
+    """Fresh clone or deleted db: load every engine-built post (ones with rendered slides) into the desk."""
+    with connect() as con:
+        have = {r["id"] for r in con.execute("SELECT id FROM posts").fetchall()}
+    n = 0
+    for p in load("post_history"):
+        if p.get("id") and p.get("slides") and p["id"] not in have:
+            upsert(p); n += 1
+    return n

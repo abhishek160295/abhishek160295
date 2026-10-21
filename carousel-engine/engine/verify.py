@@ -261,9 +261,9 @@ def verify_post(spec, meta):
         kind = classify(text, hint)
         try:
             if kind == "sql":
-                run_sql(text); rep.append(f"ok  sql    slide {i}: {text[:70]}"); continue
+                run_sql(text); rep.append(f"ok  sql    slide {i}: {text[:70]!r}"); continue
             if kind == "python":
-                run_python(text); rep.append(f"ok  python slide {i}: {text[:70]}"); continue
+                run_python(text); rep.append(f"ok  python slide {i}: {text[:70]!r}"); continue
         except Exception as e:
             errors.append(f"slide {i}: {kind} failed: {text!r} -> {type(e).__name__}: {e}"); continue
         errors.append(f"slide {i}: unverified {kind} snippet {text!r} (add a check or a manual entry with a source)")
