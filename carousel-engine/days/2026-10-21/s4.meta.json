@@ -1,7 +1,7 @@
 {
  "title": "Data Analyst vs Product Analyst: same SQL, different questions",
  "slug": "da-vs-product-analyst",
- "caption": "Both write SQL every day. The questions they answer are not the same.\n7 pages side by side, so you know which one fits you.\nFollow @thedataguy16 and comment DAVSPA. I'll DM you the full 10-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "caption": "Both roles write SQL every day. They answer very different questions.\nSame table, two queries, a normal day, interviews, and which one to pick.\nFollow @thedataguy16 and comment DAVSPA. I'll DM you the full 10-page PDF.\nWant the complete 90-day system? Link in bio.",
  "hashtags": "#dataanalyst #productanalyst #analyticsjobs #sql #careerindia #thedataguy16",
  "keyword": "DAVSPA",
  "hookType": "role-vs",
@@ -18,7 +18,46 @@
   }
  ],
  "verify": {
-  "checks": [],
+  "checks": [
+   {
+    "id": "da-query",
+    "lang": "sql",
+    "query": "SELECT region, SUM(amount) FROM orders GROUP BY region;",
+    "expect": [
+     [
+      "Central",
+      4350.0
+     ],
+     [
+      "North",
+      300.0
+     ],
+     [
+      "West",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "pa-query",
+    "lang": "sql",
+    "query": "SELECT status, COUNT(*) FROM orders GROUP BY status;",
+    "expect": [
+     [
+      "Cancelled",
+      1
+     ],
+     [
+      "Delivered",
+      6
+     ],
+     [
+      "Returned",
+      1
+     ]
+    ]
+   }
+  ],
   "manual": []
  }
 }

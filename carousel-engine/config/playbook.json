@@ -144,7 +144,6 @@
   "noRepeatDays": 60,
   "partTwoAfterDays": 21,
   "queue": [
-   "Machine Learning",
    "ChatGPT/AI for data analysts",
    "pandas",
    "Excel formulas part 2 (lookups, IF, SUMIFS)",
@@ -199,6 +198,11 @@
    {
     "topic": "The data analyst's job",
     "date": "2026-10-11"
+   },
+   {
+    "topic": "Machine Learning",
+    "date": "2026-10-21",
+    "keyword": "MLKIDS"
    }
   ],
   "rejectedTopics": [
@@ -424,12 +428,12 @@
  "roleVs": {
   "note": "CAREER ROLES only, max 5 per week, never the same pair twice in 60 days. make_day.py picks the first unused pair from queue and records it in used.",
   "queue": [
-   "Data Analyst vs Product Analyst",
    "Service vs Product company analyst",
    "Fresher analyst vs 2-year analyst",
    "Data Analyst vs Consultant",
    "BI Developer vs Data Analyst",
-   "Data Analyst vs AI Engineer"
+   "Data Analyst vs AI Engineer",
+   "Data Analyst vs Product Analyst"
   ],
   "used": [
    {
@@ -451,6 +455,11 @@
    {
     "pair": "Data Analyst vs Financial Analyst",
     "date": "2026-10-18"
+   },
+   {
+    "pair": "Data Analyst vs Product Analyst",
+    "date": "2026-10-21",
+    "keyword": "DAVSPA"
    }
   ]
  },
@@ -475,6 +484,11 @@
    {
     "tool": "SQL",
     "date": "2026-10-18"
+   },
+   {
+    "tool": "Python",
+    "date": "2026-10-21",
+    "title": "38 Python lines that do your boring office work"
    }
   ]
  },
@@ -494,6 +508,12 @@
     "tool": "Python",
     "date": "2026-10-18",
     "template": "X for Data Analysis notes"
+   },
+   {
+    "tool": "Excel",
+    "date": "2026-10-21",
+    "title": "Excel notes for analyst jobs: 18 pages, every formula tested",
+    "pages": 21
    }
   ]
  }

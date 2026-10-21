@@ -160,6 +160,25 @@ def lint(spec, meta, brief, pages, day_metas=(), hist=()):
         a, c = [x.strip().lower() for x in brief["topic"].split(" vs ")]
         if a.split()[-1] not in blob or c.split()[-1] not in blob:
             E.append(f"ROLE VS must cover the planned pair: {brief['topic']}")
+    # ---- quality bar (prompts/quality_bar.md) ----
+    if sl[0]["type"] == "marker_cover" and not sl[0].get("sub"):
+        E.append("cover needs a sub line with the concrete payoff")
+    first = lines[0].strip().lower() if lines else ""
+    if re.match(r"(here are|here's|in this post|check out|do you want|are you|want to learn|did you know)", first):
+        E.append("caption line 1 opens generically; lead with the pain")
+    if len(lines[0]) > 90 if lines else False:
+        W.append("caption line 1 is over 90 characters")
+    for s in sl:
+        if s["type"] == "sheet":
+            code_rows = [r for r in s["rows"] if r["formula"].lstrip().startswith(("=", "SELECT", "WITH"))]
+            if code_rows and sum(1 for r in code_rows if r.get("result") not in (None, "")) < 0.8 * len(code_rows):
+                E.append(f"sheet '{s.get('ribbon') or s['title']}': show the tested result on formula rows (quality bar 2)")
+    if fmt == "vs-split":
+        heads = " ".join((s.get("top", {}).get("head") or "") for s in sl if s["type"] == "split").lower()
+        if "pick" not in heads:
+            E.append("ROLE VS needs a 'Pick X if...' decision slide (quality bar 5)")
+        if not any(re.search(r"\b(select|from|group by)\b", json.dumps(s).lower()) for s in sl if s["type"] == "split"):
+            E.append("ROLE VS needs the same task shown both ways (quality bar 5)")
     if meta.get("illustrative") and "illustrative" not in blob and "example" not in blob:
         E.append("illustrative example must be labelled on the slide")
     return E, W

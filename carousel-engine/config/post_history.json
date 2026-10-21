@@ -2014,5 +2014,333 @@
   "title": "Data Analyst or Financial Analyst? (split pages)",
   "keyword": "DAVSFA",
   "why": "Proven: ROLE VS split (DA vs DS 46,911 views / 120 follows, 53% non-followers; DA vs BA 29,835 / 53). New pair, not used in 60 days (used: DS, BA, DE, MIS). Strong fit for B.Com/BBA followers. Role facts are general and defensible; no salaries or stats. Title template varied from 'Data Analyst vs X' (16, 17 Oct). Style paper (split series)."
+ },
+ {
+  "id": "2026-10-21-s1",
+  "date": "2026-10-21",
+  "slot": 1,
+  "slotTime": "08:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "big-list",
+  "pillar": "Skills",
+  "slug": "python-office-work",
+  "title": "38 Python lines that do your boring office work",
+  "caption": "Renaming 40 files. Merging 12 monthly sheets. Fixing names with extra spaces.\nPython does each in one line. All of them are on these pages, tested.\nFollow @thedataguy16 and comment PYOFFICE. I'll DM you the full 6-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#python #pandas #excel #dataanalyst #automation #thedataguy16",
+  "keyword": "PYOFFICE",
+  "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. s1: topic 'Power BI' -> 'Python' by hand. Power BI shortcut docs (learn.microsoft.com) were unreachable from the build machine, so they could not be verified (hard rule 6); next least-recent cheat sheet tool. Fresh angle: office automation for MIS and Excel-heavy jobs, not a basic syntax sheet.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Python",
+  "slides": [
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_01.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_02.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_03.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_04.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_05.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/python-office-work/slide_06.jpg",
+    "url": "/files/posts/2026-10-21/python-office-work/slide_06.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-21/python-office-work/carousel.pdf",
+   "url": "/files/posts/2026-10-21/python-office-work/carousel.pdf",
+   "name": "python-office-work.pdf",
+   "pages": 6
+  },
+  "spec": "days/2026-10-21/s1.spec.json",
+  "sources": [
+   {
+    "title": "pandas.read_excel",
+    "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html"
+   },
+   {
+    "title": "pathlib",
+    "url": "https://docs.python.org/3/library/pathlib.html"
+   }
+  ],
+  "createdAt": "2026-10-21T17:35:56.590179+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-21/python-office-work/cover_b.jpg",
+   "url": "/files/posts/2026-10-21/python-office-work/cover_b.jpg",
+   "hook": "contrarian"
+  },
+  "coverChoice": "a"
+ },
+ {
+  "id": "2026-10-21-s2",
+  "date": "2026-10-21",
+  "slot": 2,
+  "slotTime": "10:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "notes-drop",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "notes-pages",
+  "pillar": "Skills",
+  "slug": "excel-notes-analyst-jobs",
+  "title": "Excel notes for analyst jobs: 18 pages, every formula tested",
+  "caption": "Excel round coming up? Revise from one file, not 40 saved reels.\n18 pages: formulas with their answers, lookups, pivots, cleaning, charts, shortcuts, interview replies.\nYou see 8 pages here. The PDF has all of them.\nFollow @thedataguy16 and comment XLNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#excel #dataanalyst #exceltips #mis #analystjobs #thedataguy16",
+  "keyword": "XLNOTES",
+  "why": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides. Excel is the least recent notes tool (SQL 16 Oct, Power BI 17 Oct, Python 18 Oct). Title template varied from 'Complete X Notes'.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Excel",
+  "slides": [
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_01.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_02.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_03.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_04.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_05.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_06.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_07.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_08.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_09.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_10.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_10.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/excel-notes-analyst-jobs/slide_11.jpg",
+    "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/slide_11.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-21/excel-notes-analyst-jobs/carousel.pdf",
+   "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/carousel.pdf",
+   "name": "excel-notes-analyst-jobs.pdf",
+   "pages": 21
+  },
+  "spec": "days/2026-10-21/s2.spec.json",
+  "sources": [
+   {
+    "title": "Keyboard shortcuts in Excel",
+    "url": "https://support.microsoft.com/en-us/accessibility/excel/keyboard-shortcuts-in-excel"
+   },
+   {
+    "title": "XLOOKUP function",
+    "url": "https://support.microsoft.com/en-us/excel/functions/xlookup-function"
+   },
+   {
+    "title": "UNIQUE function",
+    "url": "https://support.microsoft.com/en-us/excel/functions/unique-function"
+   },
+   {
+    "title": "SORTBY function",
+    "url": "https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f"
+   },
+   {
+    "title": "FILTER function",
+    "url": "https://support.microsoft.com/en-us/excel/functions/filter-function"
+   },
+   {
+    "title": "TEXTSPLIT function",
+    "url": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
+   }
+  ],
+  "createdAt": "2026-10-21T17:35:56.591371+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-21/excel-notes-analyst-jobs/cover_b.jpg",
+   "url": "/files/posts/2026-10-21/excel-notes-analyst-jobs/cover_b.jpg",
+   "hook": "notes-pages"
+  },
+  "coverChoice": "a"
+ },
+ {
+  "id": "2026-10-21-s3",
+  "date": "2026-10-21",
+  "slot": 3,
+  "slotTime": "19:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega-kids",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "explain-to-kid",
+  "pillar": "Kids",
+  "slug": "ml-to-a-5-year-old",
+  "title": "How I'd explain Machine Learning to a 5-year-old",
+  "caption": "Machine learning sounds scary. Most of it is a kid learning from examples.\n12 ideas from one school day, each with the real Python line under it.\nFollow @thedataguy16 and comment MLKIDS. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#machinelearning #dataanalyst #python #datascience #learnpython #thedataguy16",
+  "keyword": "MLKIDS",
+  "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. First topic in kidsRules.queue; ML never covered by a kids post.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Machine Learning",
+  "slides": [
+   {
+    "path": "posts/2026-10-21/ml-to-a-5-year-old/slide_01.jpg",
+    "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/ml-to-a-5-year-old/slide_02.jpg",
+    "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/ml-to-a-5-year-old/slide_03.jpg",
+    "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/ml-to-a-5-year-old/slide_04.jpg",
+    "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/ml-to-a-5-year-old/slide_05.jpg",
+    "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/slide_05.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-21/ml-to-a-5-year-old/carousel.pdf",
+   "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/carousel.pdf",
+   "name": "ml-to-a-5-year-old.pdf",
+   "pages": 5
+  },
+  "spec": "days/2026-10-21/s3.spec.json",
+  "sources": [
+   {
+    "title": "scikit-learn: getting started",
+    "url": "https://scikit-learn.org/stable/getting_started.html"
+   }
+  ],
+  "createdAt": "2026-10-21T17:35:56.592107+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-21/ml-to-a-5-year-old/cover_b.jpg",
+   "url": "/files/posts/2026-10-21/ml-to-a-5-year-old/cover_b.jpg",
+   "hook": "simple-explainer"
+  },
+  "coverChoice": "a"
+ },
+ {
+  "id": "2026-10-21-s4",
+  "date": "2026-10-21",
+  "slot": 4,
+  "slotTime": "21:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "vs-split",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "role-vs",
+  "pillar": "Career",
+  "slug": "da-vs-product-analyst",
+  "title": "Data Analyst vs Product Analyst: same SQL, different questions",
+  "caption": "Both roles write SQL every day. They answer very different questions.\nSame table, two queries, a normal day, interviews, and which one to pick.\nFollow @thedataguy16 and comment DAVSPA. I'll DM you the full 10-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#dataanalyst #productanalyst #analyticsjobs #sql #careerindia #thedataguy16",
+  "keyword": "DAVSPA",
+  "why": "Swapped from roadmap/plan: Roadmap/plan max 2 per week: already 2 in the last 7 days. Closest evidence_oct winner instead: Split DA vs DS 46,911 / 120 / 53%. Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Next unused career pair (used in 60 days: DS, BA, DE, MIS, FA). Role facts are general; no salaries or stats.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Data Analyst vs Product Analyst",
+  "slides": [
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_01.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_02.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_03.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_04.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_05.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_06.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_07.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_08.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_09.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-21/da-vs-product-analyst/slide_10.jpg",
+    "url": "/files/posts/2026-10-21/da-vs-product-analyst/slide_10.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-21/da-vs-product-analyst/carousel.pdf",
+   "url": "/files/posts/2026-10-21/da-vs-product-analyst/carousel.pdf",
+   "name": "da-vs-product-analyst.pdf",
+   "pages": 10
+  },
+  "spec": "days/2026-10-21/s4.spec.json",
+  "sources": [
+   {
+    "title": "Product Analyst vs Data Analyst (skillsetmaster)",
+    "url": "https://skillsetmaster.com/data-analytics-vs/product-analyst-vs-data-analyst"
+   },
+   {
+    "title": "BA vs PA vs DA 2026 comparison (dev.to)",
+    "url": "https://dev.to/unified_mentor/business-analyst-vs-product-analyst-vs-data-analyst-2026-career-comparison-466"
+   }
+  ],
+  "createdAt": "2026-10-21T17:35:56.593238+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-21/da-vs-product-analyst/cover_b.jpg",
+   "url": "/files/posts/2026-10-21/da-vs-product-analyst/cover_b.jpg",
+   "hook": "question"
+  },
+  "coverChoice": "a"
  }
 ]

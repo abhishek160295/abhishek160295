@@ -1,7 +1,7 @@
 {
  "title": "Excel notes for analyst jobs: 18 pages, every formula tested",
  "slug": "excel-notes-analyst-jobs",
- "caption": "Formulas, lookups, pivots, cleaning, charts, shortcuts and interview answers. 18 pages.\nYou see the first 8 here. The rest are in the PDF.\nFollow @thedataguy16 and comment XLNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "caption": "Excel round coming up? Revise from one file, not 40 saved reels.\n18 pages: formulas with their answers, lookups, pivots, cleaning, charts, shortcuts, interview replies.\nYou see 8 pages here. The PDF has all of them.\nFollow @thedataguy16 and comment XLNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
  "hashtags": "#excel #dataanalyst #exceltips #mis #analystjobs #thedataguy16",
  "keyword": "XLNOTES",
  "hookType": "notes-pages",
@@ -1021,7 +1021,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=UNIQUE(A2:A5)",
-    "expect": "Pune",
+    "expect": "Pune, Indore, Jaipur",
     "doc": "https://support.microsoft.com/en-us/excel/functions/unique-function"
    },
    {
@@ -1043,7 +1043,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=UNIQUE(A2:A5,,TRUE)",
-    "expect": "Indore",
+    "expect": "Indore, Jaipur",
     "doc": "https://support.microsoft.com/en-us/excel/functions/unique-function"
    },
    {
@@ -1087,7 +1087,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=SORTBY(A2:C5,C2:C5,-1)",
-    "expect": "Indore",
+    "expect": "Indore 900, Pune 700...",
     "doc": "https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f"
    },
    {
@@ -1109,7 +1109,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=FILTER(A2:C5,C2:C5>500)",
-    "expect": "Indore",
+    "expect": "Indore 900, Pune 700",
     "doc": "https://support.microsoft.com/en-us/excel/functions/filter-function"
    },
    {
@@ -1153,7 +1153,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=FILTER(A2:C5,(A2:A5=\"Pune\")*(C2:C5>500))",
-    "expect": "Pune",
+    "expect": "Pune, Neha, 700",
     "doc": "https://support.microsoft.com/en-us/excel/functions/filter-function"
    },
    {
@@ -1175,7 +1175,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=TEXTSPLIT(D2,\",\")",
-    "expect": "Pune",
+    "expect": "Pune | Indore | Jaipur",
     "doc": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
    },
    {
@@ -1197,7 +1197,7 @@
      "D2": "Pune,Indore,Jaipur"
     },
     "formula": "=TEXTSPLIT(D2,\",\",,TRUE)",
-    "expect": "Pune",
+    "expect": "Pune | Indore | Jaipur",
     "doc": "https://support.microsoft.com/en-us/excel/functions/textsplit-function"
    },
    {
@@ -1654,6 +1654,12 @@
     },
     "formula": "=MAX(0,E2-D2)",
     "expect": 20
+   },
+   {
+    "id": "dynamic-arrays",
+    "lang": "python",
+    "code": "d = pd.DataFrame({\"city\": [\"Pune\",\"Indore\",\"Pune\",\"Jaipur\"], \"name\": [\"Asha\",\"Ravi\",\"Neha\",\"Imran\"], \"sales\": [300,900,700,200]})\nassert \", \".join(d[\"city\"].unique()) == \"Pune, Indore, Jaipur\"\nvc = d[\"city\"].value_counts(); assert \", \".join(c for c in d[\"city\"] if vc[c] == 1) == \"Indore, Jaipur\"\nassert d[\"city\"].nunique() == 3\ns = d.sort_values(\"sales\", ascending=False); assert list(s[\"city\"][:2]) == [\"Indore\", \"Pune\"] and list(s[\"sales\"][:2]) == [900, 700]\nf = d[d[\"sales\"] > 500]; assert list(zip(f[\"city\"], f[\"sales\"])) == [(\"Indore\", 900), (\"Pune\", 700)]\nassert d[d[\"sales\"] > 5000].empty\nf2 = d[(d[\"city\"] == \"Pune\") & (d[\"sales\"] > 500)]; assert f2.values.tolist() == [[\"Pune\", \"Neha\", 700]]\nassert \"Pune,Indore,Jaipur\".split(\",\") == [\"Pune\", \"Indore\", \"Jaipur\"]\nids, names = [101,102,103,102], [\"Asha\",\"Ravi\",\"Neha\",\"Ravi K\"]; assert [n for i, n in zip(ids, names) if i == 102][-1] == \"Ravi K\"\nprint(\"spills ok\")",
+    "expect_stdout": "spills ok"
    }
   ],
   "manual": [

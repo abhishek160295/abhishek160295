@@ -129,6 +129,8 @@ def soffice():
 XLFN = re.compile(r"(?<![\w.])(IFS|SWITCH|MAXIFS|MINIFS|CONCAT|TEXTJOIN|RANK\.EQ|RANK\.AVG|IFNA|XLOOKUP|XMATCH|UNIQUE|SORTBY|SORT|FILTER|SEQUENCE|TEXTSPLIT|TEXTBEFORE|TEXTAFTER|LET|DAYS|STDEV\.S|STDEV\.P)\(")
 
 
+
+
 def run_excel(checks):
     """checks: [{id, cells:{'A1': v, ...}, formula:'=...', expect}] -> {id: (ok, got)}"""
     exe = soffice()
@@ -144,33 +146,62 @@ def run_excel(checks):
                 import datetime as _dt
                 v = _dt.datetime.fromisoformat(v)
             ws[ref] = v
-        ws[c.get("at", "Z1")] = XLFN.sub(lambda m: "_xlfn." + m.group(1), c["formula"])
+        ws[c.get("at", "Z1")] = XLFN.sub(lambda m: "_xlfn." + m.group(1) + "(", c["formula"])
     src = tmp / "checks.xlsx"; wb.save(src)
-    out = tmp / "out"; out.mkdir()
-    subprocess.run([exe, "--headless", "--calc", "--convert-to", "ods", "--outdir", str(out), str(src)],
-                   check=True, capture_output=True, timeout=120)
-    # read computed values back through a second conversion to xlsx (values cached)
-    subprocess.run([exe, "--headless", "--convert-to", "xlsx", "--outdir", str(tmp / "x"), str(out / "checks.ods")],
-                   check=True, capture_output=True, timeout=120)
-    wb2 = openpyxl.load_workbook(tmp / "x" / "checks.xlsx", data_only=True)
+    # one CSV per sheet (sheet index -1 = all sheets): checks-c0.csv, checks-c1.csv ...
+    subprocess.run([exe, "--headless", "--convert-to", "csv:Text - txt - csv (StarCalc):44,34,UTF8,1,,0,false,true,false,false,false,-1",
+                    "--outdir", str(tmp), str(src)], check=True, capture_output=True, timeout=180)
+    import csv, datetime as _dt
+    from openpyxl.utils import coordinate_to_tuple
+    def cell(k, ref):
+        r, c = coordinate_to_tuple(ref)
+        rows = list(csv.reader(open(tmp / f"checks-c{k}.csv", encoding="utf-8")))
+        return rows[r - 1][c - 1] if r <= len(rows) and c <= len(rows[r - 1]) else ""
+    def same(got, exp):
+        if isinstance(exp, bool):
+            return got.upper() == str(exp).upper()
+        if isinstance(exp, (int, float)):
+            try: return abs(float(got) - exp) < 1e-6
+            except ValueError: return False
+        if isinstance(exp, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", exp):
+            for f in ("%m/%d/%y", "%m/%d/%Y", "%Y-%m-%d", "%m/%d/%Y %H:%M:%S", "%m/%d/%y %H:%M:%S"):
+                try: return _dt.datetime.strptime(got, f).date().isoformat() == exp
+                except ValueError: pass
+            try: return (_dt.date(1899, 12, 30) + _dt.timedelta(days=int(float(got)))).isoformat() == exp
+            except ValueError: return False
+        return got == str(exp)
     res = {}
     for k, c in enumerate(checks):
-        got = wb2[f"c{k}"][c.get("at", "Z1")].value
-        exp = c.get("expect")
-        if isinstance(exp, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", exp):  # date results: compare as ISO dates
-            import datetime as _dt
-            if isinstance(got, (int, float)):
-                got = (_dt.date(1899, 12, 30) + _dt.timedelta(days=int(got))).isoformat()
-            elif isinstance(got, _dt.datetime):
-                got = got.date().isoformat()
-        if got is None and exp == "":
-            got = ""
-        ok = (got == exp) or (isinstance(got, (int, float)) and isinstance(exp, (int, float)) and abs(got - exp) < 1e-6)
-        if isinstance(got, str) and (got.startswith("#") or got.startswith("Err:")) and c.get("doc"):
+        got = cell(k, c.get("at", "Z1"))
+        ok = same(got, c.get("expect"))
+        if not ok and (got.startswith("#") or got.startswith("Err:")) and c.get("doc"):
             ok = None  # function unknown to this LibreOffice build; the doc link is the evidence
         res[c["id"]] = (ok, got)
     shutil.rmtree(tmp, ignore_errors=True)
     return res
+
+
+def _result_matches(shown, e):
+    """'25%' vs 0.25, '1,000' vs 1000, 'TRUE' vs True, '31-Mar-2026' vs '2026-03-31', '"Ravi"' vs 'Ravi'."""
+    import datetime as _dt
+    if shown.strip('"') == str(e):
+        return True
+    t = shown.replace(",", "").strip('"')
+    if isinstance(e, bool):
+        return t.upper() == str(e).upper()
+    if isinstance(e, (int, float)):
+        try:
+            return abs(float(t.rstrip("%")) / (100 if t.endswith("%") else 1) - e) < 1e-6
+        except ValueError:
+            return False
+    if isinstance(e, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", e):
+        for f in ("%d-%b-%Y", "%d %b %Y", "%Y-%m-%d"):
+            try:
+                return _dt.datetime.strptime(t, f).date().isoformat() == e
+            except ValueError:
+                pass
+        return False
+    return t == str(e) or (e == "" and t in ("(blank)", "blank", "\"\""))
 
 
 def verify_post(spec, meta):
@@ -209,6 +240,14 @@ def verify_post(spec, meta):
                 rep.append(f"doc excel  {cid}: local engine says {got}; verified against {c['doc']}"); covered.append(c["formula"])
             else:
                 errors.append(f"[{cid}] Excel {c['formula']} gave {got!r}, expected {c.get('expect')!r}")
+    # results shown on the slide must be the verified values, not typed from memory
+    exp = {_norm(c["formula"]): c.get("expect") for c in v.get("checks", []) if c.get("lang") == "excel"}
+    for i, s in enumerate(spec["slides"], 1):
+        for r in s.get("rows", []) if s["type"] == "sheet" else []:
+            if r.get("result") not in (None, "") and _norm(r["formula"]) in exp:
+                shown, e = str(r["result"]).strip(), exp[_norm(r["formula"])]
+                if not _result_matches(shown, e):
+                    errors.append(f"slide {i}: '{r['formula']}' shows {shown!r} but the check proves {e!r}")
     manual = v.get("manual", [])
     for m in manual:
         if not m.get("source", "").startswith("http"):

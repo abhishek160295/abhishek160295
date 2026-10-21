@@ -15,7 +15,7 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 27.075
+  "minFont": 22.8
  },
  {
   "slide": 3,
@@ -24,25 +24,25 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 29
+  "minFont": 24
  },
  {
   "slide": 4,
+  "type": "sheet",
+  "shrinks": 3,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18.0049
+ },
+ {
+  "slide": 5,
   "type": "sheet",
   "shrinks": 2,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 25.7213
- },
- {
-  "slide": 5,
-  "type": "sheet",
-  "shrinks": 0,
-  "overflow": false,
-  "emojiWrap": [],
-  "clipped": [],
-  "minFont": 29
+  "minFont": 18.9525
  },
  {
   "slide": 6,
@@ -51,7 +51,7 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 29
+  "minFont": 24
  },
  {
   "slide": 7,
@@ -60,25 +60,25 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 29
+  "minFont": 24
  },
  {
   "slide": 8,
   "type": "sheet",
-  "shrinks": 0,
+  "shrinks": 1,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 29
+  "minFont": 19.95
  },
  {
   "slide": 9,
   "type": "sheet",
-  "shrinks": 0,
+  "shrinks": 2,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 29
+  "minFont": 18.9525
  },
  {
   "slide": 10,

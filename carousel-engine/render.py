@@ -18,7 +18,7 @@
 #  cta     {title, body, keyword?, action?}
 #  spec.cover_alt = {kicker?, title, sub?, badge?} -> also renders cover_b.jpg (second hook; user picks one)
 #  kids{title, subtitle?, mascot?:img path/url, cells:[{term, kid, sql?, img? OR emoji?}] x6}  emoji = 1-2 Noto emoji drawn as the picture (no Canva needed; Canva credits run out) 'explained to kids' picture-book sheet (3x2 cards, cartoon icon per card; images = local file paths or data URIs)
-#  MEGA-SHEET series (spec.format='mega'): marker_cover{title, sub?} (red marker on paper, no chrome) | sheet{title, ribbon, rows:[{name, formula}], start?} (notebook formula sheet, 8-10 rows) | bigtable{title, cols?, rows:[[q, a]], start?} (dense 18-22 row reference table). 2-5 slides + auto product + cta.
+#  MEGA-SHEET series (spec.format='mega'): marker_cover{title, sub?} (red marker on paper, no chrome) | sheet{title, ribbon, data?, rows:[{name, formula, result?}], start?} (data = one line describing the sample cells) (result = tested answer on the sample data, shown as a green pill) (notebook formula sheet, 8-10 rows) | bigtable{title, cols?, rows:[[q, a]], start?} (dense 18-22 row reference table). 2-5 slides + auto product + cta.
 #  split{top:{label, head?, points[], line?}, bottom:{...}}  mega-series 'X vs Y' page: two highlighter labels stacked, dashed divider, one comparison dimension per slide (Nicolas 'Economics vs Finance' style). Use 6-8 split slides after a marker_cover 'X<br>vs<br>Y'.
 #  flow{title, steps:[{q, yes}] x4-6, else}  mega-series decision flowchart ('Which chart should I use?'): question boxes chained by 'No' arrows, each with a green Yes-> answer pill.
 #  product (auto-inserted before the CTA: 90-Day System pitch; set spec.product=false to skip, or a dict to override fields)
@@ -344,6 +344,10 @@ em{font-family:Serif;font-style:italic;font-weight:400;letter-spacing:0}
 .sr{display:grid;grid-template-columns:62px 1fr;gap:2px 18px;align-items:center}
 .sr .n{grid-row:span 2;width:56px;height:56px;border-radius:50%;background:#F4B6BB;color:#9E1B24;display:grid;place-items:center;font:700 32px Kalam}
 .sr .nm{font:400 33px/1.05 Kalam;color:#1B1A17}
+.fxl{display:flex;align-items:center;gap:12px;min-width:0}.fxl .fx{flex:0 1 auto;min-width:0}
+.sdat{font:600 21px/1.35 JBMono;color:#4A443B;background:#FFF6D8;border:1.5px dashed #C9B98F;border-radius:8px;padding:6px 12px;margin-top:8px;display:inline-block}
+.sph li.spc{font:600 27px/1.4 JBMono;color:#1D4E89;background:#DCEBFA;border-radius:10px;padding:8px 14px;margin:8px 0}.sph li.spc:before{content:""}
+.rs{flex:none;font:700 24px/1.2 JBMono;color:#16603F;background:#DDF3E6;border-radius:8px;padding:5px 12px;white-space:nowrap}
 .sr .fx{justify-self:start;border:2.6px solid #2B2824;border-radius:4px;padding:4px 16px;font:400 29px/1.2 Hand;color:#1B1A17;background:rgba(255,255,255,.55);transform:rotate(-.3deg);max-width:100%}
 .sr:nth-child(even) .fx{transform:rotate(.35deg)}
 /* big table */
@@ -679,9 +683,13 @@ def mega_page(s, i, n):
         inner = f'<div class="mk"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
         cls = "mg"
     elif t == "sheet":
-        rows = "".join(f'<div class="sr"><div class="n">{k}</div><div class="nm">{inl(r["name"])}</div><div class="fx">{html.escape(r["formula"])}</div></div>' for k, r in enumerate(s["rows"], s.get("start", 1)))
+        def fxrow(r):
+            fx = f'<div class="fx">{html.escape(r["formula"])}</div>'
+            if r.get("result") in (None, ""): return fx
+            return f'<div class="fxl">{fx}<span class="rs">&rarr; {html.escape(str(r["result"]))}</span></div>'
+        rows = "".join(f'<div class="sr"><div class="n">{k}</div><div class="nm">{inl(r["name"])}</div>{fxrow(r)}</div>' for k, r in enumerate(s["rows"], s.get("start", 1)))
         inner = (f'<div class="shw"><div class="shh"><h2>{inl(s["title"])}</h2><div><span class="rib">{inl(s.get("ribbon",""))}</span></div>'
-                 f'<div class="by">By @thedataguy16</div></div><div class="shr">{rows}</div></div>')
+                 f'<div class="by">By @thedataguy16</div>' + (f'<div class="sdat">Sample data: {html.escape(s["data"])}</div>' if s.get("data") else "") + f'</div><div class="shr">{rows}</div></div>')
         cls = "mg nb"
     elif t == "kids":
         cells = "".join(f'<div class="kc"><div class="kt">{inl(c["term"])}</div><div class="kb">{inl(c["kid"])}</div>'
@@ -701,7 +709,8 @@ def mega_page(s, i, n):
         cls = "mg fl"
     elif t == "split":
         def half(h, cls):
-            bl = "".join(f'<li>{inl(x)}</li>' for x in h.get("points", []))
+            code = re.compile(r"^\s*(SELECT|WITH|=|df\b|pd\.)", re.I)
+            bl = "".join(f'<li class="spc">{html.escape(x)}</li>' if code.match(x) else f'<li>{inl(x)}</li>' for x in h.get("points", []))
             return (f'<div class="sph"><span class="spl {cls}">{inl(h["label"])}</span>' + (f'<h3>{inl(h["head"])}</h3>' if h.get("head") else "")
                     + f'<ul>{bl}</ul>' + (f'<p>{inl(h["line"])}</p>' if h.get("line") else "") + '</div>')
         inner = f'<div class="spw">{half(s["top"], "a")}<div class="spd"></div>{half(s["bottom"], "b")}</div>'

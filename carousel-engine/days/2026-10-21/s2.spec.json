@@ -13,7 +13,7 @@
   {
    "type": "marker_cover",
    "title": "Excel Notes<br>for Analyst Jobs",
-   "sub": "18 pages. Formulas, pivots, shortcuts.<br>Every formula tested."
+   "sub": "18 pages. Every formula shows its answer.<br>Tested before you read it."
   },
   {
    "type": "sheet",
@@ -21,44 +21,54 @@
    "ribbon": "The base of every formula",
    "rows": [
     {
-     "name": "Multiply two cells",
-     "formula": "=A2*B2"
+     "name": "Price x quantity",
+     "formula": "=A2*B2",
+     "result": "1000"
     },
     {
-     "name": "Lock a cell with $",
-     "formula": "=A2*$B$1"
+     "name": "GST on every row ($B$1 fixed)",
+     "formula": "=A2*$B$1",
+     "result": "45"
     },
     {
-     "name": "Lock only the row",
-     "formula": "=A2*B$1"
+     "name": "Copy right, row stays fixed",
+     "formula": "=A2*B$1",
+     "result": "45"
     },
     {
-     "name": "Add a range",
-     "formula": "=SUM(B2:B6)"
+     "name": "Total of a column",
+     "formula": "=SUM(B2:B6)",
+     "result": "150"
     },
     {
      "name": "Average",
-     "formula": "=AVERAGE(B2:B6)"
+     "formula": "=AVERAGE(B2:B6)",
+     "result": "30"
     },
     {
      "name": "Largest value",
-     "formula": "=MAX(B2:B6)"
+     "formula": "=MAX(B2:B6)",
+     "result": "50"
     },
     {
-     "name": "Count numbers only",
-     "formula": "=COUNT(A2:A6)"
+     "name": "How many numeric entries",
+     "formula": "=COUNT(A2:A6)",
+     "result": "3"
     },
     {
-     "name": "Count filled cells",
-     "formula": "=COUNTA(A2:A6)"
+     "name": "How many rows are filled",
+     "formula": "=COUNTA(A2:A6)",
+     "result": "4"
     },
     {
      "name": "Round to 2 places",
-     "formula": "=ROUND(A2,2)"
+     "formula": "=ROUND(A2,2)",
+     "result": "3.14"
     },
     {
      "name": "Always round up",
-     "formula": "=ROUNDUP(A2,0)"
+     "formula": "=ROUNDUP(A2,0)",
+     "result": "4"
     }
    ]
   },
@@ -68,40 +78,49 @@
    "ribbon": "Let Excel decide",
    "rows": [
     {
-     "name": "Pass or fail",
-     "formula": "=IF(B2>=40,\"Pass\",\"Fail\")"
+     "name": "Pass / fail on marks",
+     "formula": "=IF(B2>=40,\"Pass\",\"Fail\")",
+     "result": "Pass"
     },
     {
      "name": "Grade with nested IF",
-     "formula": "=IF(B2>=75,\"A\",IF(B2>=60,\"B\",\"C\"))"
+     "formula": "=IF(B2>=75,\"A\",IF(B2>=60,\"B\",\"C\"))",
+     "result": "B"
     },
     {
      "name": "Same grade with IFS",
-     "formula": "=IFS(B2>=75,\"A\",B2>=60,\"B\",TRUE,\"C\")"
+     "formula": "=IFS(B2>=75,\"A\",B2>=60,\"B\",TRUE,\"C\")",
+     "result": "B"
     },
     {
-     "name": "Both must be true",
-     "formula": "=IF(AND(B2>=40,C2>=75),\"Eligible\",\"No\")"
+     "name": "Eligible for a campus drive",
+     "formula": "=IF(AND(B2>=40,C2>=75),\"Eligible\",\"No\")",
+     "result": "Eligible"
     },
     {
-     "name": "Any one true",
-     "formula": "=IF(OR(D2=\"Delivered\",D2=\"Closed\"),\"Done\",\"Open\")"
+     "name": "Is the ticket done?",
+     "formula": "=IF(OR(D2=\"Delivered\",D2=\"Closed\"),\"Done\",\"Open\")",
+     "result": "Done"
     },
     {
      "name": "Is the cell empty?",
-     "formula": "=IF(ISBLANK(E2),\"Missing\",\"Filled\")"
+     "formula": "=IF(ISBLANK(E2),\"Missing\",\"Filled\")",
+     "result": "Missing"
     },
     {
-     "name": "Hide errors",
-     "formula": "=IFERROR(A2/B2,0)"
+     "name": "Stop #DIV/0! in reports",
+     "formula": "=IFERROR(A2/B2,0)",
+     "result": "0"
     },
     {
-     "name": "Only hide #N/A",
-     "formula": "=IFNA(MATCH(\"Z\",A2:A4,0),\"Not found\")"
+     "name": "Missing in master list",
+     "formula": "=IFNA(MATCH(\"Z\",A2:A4,0),\"Not found\")",
+     "result": "Not found"
     },
     {
-     "name": "Codes to names",
-     "formula": "=SWITCH(F2,\"N\",\"North\",\"S\",\"South\",\"Other\")"
+     "name": "Region code to name",
+     "formula": "=SWITCH(F2,\"N\",\"North\",\"S\",\"South\",\"Other\")",
+     "result": "South"
     }
    ]
   },
@@ -111,46 +130,57 @@
    "ribbon": "SUMIFS runs half of MIS",
    "rows": [
     {
-     "name": "Count one region",
-     "formula": "=COUNTIF(A2:A7,\"North\")"
+     "name": "Orders from North",
+     "formula": "=COUNTIF(A2:A7,\"North\")",
+     "result": "3"
     },
     {
      "name": "Count with 2 conditions",
-     "formula": "=COUNTIFS(A2:A7,\"North\",C2:C7,\"Closed\")"
+     "formula": "=COUNTIFS(A2:A7,\"North\",C2:C7,\"Closed\")",
+     "result": "2"
     },
     {
      "name": "Sum one region",
-     "formula": "=SUMIF(A2:A7,\"South\",B2:B7)"
+     "formula": "=SUMIF(A2:A7,\"South\",B2:B7)",
+     "result": "800"
     },
     {
-     "name": "Sum with 2 conditions",
-     "formula": "=SUMIFS(B2:B7,A2:A7,\"North\",C2:C7,\"Closed\")"
+     "name": "North + Closed revenue",
+     "formula": "=SUMIFS(B2:B7,A2:A7,\"North\",C2:C7,\"Closed\")",
+     "result": "400"
     },
     {
      "name": "Sum values above 250",
-     "formula": "=SUMIF(B2:B7,\">250\")"
+     "formula": "=SUMIF(B2:B7,\">250\")",
+     "result": "1800"
     },
     {
      "name": "Average one region",
-     "formula": "=AVERAGEIF(A2:A7,\"North\",B2:B7)"
+     "formula": "=AVERAGEIF(A2:A7,\"North\",B2:B7)",
+     "result": "300"
     },
     {
-     "name": "Biggest sale in South",
-     "formula": "=MAXIFS(B2:B7,A2:A7,\"South\")"
+     "name": "Best South deal",
+     "formula": "=MAXIFS(B2:B7,A2:A7,\"South\")",
+     "result": "600"
     },
     {
-     "name": "Smallest open sale",
-     "formula": "=MINIFS(B2:B7,C2:C7,\"Open\")"
+     "name": "Smallest pending deal",
+     "formula": "=MINIFS(B2:B7,C2:C7,\"Open\")",
+     "result": "200"
     },
     {
      "name": "Count not closed",
-     "formula": "=COUNTIF(C2:C7,\"<>Closed\")"
+     "formula": "=COUNTIF(C2:C7,\"<>Closed\")",
+     "result": "2"
     },
     {
-     "name": "Price x qty, summed",
-     "formula": "=SUMPRODUCT(B2:B7,D2:D7)"
+     "name": "Revenue = price x qty, all rows",
+     "formula": "=SUMPRODUCT(B2:B7,D2:D7)",
+     "result": "2800"
     }
-   ]
+   ],
+   "data": "A = North, South, North, East, North, South | B = 100..600 | C = status"
   },
   {
    "type": "sheet",
@@ -158,46 +188,57 @@
    "ribbon": "VLOOKUP to XLOOKUP",
    "rows": [
     {
-     "name": "Exact match",
-     "formula": "=VLOOKUP(E2,A2:C4,2,FALSE)"
+     "name": "Name from employee ID",
+     "formula": "=VLOOKUP(E2,A2:C4,2,FALSE)",
+     "result": "Ravi"
     },
     {
-     "name": "Third column",
-     "formula": "=VLOOKUP(E2,A2:C4,3,0)"
+     "name": "City from employee ID",
+     "formula": "=VLOOKUP(E2,A2:C4,3,0)",
+     "result": "Indore"
     },
     {
-     "name": "Find a band (slab)",
-     "formula": "=VLOOKUP(G2,H2:I4,2,TRUE)"
+     "name": "Salary band from a slab table",
+     "formula": "=VLOOKUP(G2,H2:I4,2,TRUE)",
+     "result": "Mid"
     },
     {
      "name": "Position in a list",
-     "formula": "=MATCH(E2,A2:A4,0)"
+     "formula": "=MATCH(E2,A2:A4,0)",
+     "result": "2"
     },
     {
      "name": "Value at a position",
-     "formula": "=INDEX(B2:B4,2)"
+     "formula": "=INDEX(B2:B4,2)",
+     "result": "Ravi"
     },
     {
-     "name": "INDEX + MATCH",
-     "formula": "=INDEX(B2:B4,MATCH(E2,A2:A4,0))"
+     "name": "INDEX + MATCH, works anywhere",
+     "formula": "=INDEX(B2:B4,MATCH(E2,A2:A4,0))",
+     "result": "Ravi"
     },
     {
-     "name": "Look to the left",
-     "formula": "=INDEX(A2:A4,MATCH(\"Neha\",B2:B4,0))"
+     "name": "ID from a name (left lookup)",
+     "formula": "=INDEX(A2:A4,MATCH(\"Neha\",B2:B4,0))",
+     "result": "103"
     },
     {
      "name": "XLOOKUP (Excel 365)",
-     "formula": "=XLOOKUP(E2,A2:A4,B2:B4)"
+     "formula": "=XLOOKUP(E2,A2:A4,B2:B4)",
+     "result": "Ravi"
     },
     {
      "name": "With a not-found value",
-     "formula": "=XLOOKUP(999,A2:A4,B2:B4,\"Not found\")"
+     "formula": "=XLOOKUP(999,A2:A4,B2:B4,\"Not found\")",
+     "result": "Not found"
     },
     {
      "name": "Last match, not first",
-     "formula": "=XLOOKUP(E2,A2:A5,B2:B5,,0,-1)"
+     "formula": "=XLOOKUP(E2,A2:A5,B2:B5,,0,-1)",
+     "result": "Ravi K"
     }
-   ]
+   ],
+   "data": "A2:A4 = 101, 102, 103 | B = Asha, Ravi, Neha | C = Pune, Indore, Jaipur | E2 = 102 | A5:B5 = 102, Ravi K | G2 = 72000, slab H2:I4 = 0 Low, 50000 Mid, 100000 High"
   },
   {
    "type": "sheet",
@@ -205,44 +246,54 @@
    "ribbon": "Messy names, fixed",
    "rows": [
     {
-     "name": "Remove extra spaces",
-     "formula": "=TRIM(A2)"
+     "name": "Fix pasted names",
+     "formula": "=TRIM(A2)",
+     "result": "ravi KUMAR"
     },
     {
-     "name": "Proper case",
-     "formula": "=PROPER(TRIM(A2))"
+     "name": "Clean name for an offer letter",
+     "formula": "=PROPER(TRIM(A2))",
+     "result": "Ravi Kumar"
     },
     {
      "name": "Capital letters",
-     "formula": "=UPPER(B2)"
+     "formula": "=UPPER(B2)",
+     "result": "PUNE"
     },
     {
      "name": "Small letters",
-     "formula": "=LOWER(B2)"
+     "formula": "=LOWER(B2)",
+     "result": "pune"
     },
     {
-     "name": "First 3 characters",
-     "formula": "=LEFT(C2,3)"
+     "name": "Invoice prefix",
+     "formula": "=LEFT(C2,3)",
+     "result": "INV"
     },
     {
-     "name": "Last 4 characters",
-     "formula": "=RIGHT(C2,4)"
+     "name": "Invoice number",
+     "formula": "=RIGHT(C2,4)",
+     "result": "2041"
     },
     {
      "name": "From the middle",
-     "formula": "=MID(C2,5,2)"
+     "formula": "=MID(C2,5,2)",
+     "result": "20"
     },
     {
      "name": "Length",
-     "formula": "=LEN(C2)"
+     "formula": "=LEN(C2)",
+     "result": "8"
     },
     {
      "name": "Position of a dash",
-     "formula": "=FIND(\"-\",C2)"
+     "formula": "=FIND(\"-\",C2)",
+     "result": "4"
     },
     {
-     "name": "Remove dashes",
-     "formula": "=SUBSTITUTE(D2,\"-\",\"\")"
+     "name": "Clean phone numbers",
+     "formula": "=SUBSTITUTE(D2,\"-\",\"\")",
+     "result": "9820011111"
     }
    ]
   },
@@ -253,39 +304,48 @@
    "rows": [
     {
      "name": "Join with a space",
-     "formula": "=A2&\" \"&B2"
+     "formula": "=A2&\" \"&B2",
+     "result": "Asha Rao"
     },
     {
      "name": "Same with CONCAT",
-     "formula": "=CONCAT(A2,\" \",B2)"
+     "formula": "=CONCAT(A2,\" \",B2)",
+     "result": "Asha Rao"
     },
     {
      "name": "Join a list, skip blanks",
-     "formula": "=TEXTJOIN(\", \",TRUE,A2:A4)"
+     "formula": "=TEXTJOIN(\", \",TRUE,A2:A4)",
+     "result": "Pune, Indore"
     },
     {
-     "name": "Name before the @",
-     "formula": "=LEFT(C2,FIND(\"@\",C2)-1)"
+     "name": "Username from email",
+     "formula": "=LEFT(C2,FIND(\"@\",C2)-1)",
+     "result": "asha"
     },
     {
-     "name": "Domain after the @",
-     "formula": "=MID(C2,FIND(\"@\",C2)+1,50)"
+     "name": "Company from email",
+     "formula": "=MID(C2,FIND(\"@\",C2)+1,50)",
+     "result": "corp.in"
     },
     {
-     "name": "Text to number",
-     "formula": "=VALUE(E2)"
+     "name": "Number pasted as text",
+     "formula": "=VALUE(E2)",
+     "result": "1250"
     },
     {
-     "name": "Show as percent",
-     "formula": "=TEXT(F2,\"0.0%\")"
+     "name": "Percent label for a slide",
+     "formula": "=TEXT(F2,\"0.0%\")",
+     "result": "25.6%"
     },
     {
      "name": "Show a date your way",
-     "formula": "=TEXT(G2,\"dd-mmm-yyyy\")"
+     "formula": "=TEXT(G2,\"dd-mmm-yyyy\")",
+     "result": "05-Mar-2026"
     },
     {
      "name": "Repeat a character",
-     "formula": "=REPT(\"*\",H2)"
+     "formula": "=REPT(\"*\",H2)",
+     "result": "****"
     }
    ]
   },
@@ -296,45 +356,56 @@
    "rows": [
     {
      "name": "Today's date",
-     "formula": "=TODAY()>DATE(2026,1,1)"
+     "formula": "=TODAY()>DATE(2026,1,1)",
+     "result": "TRUE"
     },
     {
      "name": "Year",
-     "formula": "=YEAR(A2)"
+     "formula": "=YEAR(A2)",
+     "result": "2026"
     },
     {
      "name": "Month number",
-     "formula": "=MONTH(A2)"
+     "formula": "=MONTH(A2)",
+     "result": "3"
     },
     {
-     "name": "Month name",
-     "formula": "=TEXT(A2,\"mmm\")"
+     "name": "Month label for a pivot",
+     "formula": "=TEXT(A2,\"mmm\")",
+     "result": "Mar"
     },
     {
-     "name": "Last day of the month",
-     "formula": "=EOMONTH(A2,0)"
+     "name": "Month-end for MIS cut-off",
+     "formula": "=EOMONTH(A2,0)",
+     "result": "31-Mar-2026"
     },
     {
-     "name": "Same day, 3 months later",
-     "formula": "=EDATE(A2,3)"
+     "name": "Probation end date",
+     "formula": "=EDATE(A2,3)",
+     "result": "15-Jun-2026"
     },
     {
-     "name": "Months between",
-     "formula": "=DATEDIF(A2,B2,\"m\")"
+     "name": "Months of experience",
+     "formula": "=DATEDIF(A2,B2,\"m\")",
+     "result": "7"
     },
     {
-     "name": "Working days between",
-     "formula": "=NETWORKDAYS(A2,B2)"
+     "name": "Working days to close a ticket",
+     "formula": "=NETWORKDAYS(A2,B2)",
+     "result": "154"
     },
     {
      "name": "Weekday (Mon = 1)",
-     "formula": "=WEEKDAY(A2,2)"
+     "formula": "=WEEKDAY(A2,2)",
+     "result": "7"
     },
     {
      "name": "30 days later",
-     "formula": "=A2+30"
+     "formula": "=A2+30",
+     "result": "14-Apr-2026"
     }
-   ]
+   ],
+   "data": "A2 = 15-Mar-2026 | B2 = 15-Oct-2026"
   },
   {
    "type": "sheet",
@@ -343,41 +414,51 @@
    "rows": [
     {
      "name": "Each city once",
-     "formula": "=UNIQUE(A2:A5)"
+     "formula": "=UNIQUE(A2:A5)",
+     "result": "Pune, Indore, Jaipur"
     },
     {
      "name": "Cities seen only once",
-     "formula": "=UNIQUE(A2:A5,,TRUE)"
+     "formula": "=UNIQUE(A2:A5,,TRUE)",
+     "result": "Indore, Jaipur"
     },
     {
      "name": "Count distinct cities",
-     "formula": "=ROWS(UNIQUE(A2:A5))"
+     "formula": "=ROWS(UNIQUE(A2:A5))",
+     "result": "3"
     },
     {
      "name": "Sort by sales, high first",
-     "formula": "=SORTBY(A2:C5,C2:C5,-1)"
+     "formula": "=SORTBY(A2:C5,C2:C5,-1)",
+     "result": "Indore 900, Pune 700..."
     },
     {
      "name": "Rows with sales over 500",
-     "formula": "=FILTER(A2:C5,C2:C5>500)"
+     "formula": "=FILTER(A2:C5,C2:C5>500)",
+     "result": "Indore 900, Pune 700"
     },
     {
      "name": "Same, with a fallback",
-     "formula": "=FILTER(A2:C5,C2:C5>5000,\"None\")"
+     "formula": "=FILTER(A2:C5,C2:C5>5000,\"None\")",
+     "result": "None"
     },
     {
      "name": "Two conditions (AND)",
-     "formula": "=FILTER(A2:C5,(A2:A5=\"Pune\")*(C2:C5>500))"
+     "formula": "=FILTER(A2:C5,(A2:A5=\"Pune\")*(C2:C5>500))",
+     "result": "Pune, Neha, 700"
     },
     {
      "name": "Split at commas",
-     "formula": "=TEXTSPLIT(D2,\",\")"
+     "formula": "=TEXTSPLIT(D2,\",\")",
+     "result": "Pune | Indore | Jaipur"
     },
     {
      "name": "Split, skip empty bits",
-     "formula": "=TEXTSPLIT(D2,\",\",,TRUE)"
+     "formula": "=TEXTSPLIT(D2,\",\",,TRUE)",
+     "result": "Pune | Indore | Jaipur"
     }
-   ]
+   ],
+   "data": "A = Pune, Indore, Pune, Jaipur | B = Asha, Ravi, Neha, Imran | C = 300, 900, 700, 200"
   },
   {
    "type": "sheet",
@@ -385,42 +466,52 @@
    "ribbon": "Every MIS review asks these",
    "rows": [
     {
-     "name": "Share of total",
-     "formula": "=B2/SUM($B$2:$B$5)"
+     "name": "Region share of total",
+     "formula": "=B2/SUM($B$2:$B$5)",
+     "result": "10%"
     },
     {
      "name": "Growth vs last month",
-     "formula": "=(C2-B2)/B2"
+     "formula": "=(C2-B2)/B2",
+     "result": "25%"
     },
     {
      "name": "Running total",
-     "formula": "=SUM($B$2:B4)"
+     "formula": "=SUM($B$2:B4)",
+     "result": "600"
     },
     {
-     "name": "Rank, highest = 1",
-     "formula": "=RANK.EQ(B3,$B$2:$B$5)"
+     "name": "Rank the sales team",
+     "formula": "=RANK.EQ(B3,$B$2:$B$5)",
+     "result": "3"
     },
     {
      "name": "Second highest",
-     "formula": "=LARGE(B2:B5,2)"
+     "formula": "=LARGE(B2:B5,2)",
+     "result": "300"
     },
     {
      "name": "Lowest",
-     "formula": "=SMALL(B2:B5,1)"
+     "formula": "=SMALL(B2:B5,1)",
+     "result": "100"
     },
     {
-     "name": "Yearly growth over 3 years",
-     "formula": "=(C2/B2)^(1/3)-1"
+     "name": "Average yearly growth (CAGR)",
+     "formula": "=(C2/B2)^(1/3)-1",
+     "result": "10%"
     },
     {
      "name": "Percent as a label",
-     "formula": "=ROUND(B2/C2*100,1)&\"%\""
+     "formula": "=ROUND(B2/C2*100,1)&\"%\"",
+     "result": "33.3%"
     },
     {
-     "name": "Growth, safe from zero",
-     "formula": "=IFERROR((C2-B2)/B2,\"\")"
+     "name": "Growth when last month was 0",
+     "formula": "=IFERROR((C2-B2)/B2,\"\")",
+     "result": "(blank)"
     }
-   ]
+   ],
+   "data": "B2:B5 = 100, 200, 300, 400 growth rows use B2 = last month, C2 = this month"
   },
   {
    "type": "sheet",
@@ -428,40 +519,49 @@
    "ribbon": "Check before you analyse",
    "rows": [
     {
-     "name": "Flag duplicates",
-     "formula": "=COUNTIF($A$2:$A$6,A2)>1"
+     "name": "Duplicate invoice?",
+     "formula": "=COUNTIF($A$2:$A$6,A2)>1",
+     "result": "TRUE"
     },
     {
      "name": "Label duplicates",
-     "formula": "=IF(COUNTIF($A$2:$A$6,A2)>1,\"Duplicate\",\"\")"
+     "formula": "=IF(COUNTIF($A$2:$A$6,A2)>1,\"Duplicate\",\"\")",
+     "result": "Duplicate"
     },
     {
      "name": "Is it blank?",
-     "formula": "=ISBLANK(B2)"
+     "formula": "=ISBLANK(B2)",
+     "result": "TRUE"
     },
     {
      "name": "Is it a real number?",
-     "formula": "=ISNUMBER(C2)"
+     "formula": "=ISNUMBER(C2)",
+     "result": "FALSE"
     },
     {
-     "name": "Fix number-as-text",
-     "formula": "=VALUE(TRIM(C2))"
+     "name": "Number with spaces around it",
+     "formula": "=VALUE(TRIM(C2))",
+     "result": "125"
     },
     {
      "name": "Remove line breaks",
-     "formula": "=CLEAN(D2)"
+     "formula": "=CLEAN(D2)",
+     "result": "PuneWest"
     },
     {
      "name": "Count blank cells",
-     "formula": "=COUNTBLANK(B2:B6)"
+     "formula": "=COUNTBLANK(B2:B6)",
+     "result": "2"
     },
     {
      "name": "Extra spaces hiding",
-     "formula": "=LEN(F2)-LEN(TRIM(F2))"
+     "formula": "=LEN(F2)-LEN(TRIM(F2))",
+     "result": "2"
     },
     {
-     "name": "Same text, same case?",
-     "formula": "=EXACT(G2,H2)"
+     "name": "Exact match incl. case",
+     "formula": "=EXACT(G2,H2)",
+     "result": "FALSE"
     }
    ]
   },
@@ -547,43 +647,53 @@
    "rows": [
     {
      "name": "Sales above 1000",
-     "formula": "=$C2>1000"
+     "formula": "=$C2>1000",
+     "result": "TRUE"
     },
     {
      "name": "Pending orders",
-     "formula": "=$D2=\"Pending\""
+     "formula": "=$D2=\"Pending\"",
+     "result": "TRUE"
     },
     {
      "name": "Duplicates in column A",
-     "formula": "=COUNTIF($A:$A,$A2)>1"
+     "formula": "=COUNTIF($A:$A,$A2)>1",
+     "result": "TRUE"
     },
     {
      "name": "Highest value",
-     "formula": "=C2=MAX($C$2:$C$10)"
+     "formula": "=C2=MAX($C$2:$C$10)",
+     "result": "TRUE"
     },
     {
      "name": "Every other row",
-     "formula": "=MOD(ROW(),2)=0"
+     "formula": "=MOD(ROW(),2)=0",
+     "result": "TRUE"
     },
     {
      "name": "Overdue dates",
-     "formula": "=$E2<TODAY()"
+     "formula": "=$E2<TODAY()",
+     "result": "TRUE"
     },
     {
      "name": "Empty cells",
-     "formula": "=ISBLANK($B2)"
+     "formula": "=ISBLANK($B2)",
+     "result": "TRUE"
     },
     {
      "name": "Between 500 and 999",
-     "formula": "=AND($C2>=500,$C2<1000)"
+     "formula": "=AND($C2>=500,$C2<1000)",
+     "result": "TRUE"
     },
     {
      "name": "Weekend dates",
-     "formula": "=WEEKDAY($E2,2)>5"
+     "formula": "=WEEKDAY($E2,2)>5",
+     "result": "TRUE"
     },
     {
      "name": "Text contains delhi",
-     "formula": "=ISNUMBER(SEARCH(\"delhi\",$F2))"
+     "formula": "=ISNUMBER(SEARCH(\"delhi\",$F2))",
+     "result": "TRUE"
     }
    ]
   },
@@ -593,46 +703,57 @@
    "ribbon": "Monthly review, sorted",
    "rows": [
     {
-     "name": "Month total",
-     "formula": "=SUMIFS(C:C,B:B,\"Jan\")"
+     "name": "January total",
+     "formula": "=SUMIFS(C:C,B:B,\"Jan\")",
+     "result": "300"
     },
     {
-     "name": "Region + month",
-     "formula": "=SUMIFS(C:C,A:A,\"North\",B:B,\"Jan\")"
+     "name": "North in January",
+     "formula": "=SUMIFS(C:C,A:A,\"North\",B:B,\"Jan\")",
+     "result": "100"
     },
     {
      "name": "Orders in a month",
-     "formula": "=COUNTIFS(B:B,\"Mar\")"
+     "formula": "=COUNTIFS(B:B,\"Mar\")",
+     "result": "1"
     },
     {
      "name": "Share of one region",
-     "formula": "=SUMIF(A:A,\"North\",C:C)/SUM(C:C)"
+     "formula": "=SUMIF(A:A,\"North\",C:C)/SUM(C:C)",
+     "result": "80%"
     },
     {
      "name": "Target met?",
-     "formula": "=IF(D2>=E2,\"Met\",\"Missed\")"
+     "formula": "=IF(D2>=E2,\"Met\",\"Missed\")",
+     "result": "Met"
     },
     {
-     "name": "Achievement %",
-     "formula": "=D2/E2"
+     "name": "Target achievement",
+     "formula": "=D2/E2",
+     "result": "120%"
     },
     {
      "name": "Month on month",
-     "formula": "=D3/D2-1"
+     "formula": "=D3/D2-1",
+     "result": "20%"
     },
     {
      "name": "Weighted average price",
-     "formula": "=SUMPRODUCT(F2:F4,G2:G4)/SUM(G2:G4)"
+     "formula": "=SUMPRODUCT(F2:F4,G2:G4)/SUM(G2:G4)",
+     "result": "22.5"
     },
     {
      "name": "Year to date",
-     "formula": "=SUM($D$2:D4)"
+     "formula": "=SUM($D$2:D4)",
+     "result": "350"
     },
     {
      "name": "Gap to target",
-     "formula": "=MAX(0,E2-D2)"
+     "formula": "=MAX(0,E2-D2)",
+     "result": "20"
     }
-   ]
+   ],
+   "data": "A = region | B = Jan, Jan, Feb, Mar | C = 100, 200, 300, 400"
   },
   {
    "type": "bigtable",
