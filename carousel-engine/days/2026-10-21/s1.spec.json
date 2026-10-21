@@ -4,14 +4,14 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "Stop doing<br>this by hand.<br>Python does it.",
+  "title": "Stop doing<br>this by hand.<br>~Python~ does it.",
   "sub": "38 lines for files, Excel and messy data.",
   "hook": "contrarian"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "38 Python lines<br>that do your<br>boring office work",
+   "title": "38 Python lines<br>that do your<br>~boring~ office work",
    "sub": "Files, Excel sheets, messy data.<br>Copy, run, go home on time."
   },
   {

@@ -5,14 +5,14 @@
  "format": "mega",
  "preview_pages": 8,
  "cover_alt": {
-  "title": "18 pages of<br>Excel notes.<br>Save, don't scroll.",
+  "title": "18 pages of<br>Excel notes.<br>~Save~, don't scroll.",
   "sub": "Formulas, pivots, charts, shortcuts.",
   "hook": "notes-pages"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "Excel Notes<br>for Analyst Jobs",
+   "title": "~Excel~ Notes<br>for Analyst Jobs",
    "sub": "18 pages. Every formula shows its answer.<br>Tested before you read it."
   },
   {

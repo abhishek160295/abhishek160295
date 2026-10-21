@@ -6,7 +6,7 @@
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 30
+  "minFont": 24
  },
  {
   "slide": 2,
@@ -74,11 +74,11 @@
  {
   "slide": 9,
   "type": "sheet",
-  "shrinks": 2,
+  "shrinks": 1,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18.9525
+  "minFont": 19.95
  },
  {
   "slide": 10,

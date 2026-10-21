@@ -483,6 +483,61 @@ pre,td,th,.pg,.pill,.tag,.kick,.rg,.inp{font-variant-ligatures:none!important;fo
 .mist.p2 .p2ph span,.mist.p2 .p2st .v{color:var(--teal)}
 """
 
+CSS += r"""
+/* ===== v3 series look: progress bar, cover with inside-page fan, VS cards ===== */
+.mg .sig3{bottom:44px;align-items:center;gap:26px;padding:0 64px;font:400 30px Hand,cursive;color:#7C7468}
+.sig3 .dots{flex:1;display:flex;gap:6px;max-width:420px}
+.sig3 .dots i{flex:1;height:6px;border-radius:6px;background:rgba(27,26,23,.12)}
+.sig3 .dots i.on{background:#B3121B}
+.sig3 .pg{display:flex;align-items:center;gap:8px;font:700 24px JBMono;letter-spacing:1px;color:#1B1A17}
+.sig3 .pg .ic{color:#B3121B}
+/* cover */
+.mc3 .cv3{position:absolute;inset:0;padding:56px 64px 48px}
+.cvtop{display:flex;justify-content:space-between;align-items:center}
+.cvtop .who{display:flex;align-items:center;gap:14px;font:700 30px Inter;color:#1B1A17}
+.cvtop .who .av{width:64px;height:64px;border-radius:50%;background:#1B1A17;color:#FFC93C;display:grid;place-items:center;font:800 24px Bricolage;letter-spacing:1px;box-shadow:0 0 0 4px #F6F3EC,0 0 0 7px #B3121B}
+.cvtop .who .ic{color:#2F7DE1}
+.cvtop .chip{display:flex;align-items:center;gap:10px;font:700 22px JBMono;letter-spacing:1.5px;text-transform:uppercase;color:#1B1A17;border:2.5px solid #1B1A17;border-radius:40px;padding:12px 22px;background:rgba(255,255,255,.6)}
+.cvh{position:absolute;left:64px;right:64px;top:170px}
+.mc3 .mkt{font:400 138px/1.0 Marker,Kalam,cursive;color:#B3121B;transform:rotate(-1.5deg);transform-origin:left top;letter-spacing:-1px;text-wrap:balance;text-align:left}
+.mc3 .mkt em{font-family:Marker,Kalam,cursive;font-weight:400;font-style:normal;color:#1B1A17;background:linear-gradient(104deg,transparent 2%,#FFE15A 4%,#FFD12E 92%,transparent 96%);background-size:100% 62%;background-position:0 78%;background-repeat:no-repeat;padding:0 10px;margin:0 -6px}
+.mc3 .mks{font:400 44px/1.25 Hand,cursive;color:#3F3A33;margin-top:30px;max-width:860px;text-align:left}
+.mc3.nofan .cvh{top:300px}
+.mc3.nofan .stk{bottom:240px}
+.fan{position:absolute;left:0;right:0;bottom:150px;height:470px}
+.fan img{position:absolute;bottom:0;width:316px;height:395px;object-fit:cover;object-position:top;border-radius:18px;border:7px solid #fff;box-shadow:0 26px 50px -12px rgba(60,40,10,.45),0 2px 0 rgba(0,0,0,.05)}
+.fan .f0{left:92px;transform:rotate(-9deg);z-index:1}
+.fan .f1{left:382px;bottom:46px;transform:rotate(-1deg);z-index:3}
+.fan .f2{left:668px;transform:rotate(8deg);z-index:2}
+.fan.n2 .f0{left:230px}.fan.n2 .f1{left:520px;transform:rotate(7deg)}
+.stk{position:absolute;right:54px;bottom:500px;width:196px;height:196px;border-radius:50%;background:#FFD12E;color:#1B1A17;display:grid;place-items:center;text-align:center;transform:rotate(12deg);box-shadow:0 14px 30px -10px rgba(120,80,0,.55);z-index:5}
+.stk:before{content:"";position:absolute;inset:10px;border-radius:50%;border:3px dashed rgba(27,26,23,.45)}
+.stk span{font:800 40px/0.95 Bricolage;letter-spacing:-1px;text-transform:uppercase}
+.cvbot{position:absolute;left:64px;right:64px;bottom:52px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.kwc{display:flex;align-items:center;gap:12px;font:600 30px Inter;color:#1B1A17;background:#fff;border:2.5px solid #1B1A17;border-radius:18px;padding:16px 22px;box-shadow:5px 6px 0 #1B1A17}
+.kwc b{font:800 30px JBMono;color:#B3121B;letter-spacing:1px}
+.swp{display:flex;align-items:center;gap:12px;font:800 32px Bricolage;color:#fff;background:#B3121B;border-radius:40px;padding:18px 30px;box-shadow:0 14px 28px -10px rgba(179,18,27,.6)}
+/* VS cards */
+.mg.sp3{background:#F7F4EE}
+.s3w{position:absolute;inset:0;padding:64px 64px 130px;display:flex;flex-direction:column;gap:20px}
+.s3h{display:flex;align-items:center;gap:22px;margin-bottom:8px}
+.s3n{font:800 30px JBMono;color:#fff;background:#B3121B;border-radius:14px;padding:10px 16px;letter-spacing:1px}
+.s3h h2{font:800 66px/1.02 Bricolage;letter-spacing:-2px;color:#1B1A17;margin:0;text-wrap:balance}
+.s3c{position:relative;border-radius:30px;padding:30px 36px 32px;border:3px solid #1B1A17;box-shadow:8px 10px 0 #1B1A17;flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.s3c.a{background:#FFF0DA}.s3c.b{background:#E2F5EA}
+.s3l{align-self:flex-start;font:800 52px/1 Bricolage;letter-spacing:-1.5px;color:#1B1A17;padding:8px 20px 12px;border-radius:14px;margin-bottom:16px}
+.s3c.a .s3l{background:#FFC27A}.s3c.b .s3l{background:#86DDB0}
+.s3c h4{font:700 34px/1.2 Inter;margin:0 0 10px;color:#1B1A17}
+.s3c ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.s3c li{display:flex;gap:14px;align-items:flex-start;font:500 35px/1.3 Inter;color:#26221E}
+.s3c li .ic{flex:none;margin-top:4px;color:#12876F}
+.s3c.a li .ic{color:#D9771F}
+.s3c li.spc{display:block;font:600 27px/1.4 JBMono;color:#1D4E89;background:#fff;border:2px solid #BCD6F5;border-radius:12px;padding:10px 16px}
+.s3c p{display:flex;gap:10px;align-items:center;margin:16px 0 0;font:700 32px/1.25 Inter;color:#1B1A17}
+.s3c p .ic{color:#B3121B;flex:none}
+.s3vs{align-self:center;margin:-38px 0;z-index:3;width:92px;height:92px;border-radius:50%;background:#1B1A17;color:#FFD12E;display:grid;place-items:center;font:800 34px Bricolage;letter-spacing:1px;box-shadow:0 0 0 8px #F7F4EE}
+"""
+
 KW = r"\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|FULL JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|HAVING|LIMIT|OFFSET|OVER|PARTITION BY|ROWS BETWEEN|PRECEDING|CURRENT ROW|CASE|WHEN|THEN|ELSE|END|WITH|DISTINCT|UNION|ALL|DESC|ASC|INTERVAL|import|from|def|return|for|in|if|elif|else|print|lambda|True|False|None|as|with|class|VAR|RETURN)\b"
 
 def inl(t):
@@ -678,10 +733,22 @@ def _src(p):
 def mega_page(s, i, n):
     """Mega-sheet series slides: marker_cover | sheet | bigtable (no app chrome; series look)."""
     t = s["type"]
-    sig = f'<div class="sig"><span>@thedataguy16</span><span>{"Swipe →" if i < n else "Save this"}</span></div>'
+    segs = "".join(f'<i class="{"on" if k <= i else ""}"></i>' for k in range(1, n + 1))
+    sig = (f'<div class="sig sig3"><span class="h">@thedataguy16</span><span class="dots">{segs}</span>'
+           f'<span class="pg">{"Save this" if i == n else f"{i:02d} / {n:02d}"}{icon("bookmark", 26, 2.4) if i == n else icon("arrow-right", 26, 2.6)}</span></div>')
     if t == "marker_cover":
-        inner = f'<div class="mk"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
-        cls = "mg"
+        prev = s.get("_previews") or []
+        fan = "".join(f'<img class="f{k}" src="{p}">' for k, p in enumerate(prev[:3]))
+        kw = s.get("_keyword")
+        inner = (f'<div class="cv3"><div class="cvtop"><div class="who"><span class="av">DG</span><b>thedataguy16</b>{icon("badge-check", 30, 2.4)}</div>'
+                 f'<span class="chip">{icon("bookmark", 26, 2.4)}Save for later</span></div>'
+                 f'<div class="cvh"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
+                 + (f'<div class="fan n{len(prev[:3])}">{fan}</div>' if fan else "")
+                 + (f'<div class="stk"><span>{inl(s["_sticker"])}</span></div>' if s.get("_sticker") else "")
+                 + '<div class="cvbot">' + (f'<span class="kwc">{icon("message-circle", 30, 2.4)}Comment <b>{html.escape(kw)}</b> for the PDF</span>' if kw else "<span></span>")
+                 + f'<span class="swp">Swipe{icon("arrow-right", 30, 2.8)}</span></div></div>')
+        cls = "mg mc3" + (" nofan" if not fan else "")
+        return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
     elif t == "sheet":
         def fxrow(r):
             fx = f'<div class="fx">{html.escape(r["formula"])}</div>'
@@ -708,13 +775,16 @@ def mega_page(s, i, n):
         inner = f'<div class="flw"><h2>{inl(s["title"])}</h2><div class="by">by @thedataguy16</div><div class="fls">{st}</div></div>'
         cls = "mg fl"
     elif t == "split":
-        def half(h, cls):
-            code = re.compile(r"^\s*(SELECT|WITH|=|df\b|pd\.)", re.I)
-            bl = "".join(f'<li class="spc">{html.escape(x)}</li>' if code.match(x) else f'<li>{inl(x)}</li>' for x in h.get("points", []))
-            return (f'<div class="sph"><span class="spl {cls}">{inl(h["label"])}</span>' + (f'<h3>{inl(h["head"])}</h3>' if h.get("head") else "")
-                    + f'<ul>{bl}</ul>' + (f'<p>{inl(h["line"])}</p>' if h.get("line") else "") + '</div>')
-        inner = f'<div class="spw">{half(s["top"], "a")}<div class="spd"></div>{half(s["bottom"], "b")}</div>'
-        cls = "mg sp"
+        code = re.compile(r"^\s*(SELECT|WITH|=|df\b|pd\.)", re.I)
+        same = (s["top"].get("head") or "") == (s["bottom"].get("head") or "")
+        def card(h, k):
+            bl = "".join(f'<li class="spc">{html.escape(x)}</li>' if code.match(x) else f'<li>{icon("check", 30, 3)}<span>{inl(x)}</span></li>' for x in h.get("points", []))
+            return (f'<div class="s3c {k}"><div class="s3l">{inl(h["label"])}</div>' + ("" if same or not h.get("head") else f'<h4>{inl(h["head"])}</h4>')
+                    + f'<ul>{bl}</ul>' + (f'<p>{icon("arrow-right", 28, 2.6)}<span>{inl(h["line"])}</span></p>' if h.get("line") else "") + '</div>')
+        head = s["top"].get("head") if same else s.get("title", "")
+        inner = (f'<div class="s3w"><div class="s3h"><span class="s3n">{s.get("_n", i - 1):02d}</span><h2>{inl(head or "")}</h2></div>'
+                 f'{card(s["top"], "a")}<div class="s3vs">VS</div>{card(s["bottom"], "b")}</div>')
+        cls = "mg sp3"
     else:  # bigtable
         cols = s.get("cols", ["#", "Question", "Answer"])
         rows = "".join(f'<tr><td class="i">{k}</td><td class="q">{inl(q)}</td><td class="a">{html.escape(a)}</td></tr>' for k, (q, a) in enumerate(s["rows"], s.get("start", 1)))
@@ -789,8 +859,8 @@ async def fit(pg):
             continue
         break
 
-MEGA_OVER_JS = ("()=>{const w=document.querySelector('.shw,.btw,.mk,.kdw,.spw,.flw');if(!w)return false;const lim=document.querySelector('.sig').getBoundingClientRect().top-10;"
-                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.sph,.fls').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
+MEGA_OVER_JS = ("()=>{const w=document.querySelector('.shw,.btw,.cvh,.kdw,.s3w,.flw');if(!w)return false;const fan=document.querySelector('.fan,.cvbot');const lim=(w.classList.contains('cvh')&&fan?fan.getBoundingClientRect().top:document.querySelector('.sig,.cvbot').getBoundingClientRect().top)-10;"
+                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.s3c,.fls').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
 
 async def mega_fit(pg):
     shrinks, over = 0, False
@@ -798,7 +868,7 @@ async def mega_fit(pg):
         over = await pg.evaluate(MEGA_OVER_JS)
         if not over: break
         shrinks += 1
-        await pg.evaluate("()=>{document.querySelectorAll('.mg *').forEach(e=>{const fs=parseFloat(getComputedStyle(e).fontSize);e.style.fontSize=(fs*0.95)+'px'})}")
+        await pg.evaluate("()=>{document.querySelectorAll(document.querySelector('.cvh')?'.cvh *':'.mg *').forEach(e=>{const fs=parseFloat(getComputedStyle(e).fontSize);e.style.fontSize=(fs*0.95)+'px'})}")
     return shrinks, bool(over)
 
 async def render(spec, out):
@@ -806,27 +876,39 @@ async def render(spec, out):
     sl, series = with_product(spec), spec.get("series", "")
     style = spec.get("style") or list(STYLES)[sum(map(ord, series)) % len(STYLES)]
     layout = spec.get("layout") or LAYOUTS[sum(map(ord, series + style)) % len(LAYOUTS)]
-    files, qa = [], []
+    files, qa, cover_ctx = [], [], None
     async with async_playwright() as p:
         b = await launch(p)
         pg = await b.new_page(viewport={"width": W, "height": H})
-        for i, s in enumerate(sl, 1):
+        kw = next((x.get("keyword") for x in sl if x["type"] == "cta"), None)
+        sticker = spec.get("sticker") or (f"{spec.get('_pdf_pages') or len(sl)}-page<br>PDF" if kw else None)
+        content = [k for k, x in enumerate(sl) if x["type"] in ("sheet", "bigtable", "kids", "split", "flow")]
+        nsplit = 0
+        for x in sl:
+            if x["type"] == "split":
+                nsplit += 1; x["_n"] = nsplit
+        order = list(range(1, len(sl))) + [0] if sl[0]["type"] == "marker_cover" else list(range(len(sl)))
+        files = [None] * len(sl)
+        for idx in order:
+            i, s = idx + 1, sl[idx]
+            if s["type"] == "marker_cover":
+                s = dict(s, _previews=[_src(files[k]) for k in content[:3]], _sticker=sticker, _keyword=kw); cover_ctx = s
             await pg.set_content(mega_page(s, i, len(sl)) if s["type"] in MEGA_TYPES else page(s, i, len(sl), series, style, layout))
             await pg.evaluate("document.fonts.ready")
             if s["type"] in MEGA_TYPES:
                 shrinks, over = await mega_fit(pg)
                 qa.append(dict(slide=i, type=s["type"], shrinks=shrinks, overflow=bool(over), **(await pg.evaluate(QA_JS))))
                 f = out / f"slide_{i:02d}.jpg"
-                await pg.screenshot(path=str(f), type="jpeg", quality=94); files.append(str(f)); continue
+                await pg.screenshot(path=str(f), type="jpeg", quality=94); files[idx] = str(f); continue
             await fit(pg)
             m = await pg.evaluate(MEASURE_JS)
             qa.append(dict(slide=i, type=s["type"], shrinks=0, overflow=bool(m["bottom"] > m["lim"] + 2), **(await pg.evaluate(QA_JS))))
             if not m["art"] and m["bottom"] < m["lim"] - 110:
                 await pg.evaluate("()=>{const w=document.querySelector('.wrap');w.style.justifyContent='center';w.style.paddingTop='170px'}")
             f = out / f"slide_{i:02d}.jpg"
-            await pg.screenshot(path=str(f), type="jpeg", quality=94); files.append(str(f))
+            await pg.screenshot(path=str(f), type="jpeg", quality=94); files[idx] = str(f)
         if spec.get("cover_alt"):  # second hook option for the cover -> cover_b.jpg
-            alt = dict(sl[0], **{k: v for k, v in spec["cover_alt"].items() if k != "hook"})
+            alt = dict(cover_ctx if sl[0]["type"] == "marker_cover" else sl[0], **{k: v for k, v in spec["cover_alt"].items() if k != "hook"})
             if sl[0]["type"] == "marker_cover":  # mega series keep the marker look for both hooks
                 await pg.set_content(mega_page(alt, 1, len(sl))); await pg.evaluate("document.fonts.ready"); await mega_fit(pg)
             else:
@@ -834,6 +916,7 @@ async def render(spec, out):
                 await pg.set_content(page(alt, 1, len(sl), series, style, layout)); await pg.evaluate("document.fonts.ready"); await fit(pg)
             await pg.screenshot(path=str(out / "cover_b.jpg"), type="jpeg", quality=94)
         await b.close()
+    qa.sort(key=lambda q: q["slide"])
     json.dump(qa, open(out / "qa.json", "w"), indent=1)
     return files
 
@@ -898,13 +981,13 @@ def page_count(spec):
 async def render_post(spec, out, pdf=False):
     out = pathlib.Path(out); out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("slide_*.jpg"): f.unlink()
-    post = preview_spec(spec)
+    post = dict(preview_spec(spec), _pdf_pages=page_count(spec))
     files = await render(post, out)
     if not pdf: return files, None
     if post is spec:
         pdf_path = await build_pdf(spec, files, out / "carousel.pdf")
     else:
-        full = out / "_full"; allf = await render(dict(spec, cover_alt=None), full)
+        full = out / "_full"; allf = await render(dict(spec, cover_alt=None, _pdf_pages=page_count(spec)), full)
         pdf_path = await build_pdf(spec, allf, out / "carousel.pdf")
         import shutil; shutil.rmtree(full)
     return files, pdf_path

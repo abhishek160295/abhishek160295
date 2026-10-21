@@ -4,14 +4,14 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "Product Analyst<br>or<br>Data Analyst?",
+  "title": "Product Analyst<br>or<br>~Data~ Analyst?",
   "sub": "Which one should a fresher aim for?",
   "hook": "question"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "Data Analyst<br>vs<br>Product Analyst",
+   "title": "Data Analyst<br>vs<br>~Product~ Analyst",
    "sub": "Same SQL. Different questions."
   },
   {

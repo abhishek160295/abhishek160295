@@ -4,14 +4,14 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "Machine Learning<br>is simple once<br>you see it<br>like this",
+  "title": "Machine Learning<br>is ~simple~ once<br>you see it<br>like this",
   "sub": "12 ideas. One school day.",
   "hook": "simple-explainer"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "How I'd explain<br>Machine Learning<br>to a 5-year-old",
+   "title": "How I'd explain<br>~Machine Learning~<br>to a 5-year-old",
    "sub": "12 ideas from one school day.<br>The real Python under each."
   },
   {
