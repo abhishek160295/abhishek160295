@@ -1,0 +1,212 @@
+{
+ "series": "SQL windows",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_bg": "sky",
+ "lang": "sql",
+ "cover_alt": {
+  "title": "RANK or DENSE_RANK? Most freshers ~guess~.",
+  "hook": "one-sharp-fact",
+  "bg": "yellow"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "SQL window functions, ~finally~ simple"
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "~Rank~ rows",
+   "ribbon": "Who is first, second, third",
+   "tip": [
+    "Interview trap:",
+    "Ravi and Karan both earn 61,000. RANK gives them 2 and 2, then jumps to 4."
+   ],
+   "rows": [
+    {
+     "name": "Number every row",
+     "formula": "SELECT name, ROW_NUMBER() OVER (ORDER BY salary DESC) FROM employees;",
+     "result": "Asha 1, Ravi 2, Karan 3, ..."
+    },
+    {
+     "name": "Rank, ties share a place",
+     "formula": "SELECT name, RANK() OVER (ORDER BY salary DESC) FROM employees;",
+     "result": "Asha 1, Ravi 2, Karan 2, ..."
+    },
+    {
+     "name": "Rank with no gaps",
+     "formula": "SELECT name, DENSE_RANK() OVER (ORDER BY salary DESC) FROM employees;",
+     "result": "Asha 1, Ravi 2, Karan 2, ..."
+    },
+    {
+     "name": "Rank inside each dept",
+     "formula": "SELECT dept, name, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) FROM employees;",
+     "result": "HR Neha 1, HR Sneha 2, IT Asha 1, ..."
+    },
+    {
+     "name": "Top earner per dept",
+     "formula": "WITH r AS (SELECT name, dept, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS rk FROM employees) SELECT dept, name FROM r WHERE rk = 1;",
+     "result": "HR Neha, IT Asha, Sales Vikas"
+    }
+   ],
+   "data": "Practice tables (example): employees (8 staff, 3 depts, salary), sales (North and South, Jan to Mar 2024), orders (8 orders, 4 customers)."
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "Running ~totals~",
+   "ribbon": "Totals without losing your rows",
+   "tip": [
+    "Remember:",
+    "GROUP BY squashes rows. OVER keeps every row and adds the total beside it."
+   ],
+   "rows": [
+    {
+     "name": "Running total by region",
+     "formula": "SELECT region, month, SUM(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+     "result": "North 2024-01 1,000, North 2024-02 2,200, North 2024-03 3,100, ..."
+    },
+    {
+     "name": "Region total on every row",
+     "formula": "SELECT region, month, SUM(sales) OVER (PARTITION BY region) FROM sales;",
+     "result": "North 2024-01 3,100, North 2024-02 3,100, North 2024-03 3,100, ..."
+    },
+    {
+     "name": "Share of region, %",
+     "formula": "SELECT region, month, ROUND(100.0 * sales / SUM(sales) OVER (PARTITION BY region), 1) FROM sales;",
+     "result": "North 2024-01 32.3, North 2024-02 38.7, North 2024-03 29, ..."
+    },
+    {
+     "name": "3-month moving average",
+     "formula": "SELECT region, month, ROUND(AVG(sales) OVER (PARTITION BY region ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) FROM sales;",
+     "result": "North 2024-01 1,000, North 2024-02 1,100, North 2024-03 1,033, ..."
+    },
+    {
+     "name": "Dept average beside salary",
+     "formula": "SELECT name, salary, ROUND(AVG(salary) OVER (PARTITION BY dept)) FROM employees ORDER BY id;",
+     "result": "Asha 72,000 64,667, Ravi 61,000 64,667, Neha 48,000 46,500, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "Compare with ~last~ month",
+   "ribbon": "LAG and LEAD do the VLOOKUP-to-row-above for you",
+   "tip": [
+    "Say this:",
+    "LAG looks back, LEAD looks ahead. The first row has nothing behind it, so you get NULL."
+   ],
+   "rows": [
+    {
+     "name": "Previous month's sales",
+     "formula": "SELECT region, month, LAG(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+     "result": "North 2024-01 NULL, North 2024-02 1,000, North 2024-03 1,200, ..."
+    },
+    {
+     "name": "Month-on-month change",
+     "formula": "SELECT region, month, sales - LAG(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+     "result": "North 2024-01 NULL, North 2024-02 200, North 2024-03 -300, ..."
+    },
+    {
+     "name": "Next month's sales",
+     "formula": "SELECT region, month, LEAD(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+     "result": "North 2024-01 1,200, North 2024-02 900, North 2024-03 NULL, ..."
+    },
+    {
+     "name": "First month as baseline",
+     "formula": "SELECT region, month, FIRST_VALUE(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+     "result": "North 2024-01 1,000, North 2024-02 1,000, North 2024-03 1,000, ..."
+    },
+    {
+     "name": "Split staff into 4 pay bands",
+     "formula": "SELECT name, NTILE(4) OVER (ORDER BY salary DESC) FROM employees;",
+     "result": "Asha 1, Ravi 1, Karan 2, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "Interview ~classics~",
+   "ribbon": "Asked in almost every SQL round",
+   "tip": [
+    "Interview trap:",
+    "You cannot use a window function in WHERE. Wrap it in a CTE or subquery first."
+   ],
+   "rows": [
+    {
+     "name": "Second highest salary",
+     "formula": "SELECT DISTINCT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS dr FROM employees) WHERE dr = 2;",
+     "result": "61,000"
+    },
+    {
+     "name": "Find duplicate emails",
+     "formula": "SELECT email FROM (SELECT email, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS rn FROM employees) WHERE rn > 1;",
+     "result": "asha@corp.in"
+    },
+    {
+     "name": "Latest order per customer",
+     "formula": "SELECT customer_id, order_date FROM (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date DESC) AS rn FROM orders) WHERE rn = 1;",
+     "result": "1 2024-03-15, 2 2024-04-02, 3 2024-03-01, ..."
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Which one do I ~use~?",
+   "cols": [
+    "#",
+    "You need",
+    "Use"
+   ],
+   "rows": [
+    [
+     "A unique number on every row",
+     "ROW_NUMBER"
+    ],
+    [
+     "Ties to share a rank, gaps after",
+     "RANK"
+    ],
+    [
+     "Ties to share a rank, no gaps",
+     "DENSE_RANK"
+    ],
+    [
+     "The row above or below",
+     "LAG / LEAD"
+    ],
+    [
+     "A running or moving total",
+     "SUM / AVG with ORDER BY inside OVER"
+    ],
+    [
+     "A group total beside each row",
+     "SUM with PARTITION BY, no ORDER BY"
+    ],
+    [
+     "Top N in every group",
+     "ROW_NUMBER or RANK, then filter in a CTE"
+    ],
+    [
+     "Equal-sized buckets",
+     "NTILE"
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Run these ~today~.",
+   "body": "Comment WINDOWSQL and I'll DM you the full 11-page PDF.",
+   "keyword": "WINDOWSQL",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

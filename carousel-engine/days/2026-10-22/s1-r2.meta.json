@@ -1,0 +1,632 @@
+{
+ "title": "SQL window functions: 18 queries with their results, from RANK to LAG",
+ "slug": "sql-window-functions-18",
+ "keyword": "WINDOWSQL",
+ "caption": "Window functions are the part of the SQL round that freshers skip.\n18 queries on small practice tables, each with the rows it returns, plus a page on which one to use when.\nFollow @thedataguy16 and comment WINDOWSQL. I'll DM you the full 11-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#sql #sqlinterview #dataanalyst #learnsql #analystjobs #thedataguy16",
+ "hookType": "big-list",
+ "pillar": "Skills",
+ "illustrative": true,
+ "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Replaces 2 rejected s1 posts (ROLE VS, Excel interview list). Planner offered another ROLE VS and a plan; ROLE VS was rejected today and every core tool had a day plan in the last 60 days, so this is a cheat sheet on a SQL angle not covered yet. Hook family: pain + payoff; cover B: one sharp fact.",
+ "sources": [
+  {
+   "title": "SQLite window functions",
+   "url": "https://www.sqlite.org/windowfunctions.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "q1",
+    "lang": "sql",
+    "query": "SELECT name, ROW_NUMBER() OVER (ORDER BY salary DESC) FROM employees;",
+    "expect": [
+     [
+      "Asha",
+      1
+     ],
+     [
+      "Ravi",
+      2
+     ],
+     [
+      "Karan",
+      3
+     ],
+     [
+      "Vikas",
+      4
+     ],
+     [
+      "Imran",
+      5
+     ],
+     [
+      "Pooja",
+      6
+     ],
+     [
+      "Neha",
+      7
+     ],
+     [
+      "Sneha",
+      8
+     ]
+    ]
+   },
+   {
+    "id": "q2",
+    "lang": "sql",
+    "query": "SELECT name, RANK() OVER (ORDER BY salary DESC) FROM employees;",
+    "expect": [
+     [
+      "Asha",
+      1
+     ],
+     [
+      "Ravi",
+      2
+     ],
+     [
+      "Karan",
+      2
+     ],
+     [
+      "Vikas",
+      4
+     ],
+     [
+      "Imran",
+      5
+     ],
+     [
+      "Pooja",
+      6
+     ],
+     [
+      "Neha",
+      7
+     ],
+     [
+      "Sneha",
+      8
+     ]
+    ]
+   },
+   {
+    "id": "q3",
+    "lang": "sql",
+    "query": "SELECT name, DENSE_RANK() OVER (ORDER BY salary DESC) FROM employees;",
+    "expect": [
+     [
+      "Asha",
+      1
+     ],
+     [
+      "Ravi",
+      2
+     ],
+     [
+      "Karan",
+      2
+     ],
+     [
+      "Vikas",
+      3
+     ],
+     [
+      "Imran",
+      4
+     ],
+     [
+      "Pooja",
+      5
+     ],
+     [
+      "Neha",
+      6
+     ],
+     [
+      "Sneha",
+      7
+     ]
+    ]
+   },
+   {
+    "id": "q4",
+    "lang": "sql",
+    "query": "SELECT dept, name, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) FROM employees;",
+    "expect": [
+     [
+      "HR",
+      "Neha",
+      1
+     ],
+     [
+      "HR",
+      "Sneha",
+      2
+     ],
+     [
+      "IT",
+      "Asha",
+      1
+     ],
+     [
+      "IT",
+      "Ravi",
+      2
+     ],
+     [
+      "IT",
+      "Karan",
+      2
+     ],
+     [
+      "Sales",
+      "Vikas",
+      1
+     ],
+     [
+      "Sales",
+      "Imran",
+      2
+     ],
+     [
+      "Sales",
+      "Pooja",
+      3
+     ]
+    ]
+   },
+   {
+    "id": "q5",
+    "lang": "sql",
+    "query": "WITH r AS (SELECT name, dept, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS rk FROM employees) SELECT dept, name FROM r WHERE rk = 1;",
+    "expect": [
+     [
+      "HR",
+      "Neha"
+     ],
+     [
+      "IT",
+      "Asha"
+     ],
+     [
+      "Sales",
+      "Vikas"
+     ]
+    ]
+   },
+   {
+    "id": "q6",
+    "lang": "sql",
+    "query": "SELECT region, month, SUM(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      1000.0
+     ],
+     [
+      "North",
+      "2024-02",
+      2200.0
+     ],
+     [
+      "North",
+      "2024-03",
+      3100.0
+     ],
+     [
+      "South",
+      "2024-01",
+      4000.0
+     ],
+     [
+      "South",
+      "2024-02",
+      8500.0
+     ],
+     [
+      "South",
+      "2024-03",
+      13700.0
+     ]
+    ]
+   },
+   {
+    "id": "q7",
+    "lang": "sql",
+    "query": "SELECT region, month, SUM(sales) OVER (PARTITION BY region) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      3100.0
+     ],
+     [
+      "North",
+      "2024-02",
+      3100.0
+     ],
+     [
+      "North",
+      "2024-03",
+      3100.0
+     ],
+     [
+      "South",
+      "2024-01",
+      13700.0
+     ],
+     [
+      "South",
+      "2024-02",
+      13700.0
+     ],
+     [
+      "South",
+      "2024-03",
+      13700.0
+     ]
+    ]
+   },
+   {
+    "id": "q8",
+    "lang": "sql",
+    "query": "SELECT region, month, ROUND(100.0 * sales / SUM(sales) OVER (PARTITION BY region), 1) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      32.3
+     ],
+     [
+      "North",
+      "2024-02",
+      38.7
+     ],
+     [
+      "North",
+      "2024-03",
+      29.0
+     ],
+     [
+      "South",
+      "2024-01",
+      29.2
+     ],
+     [
+      "South",
+      "2024-02",
+      32.8
+     ],
+     [
+      "South",
+      "2024-03",
+      38.0
+     ]
+    ]
+   },
+   {
+    "id": "q9",
+    "lang": "sql",
+    "query": "SELECT region, month, ROUND(AVG(sales) OVER (PARTITION BY region ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      1000.0
+     ],
+     [
+      "North",
+      "2024-02",
+      1100.0
+     ],
+     [
+      "North",
+      "2024-03",
+      1033.0
+     ],
+     [
+      "South",
+      "2024-01",
+      4000.0
+     ],
+     [
+      "South",
+      "2024-02",
+      4250.0
+     ],
+     [
+      "South",
+      "2024-03",
+      4567.0
+     ]
+    ]
+   },
+   {
+    "id": "q10",
+    "lang": "sql",
+    "query": "SELECT name, salary, ROUND(AVG(salary) OVER (PARTITION BY dept)) FROM employees ORDER BY id;",
+    "expect": [
+     [
+      "Asha",
+      72000,
+      64667.0
+     ],
+     [
+      "Ravi",
+      61000,
+      64667.0
+     ],
+     [
+      "Neha",
+      48000,
+      46500.0
+     ],
+     [
+      "Imran",
+      55000,
+      55000.0
+     ],
+     [
+      "Pooja",
+      52000,
+      55000.0
+     ],
+     [
+      "Karan",
+      61000,
+      64667.0
+     ],
+     [
+      "Sneha",
+      45000,
+      46500.0
+     ],
+     [
+      "Vikas",
+      58000,
+      55000.0
+     ]
+    ]
+   },
+   {
+    "id": "q11",
+    "lang": "sql",
+    "query": "SELECT region, month, LAG(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      null
+     ],
+     [
+      "North",
+      "2024-02",
+      1000.0
+     ],
+     [
+      "North",
+      "2024-03",
+      1200.0
+     ],
+     [
+      "South",
+      "2024-01",
+      null
+     ],
+     [
+      "South",
+      "2024-02",
+      4000.0
+     ],
+     [
+      "South",
+      "2024-03",
+      4500.0
+     ]
+    ]
+   },
+   {
+    "id": "q12",
+    "lang": "sql",
+    "query": "SELECT region, month, sales - LAG(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      null
+     ],
+     [
+      "North",
+      "2024-02",
+      200.0
+     ],
+     [
+      "North",
+      "2024-03",
+      -300.0
+     ],
+     [
+      "South",
+      "2024-01",
+      null
+     ],
+     [
+      "South",
+      "2024-02",
+      500.0
+     ],
+     [
+      "South",
+      "2024-03",
+      700.0
+     ]
+    ]
+   },
+   {
+    "id": "q13",
+    "lang": "sql",
+    "query": "SELECT region, month, LEAD(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      1200.0
+     ],
+     [
+      "North",
+      "2024-02",
+      900.0
+     ],
+     [
+      "North",
+      "2024-03",
+      null
+     ],
+     [
+      "South",
+      "2024-01",
+      4500.0
+     ],
+     [
+      "South",
+      "2024-02",
+      5200.0
+     ],
+     [
+      "South",
+      "2024-03",
+      null
+     ]
+    ]
+   },
+   {
+    "id": "q14",
+    "lang": "sql",
+    "query": "SELECT region, month, FIRST_VALUE(sales) OVER (PARTITION BY region ORDER BY month) FROM sales;",
+    "expect": [
+     [
+      "North",
+      "2024-01",
+      1000.0
+     ],
+     [
+      "North",
+      "2024-02",
+      1000.0
+     ],
+     [
+      "North",
+      "2024-03",
+      1000.0
+     ],
+     [
+      "South",
+      "2024-01",
+      4000.0
+     ],
+     [
+      "South",
+      "2024-02",
+      4000.0
+     ],
+     [
+      "South",
+      "2024-03",
+      4000.0
+     ]
+    ]
+   },
+   {
+    "id": "q15",
+    "lang": "sql",
+    "query": "SELECT name, NTILE(4) OVER (ORDER BY salary DESC) FROM employees;",
+    "expect": [
+     [
+      "Asha",
+      1
+     ],
+     [
+      "Ravi",
+      1
+     ],
+     [
+      "Karan",
+      2
+     ],
+     [
+      "Vikas",
+      2
+     ],
+     [
+      "Imran",
+      3
+     ],
+     [
+      "Pooja",
+      3
+     ],
+     [
+      "Neha",
+      4
+     ],
+     [
+      "Sneha",
+      4
+     ]
+    ]
+   },
+   {
+    "id": "q16",
+    "lang": "sql",
+    "query": "SELECT DISTINCT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS dr FROM employees) WHERE dr = 2;",
+    "expect": [
+     [
+      61000
+     ]
+    ]
+   },
+   {
+    "id": "q17",
+    "lang": "sql",
+    "query": "SELECT email FROM (SELECT email, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS rn FROM employees) WHERE rn > 1;",
+    "expect": [
+     [
+      "asha@corp.in"
+     ]
+    ]
+   },
+   {
+    "id": "q18",
+    "lang": "sql",
+    "query": "SELECT customer_id, order_date FROM (SELECT customer_id, order_date, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date DESC) AS rn FROM orders) WHERE rn = 1;",
+    "expect": [
+     [
+      1,
+      "2024-03-15"
+     ],
+     [
+      2,
+      "2024-04-02"
+     ],
+     [
+      3,
+      "2024-03-01"
+     ],
+     [
+      4,
+      "2024-03-09"
+     ]
+    ]
+   }
+  ],
+  "prose_slides": [
+   6
+  ]
+ }
+}

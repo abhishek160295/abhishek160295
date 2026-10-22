@@ -500,9 +500,9 @@
     "title": "38 Python lines that do your boring office work"
    },
    {
-    "tool": "Power BI",
+    "tool": "SQL",
     "date": "2026-10-22",
-    "title": "27 DAX measures you'll write in your first Power BI job, with answers"
+    "title": "SQL window functions: 18 queries with their results, from RANK to LAG"
    }
   ]
  },
@@ -719,6 +719,12 @@
     "post": "2026-10-22-s1-r1",
     "family": "the-round",
     "mechanic": "one-sharp-fact"
+   },
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s1-r2",
+    "family": "decision-settler",
+    "mechanic": "comment-line"
    }
   ]
  },

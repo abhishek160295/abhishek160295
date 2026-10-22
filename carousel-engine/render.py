@@ -1060,7 +1060,7 @@ def expand_pages(slides, series=""):
     """v5 readability: a sheet shows at most 5 cards, a table at most 8 rows; longer pages continue on the next slide."""
     out = []
     for x in slides:
-        lim = SHEET_MAX if x["type"] == "sheet" else TABLE_MAX if x["type"] == "bigtable" else None
+        lim = x.get("per_page") or (SHEET_MAX if x["type"] == "sheet" else TABLE_MAX if x["type"] == "bigtable" else None)
         if lim and len(x["rows"]) > lim:
             n = -(-len(x["rows"]) // lim); size = -(-len(x["rows"]) // n)  # even split: 8 rows -> 4 + 4, not 5 + 3
             parts = [x["rows"][i:i + size] for i in range(0, len(x["rows"]), size)]

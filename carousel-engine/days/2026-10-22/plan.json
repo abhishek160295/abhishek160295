@@ -291,6 +291,7 @@
    "20 Power BI scenario questions, 1-line answers",
    "20 Power BI scenario questions, answered",
    "20 pandas one-liners that pay you forever (mega-sheet)",
+   "22 Excel tasks for your interview round, solved on one sheet",
    "25 ChatGPT prompts that do an analyst's grunt work (mega-sheet)",
    "25 Excel interview questions, 1-line answers",
    "25 Python interview questions, 1-line answers",
@@ -516,6 +517,7 @@
    "XLMYTHS",
    "XLNOTES",
    "XLOOKUPVS",
+   "XLROUND",
    "XLTASK24",
    "XLVSPBI"
   ]
@@ -556,6 +558,44 @@
     "topic": "Service vs Product company analyst",
     "format": "vs-split",
     "keyword": "SVSP"
+   }
+  },
+  "s1-r2": {
+   "slot": 1,
+   "slotTime": "08:30",
+   "rotation": "BIG-NUMBER CHEAT SHEET",
+   "format": "mega",
+   "pillar": "Skills",
+   "style": "paper",
+   "layout": "editorial",
+   "hookType": "role-vs",
+   "evidence": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "why": "Replaces 2026-10-22-s1-r1 (list, '22 Excel tasks for your interview round, solved on one sheet'): different proven format. Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. | Override 16:51 IST: ROLE VS already rejected today and every core tool had a day plan within 60 days, so a SQL window functions cheat sheet. Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "hookFamily": "decision-settler",
+   "hookA": {
+    "family": "Decision settler",
+    "why": "Role comparisons are the second-best performer (DA vs DS 46,911 / 120 follows).",
+    "patterns": [
+     "Data Analyst or Product Analyst? Same SQL, different questions",
+     "B.Com to Data Analyst: what transfers, what you learn new",
+     "Service company analyst vs product company analyst: a normal day",
+     "Fresher vs 2-year analyst: what actually changes"
+    ]
+   },
+   "coverBMechanic": "comment-line",
+   "hookB": {
+    "mechanic": "comment-line",
+    "how": "The comment CTA is the hook on cover B.",
+    "example": "Comment EXCEL and I'll send you all 21 pages"
+   },
+   "topic": "SQL",
+   "brief": "ROLE VS split on the career pair 'Fresher analyst vs 2-year analyst'. marker_cover 'X<br>vs<br>Y' + 5-7 split slides (what they do, tools, a normal day, output, maths, entry route for freshers, skills asked) + cta. No salaries, no invented stats. Vary the title template vs the last 3 days.",
+   "replaces": "2026-10-22-s1-r1",
+   "avoid": {
+    "title": "22 Excel tasks for your interview round, solved on one sheet",
+    "topic": "Excel",
+    "format": "list",
+    "keyword": "XLROUND"
    }
   }
  }
