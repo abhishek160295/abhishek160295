@@ -1,0 +1,100 @@
+{
+ "title": "pandas notes for your first analyst job: 18 pages, every line run",
+ "slug": "pandas-notes-first-job",
+ "keyword": "PANDASNOTES",
+ "caption": "Your first analyst task will be a messy Excel export.\nThese 18 pages clean it, join it, pivot it and export it. Every line shows its real output.\nFollow @thedataguy16 and comment PANDASNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#pandas #python #dataanalyst #datacleaning #analystjobs #thedataguy16",
+ "hookType": "notes-pages",
+ "pillar": "Skills",
+ "why": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides. pandas is the least recent notes tool (never done). Hook family: before day one; cover B: sticker number.",
+ "sources": [
+  {
+   "title": "pandas API reference",
+   "url": "https://pandas.pydata.org/docs/reference/index.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "page1",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf = pd.read_csv(\"sales.csv\")\ndf.shape\ndf.head(3)\ndf[\"sales\"].dtype\ndf[\"sales\"].mean()\ndf[\"city\"].nunique()\ndf[\"region\"].value_counts()\ndf.isna().sum().sum()\ndf.sample(2, random_state=1)"
+   },
+   {
+    "id": "page2",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"city\"]\ndf[[\"city\", \"sales\"]]\ndf.loc[0, \"city\"]\ndf.iloc[2, 3]\ndf[df[\"sales\"] > 1000]\ndf[(df[\"region\"] == \"South\") & (df[\"qty\"] > 5)]\ndf[df[\"city\"].isin([\"Pune\", \"Jaipur\"])]\ndf.query(\"sales > 1000\")\ndf.loc[df[\"sales\"].idxmax(), \"city\"]"
+   },
+   {
+    "id": "page3",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"name\"] = df[\"name\"].str.strip()\ndf[\"name\"] = df[\"name\"].str.title()\ndf[\"status\"].str.lower()\ndf[\"email\"].str.contains(\"divya\")\ndf[\"email\"].str.split(\"@\").str[0]\ndf[\"product\"].str[:3]\ndf[\"email\"].str.len()\ndf[\"status\"].str.replace(\"Cancelled\", \"Cancel\")\ndf[\"product\"] + \" - \" + df[\"status\"]"
+   },
+   {
+    "id": "page4",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf.isna().sum()\ndf[df.isna().any(axis=1)]\ndf.dropna(subset=[\"sales\"])\ndf[\"sales\"].fillna(0)\ndf[\"sales\"].fillna(df[\"sales\"].mean())\ndf[\"city\"].fillna(\"Unknown\")\ndf[\"region\"].ffill()\ndf[\"sales\"].count()\ndf[\"sales\"].isna().mean()"
+   },
+   {
+    "id": "page5",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf.duplicated().sum()\ndf = df.drop_duplicates()\ndf.duplicated(subset=[\"email\"]).sum()\ndf.drop_duplicates(subset=[\"email\"], keep=\"last\")\ndf[df.duplicated(subset=[\"email\"], keep=False)]\ndf[\"city\"].dropna().unique()\ndf = df.reset_index(drop=True)"
+   },
+   {
+    "id": "page6",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\ndf[\"date\"].dt.month\ndf[\"date\"].dt.day_name()\ndf[\"date\"].dt.strftime(\"%b %Y\")\ndf[df[\"date\"].dt.month == 3]\n(df[\"date\"] - df[\"date\"].min()).dt.days\npd.to_numeric(pd.Series([\"10\", \"x\"]), errors=\"coerce\")\ndf[\"qty\"].astype(int)"
+   },
+   {
+    "id": "page7",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"revenue\"] = df[\"qty\"] * df[\"price\"]\ndf[\"big\"] = np.where(df[\"revenue\"] > 1000, \"Yes\", \"No\")\npd.cut(df[\"price\"], bins=[0, 100, 500, 1000], labels=[\"Low\", \"Mid\", \"High\"])\ndf[\"status\"].map({\"Delivered\": \"D\", \"Cancelled\": \"C\", \"Returned\": \"R\"})\n(df[\"sales\"] / 3).round(1)\ndf[\"qty\"].clip(upper=20)\ndf[\"revenue\"].cumsum()\n(df[\"revenue\"] / df[\"revenue\"].sum() * 100).round(1)"
+   },
+   {
+    "id": "page8",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf.groupby(\"region\")[\"sales\"].sum()\ndf.groupby(\"region\")[\"sales\"].mean()\ndf.groupby(\"city\").size()\ndf.groupby(\"region\")[\"sales\"].agg([\"sum\", \"mean\", \"count\"])\ndf.groupby(\"region\").agg(total=(\"sales\", \"sum\"), orders=(\"order_id\", \"count\"))\ndf.groupby(\"region\")[\"sales\"].sum().sort_values(ascending=False)\ndf.groupby(\"region\")[\"customer_id\"].nunique()\ndf[\"sales\"] / df.groupby(\"region\")[\"sales\"].transform(\"sum\")"
+   },
+   {
+    "id": "page9",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"month\"] = pd.to_datetime(df[\"date\"]).dt.strftime(\"%b\")\ndf.pivot_table(index=\"region\", columns=\"month\", values=\"sales\", aggfunc=\"sum\", fill_value=0)\ndf.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\", margins=True)\npd.crosstab(df[\"region\"], df[\"status\"])\ndf[[\"order_id\", \"sales\", \"qty\"]].melt(id_vars=\"order_id\")\ndf.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\", margins=True).loc[\"All\", \"sales\"]"
+   },
+   {
+    "id": "page10",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ncustomers = df2\ndf.merge(customers, on=\"customer_id\", how=\"left\")\ndf.merge(customers, on=\"customer_id\", how=\"inner\")\ndf.merge(customers, on=\"customer_id\", how=\"left\")[\"segment\"].isna().sum()\ndf.merge(customers, on=\"customer_id\", how=\"outer\", indicator=True)[\"_merge\"].value_counts()\npd.concat([df, df], ignore_index=True)\ndf.merge(customers.rename(columns={\"customer_id\": \"cid\"}), left_on=\"customer_id\", right_on=\"cid\")"
+   },
+   {
+    "id": "page11",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf.sort_values(\"sales\", ascending=False)\ndf.sort_values([\"region\", \"sales\"], ascending=[True, False])\ndf.nlargest(3, \"sales\")\ndf.nsmallest(2, \"sales\")\ndf[\"sales\"].rank(ascending=False)\ndf[\"sales\"].rank(method=\"dense\", ascending=False)\ndf.sort_values(\"sales\").groupby(\"region\").tail(1)"
+   },
+   {
+    "id": "page12",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\ndf.resample(\"MS\", on=\"date\")[\"sales\"].sum()\ndf.resample(\"MS\", on=\"date\")[\"sales\"].sum().diff()\n(df.resample(\"MS\", on=\"date\")[\"sales\"].sum().pct_change() * 100).round(1)\ndf[\"sales\"].shift(1)\ndf[\"sales\"].rolling(2).mean()\ndf.groupby(\"region\")[\"sales\"].cumsum()"
+   },
+   {
+    "id": "page13",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\nimport os\nos.makedirs(\"out\", exist_ok=True)\ndf.to_csv(\"out/report.csv\", index=False)\ndf.to_excel(\"out/report.xlsx\", sheet_name=\"Sales\", index=False)\nwith pd.ExcelWriter(\"out/two.xlsx\") as w: df.to_excel(w, sheet_name=\"All\")\nassert os.path.exists(\"out/two.xlsx\")\ndf.round(2).to_csv(\"out/clean.csv\", index=False)\npd.read_csv(\"out/report.csv\").shape"
+   },
+   {
+    "id": "page14",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf[[\"city\", \"sales\"]]\ndf[df[\"sales\"] > 1000]\ndf.sort_values(\"sales\", ascending=False)\ndf.head(5)\ndf[\"city\"].drop_duplicates()\nlen(df)\ndf.groupby(\"region\")[\"sales\"].sum()\ndf.groupby(\"region\")[\"sales\"].sum().loc[lambda s: s > 1000]\ndf.merge(df2, on=\"customer_id\", how=\"left\")\npd.concat([df, df])\ndf[df[\"city\"].isin([\"Pune\", \"Indore\"])]\ndf[df[\"name\"].str.contains(\"a\")]\ndf[df[\"city\"].isna()]\nnp.where(df[\"sales\"] > 1000, \"High\", \"Low\")\ndf.rename(columns={\"sales\": \"amount\"})\ndf.groupby(\"region\").cumcount() + 1"
+   },
+   {
+    "id": "page15",
+    "lang": "python",
+    "code": "import numpy as np\ndf.to_csv('sales.csv', index=False)\ndf.merge(df2, on=\"customer_id\", how=\"left\")\ndf.groupby(\"region\")[\"sales\"].sum()\ndf[\"region\"].value_counts()\ndf.groupby(\"region\")[\"sales\"].mean()\nnp.where(df[\"sales\"] > 1000, \"Yes\", \"No\")\ndf.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\")\ndf.drop_duplicates()\ndf[df[\"city\"] == \"Pune\"]\ndf.sort_values(\"name\")\ndf[\"name\"].str.strip()\ndf[\"name\"].str.title()\ndf[\"product\"].str[:3]\ndf[\"email\"].str.split(\"@\", expand=True)\ndf[\"sales\"].fillna(0)\ndf[\"sales\"].cumsum()\ndf[\"sales\"].rank(ascending=False)"
+   }
+  ],
+  "prose_slides": [
+   17,
+   18,
+   19
+  ]
+ }
+}

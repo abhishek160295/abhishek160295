@@ -1,0 +1,447 @@
+<title>Thedataguy16 Carousel Engine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Kalam:wght@700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+/* Layout: a creator's morning desk. Hero fans today's covers; each post sits in an Instagram phone with its save tools beside it; the run book follows. */
+:root{
+  --bg:#F2F1EC; --surface:#FFFFFF; --ink:#16171B; --muted:#5D6068; --line:#DEDDD6; --soft:#ECEAE3;
+  --marker:#B3121B; --marker-bg:#FBE4E5; --hi:#FFD12E; --teal:#0F7A62; --teal-bg:#DDF2EA; --phone:#0E0F12;
+  --display:'Bricolage Grotesque',Manrope,system-ui,sans-serif; --body:Manrope,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --hand:Kalam,'Comic Sans MS',cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101114;--surface:#191B1F;--ink:#EDEDE8;--muted:#A3A6AD;--line:#2A2D33;--soft:#22252A;--marker:#FF6B70;--marker-bg:#3A1A1C;--hi:#FFD12E;--teal:#4FC9AA;--teal-bg:#14302A;--phone:#000;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101114;--surface:#191B1F;--ink:#EDEDE8;--muted:#A3A6AD;--line:#2A2D33;--soft:#22252A;--marker:#FF6B70;--marker-bg:#3A1A1C;--hi:#FFD12E;--teal:#4FC9AA;--teal-bg:#14302A;--phone:#000;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:72px}
+.wrap>*,#posts>*,.post>*,.book>*{min-width:0}
+button{font:700 14px var(--body);color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:11px;padding:10px 15px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:hover{border-color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:2.5px solid var(--teal);outline-offset:2px}
+button[disabled]{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button.red{background:var(--marker);color:#fff;border-color:var(--marker)}
+svg.i{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}}
+.eyebrow{font:700 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--marker);display:flex;gap:10px;align-items:center}
+.eyebrow .live{width:8px;height:8px;border-radius:50%;background:var(--marker);box-shadow:0 0 0 0 var(--marker)}
+h1{font:800 clamp(40px,6.4vw,74px)/.95 var(--display);letter-spacing:-.035em;margin:14px 0 18px;text-wrap:balance}
+h1 .hl{background:linear-gradient(100deg,transparent 1%,var(--hi) 3%,var(--hi) 96%,transparent 99%);background-size:100% 46%;background-repeat:no-repeat;background-position:0 86%;color:var(--ink);padding:0 4px}
+.lede{max-width:56ch;color:var(--muted);margin:0 0 22px;font-size:16.5px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:560px}
+.stat{border-top:3px solid var(--ink);padding-top:8px}
+.stat b{display:block;font:800 30px/1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{font:600 12px var(--body);color:var(--muted)}
+@media (max-width:480px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hero{overflow-x:clip}
+.fan{position:relative;height:400px;max-width:100%}
+.fan a{position:absolute;top:30px;left:50%;width:190px;aspect-ratio:4/5;margin-left:-95px;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(20,15,5,.45);border:6px solid #fff;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.fan a img{width:100%;height:100%;object-fit:cover;display:block}
+.fan a:nth-child(1){transform:translateX(-86%) rotate(-11deg) translateY(28px);z-index:1}
+.fan a:nth-child(2){transform:translateX(-30%) rotate(-4deg);z-index:2}
+.fan a:nth-child(3){transform:translateX(30%) rotate(4deg);z-index:3}
+.fan a:nth-child(4){transform:translateX(86%) rotate(11deg) translateY(28px);z-index:2}
+.fan a:hover{transform:translateY(-14px) scale(1.04)!important;z-index:9}
+.fan .tag{position:absolute;bottom:8px;left:8px;font:700 11px var(--mono);background:var(--ink);color:var(--bg);padding:3px 7px;border-radius:6px}
+@media (max-width:560px){.fan{height:300px}.fan a{width:128px;margin-left:-64px;border-width:4px}.fan a:nth-child(1){transform:translateX(-82%) rotate(-11deg) translateY(22px)}.fan a:nth-child(4){transform:translateX(82%) rotate(11deg) translateY(22px)}}
+@media (prefers-reduced-motion:no-preference){
+  .fan a{animation:drift 7s ease-in-out infinite}
+  .fan a:nth-child(2){animation-delay:-1.7s}.fan a:nth-child(3){animation-delay:-3.4s}.fan a:nth-child(4){animation-delay:-5.1s}
+  .eyebrow .live{animation:ping 2s infinite}
+}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(179,18,27,.5)}80%,100%{box-shadow:0 0 0 10px rgba(179,18,27,0)}}
+
+/* timeline nav */
+.slots{display:grid;grid-template-columns:repeat(__NPOSTS__,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.slots a{display:grid;gap:4px;text-decoration:none;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.slots a:hover{border-color:var(--ink)}
+.slots .t{font:800 22px var(--display);font-variant-numeric:tabular-nums}
+.slots .f{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.slots .k{font:700 12px var(--mono);color:var(--marker)}
+.slots .n{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* post */
+.post{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:44px;align-items:start;scroll-margin-top:20px}
+@media (max-width:900px){.post{grid-template-columns:minmax(0,1fr)}}
+.phone{background:var(--phone);border-radius:46px;padding:12px;box-shadow:0 40px 80px -30px rgba(10,10,20,.55),inset 0 0 0 2px #2b2d33;max-width:400px;width:100%;justify-self:center;position:sticky;top:20px}
+@media (max-width:900px){.phone{position:relative;top:0}}
+.screen{background:#fff;color:#111;border-radius:36px;overflow:hidden}
+.igtop{display:flex;align-items:center;gap:10px;padding:14px 14px 10px}
+.igtop .av{width:34px;height:34px;border-radius:50%;background:conic-gradient(#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5,#FEDA75);padding:2px}
+.igtop .av span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#16171B;color:#FFD12E;font:800 11px var(--display);border:2px solid #fff}
+.igtop b{font:700 14px var(--body)}.igtop small{display:block;font:500 11.5px var(--body);color:#666}
+.igtop .more{margin-left:auto;font:800 18px var(--body);letter-spacing:1px;color:#111}
+.view{position:relative}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;aspect-ratio:4/5;background:#f4f4f4}
+.track::-webkit-scrollbar{display:none}
+.track img{flex:0 0 100%;width:100%;height:100%;min-width:100%;object-fit:cover;scroll-snap-align:center;display:block}
+.cnt{position:absolute;top:12px;right:12px;font:700 12px var(--body);background:rgba(20,20,20,.72);color:#fff;padding:4px 10px;border-radius:20px;font-variant-numeric:tabular-nums}
+.nav{position:absolute;top:50%;translate:0 -50%;width:34px;height:34px;padding:0;justify-content:center;border-radius:50%;background:rgba(255,255,255,.92);border:0;color:#111;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.nav.p{left:10px}.nav.n{right:10px}
+.nav[hidden]{display:none!important}
+.igact{display:flex;align-items:center;gap:14px;padding:10px 14px 4px;color:#111}
+.igact svg{width:24px;height:24px}
+.igact .bm{margin-left:auto}
+.dots{display:flex;gap:4px;justify-content:center;position:absolute;left:0;right:0;top:12px;pointer-events:none}
+.dots i{width:6px;height:6px;border-radius:50%;background:#c8c8c8;transition:background .2s,transform .2s}
+.dots i.on{background:#0095F6;transform:scale(1.15)}
+.igcap{padding:4px 14px 16px;font:14px/1.45 var(--body);color:#111}
+.igcap b{font-weight:700}.igcap .m{color:#777}
+.hint{position:absolute;bottom:14px;left:50%;translate:-50% 0;font:700 12px var(--body);background:rgba(20,20,20,.75);color:#fff;padding:6px 12px;border-radius:20px;pointer-events:none;transition:opacity .4s}
+@media (prefers-reduced-motion:no-preference){.hint{animation:nudge 1.6s ease-in-out 3}}
+@keyframes nudge{0%,100%{translate:-50% 0}50%{translate:-40% 0}}
+
+.info{display:grid;gap:20px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{font:700 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:5px 10px}
+.pill.t{background:var(--ink);color:var(--bg)}.pill.f{background:var(--teal-bg);color:var(--teal)}.pill.p{background:var(--soft);color:var(--muted)}
+.info h2{font:800 clamp(28px,3.4vw,40px)/1.05 var(--display);letter-spacing:-.025em;margin:0;text-wrap:balance}
+.kwrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:14px 16px}
+.kwrow .l{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:100%}
+.kw{font:800 30px/1 var(--mono);letter-spacing:.03em;color:var(--marker);background:var(--marker-bg);border-radius:10px;padding:8px 14px}
+.kwrow .sp{flex:1}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.covers{display:flex;gap:8px;align-items:center;font:700 13px var(--body);color:var(--muted)}
+.seg{display:inline-flex;background:var(--soft);border-radius:11px;padding:3px}
+.seg button{border:0;background:transparent;padding:7px 14px;border-radius:9px}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.lbl{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.th{position:relative;border-radius:10px;overflow:hidden;border:2px solid transparent;background:var(--soft);aspect-ratio:4/5;padding:0}
+.th img{width:100%;height:100%;object-fit:cover;display:block}
+.th.on{border-color:var(--marker)}
+.th .no{position:absolute;left:5px;top:5px;font:700 10px var(--mono);background:rgba(20,20,20,.75);color:#fff;border-radius:5px;padding:1px 5px}
+.th .sv{position:absolute;right:5px;bottom:5px;width:28px;height:28px;border-radius:8px;background:#fff;color:#111;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.th .sv svg{width:15px;height:15px}
+.thw{position:relative}
+.thw .sv{position:absolute;right:6px;bottom:6px;width:30px;height:30px;padding:0;justify-content:center;border-radius:9px;background:#fff;color:#111;border:0;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.capbox{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:10px}
+.capbox pre{margin:0;white-space:pre-wrap;font:14.5px/1.6 var(--body)}
+.capbox .tags{color:var(--teal);font-weight:600}
+.why{font-size:13.5px;color:var(--muted);margin:0;border-left:3px solid var(--hi);padding-left:12px}
+.note{font-size:13px;color:var(--muted)}
+
+/* run book */
+.book h2{font:800 34px/1.05 var(--display);letter-spacing:-.02em;margin:0 0 8px}
+.book .sub{color:var(--muted);margin:0 0 22px;max-width:70ch}
+.day3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.day3{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.card .when{font:800 26px var(--display);font-variant-numeric:tabular-nums}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card b.you{font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--marker)}
+code{font:500 13px var(--mono);background:var(--soft);padding:1px 6px;border-radius:5px}
+pre.cmd{margin:0;font:500 13px/1.75 var(--mono);background:var(--soft);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;white-space:pre}
+.tw{overflow-x:auto;border:1.5px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+td:first-child{white-space:nowrap}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.checks .card h3{font:800 18px var(--display);margin:0}
+@media (max-width:640px){
+  body{padding-block:18px 64px}
+  .wrap{gap:52px}
+  #posts{gap:64px!important}
+  .phone{border-radius:34px;padding:7px}.screen{border-radius:28px}
+  .actions{display:grid;grid-template-columns:minmax(0,1fr)}
+  .actions button{justify-content:center;min-height:50px;font-size:15px}
+  .kwrow .sp{display:none}.kwrow button{width:100%;justify-content:center}
+  .thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .thw .sv{width:38px;height:38px;min-height:38px;right:5px;bottom:5px}
+  .covers{flex-wrap:wrap}.seg{width:100%}.seg button{flex:1;justify-content:center}
+  .capbox button{width:100%;justify-content:center}
+  .nav{width:40px;height:40px;min-height:40px}
+  h1{font-size:44px}
+}
+.screen.reel{position:relative;aspect-ratio:9/16;background:#000}
+.screen.reel video{width:100%;height:100%;object-fit:cover;display:block}
+.snd{position:absolute;right:14px;bottom:14px;min-height:40px;font:800 13px var(--body);background:rgba(255,255,255,.92);color:#111;border:0;border-radius:20px;padding:8px 14px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.rtag{position:absolute;top:14px;left:14px;font:700 12px var(--mono);background:rgba(20,20,20,.72);color:#fff;padding:4px 10px;border-radius:20px}
+.decide{display:grid;gap:10px}
+.dec-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.dec-row button.ok{background:var(--teal);color:#fff;border-color:var(--teal)}
+.dec-row button.no{background:var(--surface);color:var(--marker);border-color:var(--marker)}
+.st{font:800 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.st.draft{background:#FBF1DE;color:#9A6512}.st.approved{background:var(--teal-bg);color:var(--teal)}.st.rejected{background:var(--marker-bg);color:var(--marker)}.st.posted{background:#E7E8F7;color:#4B4F9C}
+.why-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chipb{min-height:36px;padding:6px 12px;border-radius:999px;font-size:13px}
+.chipb.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media (max-width:640px){.dec-row button{flex:1;justify-content:center;min-height:50px}}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:700;z-index:50;max-width:calc(100% - 32px)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="zip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5l3.5 3.5 3.5-3.5"/></symbol>
+  <symbol id="pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 15h6M9 18h4"/></symbol>
+  <symbol id="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="cmt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2-5.3A8.5 8.5 0 1 1 21 11.5z"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="bm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow"><span class="live"></span>@thedataguy16 · __DATELABEL__</div>
+      <h1>Today's <span class="hl">__NPOSTS__ carousels</span>, ready to post.</h1>
+      <p class="lede">Every formula on these slides was run before it reached you. Swipe each post the way your followers will, pick a cover, then save the slides and the DM PDF straight to your phone.</p>
+      <div class="stats">
+        <div class="stat"><b>__NPOSTS__</b><span>carousels</span></div>
+        <div class="stat"><b>__NSLIDES__</b><span>slides</span></div>
+        <div class="stat"><b>__NPAGES__</b><span>PDF pages</span></div>
+        <div class="stat"><b>__NCHECKED__</b><span>formulas, lines and shortcuts checked</span></div>
+      </div>
+    </div>
+    <div class="fan" id="fan" aria-label="Today's covers"></div>
+  </header>
+
+  <nav class="slots" id="slots" aria-label="Today's slots"></nav>
+
+  <main id="posts" style="display:grid;gap:96px"></main>
+
+  <section class="book" id="daily">
+    <h2>Your day, in three moments</h2>
+    <p class="sub">About two minutes of your time. Everything else runs on its own at IST times.</p>
+    <div class="day3">
+      <div class="card"><span class="when">05:50</span><p><code>make_day.py</code> plans, researches, writes, tests and renders 4 posts, then notifies you with time · format · title · keyword.</p><b class="you">You: approve or reject in the desk</b></div>
+      <div class="card"><span class="when">11:50 · 16:50</span><p><code>replace_rejected.py</code> rebuilds every slot you rejected with a different proven format, a new topic and a new keyword.</p><b class="you">You: approve the replacement</b></div>
+      <div class="card"><span class="when">Before each slot</span><p>Pick the cover, save the slides, copy the caption, post with music, set the DM reply for the keyword.</p><b class="you">You: post and mark posted</b></div>
+    </div>
+  </section>
+
+  <section class="book" id="commands">
+    <h2>Commands</h2>
+    <p class="sub">Run from the <code>carousel-engine</code> folder with the virtual environment active.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><code>python desk_server.py</code></td><td>Opens your approval desk at <code>http://127.0.0.1:8765</code></td></tr>
+        <tr><td><code>python make_day.py</code></td><td>Full day for today: plan, write, test, render, save, desk, notification</td></tr>
+        <tr><td><code>python make_day.py --date 2026-10-22</code></td><td>Same, for another date</td></tr>
+        <tr><td><code>python make_day.py plan --date D</code></td><td>Only the plan: formats, topics, rule swaps and why</td></tr>
+        <tr><td><code>python make_day.py plan --date D --set s1.topic=Excel --reason "..."</code></td><td>Override one slot; the reason goes into the post's why</td></tr>
+        <tr><td><code>python make_day.py check --date D</code></td><td>Lint, test, render and contact sheet without saving anything</td></tr>
+        <tr><td><code>python replace_rejected.py</code></td><td>Replace today's rejected posts right now</td></tr>
+        <tr><td><code>python render.py spec.json out/name --pdf</code></td><td>Render any spec to slides and a PDF</td></tr>
+        <tr><td><code>python insights_update.py insights/D_readings.json</code></td><td>Weekly review. Writes a rotation proposal; add <code>--apply</code> only after you approve it.</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <section class="book" id="setup">
+    <h2>Setup and schedule, once</h2>
+    <p class="sub">Python 3.11+, Node for Claude Code, LibreOffice for the Excel checks, Noto Color Emoji for the kids pictures. Jobs run at 05:50, 11:50 and 16:50 IST, converted to your computer's clock.</p>
+    <div class="grid2">
+      <div class="card"><b class="you">Mac</b><pre class="cmd">cd carousel-engine
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python -m playwright install chromium
+brew install --cask font-noto-color-emoji libreoffice
+npm install -g @anthropic-ai/claude-code && claude
+python tools/install_schedule.py --install</pre></div>
+      <div class="card"><b class="you">Windows (PowerShell)</b><pre class="cmd">cd carousel-engine
+py -m venv .venv; .venv\Scripts\activate
+pip install -r requirements.txt
+python -m playwright install chromium
+winget install TheDocumentFoundation.LibreOffice
+npm install -g @anthropic-ai/claude-code; claude
+python tools/install_schedule.py --install</pre></div>
+    </div>
+  </section>
+
+  <section class="book" id="checks">
+    <h2>Nothing reaches you unless it passes</h2>
+    <p class="sub">The build blocks any post that fails one of these.</p>
+    <div class="checks">
+      <div class="card"><h3>Code is run, not typed</h3><p>SQL runs in sqlite, pandas and Python lines run, Excel formulas are computed in LibreOffice. The green answer on a slide must equal the computed value.</p></div>
+      <div class="card"><h3>Your rules</h3><p>Light styles, no retired formats, nothing repeated from 60 days or a rejected post, unique keyword, exact CTA with the real PDF page count.</p></div>
+      <div class="card"><h3>Your voice</h3><p>No hype words, no em-dashes, no emojis outside kids pictures, no price, no invented numbers.</p></div>
+      <div class="card"><h3>Pixel-clean</h3><p>No overflowing or clipped text, no emoji on two lines, no tiny text, PDF pages match.</p></div>
+      <div class="card"><h3>Quality bar</h3><p>Answers on every formula row, sample data shown, comparisons end with "Pick it if you…", hooks name a real pain.</p></div>
+      <div class="card"><h3>Planner</h3><p>Kids daily at 19:00 with no repeat in 60 days, roadmap max 2 a week, role pairs never repeated in 60 days, rule breaks swap to the closest proven winner.</p></div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const POSTS = __DATA__;
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ico = (id, cls='i') => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+function toast(t){const e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2400)}
+let dl = null, db = null, canWrite = true;
+const DEC = {};  // post id -> {status, reason, at}
+const SLABEL = {draft: 'Needs review', approved: 'Approved', rejected: 'Rejected', posted: 'Posted'};
+const REASONS = ['Weak hook', 'Topic', 'Design', 'Too basic', 'Too advanced', 'Other'];
+function decideHTML(p){
+  const d = DEC[p.id] || {status: 'draft'}, st = d.status;
+  if (!db) return `<div class="dec-row"><span class="st draft">Needs review</span><span class="note">Approve and reject work when this page is open in claude.ai.</span></div>`;
+  const btn = (s, label, cls='') => `<button class="${cls}" data-st="${s}" data-pid="${p.id}" ${canWrite ? '' : 'disabled'}>${label}</button>`;
+  let b = '';
+  if (st === 'draft') b = btn('approved', 'Approve', 'ok') + btn('rejected', 'Reject', 'no');
+  else if (st === 'approved') b = btn('posted', 'Mark posted', 'ok') + btn('draft', 'Back to review');
+  else if (st === 'rejected') b = btn('draft', 'Back to review');
+  else b = btn('approved', 'Undo posted');
+  const why = st === 'rejected' ? `<div class="why-row"><span class="lbl" style="margin:0">Why? (helps tomorrow's picks)</span>${REASONS.map(r => `<button class="chipb${d.reason === r ? ' on' : ''}" data-reason="${r}" data-pid="${p.id}" ${canWrite ? '' : 'disabled'}>${r}</button>`).join('')}</div>
+    <p class="note">Rejected. Ask me in our chat to replace it (new format, new topic, new keyword), or keep the desk running on your laptop and it rebuilds this slot on its own.</p>` : '';
+  return `<div class="dec-row"><span class="st ${st}">${SLABEL[st]}</span>${b}</div>${why}`;
+}
+function renderDecisions(){ POSTS.forEach((p, k) => { const e = $('#dec' + k); if (e) e.innerHTML = decideHTML(p); }); }
+async function decide(pid, patch){
+  const prev = DEC[pid]; DEC[pid] = Object.assign({status: 'draft'}, prev, patch, {at: new Date().toISOString()}); renderDecisions();
+  try { await db.doc('decisions/' + pid).set(DEC[pid]); toast(patch.status ? SLABEL[patch.status] : 'Saved'); }
+  catch (e) { DEC[pid] = prev; renderDecisions(); toast(e && (e.code === 'permission_denied' || e.code === 'not_granted') ? 'You can view this page but not change decisions' : 'Could not save. Try again'); }
+}
+const state = POSTS.map(() => ({cover: 'a', i: 0}));
+const slidesOf = (p, k) => { const a = [...p.slides]; if (state[k].cover === 'b' && p.alt) a[0] = p.alt; return a; };
+
+function hero(){
+  $('#fan').innerHTML = POSTS.map((p, k) => p.kind === 'reel' ? '' : `<a href="#post${k}" aria-label="${esc(p.title)}"><img src="${p.slides[0]}" alt=""><span class="tag">${p.time}</span></a>`).join('');
+  $('#slots').innerHTML = POSTS.map((p, k) => `<a href="#post${k}"><span class="t">${p.time}</span><span class="f">${esc(p.fmtLabel)}</span><span class="n">${esc(p.title)}</span><span class="k">${esc(p.keyword)}</span></a>`).join('');
+}
+function reelHTML(p, k){
+  return `<article class="post" id="post${k}">
+    <div class="phone"><div class="screen reel">
+      <video src="${p.video}" poster="${p.cover}" muted loop playsinline autoplay preload="metadata" aria-label="${esc(p.title)}"></video>
+      <span class="rtag">Reel · ${p.seconds}s</span>
+      <button class="snd" data-snd="${k}" aria-label="Turn sound on">Tap for sound</button>
+    </div></div>
+    <div class="info">
+      <div class="meta"><span class="pill t">${p.time} IST</span><span class="pill f">Learning reel</span><span class="pill p">${p.seconds} s · original synced sound</span></div>
+      <h2>${esc(p.title)}</h2>
+      <div class="decide" id="dec${k}"></div>
+      <div class="kwrow"><span class="l">Comment keyword · DM them the code</span><span class="kw">${esc(p.keyword)}</span><span class="sp"></span><button data-copykw="${k}">${ico('copy')}Copy keyword</button></div>
+      <div class="actions">
+        <button class="red dlb" data-vid="${k}">${ico('dl')}Save reel (.mp4)</button>
+        <button class="primary dlb" data-cov="${k}">${ico('dl')}Save cover</button>
+      </div>
+      <div class="capbox"><div class="lbl">Caption</div><pre id="cap${k}">${esc(p.caption)}\n\n<span class="tags">${esc(p.hashtags)}</span></pre><div><button data-copycap="${k}">${ico('copy')}Copy caption + hashtags</button></div></div>
+      <p class="why"><b>Why this reel:</b> ${esc(p.why)}</p>
+    </div>
+  </article>`;
+}
+function postHTML(p, k){
+  if (p.kind === 'reel') return reelHTML(p, k);
+  const capShort = esc(p.caption.split('\n')[0]);
+  return `<article class="post" id="post${k}">
+    <div class="phone"><div class="screen">
+      <div class="igtop"><span class="av"><span>DG</span></span><div><b>thedataguy16</b><small>Original audio · anime</small></div><span class="more">···</span></div>
+      <div class="view">
+        <div class="track" id="track${k}" tabindex="0" aria-label="Slides of ${esc(p.title)}"></div>
+        <span class="cnt" id="cnt${k}"></span>
+        <button class="nav p" data-nav="${k}" data-d="-1" aria-label="Previous slide">${ico('l')}</button>
+        <button class="nav n" data-nav="${k}" data-d="1" aria-label="Next slide">${ico('r')}</button>
+        <span class="hint" id="hint${k}">Swipe</span>
+      </div>
+      <div class="igact">${ico('heart','')}${ico('cmt','')}${ico('send','')}<span class="dots" style="position:static;flex:1" id="dots${k}"></span>${ico('bm','bm')}</div>
+      <div class="igcap"><b>thedataguy16</b> ${capShort} <span class="m">more</span></div>
+    </div></div>
+    <div class="info">
+      <div class="meta"><span class="pill t">${p.time} IST</span><span class="pill f">${esc(p.fmtLabel)}</span><span class="pill p">${p.slides.length} slides · ${p.pages}-page PDF</span></div>
+      <h2>${esc(p.title)}</h2>
+      <div class="decide" id="dec${k}"></div>
+      <div class="kwrow"><span class="l">Comment keyword · set this DM reply</span><span class="kw">${esc(p.keyword)}</span><span class="sp"></span><button data-copykw="${k}">${ico('copy')}Copy keyword</button></div>
+      ${p.alt ? `<div class="covers">Cover <span class="seg" role="group" aria-label="Cover choice"><button data-cover="${k}" data-c="a" aria-pressed="true">A · main hook</button><button data-cover="${k}" data-c="b" aria-pressed="false">B · ${esc(p.hookAlt || 'alt hook')}</button></span></div>` : ''}
+      <div class="actions">
+        <button class="red dlb" data-zip="${k}">${ico('zip')}Save all slides (.zip)</button>
+        <button class="primary dlb" data-pdf="${k}">${ico('pdf')}Download PDF · ${p.pages} pages</button>
+        <button class="dlb" data-one="${k}">${ico('dl')}Save this slide</button>
+      </div>
+      <div><div class="lbl">Every slide · tap to view, ${'↓'} to save one</div><div class="thumbs" id="thumbs${k}"></div></div>
+      <div class="capbox"><div class="lbl">Caption</div><pre id="cap${k}">${esc(p.caption)}\n\n<span class="tags">${esc(p.hashtags)}</span></pre><div><button data-copycap="${k}">${ico('copy')}Copy caption + hashtags</button></div></div>
+      <p class="why"><b>Why this post:</b> ${esc(p.why)}</p>
+    </div>
+  </article>`;
+}
+function renderSlides(k){
+  const p = POSTS[k], sl = slidesOf(p, k);
+  $('#track'+k).innerHTML = sl.map((s, i) => `<img src="${s}" alt="${esc(p.title)}, slide ${i+1} of ${sl.length}" loading="${i < 2 ? 'eager' : 'lazy'}" width="1080" height="1350">`).join('');
+  $('#thumbs'+k).innerHTML = sl.map((s, i) => `<div class="thw"><button class="th" data-go="${k}" data-i="${i}" aria-label="Show slide ${i+1}"><img src="${s}" alt="" loading="lazy"><span class="no">${String(i+1).padStart(2,'0')}</span></button><button class="sv dlb" data-save="${k}" data-i="${i}" aria-label="Save slide ${i+1}">${ico('dl')}</button></div>`).join('');
+  $('#dots'+k).innerHTML = sl.map(() => '<i></i>').join('');
+  sync(k, state[k].i);
+}
+function sync(k, i){
+  const n = slidesOf(POSTS[k], k).length; state[k].i = i;
+  $('#cnt'+k).textContent = `${i+1}/${n}`;
+  [...$('#dots'+k).children].forEach((d, j) => d.classList.toggle('on', j === i));
+  [...$('#thumbs'+k).querySelectorAll('.th')].forEach((t, j) => t.classList.toggle('on', j === i));
+  $(`[data-nav="${k}"][data-d="-1"]`).hidden = i === 0;
+  $(`[data-nav="${k}"][data-d="1"]`).hidden = i === n - 1;
+}
+function go(k, i){ const t = $('#track'+k); t.scrollTo({left: i * t.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }
+function fileName(p, i){ return `${p.slug}_${String(i+1).padStart(2,'0')}.jpg`; }
+async function blobOf(url){ const r = await fetch(url); if (!r.ok) throw new Error('fetch'); return r.blob(); }
+async function save(filename, data){
+  if (!dl) { toast('Saving works when this page is open in claude.ai'); return; }
+  try { await dl.save({filename, data}); toast('Saved ' + filename); }
+  catch (e) { if (e && e.code === 'declined') toast('Save cancelled'); else if (e && e.code === 'rate_limited') toast('One save at a time. Try again in a moment'); else toast('Could not save. Try again'); }
+}
+async function copy(text, label, el){
+  try { await navigator.clipboard.writeText(text); toast(label + ' copied'); }
+  catch { if (el) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } toast('Selected. Press Ctrl+C or Cmd+C'); }
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const d = b.dataset;
+  if (d.st) { decide(d.pid, {status: d.st, reason: d.st === 'rejected' ? (DEC[d.pid] || {}).reason || null : null}); }
+  else if (d.reason) { decide(d.pid, {reason: d.reason}); }
+  else if (d.nav) { const k = +d.nav; go(k, Math.max(0, state[k].i + +d.d)); }
+  else if (d.go) { go(+d.go, +d.i); }
+  else if (d.cover) { const k = +d.cover; state[k].cover = d.c; b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); renderSlides(k); go(k, 0); toast('Cover ' + d.c.toUpperCase() + ' selected'); }
+  else if (d.copykw) { copy(POSTS[+d.copykw].keyword, 'Keyword'); }
+  else if (d.copycap) { const p = POSTS[+d.copycap]; copy(p.caption + '\n\n' + p.hashtags, 'Caption', $('#cap'+d.copycap)); }
+  else if (d.save || d.one) {
+    const k = +(d.save ?? d.one), i = d.save ? +d.i : state[k].i, p = POSTS[k];
+    b.disabled = true; try { await save(fileName(p, i), await blobOf(slidesOf(p, k)[i])); } catch { toast('Could not load that slide'); } b.disabled = false;
+  }
+  else if (d.snd !== undefined) { const v = b.parentElement.querySelector('video'); v.muted = !v.muted; if (!v.muted) { v.currentTime = 0; v.play().catch(() => {}); } b.textContent = v.muted ? 'Tap for sound' : 'Sound on'; }
+  else if (d.vid || d.cov) { const p = POSTS[+(d.vid ?? d.cov)]; b.disabled = true;
+    try { await save(d.vid ? p.slug + '.mp4' : p.slug + '_cover.jpg', await blobOf(d.vid ? p.video : p.cover)); } catch { toast('Could not load the file'); } b.disabled = false; }
+  else if (d.pdf) { const p = POSTS[+d.pdf]; const old = b.innerHTML; b.disabled = true; b.innerHTML = ico('pdf') + 'Preparing PDF…';
+    try { await save(p.slug + '.pdf', await blobOf(p.pdf)); } catch { toast('Could not load the PDF'); } b.disabled = false; b.innerHTML = old; }
+  else if (d.zip) {
+    const k = +d.zip, p = POSTS[k], sl = slidesOf(p, k), old = b.innerHTML; b.disabled = true;
+    try {
+      if (!window.JSZip) throw new Error('nozip');
+      const z = new JSZip();
+      for (let i = 0; i < sl.length; i++) { b.innerHTML = ico('zip') + `Packing ${i+1}/${sl.length}…`; z.file(fileName(p, i), await blobOf(sl[i])); }
+      await save(`${p.slug}_slides.zip`, await z.generateAsync({type: 'blob', compression: 'STORE'}));
+    } catch (err) { toast(err && err.message === 'nozip' ? 'Zip tool did not load. Save slides one by one' : 'Could not build the zip'); }
+    b.disabled = false; b.innerHTML = old;
+  }
+});
+function boot(){
+  hero();
+  $('#posts').innerHTML = POSTS.map(postHTML).join('');
+  POSTS.forEach((p, k) => {
+    if (p.kind === 'reel') return;
+    renderSlides(k);
+    const t = $('#track'+k); let raf;
+    t.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { const i = Math.round(t.scrollLeft / t.clientWidth); if (i !== state[k].i) sync(k, i); $('#hint'+k).style.opacity = 0; }); }, {passive: true});
+    t.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight') go(k, Math.min(state[k].i + 1, slidesOf(p, k).length - 1)); if (ev.key === 'ArrowLeft') go(k, Math.max(state[k].i - 1, 0)); });
+  });
+}
+boot();
+(async () => {
+  try { db = window.claude && await window.claude.use('db'); } catch { db = null; }
+  if (db) {
+    try { const u = await window.claude.use('user'); if (u && (await u.can('data.write')) === false) canWrite = false; } catch {}
+    db.collection('decisions').onSnapshot(qs => { qs.docs.forEach(d => { DEC[d.id] = d.data(); }); renderDecisions(); }, () => {});
+  }
+  renderDecisions();
+  try { dl = window.claude && await window.claude.use('downloads'); } catch { dl = null; }
+  if (!dl) document.querySelectorAll('.dlb').forEach(x => { x.title = 'Saving works when this page is open in claude.ai'; });
+})();
+</script>

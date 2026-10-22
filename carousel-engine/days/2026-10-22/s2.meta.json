@@ -1,0 +1,203 @@
+{
+ "title": "27 DAX measures you'll write in your first Power BI job, with answers",
+ "slug": "dax-27-measures",
+ "keyword": "DAX27",
+ "caption": "Every Power BI report runs on the same 27 measures.\nHere they are on one small model, each with the answer it returns, plus which one to use when your manager asks.\nFollow @thedataguy16 and comment DAX27. I'll DM you the full 7-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#powerbi #dax #dataanalyst #businessintelligence #analystjobs #thedataguy16",
+ "hookType": "big-list",
+ "pillar": "Skills",
+ "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Power BI is the strongest topic (57K median reach); first Power BI cheat sheet since 8 Oct. Hook family: pain + payoff; cover B: save before.",
+ "sources": [
+  {
+   "title": "SUM (DAX)",
+   "url": "https://dax.guide/sum/"
+  },
+  {
+   "title": "COUNTROWS (DAX)",
+   "url": "https://dax.guide/countrows/"
+  },
+  {
+   "title": "DISTINCTCOUNT (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/distinctcount-function-dax"
+  },
+  {
+   "title": "AVERAGEX (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/averagex-function-dax"
+  },
+  {
+   "title": "AVERAGE (DAX)",
+   "url": "https://dax.guide/average/"
+  },
+  {
+   "title": "SUMX (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/sumx-function-dax"
+  },
+  {
+   "title": "MAX (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/aggregation-functions-dax"
+  },
+  {
+   "title": "DIVIDE (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+  },
+  {
+   "title": "CALCULATE (DAX)",
+   "url": "https://dax.guide/CALCULATE/"
+  },
+  {
+   "title": "REMOVEFILTERS (DAX)",
+   "url": "https://dax.guide/removefilters/"
+  },
+  {
+   "title": "ALL (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/all-function-dax"
+  },
+  {
+   "title": "FILTER (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/filter-function-dax"
+  },
+  {
+   "title": "TOTALYTD (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/totalytd-function-dax"
+  },
+  {
+   "title": "SAMEPERIODLASTYEAR (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/sameperiodlastyear-function-dax"
+  },
+  {
+   "title": "DATEADD (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/dateadd-function-dax"
+  },
+  {
+   "title": "RANKX (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/rankx-function-dax"
+  },
+  {
+   "title": "RELATED (DAX)",
+   "url": "https://learn.microsoft.com/en-us/dax/related-function-dax"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "dax-answers",
+    "lang": "python",
+    "code": "import pandas as pd\ns = pd.DataFrame({\"date\": pd.to_datetime([\"2024-01-15\",\"2024-02-10\",\"2024-03-05\",\"2025-01-20\",\"2025-02-12\",\"2025-02-25\",\"2025-03-08\",\"2025-03-30\"]),\n \"region\": [\"North\",\"South\",\"North\",\"South\",\"North\",\"West\",\"West\",\"South\"], \"product\": [\"Pen\",\"Mouse\",\"Keyboard\",\"Pen\",\"Mouse\",\"Keyboard\",\"Pen\",\"Mouse\"],\n \"qty\": [10,2,1,20,3,2,5,1], \"price\": [10,450,900,10,450,900,10,450], \"cid\": [\"C1\",\"C2\",\"C3\",\"C1\",\"C4\",\"C2\",\"C5\",\"C3\"]})\ns[\"amount\"] = s.qty * s.price\nc = pd.DataFrame({\"cid\": [\"C1\",\"C2\",\"C3\",\"C4\",\"C5\"], \"segment\": [\"Retail\",\"B2B\",\"Retail\",\"B2B\",\"Retail\"]})\nm = s.merge(c, on=\"cid\")\ntotal = s.amount.sum(); units = s.qty.sum()\ny25 = s[s.date.dt.year == 2025]; y24 = s[s.date.dt.year == 2024]\nreg = s.groupby(\"region\").amount.sum(); prod = s.groupby(\"product\").amount.sum()\n\nassert total == 5750, 'Total Sales'\nassert len(s) == 8, 'Number of orders'\nassert s.cid.nunique() == 5, 'Unique customers'\nassert s.amount.mean() == 718.75, 'Average order'\nassert units == 44, 'Units sold'\nassert (s.qty * s.price).sum() == 5750, 'Row-by-row revenue'\nassert s.amount.max() == 1800, 'Biggest order'\nassert round(total / units, 2) == 130.68, 'Average price per unit'\nassert total / s.cid.nunique() == 1150, 'Sales per customer'\nassert True, 'Divide by zero, safely'\nassert reg[\"North\"] == 2350, 'Only North'\nassert s[s[\"product\"] == \"Pen\"].qty.sum() == 35, 'Only pens'\nassert (s.amount > 500).sum() == 4, 'Orders above 500'\nassert total == 5750, 'Ignore the region filter'\nassert round(reg[\"North\"] / total * 100, 1) == 40.9, 'Share of total'\nassert m[m.segment == \"B2B\"].amount.sum() == 4050, 'Sales from B2B customers'\nassert (m.segment == \"Retail\").sum() == 5, 'Orders from Retail'\nassert (s.amount > 500).sum() == 4, 'Same count, with FILTER'\nassert s[(s.region == \"South\") & (s[\"product\"] == \"Mouse\")].amount.sum() == 1350, 'Two conditions'\nassert y25.amount.sum() == 3850, 'Year to date'\nassert y24.amount.sum() == 1900, 'Same period last year'\nassert round((y25.amount.sum() - y24.amount.sum()) / y24.amount.sum() * 100, 1) == 102.6, 'Year-on-year growth'\nassert y25[y25.date.dt.month == 2].amount.sum() == 3150, 'Last month'\nassert list(reg.sort_values(ascending=False).index) == [\"North\", \"West\", \"South\"], 'Rank regions'\nassert prod[\"Mouse\"] == prod[\"Keyboard\"] == 2700 and prod[\"Pen\"] == 350, 'Rank with a tie'\nassert round(reg.mean(), 2) == 1916.67, 'Average across regions'\nassert m.loc[0, \"segment\"] == \"Retail\", 'Bring in a column (calc column)'\nprint('dax answers ok')",
+    "expect_stdout": "dax answers ok"
+   }
+  ],
+  "manual": [
+   {
+    "snippet": "Total Sales = SUM(Sales[Amount])",
+    "source": "https://dax.guide/sum/"
+   },
+   {
+    "snippet": "Orders = COUNTROWS(Sales)",
+    "source": "https://dax.guide/countrows/"
+   },
+   {
+    "snippet": "Customers = DISTINCTCOUNT(Sales[CustomerID])",
+    "source": "https://learn.microsoft.com/en-us/dax/distinctcount-function-dax"
+   },
+   {
+    "snippet": "Avg Order = AVERAGE(Sales[Amount])",
+    "source": "https://dax.guide/average/"
+   },
+   {
+    "snippet": "Units = SUM(Sales[Qty])",
+    "source": "https://dax.guide/sum/"
+   },
+   {
+    "snippet": "Revenue = SUMX(Sales, Sales[Qty] * Sales[Price])",
+    "source": "https://learn.microsoft.com/en-us/dax/sumx-function-dax"
+   },
+   {
+    "snippet": "Biggest Order = MAX(Sales[Amount])",
+    "source": "https://learn.microsoft.com/en-us/dax/aggregation-functions-dax"
+   },
+   {
+    "snippet": "Avg Price = DIVIDE([Total Sales], [Units])",
+    "source": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+   },
+   {
+    "snippet": "Per Customer = DIVIDE([Total Sales], [Customers])",
+    "source": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+   },
+   {
+    "snippet": "Safe = DIVIDE([Total Sales], 0, 0)",
+    "source": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+   },
+   {
+    "snippet": "North Sales = CALCULATE([Total Sales], Sales[Region] = \"North\")",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "Pens Sold = CALCULATE([Units], Sales[Product] = \"Pen\")",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "Big Orders = CALCULATE([Orders], Sales[Amount] > 500)",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "All Regions = CALCULATE([Total Sales], REMOVEFILTERS(Sales[Region]))",
+    "source": "https://dax.guide/removefilters/"
+   },
+   {
+    "snippet": "% of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Sales)))",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "B2B Sales = CALCULATE([Total Sales], Customers[Segment] = \"B2B\")",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "Retail Orders = CALCULATE([Orders], Customers[Segment] = \"Retail\")",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "Big Orders 2 = COUNTROWS(FILTER(Sales, Sales[Amount] > 500))",
+    "source": "https://dax.guide/countrows/"
+   },
+   {
+    "snippet": "South Mouse = CALCULATE([Total Sales], Sales[Region] = \"South\", Sales[Product] = \"Mouse\")",
+    "source": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "snippet": "Sales YTD = TOTALYTD([Total Sales], 'Date'[Date])",
+    "source": "https://learn.microsoft.com/en-us/dax/totalytd-function-dax"
+   },
+   {
+    "snippet": "Last Year = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))",
+    "source": "https://learn.microsoft.com/en-us/dax/sameperiodlastyear-function-dax"
+   },
+   {
+    "snippet": "YoY % = DIVIDE([Total Sales] - [Last Year], [Last Year])",
+    "source": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+   },
+   {
+    "snippet": "Last Month = CALCULATE([Total Sales], DATEADD('Date'[Date], -1, MONTH))",
+    "source": "https://learn.microsoft.com/en-us/dax/dateadd-function-dax"
+   },
+   {
+    "snippet": "Region Rank = RANKX(ALL(Sales[Region]), [Total Sales])",
+    "source": "https://learn.microsoft.com/en-us/dax/rankx-function-dax"
+   },
+   {
+    "snippet": "Product Rank = RANKX(ALL(Sales[Product]), [Total Sales])",
+    "source": "https://learn.microsoft.com/en-us/dax/rankx-function-dax"
+   },
+   {
+    "snippet": "Avg Region = AVERAGEX(ALL(Sales[Region]), [Total Sales])",
+    "source": "https://learn.microsoft.com/en-us/dax/averagex-function-dax"
+   },
+   {
+    "snippet": "Segment = RELATED(Customers[Segment])",
+    "source": "https://learn.microsoft.com/en-us/dax/related-function-dax"
+   }
+  ],
+  "prose_slides": [
+   5
+  ]
+ }
+}

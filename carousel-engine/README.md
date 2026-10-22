@@ -1,7 +1,7 @@
 # @thedataguy16 carousel engine
 
-Four carousels and one learning reel a day, researched and written by Claude Code, verified by code, rendered locally,
-approved by you in a local desk. Kids series every day at 19:00, learning reel at 20:00.
+Four carousels a day, researched and written by Claude Code, verified by code, rendered locally,
+approved by you in a local desk. Kids series every day at 19:00. No reels (the reel renderer in reels/ is kept but switched off).
 
 ## The daily learning reel
 `reels/reel.py` runs real Python, traces every line, and turns the trace into a 15-35 s vertical video: characters with

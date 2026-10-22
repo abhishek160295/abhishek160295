@@ -1,0 +1,1015 @@
+{
+ "series": "pandas notes",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "preview_pages": 8,
+ "cover_alt": {
+  "title": "18 pages.<br>Every line<br>~run~ for you.",
+  "sub": "pandas for your first analyst job.",
+  "hook": "sticker-number"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "pandas notes<br>for your ~first~<br>analyst job",
+   "sub": "18 pages. Every line shows its real output.<br>One messy sales table, start to finish."
+  },
+  {
+   "type": "sheet",
+   "title": "1. ~Load~ and look",
+   "ribbon": "Know your data in 60 seconds",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "df.shape has no brackets. It is an attribute, not a method."
+   ],
+   "rows": [
+    {
+     "name": "Read the file",
+     "formula": "df = pd.read_csv(\"sales.csv\")",
+     "result": "(8, 13)"
+    },
+    {
+     "name": "Rows and columns",
+     "formula": "df.shape",
+     "result": "(8, 13)"
+    },
+    {
+     "name": "First 3 rows",
+     "formula": "df.head(3)",
+     "result": "3 rows x 13 cols"
+    },
+    {
+     "name": "Type of one column",
+     "formula": "df[\"sales\"].dtype",
+     "result": "float64"
+    },
+    {
+     "name": "Average sale",
+     "formula": "df[\"sales\"].mean()",
+     "result": "800"
+    },
+    {
+     "name": "How many cities",
+     "formula": "df[\"city\"].nunique()",
+     "result": "4"
+    },
+    {
+     "name": "Orders per region",
+     "formula": "df[\"region\"].value_counts()",
+     "result": "North 2, South 2, West 2, ..."
+    },
+    {
+     "name": "Blanks in the file",
+     "formula": "df.isna().sum().sum()",
+     "result": "3"
+    },
+    {
+     "name": "Two random rows",
+     "formula": "df.sample(2, random_state=1)",
+     "result": "2 rows x 13 cols"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "2. ~Select~ rows and columns",
+   "ribbon": "Get exactly what you need",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Remember:",
+    "& and | need brackets around each condition, or pandas throws an error."
+   ],
+   "rows": [
+    {
+     "name": "One column",
+     "formula": "df[\"city\"]",
+     "result": "Pune, Pune, Indore, ..."
+    },
+    {
+     "name": "Two columns",
+     "formula": "df[[\"city\", \"sales\"]]",
+     "result": "8 rows x 2 cols"
+    },
+    {
+     "name": "One cell by label",
+     "formula": "df.loc[0, \"city\"]",
+     "result": "Pune"
+    },
+    {
+     "name": "One cell by position",
+     "formula": "df.iloc[2, 3]",
+     "result": "Indore"
+    },
+    {
+     "name": "Rows with sales over 1000",
+     "formula": "df[df[\"sales\"] > 1000]",
+     "result": "2 rows: Indore"
+    },
+    {
+     "name": "Two conditions",
+     "formula": "df[(df[\"region\"] == \"South\") & (df[\"qty\"] > 5)]",
+     "result": "1 row x 13 cols"
+    },
+    {
+     "name": "Value in a list",
+     "formula": "df[df[\"city\"].isin([\"Pune\", \"Jaipur\"])]",
+     "result": "3 rows x 13 cols"
+    },
+    {
+     "name": "Same filter, readable",
+     "formula": "df.query(\"sales > 1000\")",
+     "result": "2 rows x 13 cols"
+    },
+    {
+     "name": "City of the biggest sale",
+     "formula": "df.loc[df[\"sales\"].idxmax(), \"city\"]",
+     "result": "Indore"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "3. Clean ~text~",
+   "ribbon": "Messy names, fixed",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Watch out:",
+    ".str only works on text. Run df.dtypes first."
+   ],
+   "rows": [
+    {
+     "name": "Remove extra spaces",
+     "formula": "df[\"name\"] = df[\"name\"].str.strip()",
+     "result": "amit"
+    },
+    {
+     "name": "Proper case",
+     "formula": "df[\"name\"] = df[\"name\"].str.title()",
+     "result": "Divya"
+    },
+    {
+     "name": "Small letters",
+     "formula": "df[\"status\"].str.lower()",
+     "result": "cancelled"
+    },
+    {
+     "name": "Contains a word",
+     "formula": "df[\"email\"].str.contains(\"divya\")",
+     "result": "2"
+    },
+    {
+     "name": "Text before the @",
+     "formula": "df[\"email\"].str.split(\"@\").str[0]",
+     "result": "amit, amit, divya, ..."
+    },
+    {
+     "name": "First 3 letters",
+     "formula": "df[\"product\"].str[:3]",
+     "result": "Pen, Mou, Pen, ..."
+    },
+    {
+     "name": "Length of text",
+     "formula": "df[\"email\"].str.len()",
+     "result": "13, 13, 14, ..."
+    },
+    {
+     "name": "Replace a word",
+     "formula": "df[\"status\"].str.replace(\"Cancelled\", \"Cancel\")",
+     "result": "Cancel"
+    },
+    {
+     "name": "Join two columns",
+     "formula": "df[\"product\"] + \" - \" + df[\"status\"]",
+     "result": "Pen - Cancelled"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "4. Missing ~values~",
+   "ribbon": "Blanks break every average",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "count() skips blanks, len(df) does not. 7 vs 8 here."
+   ],
+   "rows": [
+    {
+     "name": "Blanks per column",
+     "formula": "df.isna().sum()",
+     "result": "region 1, city 1, sales 1"
+    },
+    {
+     "name": "Rows with any blank",
+     "formula": "df[df.isna().any(axis=1)]",
+     "result": "2 rows x 13 cols"
+    },
+    {
+     "name": "Drop rows missing sales",
+     "formula": "df.dropna(subset=[\"sales\"])",
+     "result": "7 rows x 13 cols"
+    },
+    {
+     "name": "Fill blank sales with 0",
+     "formula": "df[\"sales\"].fillna(0)",
+     "result": "0"
+    },
+    {
+     "name": "Fill with the average",
+     "formula": "df[\"sales\"].fillna(df[\"sales\"].mean())",
+     "result": "800"
+    },
+    {
+     "name": "Fill blank city",
+     "formula": "df[\"city\"].fillna(\"Unknown\")",
+     "result": "Unknown"
+    },
+    {
+     "name": "Copy the value above",
+     "formula": "df[\"region\"].ffill()",
+     "result": "West"
+    },
+    {
+     "name": "Count filled cells",
+     "formula": "df[\"sales\"].count()",
+     "result": "7"
+    },
+    {
+     "name": "Share of blanks",
+     "formula": "df[\"sales\"].isna().mean()",
+     "result": "0.125"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "5. ~Duplicates~",
+   "ribbon": "Double counting kills reports",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Remember:",
+    "drop_duplicates() returns a copy. Save it back with df = ..."
+   ],
+   "rows": [
+    {
+     "name": "How many duplicate rows",
+     "formula": "df.duplicated().sum()",
+     "result": "1"
+    },
+    {
+     "name": "Remove them",
+     "formula": "df = df.drop_duplicates()",
+     "result": "7"
+    },
+    {
+     "name": "Duplicates in one column",
+     "formula": "df.duplicated(subset=[\"email\"]).sum()",
+     "result": "2"
+    },
+    {
+     "name": "Keep the latest per email",
+     "formula": "df.drop_duplicates(subset=[\"email\"], keep=\"last\")",
+     "result": "5 rows x 13 cols"
+    },
+    {
+     "name": "See every repeat",
+     "formula": "df[df.duplicated(subset=[\"email\"], keep=False)]",
+     "result": "4 rows x 13 cols"
+    },
+    {
+     "name": "Unique cities",
+     "formula": "df[\"city\"].dropna().unique()",
+     "result": "4"
+    },
+    {
+     "name": "Renumber the rows",
+     "formula": "df = df.reset_index(drop=True)",
+     "result": "0 to 6"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "6. ~Dates~ and types",
+   "ribbon": "Turn text into real dates",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "errors=\"coerce\" turns bad values into NaN instead of crashing."
+   ],
+   "rows": [
+    {
+     "name": "Text to date",
+     "formula": "df[\"date\"] = pd.to_datetime(df[\"date\"])",
+     "result": "datetime64"
+    },
+    {
+     "name": "Month number",
+     "formula": "df[\"date\"].dt.month",
+     "result": "1, 1, 2, ..."
+    },
+    {
+     "name": "Day name",
+     "formula": "df[\"date\"].dt.day_name()",
+     "result": "Wednesday, Monday, Saturday..."
+    },
+    {
+     "name": "Month label",
+     "formula": "df[\"date\"].dt.strftime(\"%b %Y\")",
+     "result": "Jan 2024, Jan 2024, Feb 202..."
+    },
+    {
+     "name": "Orders in March",
+     "formula": "df[df[\"date\"].dt.month == 3]",
+     "result": "4 rows x 13 cols"
+    },
+    {
+     "name": "Days since first order",
+     "formula": "(df[\"date\"] - df[\"date\"].min()).dt.days",
+     "result": "0, 12, 24, ..."
+    },
+    {
+     "name": "Number stored as text",
+     "formula": "pd.to_numeric(pd.Series([\"10\", \"x\"]), errors=\"coerce\")",
+     "result": "10, NaN"
+    },
+    {
+     "name": "Whole numbers",
+     "formula": "df[\"qty\"].astype(int)",
+     "result": "5, 2, 20, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "7. New ~columns~",
+   "ribbon": "Revenue, flags, bands",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Faster:",
+    "np.where beats apply(lambda) on big files. Same answer."
+   ],
+   "rows": [
+    {
+     "name": "Revenue",
+     "formula": "df[\"revenue\"] = df[\"qty\"] * df[\"price\"]",
+     "result": "500, 900, 1200, ..."
+    },
+    {
+     "name": "Yes / no flag",
+     "formula": "df[\"big\"] = np.where(df[\"revenue\"] > 1000, \"Yes\", \"No\")",
+     "result": "No, No, Yes, ..."
+    },
+    {
+     "name": "Price bands",
+     "formula": "pd.cut(df[\"price\"], bins=[0, 100, 500, 1000], labels=[\"Low\", \"Mid\", \"High\"])",
+     "result": "Low, Mid, Low, ..."
+    },
+    {
+     "name": "Map codes to names",
+     "formula": "df[\"status\"].map({\"Delivered\": \"D\", \"Cancelled\": \"C\", \"Returned\": \"R\"})",
+     "result": "D, D, C, ..."
+    },
+    {
+     "name": "Round to 1 decimal",
+     "formula": "(df[\"sales\"] / 3).round(1)",
+     "result": "166.7, 300, 400, ..."
+    },
+    {
+     "name": "Cap extreme values",
+     "formula": "df[\"qty\"].clip(upper=20)",
+     "result": "5, 2, 20, ..."
+    },
+    {
+     "name": "Running total",
+     "formula": "df[\"revenue\"].cumsum()",
+     "result": "500, 1400, 2600, ..."
+    },
+    {
+     "name": "Share of total",
+     "formula": "(df[\"revenue\"] / df[\"revenue\"].sum() * 100).round(1)",
+     "result": "6.2, 11.2, 15, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "8. ~Group~ and summarise",
+   "ribbon": "SUMIF, COUNTIF, AVERAGEIF in one line",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "groupby drops blank keys. The order with no region vanished."
+   ],
+   "rows": [
+    {
+     "name": "Sales by region",
+     "formula": "df.groupby(\"region\")[\"sales\"].sum()",
+     "result": "East 300, North 1400, South..."
+    },
+    {
+     "name": "Average by region",
+     "formula": "df.groupby(\"region\")[\"sales\"].mean()",
+     "result": "East 300, North 700, South ..."
+    },
+    {
+     "name": "Orders per city",
+     "formula": "df.groupby(\"city\").size()",
+     "result": "Indore 2, Jaipur 1, Lucknow..."
+    },
+    {
+     "name": "Many numbers at once",
+     "formula": "df.groupby(\"region\")[\"sales\"].agg([\"sum\", \"mean\", \"count\"])",
+     "result": "4 rows x 3 cols"
+    },
+    {
+     "name": "Named results",
+     "formula": "df.groupby(\"region\").agg(total=(\"sales\", \"sum\"), orders=(\"order_id\", \"count\"))",
+     "result": "4 rows x 2 cols"
+    },
+    {
+     "name": "Biggest region first",
+     "formula": "df.groupby(\"region\")[\"sales\"].sum().sort_values(ascending=False)",
+     "result": "South 3000, North 1400, Wes..."
+    },
+    {
+     "name": "Unique customers per region",
+     "formula": "df.groupby(\"region\")[\"customer_id\"].nunique()",
+     "result": "East 1, North 1, South 1, ..."
+    },
+    {
+     "name": "Each row's share of its region",
+     "formula": "df[\"sales\"] / df.groupby(\"region\")[\"sales\"].transform(\"sum\")",
+     "result": "0.3571, 0.6429, 0.4, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "9. ~Pivot~ and reshape",
+   "ribbon": "Excel pivots, in code",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Remember:",
+    "fill_value=0 shows 0 instead of NaN in empty pivot cells."
+   ],
+   "rows": [
+    {
+     "name": "Pivot: region x month",
+     "formula": "df.pivot_table(index=\"region\", columns=\"month\", values=\"sales\", aggfunc=\"sum\", fill_value=0)",
+     "result": "4 rows x 3 cols"
+    },
+    {
+     "name": "With totals",
+     "formula": "df.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\", margins=True)",
+     "result": "5 rows x 1 cols"
+    },
+    {
+     "name": "Count table",
+     "formula": "pd.crosstab(df[\"region\"], df[\"status\"])",
+     "result": "4 rows x 3 cols"
+    },
+    {
+     "name": "Wide to long",
+     "formula": "df[[\"order_id\", \"sales\", \"qty\"]].melt(id_vars=\"order_id\")",
+     "result": "16 rows x 3 cols"
+    },
+    {
+     "name": "Grand total",
+     "formula": "df.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\", margins=True).loc[\"All\", \"sales\"]",
+     "result": "5600"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "10. ~Join~ tables",
+   "ribbon": "VLOOKUP, without the pain",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "a left join can ADD rows if the right table has repeats. Check len() after."
+   ],
+   "rows": [
+    {
+     "name": "Bring in the segment",
+     "formula": "df.merge(customers, on=\"customer_id\", how=\"left\")",
+     "result": "8 rows x 14 cols"
+    },
+    {
+     "name": "Only matching rows",
+     "formula": "df.merge(customers, on=\"customer_id\", how=\"inner\")",
+     "result": "7 rows x 14 cols"
+    },
+    {
+     "name": "Who has no segment?",
+     "formula": "df.merge(customers, on=\"customer_id\", how=\"left\")[\"segment\"].isna().sum()",
+     "result": "1"
+    },
+    {
+     "name": "See where rows came from",
+     "formula": "df.merge(customers, on=\"customer_id\", how=\"outer\", indicator=True)[\"_merge\"].value_counts()",
+     "result": "both 7, left_only 1, right_..."
+    },
+    {
+     "name": "Stack two files",
+     "formula": "pd.concat([df, df], ignore_index=True)",
+     "result": "16 rows x 13 cols"
+    },
+    {
+     "name": "Different column names",
+     "formula": "df.merge(customers.rename(columns={\"customer_id\": \"cid\"}), left_on=\"customer_id\", right_on=\"cid\")",
+     "result": "7 rows x 15 cols"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "11. Sort and ~rank~",
+   "ribbon": "Top sellers, bottom sellers",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Remember:",
+    "method=\"dense\" gives 1, 2, 2, 3. The default gives 1, 2.5, 2.5, 4."
+   ],
+   "rows": [
+    {
+     "name": "Highest sales first",
+     "formula": "df.sort_values(\"sales\", ascending=False)",
+     "result": "1800"
+    },
+    {
+     "name": "Two columns",
+     "formula": "df.sort_values([\"region\", \"sales\"], ascending=[True, False])",
+     "result": "8 rows x 13 cols"
+    },
+    {
+     "name": "Top 3 orders",
+     "formula": "df.nlargest(3, \"sales\")",
+     "result": "[1800, 1200, 900]"
+    },
+    {
+     "name": "Bottom 2",
+     "formula": "df.nsmallest(2, \"sales\")",
+     "result": "[300, 450]"
+    },
+    {
+     "name": "Rank, biggest = 1",
+     "formula": "df[\"sales\"].rank(ascending=False)",
+     "result": "[7, 5.5, 5.5]"
+    },
+    {
+     "name": "Rank with no gaps",
+     "formula": "df[\"sales\"].rank(method=\"dense\", ascending=False)",
+     "result": "[6, 5, 5]"
+    },
+    {
+     "name": "Best order per region",
+     "formula": "df.sort_values(\"sales\").groupby(\"region\").tail(1)",
+     "result": "4 rows x 13 cols"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "12. Time ~series~",
+   "ribbon": "Month on month, the analyst way",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Interview trap:",
+    "resample needs a datetime column. Convert first."
+   ],
+   "rows": [
+    {
+     "name": "Monthly total",
+     "formula": "df.resample(\"MS\", on=\"date\")[\"sales\"].sum()",
+     "result": "Jan 1400, Feb 3000, Mar 1200"
+    },
+    {
+     "name": "Change vs last month",
+     "formula": "df.resample(\"MS\", on=\"date\")[\"sales\"].sum().diff()",
+     "result": "Jan NaN, Feb 1600, Mar -1800"
+    },
+    {
+     "name": "Growth %",
+     "formula": "(df.resample(\"MS\", on=\"date\")[\"sales\"].sum().pct_change() * 100).round(1)",
+     "result": "Jan NaN, Feb 114.3, Mar -60"
+    },
+    {
+     "name": "Previous value",
+     "formula": "df[\"sales\"].shift(1)",
+     "result": "NaN, 500, 900, ..."
+    },
+    {
+     "name": "2-order moving average",
+     "formula": "df[\"sales\"].rolling(2).mean()",
+     "result": "NaN, 700, 1050, ..."
+    },
+    {
+     "name": "Running total by region",
+     "formula": "df.groupby(\"region\")[\"sales\"].cumsum()",
+     "result": "500, 1400, 1200, ..."
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "13. ~Export~ your work",
+   "ribbon": "Hand it to your manager",
+   "lang": "python",
+   "data": "df = 8 orders, 13 columns (region, city, product, sales, qty, price, name, email, status...). Blanks and 1 duplicate, like real exports.",
+   "tip": [
+    "Remember:",
+    "index=False, or your file gets an extra unnamed column."
+   ],
+   "rows": [
+    {
+     "name": "Save as CSV",
+     "formula": "df.to_csv(\"out/report.csv\", index=False)",
+     "result": "True"
+    },
+    {
+     "name": "Save as Excel",
+     "formula": "df.to_excel(\"out/report.xlsx\", sheet_name=\"Sales\", index=False)",
+     "result": "True"
+    },
+    {
+     "name": "Two sheets, one file",
+     "formula": "with pd.ExcelWriter(\"out/two.xlsx\") as w: df.to_excel(w, sheet_name=\"All\")",
+     "result": "1 file, sheet All"
+    },
+    {
+     "name": "Round before you send",
+     "formula": "df.round(2).to_csv(\"out/clean.csv\", index=False)",
+     "result": "True"
+    },
+    {
+     "name": "Check what you saved",
+     "formula": "pd.read_csv(\"out/report.csv\").shape",
+     "result": "(8, 13)"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "14. SQL to ~pandas~",
+   "cols": [
+    "#",
+    "SQL",
+    "pandas"
+   ],
+   "rows": [
+    [
+     "SELECT city, sales",
+     "df[[\"city\", \"sales\"]]"
+    ],
+    [
+     "WHERE sales > 1000",
+     "df[df[\"sales\"] > 1000]"
+    ],
+    [
+     "ORDER BY sales DESC",
+     "df.sort_values(\"sales\", ascending=False)"
+    ],
+    [
+     "LIMIT 5",
+     "df.head(5)"
+    ],
+    [
+     "SELECT DISTINCT city",
+     "df[\"city\"].drop_duplicates()"
+    ],
+    [
+     "COUNT(*)",
+     "len(df)"
+    ],
+    [
+     "GROUP BY region, SUM(sales)",
+     "df.groupby(\"region\")[\"sales\"].sum()"
+    ],
+    [
+     "HAVING SUM(sales) > 1000",
+     "df.groupby(\"region\")[\"sales\"].sum().loc[lambda s: s > 1000]"
+    ],
+    [
+     "LEFT JOIN customers USING id",
+     "df.merge(df2, on=\"customer_id\", how=\"left\")"
+    ],
+    [
+     "UNION ALL",
+     "pd.concat([df, df])"
+    ],
+    [
+     "WHERE city IN (...)",
+     "df[df[\"city\"].isin([\"Pune\", \"Indore\"])]"
+    ],
+    [
+     "WHERE name LIKE '%a%'",
+     "df[df[\"name\"].str.contains(\"a\")]"
+    ],
+    [
+     "WHERE city IS NULL",
+     "df[df[\"city\"].isna()]"
+    ],
+    [
+     "CASE WHEN ... THEN",
+     "np.where(df[\"sales\"] > 1000, \"High\", \"Low\")"
+    ],
+    [
+     "AS (rename)",
+     "df.rename(columns={\"sales\": \"amount\"})"
+    ],
+    [
+     "ROW_NUMBER() OVER",
+     "df.groupby(\"region\").cumcount() + 1"
+    ]
+   ],
+   "lang": "python"
+  },
+  {
+   "type": "bigtable",
+   "title": "15. Excel to ~pandas~",
+   "cols": [
+    "#",
+    "Excel",
+    "pandas"
+   ],
+   "rows": [
+    [
+     "VLOOKUP",
+     "df.merge(df2, on=\"customer_id\", how=\"left\")"
+    ],
+    [
+     "SUMIF",
+     "df.groupby(\"region\")[\"sales\"].sum()"
+    ],
+    [
+     "COUNTIF",
+     "df[\"region\"].value_counts()"
+    ],
+    [
+     "AVERAGEIF",
+     "df.groupby(\"region\")[\"sales\"].mean()"
+    ],
+    [
+     "IF",
+     "np.where(df[\"sales\"] > 1000, \"Yes\", \"No\")"
+    ],
+    [
+     "Pivot table",
+     "df.pivot_table(index=\"region\", values=\"sales\", aggfunc=\"sum\")"
+    ],
+    [
+     "Remove duplicates",
+     "df.drop_duplicates()"
+    ],
+    [
+     "Filter",
+     "df[df[\"city\"] == \"Pune\"]"
+    ],
+    [
+     "Sort A to Z",
+     "df.sort_values(\"name\")"
+    ],
+    [
+     "TRIM",
+     "df[\"name\"].str.strip()"
+    ],
+    [
+     "PROPER",
+     "df[\"name\"].str.title()"
+    ],
+    [
+     "LEFT(A2, 3)",
+     "df[\"product\"].str[:3]"
+    ],
+    [
+     "Text to columns",
+     "df[\"email\"].str.split(\"@\", expand=True)"
+    ],
+    [
+     "IFERROR(x, 0)",
+     "df[\"sales\"].fillna(0)"
+    ],
+    [
+     "Running total",
+     "df[\"sales\"].cumsum()"
+    ],
+    [
+     "RANK",
+     "df[\"sales\"].rank(ascending=False)"
+    ]
+   ],
+   "lang": "python"
+  },
+  {
+   "type": "bigtable",
+   "title": "16. Errors and fixes",
+   "cols": [
+    "#",
+    "Error",
+    "Usually means / fix"
+   ],
+   "rows": [
+    [
+     "KeyError: 'Sales'",
+     "Column names are case sensitive. Check df.columns."
+    ],
+    [
+     "SettingWithCopyWarning",
+     "Use df.loc[rows, col] = value, not chained [][]."
+    ],
+    [
+     "ValueError on merge",
+     "Key columns have different types. astype(str) both."
+    ],
+    [
+     "Can only use .str accessor",
+     "Column is not text. Check df.dtypes."
+    ],
+    [
+     "TypeError: unsupported operand",
+     "Numbers stored as text. Use pd.to_numeric."
+    ],
+    [
+     "Length mismatch",
+     "New column has a different number of rows."
+    ],
+    [
+     "Unnamed: 0 column",
+     "File saved with index. Use index=False."
+    ],
+    [
+     "Wrong totals after join",
+     "Right table had duplicate keys. Check len()."
+    ],
+    [
+     "NaN in results",
+     "Blanks upstream. Run df.isna().sum()."
+    ],
+    [
+     "Dates sort wrong",
+     "Still text. Use pd.to_datetime first."
+    ],
+    [
+     "MemoryError on big files",
+     "Read only needed columns: usecols=[...]."
+    ],
+    [
+     "Empty DataFrame after filter",
+     "Extra spaces in text. str.strip() first."
+    ]
+   ],
+   "lang": "python"
+  },
+  {
+   "type": "bigtable",
+   "title": "17. Interview questions, short answers",
+   "cols": [
+    "#",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "loc vs iloc?",
+     "loc uses labels, iloc uses positions."
+    ],
+    [
+     "merge vs concat?",
+     "merge joins on keys, concat stacks tables."
+    ],
+    [
+     "How do you find duplicates?",
+     "df.duplicated().sum(), then drop_duplicates()."
+    ],
+    [
+     "apply vs vectorised code?",
+     "Vectorised (np.where, +, *) is much faster."
+    ],
+    [
+     "What does groupby return?",
+     "Groups you summarise with sum, mean, agg."
+    ],
+    [
+     "Handle missing values?",
+     "Find with isna(), then drop or fill with a reason."
+    ],
+    [
+     "count() vs size()?",
+     "count skips blanks, size counts every row."
+    ],
+    [
+     "Why reset_index()?",
+     "Turns the group labels back into columns."
+    ],
+    [
+     "How to read a big CSV?",
+     "usecols, dtype, or chunksize."
+    ],
+    [
+     "pivot vs pivot_table?",
+     "pivot_table aggregates repeats, pivot cannot."
+    ],
+    [
+     "transform vs agg?",
+     "transform keeps every row, agg shrinks them."
+    ],
+    [
+     "Series vs DataFrame?",
+     "One column vs a full table."
+    ],
+    [
+     "Why inplace=True is avoided?",
+     "Reassigning (df = ...) is clearer and safer."
+    ],
+    [
+     "How to change a type?",
+     "astype(), pd.to_numeric(), pd.to_datetime()."
+    ]
+   ],
+   "lang": "python"
+  },
+  {
+   "type": "bigtable",
+   "title": "18. Practise these 12 tasks",
+   "cols": [
+    "#",
+    "Task",
+    "You will use"
+   ],
+   "rows": [
+    [
+     "Load a sales CSV and check blanks",
+     "read_csv, isna"
+    ],
+    [
+     "Clean messy customer names",
+     "str.strip, str.title"
+    ],
+    [
+     "Remove duplicate orders",
+     "drop_duplicates"
+    ],
+    [
+     "Revenue = qty x price",
+     "new column"
+    ],
+    [
+     "Sales by region and month",
+     "groupby, pivot_table"
+    ],
+    [
+     "Add customer segment from another file",
+     "merge"
+    ],
+    [
+     "Top 3 products per region",
+     "sort_values, groupby head"
+    ],
+    [
+     "Month-on-month growth",
+     "resample, pct_change"
+    ],
+    [
+     "Flag orders above 1000",
+     "np.where"
+    ],
+    [
+     "Fix dates stored as text",
+     "pd.to_datetime"
+    ],
+    [
+     "Share of total per region",
+     "transform"
+    ],
+    [
+     "Export a clean Excel report",
+     "to_excel"
+    ]
+   ],
+   "lang": "python"
+  },
+  {
+   "type": "cta",
+   "title": "One page<br>a ~day~.",
+   "body": "Comment PANDASNOTES and I'll DM you the full 21-page PDF.",
+   "keyword": "PANDASNOTES",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

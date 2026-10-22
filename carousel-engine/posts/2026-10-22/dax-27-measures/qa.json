@@ -1,0 +1,65 @@
+[
+ {
+  "slide": 1,
+  "type": "marker_cover",
+  "shrinks": 1,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 30
+ },
+ {
+  "slide": 2,
+  "type": "sheet",
+  "shrinks": 3,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18.0049
+ },
+ {
+  "slide": 3,
+  "type": "sheet",
+  "shrinks": 5,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 16.2495
+ },
+ {
+  "slide": 4,
+  "type": "sheet",
+  "shrinks": 3,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18.0049
+ },
+ {
+  "slide": 5,
+  "type": "bigtable",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20
+ },
+ {
+  "slide": 6,
+  "type": "mproduct",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 21
+ },
+ {
+  "slide": 7,
+  "type": "mcta",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20
+ }
+]

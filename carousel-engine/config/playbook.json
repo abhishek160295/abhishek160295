@@ -102,7 +102,7 @@
   "versus": "compare/table heavy: X vs Y with verdict"
  },
  "freshnessRules": [
-  "REELS (owner rule updated 21 Oct 2026): exactly 1 learning reel a day at 20:00 in the code-visual format (reels/reel.py: real code runs, characters act it out, the active line lights up). Every other reel type stays retired: talking-head, scroll videos, reel kits, Q&A, salary, kids, analogy reels. 4 carousels a day as before.",
+  "NO REELS (owner rule 16 Oct, reconfirmed 22 Oct 2026 after a one-day learning-reel trial): carousels only, 4 a day. reels/ code is kept but disabled (playbook.reelRules.enabled = false).",
   "BIG-NUMBER CHEAT SHEET daily-ish but never the same tool two days running.",
   "Roadmap/plan max 2 per week (declining: 11-15K, 2-9 follows).",
   "No title template twice in 3 days.",
@@ -144,7 +144,6 @@
   "noRepeatDays": 60,
   "partTwoAfterDays": 21,
   "queue": [
-   "ChatGPT/AI for data analysts",
    "pandas",
    "Excel formulas part 2 (lookups, IF, SUMIFS)",
    "SQL part 2 (GROUP BY, JOINs, window functions)",
@@ -203,6 +202,11 @@
     "topic": "Machine Learning",
     "date": "2026-10-21",
     "keyword": "MLKIDS"
+   },
+   {
+    "topic": "ChatGPT/AI for data analysts",
+    "date": "2026-10-22",
+    "keyword": "GPTKID"
    }
   ],
   "rejectedTopics": [
@@ -428,12 +432,12 @@
  "roleVs": {
   "note": "CAREER ROLES only, max 5 per week, never the same pair twice in 60 days. make_day.py picks the first unused pair from queue and records it in used.",
   "queue": [
-   "Service vs Product company analyst",
    "Fresher analyst vs 2-year analyst",
    "Data Analyst vs Consultant",
    "BI Developer vs Data Analyst",
    "Data Analyst vs AI Engineer",
-   "Data Analyst vs Product Analyst"
+   "Data Analyst vs Product Analyst",
+   "Service vs Product company analyst"
   ],
   "used": [
    {
@@ -460,6 +464,11 @@
     "pair": "Data Analyst vs Product Analyst",
     "date": "2026-10-21",
     "keyword": "DAVSPA"
+   },
+   {
+    "pair": "Service vs Product company analyst",
+    "date": "2026-10-22",
+    "keyword": "SVSP"
    }
   ]
  },
@@ -489,6 +498,11 @@
     "tool": "Python",
     "date": "2026-10-21",
     "title": "38 Python lines that do your boring office work"
+   },
+   {
+    "tool": "Power BI",
+    "date": "2026-10-22",
+    "title": "27 DAX measures you'll write in your first Power BI job, with answers"
    }
   ]
  },
@@ -513,6 +527,12 @@
     "tool": "Excel",
     "date": "2026-10-21",
     "title": "Excel notes for analyst jobs: 18 pages, every formula tested",
+    "pages": 21
+   },
+   {
+    "tool": "pandas",
+    "date": "2026-10-22",
+    "title": "pandas notes for your first analyst job: 18 pages, every line run",
     "pages": 21
    }
   ]
@@ -669,7 +689,32 @@
    "quiz / challenge hooks",
    "myths, analogies, interviewer-POV, single-concept explainers"
   ],
-  "usage": []
+  "usage": [
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s1",
+    "family": "decision-settler",
+    "mechanic": "comment-line"
+   },
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s2",
+    "family": "pain-payoff",
+    "mechanic": "save-before"
+   },
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s3",
+    "family": "kids-topic",
+    "mechanic": "simple-explainer"
+   },
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s4",
+    "family": "before-day-one",
+    "mechanic": "sticker-number"
+   }
+  ]
  },
  "reelRules": {
   "slotTime": "20:00",
@@ -760,6 +805,7 @@
     "date": "2026-10-21",
     "keyword": "SORT"
    }
-  ]
+  ],
+  "enabled": false
  }
 }

@@ -1,0 +1,58 @@
+{
+ "title": "Service vs product company analyst: which one should you pick first?",
+ "slug": "service-vs-product-analyst",
+ "keyword": "SVSP",
+ "caption": "Same job title, very different days.\nWho you work for, the query each one writes, how they hire freshers, and which one fits you.\nFollow @thedataguy16 and comment SVSP. I'll DM you the full 10-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#dataanalyst #analystjobs #freshers #careerindia #placements #thedataguy16",
+ "hookType": "role-vs",
+ "pillar": "Career",
+ "why": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Next unused career pair in roleVs.queue. Hook family: decision settler; cover B: comment line. Company names are examples of each company type.",
+ "sources": [
+  {
+   "title": "Service vs product company guide (Masai)",
+   "url": "https://www.masaischool.com/blog/service-company-vs-product-company-the-ultimate-beginners-guide-to-choosing-your-tech-career-path/"
+  },
+  {
+   "title": "Service-based companies in India (KnowledgeHut)",
+   "url": "https://www.knowledgehut.com/blog/it-service-management/service-based-companies-in-india"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "svc-query",
+    "lang": "sql",
+    "query": "SELECT region, SUM(amount) FROM orders GROUP BY region;",
+    "expect": [
+     [
+      "Central",
+      4350.0
+     ],
+     [
+      "North",
+      300.0
+     ],
+     [
+      "West",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "prod-query",
+    "lang": "sql",
+    "query": "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id HAVING COUNT(*) > 1;",
+    "expect": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   }
+  ]
+ }
+}

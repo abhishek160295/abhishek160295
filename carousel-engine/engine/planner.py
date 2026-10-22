@@ -276,7 +276,7 @@ def plan_day(d, write=True):
         used_hooks.append(b["hookType"]); used_styles.append(b["style"]); used_layouts.append(b["layout"])
         slots.append(b)
     plan = {"date": d.isoformat(), "weekday": wd, "slots": slots, "swaps": notes, "banned": banned(d, hist)}
-    if pb.get("reelRules"):
+    if pb.get("reelRules", {}).get("enabled"):
         plan["reel"] = reel_brief(d, pb)
     if write:
         out = DAYS / d.isoformat(); out.mkdir(parents=True, exist_ok=True)

@@ -18,7 +18,7 @@
 #  cta     {title, body, keyword?, action?}
 #  spec.cover_alt = {kicker?, title, sub?, badge?} -> also renders cover_b.jpg (second hook; user picks one)
 #  kids{title, subtitle?, mascot?:img path/url, cells:[{term, kid, sql?, img? OR emoji?}] x6}  emoji = 1-2 Noto emoji drawn as the picture (no Canva needed; Canva credits run out) 'explained to kids' picture-book sheet (3x2 cards, cartoon icon per card; images = local file paths or data URIs)
-#  MEGA-SHEET series (spec.format='mega'): marker_cover{title, sub?} (red marker on paper, no chrome) | sheet{title, ribbon, data?, rows:[{name, formula, result?}], start?} (data = one line describing the sample cells) (result = tested answer on the sample data, shown as a green pill) (notebook formula sheet, 8-10 rows) | bigtable{title, cols?, rows:[[q, a]], start?} (dense 18-22 row reference table). 2-5 slides + auto product + cta.
+#  MEGA-SHEET series (spec.format='mega'): marker_cover{title, sub?} (red marker on paper, no chrome) | sheet{title, ribbon, data?, tip?: [label, text], rows:[{name, formula, result?}], start?} (data = one line describing the sample cells) (result = tested answer on the sample data, shown as a green pill) (notebook formula sheet, 8-10 rows) | bigtable{title, cols?, rows:[[q, a]], start?} (dense 18-22 row reference table). 2-5 slides + auto product + cta.
 #  split{top:{label, head?, points[], line?}, bottom:{...}}  mega-series 'X vs Y' page: two highlighter labels stacked, dashed divider, one comparison dimension per slide (Nicolas 'Economics vs Finance' style). Use 6-8 split slides after a marker_cover 'X<br>vs<br>Y'.
 #  flow{title, steps:[{q, yes}] x4-6, else}  mega-series decision flowchart ('Which chart should I use?'): question boxes chained by 'No' arrows, each with a green Yes-> answer pill.
 #  product (auto-inserted before the CTA: 90-Day System pitch; set spec.product=false to skip, or a dict to override fields)
@@ -340,11 +340,14 @@ em{font-family:Serif;font-style:italic;font-weight:400;letter-spacing:0}
 .shh .rib:before,.shh .rib:after{content:"";position:absolute;top:10px;border:22px solid #D9636D;z-index:-1}
 .shh .rib:before{left:-30px;border-left-color:transparent}.shh .rib:after{right:-30px;border-right-color:transparent}
 .shh .by{font:400 30px Hand;color:#3A352E;margin-top:8px}
-.shr{display:flex;flex-direction:column;gap:10px;flex:1;justify-content:space-between;min-height:0}
+.shr{display:flex;flex-direction:column;gap:10px;flex:1 0 auto;justify-content:space-between}
 .sr{display:grid;grid-template-columns:62px 1fr;gap:2px 18px;align-items:center}
 .sr .n{grid-row:span 2;width:56px;height:56px;border-radius:50%;background:#F4B6BB;color:#9E1B24;display:grid;place-items:center;font:700 32px Kalam}
 .sr .nm{font:400 33px/1.05 Kalam;color:#1B1A17}
-.fxl{display:flex;align-items:center;gap:12px;min-width:0}.fxl .fx{flex:0 1 auto;min-width:0}
+.fxl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;min-width:0}.fxl .fx{flex:0 1 auto;max-width:100%}
+.tipn{position:relative;margin:14px 0 0 -4px;display:flex;gap:12px;align-items:flex-start;background:#FFF2A8;border-radius:6px;padding:14px 18px 14px 16px;font:500 26px/1.3 Inter;color:#2A2520;transform:rotate(-.6deg);box-shadow:0 10px 18px -12px rgba(120,90,0,.55)}
+.tipn:before{content:"";position:absolute;top:-12px;left:50%;width:120px;height:24px;margin-left:-60px;background:rgba(255,255,255,.65);transform:rotate(2deg)}
+.tipn .ic{flex:none;color:#B3121B;margin-top:2px}.tipn b{font-weight:800;color:#B3121B}
 .sdat{font:600 21px/1.35 JBMono;color:#4A443B;background:#FFF6D8;border:1.5px dashed #C9B98F;border-radius:8px;padding:6px 12px;margin-top:8px;display:inline-block}
 .sph li.spc{font:600 27px/1.4 JBMono;color:#1D4E89;background:#DCEBFA;border-radius:10px;padding:8px 14px;margin:8px 0}.sph li.spc:before{content:""}
 .rs{flex:none;font:700 24px/1.2 JBMono;color:#16603F;background:#DDF3E6;border-radius:8px;padding:5px 12px;white-space:nowrap}
@@ -834,7 +837,8 @@ def mega_page(s, i, n):
             return f'<div class="fxl">{fx}<span class="rs">&rarr; {html.escape(str(r["result"]))}</span></div>'
         rows = "".join(f'<div class="sr"><div class="n">{k}</div><div class="nm">{inl(r["name"])}</div>{fxrow(r)}</div>' for k, r in enumerate(s["rows"], s.get("start", 1)))
         inner = (f'<div class="shw"><div class="shh"><h2>{inl(s["title"])}</h2><div><span class="rib">{inl(s.get("ribbon",""))}</span></div>'
-                 f'<div class="by">By @thedataguy16</div>' + (f'<div class="sdat">Sample data: {html.escape(s["data"])}</div>' if s.get("data") else "") + f'</div><div class="shr">{rows}</div></div>')
+                 f'<div class="by">By @thedataguy16</div>' + (f'<div class="sdat">Sample data: {html.escape(s["data"])}</div>' if s.get("data") else "") + f'</div><div class="shr">{rows}</div>'
+                 + (f'<div class="tipn">{icon("lightbulb", 30, 2.4)}<div><b>{inl(s["tip"][0])}</b> {inl(s["tip"][1])}</div></div>' if s.get("tip") else "") + '</div>')
         cls = "mg nb"
     elif t == "kids":
         cells = "".join(f'<div class="kc"><div class="kt">{inl(c["term"])}</div><div class="kb">{inl(c["kid"])}</div>'
@@ -938,7 +942,7 @@ async def fit(pg):
         break
 
 MEGA_OVER_JS = ("()=>{const w=document.querySelector('.shw,.btw,.cvh,.kdw,.s3w,.flw');if(!w)return false;const fan=document.querySelector('.fan,.cvbot');const lim=(w.classList.contains('cvh')&&fan?fan.getBoundingClientRect().top:document.querySelector('.sig,.cvbot').getBoundingClientRect().top)-10;"
-                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.s3c,.fls').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
+                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.s3c,.fls,.tipn').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
 
 async def mega_fit(pg):
     shrinks, over = 0, False

@@ -1,0 +1,176 @@
+{
+ "series": "vs",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "TCS or<br>~Swiggy~?<br>Pick your first job.",
+  "sub": "Service vs product company, side by side.",
+  "hook": "comment-line"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Service company<br>vs<br>~Product~ company",
+   "sub": "Same analyst title. Very different job."
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "Who you work for",
+    "points": [
+     "A client, through your company",
+     "e.g. TCS, Infosys, Accenture"
+    ],
+    "line": "Projects change with the client."
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "Who you work for",
+    "points": [
+     "Your own company's app or product",
+     "e.g. Swiggy, Flipkart, Zerodha"
+    ],
+    "line": "Same product, deeper every month."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "Same table, different question",
+    "points": [
+     "Client wants the monthly report by region",
+     "SELECT region, SUM(amount) FROM orders GROUP BY region;"
+    ],
+    "line": "Deliver what was asked."
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "Same table, different question",
+    "points": [
+     "Why are repeat customers dropping?",
+     "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id HAVING COUNT(*) > 1;"
+    ],
+    "line": "Find out why."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "Daily tools",
+    "points": [
+     "Excel and SQL",
+     "Whatever BI tool the client uses",
+     "Client's data, client's rules"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "Daily tools",
+    "points": [
+     "SQL, all day",
+     "Event data and notebooks (Python)",
+     "In-house dashboards"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "A normal day",
+    "points": [
+     "Client call, then update the report",
+     "Fix a broken file from the client",
+     "Send the weekly deck"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "A normal day",
+    "points": [
+     "Check the product metrics",
+     "Dig into a sudden drop",
+     "Read an A/B test with the PM"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "How you grow",
+    "points": [
+     "Many domains early: banking, retail, telecom",
+     "Toward client lead roles"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "How you grow",
+    "points": [
+     "Deep in one domain",
+     "Toward senior or product analytics"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "How they hire freshers",
+    "points": [
+     "Campus drives, aptitude, basics",
+     "Large fresher intake"
+    ],
+    "line": "Easier door in."
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "How they hire freshers",
+    "points": [
+     "SQL and case rounds",
+     "Fewer fresher seats, higher bar"
+    ],
+    "line": "Harder door, deeper work."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "Service company",
+    "head": "Pick it if you...",
+    "points": [
+     "Want variety and a structured start",
+     "Like working with clients"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Product company",
+    "head": "Pick it if you...",
+    "points": [
+     "Want to own one product's numbers",
+     "Enjoy asking why users do what they do"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "cta",
+   "title": "Pick your ~start~.",
+   "body": "Comment SVSP and I'll DM you the full 10-page PDF.",
+   "keyword": "SVSP",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

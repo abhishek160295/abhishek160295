@@ -1,0 +1,113 @@
+{
+ "series": "ChatGPT",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "ChatGPT is<br>~simple~ once<br>you see it<br>like this",
+  "sub": "12 ideas from one school day.",
+  "hook": "simple-explainer"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "How I'd explain<br>~ChatGPT~<br>to a 5-year-old",
+   "sub": "12 ideas from one school day.<br>The real prompt under each."
+  },
+  {
+   "type": "kids",
+   "title": "ChatGPT",
+   "subtitle": "explained to kids (1/2)",
+   "mascot": "assets/mascot.jpg",
+   "cells": [
+    {
+     "term": "Prompt",
+     "kid": "Ask your teacher a clear question and you get a clear answer. Mumble and you get a guess.",
+     "sql": "Prompt: \"SQL for total sales by city\"",
+     "emoji": "🙋❓"
+    },
+    {
+     "term": "Context",
+     "kid": "Tell the shopkeeper the gift is for your sister's birthday, and he picks something better.",
+     "sql": "Context: \"Columns: city, sales, date\"",
+     "emoji": "🎂🛍️"
+    },
+    {
+     "term": "Example",
+     "kid": "Show your little brother one solved sum. Now he can do the next one himself.",
+     "sql": "Example: \"pune\" -> \"Pune\"",
+     "emoji": "✍️➕"
+    },
+    {
+     "term": "Hallucination",
+     "kid": "A friend who tells a confident story about a film he never watched.",
+     "sql": "Never trust it unchecked",
+     "emoji": "🦄🎬"
+    },
+    {
+     "term": "Check the answer",
+     "kid": "Count your change after buying sweets, even from the nicest shopkeeper.",
+     "sql": "SELECT SUM(amount) FROM orders;",
+     "emoji": "🍬🪙"
+    },
+    {
+     "term": "Temperature",
+     "kid": "Low: the same bedtime story every night. High: a new twist each time.",
+     "sql": "temperature = 0 for facts",
+     "emoji": "🌡️📖"
+    }
+   ]
+  },
+  {
+   "type": "kids",
+   "title": "ChatGPT",
+   "subtitle": "explained to kids (2/2)",
+   "mascot": "assets/mascot.jpg",
+   "cells": [
+    {
+     "term": "Explain my code",
+     "kid": "Grandpa explaining an old family recipe, one step at a time.",
+     "sql": "Prompt: \"Explain this formula line by line\"",
+     "emoji": "👴🍲"
+    },
+    {
+     "term": "Clean my data",
+     "kid": "Mum sorting a pile of mixed-up socks into neat pairs.",
+     "sql": "Prompt: \"Trim spaces, fix case in column A\"",
+     "emoji": "🧦🧺"
+    },
+    {
+     "term": "Write a formula",
+     "kid": "Asking the class topper how he solved it, then trying it yourself.",
+     "sql": "Prompt: \"Excel formula: sales above 1000\"",
+     "emoji": "🧮💡"
+    },
+    {
+     "term": "Privacy",
+     "kid": "You never shout your home address across the playground.",
+     "sql": "Remove names and phone numbers first",
+     "emoji": "🔒🏠"
+    },
+    {
+     "term": "Break it down",
+     "kid": "Eating a big laddoo in small bites, not all at once.",
+     "sql": "Prompt: \"Step 1: clean. Step 2: summarise\"",
+     "emoji": "🍡🪜"
+    },
+    {
+     "term": "Your job",
+     "kid": "A calculator helps with sums. You still decide what to add.",
+     "sql": "AI drafts. You check. You decide.",
+     "emoji": "🤖✅"
+    }
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Now teach<br>a ~friend~.",
+   "body": "Comment GPTKID and I'll DM you the full 5-page PDF.",
+   "keyword": "GPTKID",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

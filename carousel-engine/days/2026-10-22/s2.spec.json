@@ -1,0 +1,273 @@
+{
+ "series": "Power BI",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_alt": {
+  "title": "Save this before<br>your ~Power BI~<br>round.",
+  "sub": "27 DAX measures, each with its answer.",
+  "hook": "save-before"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "27 DAX measures<br>you'll write in your<br>~first~ Power BI job",
+   "sub": "Each one with the answer it returns<br>on the same 8-order model."
+  },
+  {
+   "type": "sheet",
+   "title": "Power BI",
+   "ribbon": "10 measures for every report",
+   "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown.",
+   "tip": [
+    "Interview trap:",
+    "SUM adds a column. SUMX does the maths row by row first."
+   ],
+   "rows": [
+    {
+     "name": "Total Sales",
+     "formula": "Total Sales = SUM(Sales[Amount])",
+     "result": "5,750"
+    },
+    {
+     "name": "Number of orders",
+     "formula": "Orders = COUNTROWS(Sales)",
+     "result": "8"
+    },
+    {
+     "name": "Unique customers",
+     "formula": "Customers = DISTINCTCOUNT(Sales[CustomerID])",
+     "result": "5"
+    },
+    {
+     "name": "Average order",
+     "formula": "Avg Order = AVERAGE(Sales[Amount])",
+     "result": "718.75"
+    },
+    {
+     "name": "Units sold",
+     "formula": "Units = SUM(Sales[Qty])",
+     "result": "44"
+    },
+    {
+     "name": "Row-by-row revenue",
+     "formula": "Revenue = SUMX(Sales, Sales[Qty] * Sales[Price])",
+     "result": "5,750"
+    },
+    {
+     "name": "Biggest order",
+     "formula": "Biggest Order = MAX(Sales[Amount])",
+     "result": "1,800"
+    },
+    {
+     "name": "Average price per unit",
+     "formula": "Avg Price = DIVIDE([Total Sales], [Units])",
+     "result": "130.68"
+    },
+    {
+     "name": "Sales per customer",
+     "formula": "Per Customer = DIVIDE([Total Sales], [Customers])",
+     "result": "1,150"
+    },
+    {
+     "name": "Divide by zero, safely",
+     "formula": "Safe = DIVIDE([Total Sales], 0, 0)",
+     "result": "0"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "Power BI",
+   "ribbon": "CALCULATE and filters",
+   "start": 11,
+   "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown.",
+   "tip": [
+    "Remember:",
+    "a filter inside CALCULATE replaces the visual's filter on that column."
+   ],
+   "rows": [
+    {
+     "name": "Only North",
+     "formula": "North Sales = CALCULATE([Total Sales], Sales[Region] = \"North\")",
+     "result": "2,350"
+    },
+    {
+     "name": "Only pens",
+     "formula": "Pens Sold = CALCULATE([Units], Sales[Product] = \"Pen\")",
+     "result": "35"
+    },
+    {
+     "name": "Orders above 500",
+     "formula": "Big Orders = CALCULATE([Orders], Sales[Amount] > 500)",
+     "result": "4"
+    },
+    {
+     "name": "Ignore the region filter",
+     "formula": "All Regions = CALCULATE([Total Sales], REMOVEFILTERS(Sales[Region]))",
+     "result": "5,750 on every row"
+    },
+    {
+     "name": "Share of total",
+     "formula": "% of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Sales)))",
+     "result": "North 40.9%"
+    },
+    {
+     "name": "Sales from B2B customers",
+     "formula": "B2B Sales = CALCULATE([Total Sales], Customers[Segment] = \"B2B\")",
+     "result": "4,050"
+    },
+    {
+     "name": "Orders from Retail",
+     "formula": "Retail Orders = CALCULATE([Orders], Customers[Segment] = \"Retail\")",
+     "result": "5"
+    },
+    {
+     "name": "Same count, with FILTER",
+     "formula": "Big Orders 2 = COUNTROWS(FILTER(Sales, Sales[Amount] > 500))",
+     "result": "4"
+    },
+    {
+     "name": "Two conditions",
+     "formula": "South Mouse = CALCULATE([Total Sales], Sales[Region] = \"South\", Sales[Product] = \"Mouse\")",
+     "result": "1,350"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "Power BI",
+   "ribbon": "Time and ranking",
+   "start": 20,
+   "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown. Plus a Date table.",
+   "tip": [
+    "Interview trap:",
+    "time functions need a separate Date table, marked as one."
+   ],
+   "rows": [
+    {
+     "name": "Year to date",
+     "formula": "Sales YTD = TOTALYTD([Total Sales], 'Date'[Date])",
+     "result": "Mar 2025: 3,850"
+    },
+    {
+     "name": "Same period last year",
+     "formula": "Last Year = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))",
+     "result": "2025: 1,900"
+    },
+    {
+     "name": "Year-on-year growth",
+     "formula": "YoY % = DIVIDE([Total Sales] - [Last Year], [Last Year])",
+     "result": "2025: +102.6%"
+    },
+    {
+     "name": "Last month",
+     "formula": "Last Month = CALCULATE([Total Sales], DATEADD('Date'[Date], -1, MONTH))",
+     "result": "Mar 2025: 3,150"
+    },
+    {
+     "name": "Rank regions",
+     "formula": "Region Rank = RANKX(ALL(Sales[Region]), [Total Sales])",
+     "result": "North 1, West 2, South 3"
+    },
+    {
+     "name": "Rank with a tie",
+     "formula": "Product Rank = RANKX(ALL(Sales[Product]), [Total Sales])",
+     "result": "Mouse 1, Keyboard 1, Pen 3"
+    },
+    {
+     "name": "Average across regions",
+     "formula": "Avg Region = AVERAGEX(ALL(Sales[Region]), [Total Sales])",
+     "result": "1,916.67"
+    },
+    {
+     "name": "Bring in a column (calc column)",
+     "formula": "Segment = RELATED(Customers[Segment])",
+     "result": "Row 1: Retail"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Your manager asks...",
+   "cols": [
+    "#",
+    "Question",
+    "Use this measure"
+   ],
+   "rows": [
+    [
+     "What did we sell in total?",
+     "Total Sales (1)"
+    ],
+    [
+     "How many people bought?",
+     "Customers (3)"
+    ],
+    [
+     "What is a normal order worth?",
+     "Avg Order (4)"
+    ],
+    [
+     "How is North doing?",
+     "North Sales (11)"
+    ],
+    [
+     "What share is each region?",
+     "% of Total (15)"
+    ],
+    [
+     "Is B2B worth the effort?",
+     "B2B Sales (16)"
+    ],
+    [
+     "Are we ahead of last year?",
+     "YoY % (22)"
+    ],
+    [
+     "How is this year going so far?",
+     "Sales YTD (20)"
+    ],
+    [
+     "Did this month beat last month?",
+     "Last Month (23)"
+    ],
+    [
+     "Which region is best?",
+     "Region Rank (24)"
+    ],
+    [
+     "Which product leads?",
+     "Product Rank (25)"
+    ],
+    [
+     "How many big orders?",
+     "Big Orders (13)"
+    ],
+    [
+     "What does one unit sell for?",
+     "Avg Price (8)"
+    ],
+    [
+     "What is our biggest single order?",
+     "Biggest Order (7)"
+    ],
+    [
+     "How many Retail orders?",
+     "Retail Orders (17)"
+    ],
+    [
+     "Show the total even when I filter",
+     "All Regions (14)"
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Build these<br>~today~.",
+   "body": "Comment DAX27 and I'll DM you the full 7-page PDF.",
+   "keyword": "DAX27",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

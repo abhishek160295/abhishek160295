@@ -2394,5 +2394,389 @@
   ],
   "createdAt": "2026-10-21T20:37:25.949705+05:30",
   "coverChoice": null
+ },
+ {
+  "id": "2026-10-22-s1",
+  "date": "2026-10-22",
+  "slot": 1,
+  "slotTime": "08:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "vs-split",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "role-vs",
+  "pillar": "Career",
+  "slug": "service-vs-product-analyst",
+  "title": "Service vs product company analyst: which one should you pick first?",
+  "caption": "Same job title, very different days.\nWho you work for, the query each one writes, how they hire freshers, and which one fits you.\nFollow @thedataguy16 and comment SVSP. I'll DM you the full 10-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#dataanalyst #analystjobs #freshers #careerindia #placements #thedataguy16",
+  "keyword": "SVSP",
+  "why": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Next unused career pair in roleVs.queue. Hook family: decision settler; cover B: comment line. Company names are examples of each company type.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Service vs Product company analyst",
+  "slides": [
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_01.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_02.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_03.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_04.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_05.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_06.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_07.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_08.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_09.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/service-vs-product-analyst/slide_10.jpg",
+    "url": "/files/posts/2026-10-22/service-vs-product-analyst/slide_10.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-22/service-vs-product-analyst/carousel.pdf",
+   "url": "/files/posts/2026-10-22/service-vs-product-analyst/carousel.pdf",
+   "name": "service-vs-product-analyst.pdf",
+   "pages": 10
+  },
+  "spec": "days/2026-10-22/s1.spec.json",
+  "sources": [
+   {
+    "title": "Service vs product company guide (Masai)",
+    "url": "https://www.masaischool.com/blog/service-company-vs-product-company-the-ultimate-beginners-guide-to-choosing-your-tech-career-path/"
+   },
+   {
+    "title": "Service-based companies in India (KnowledgeHut)",
+    "url": "https://www.knowledgehut.com/blog/it-service-management/service-based-companies-in-india"
+   }
+  ],
+  "createdAt": "2026-10-22T09:59:11.777476+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-22/service-vs-product-analyst/cover_b.jpg",
+   "url": "/files/posts/2026-10-22/service-vs-product-analyst/cover_b.jpg",
+   "hook": "comment-line"
+  },
+  "coverChoice": "a",
+  "hookFamily": "decision-settler",
+  "coverBMechanic": "comment-line"
+ },
+ {
+  "id": "2026-10-22-s2",
+  "date": "2026-10-22",
+  "slot": 2,
+  "slotTime": "10:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "big-list",
+  "pillar": "Skills",
+  "slug": "dax-27-measures",
+  "title": "27 DAX measures you'll write in your first Power BI job, with answers",
+  "caption": "Every Power BI report runs on the same 27 measures.\nHere they are on one small model, each with the answer it returns, plus which one to use when your manager asks.\nFollow @thedataguy16 and comment DAX27. I'll DM you the full 7-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#powerbi #dax #dataanalyst #businessintelligence #analystjobs #thedataguy16",
+  "keyword": "DAX27",
+  "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Power BI is the strongest topic (57K median reach); first Power BI cheat sheet since 8 Oct. Hook family: pain + payoff; cover B: save before.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Power BI",
+  "slides": [
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_01.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_02.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_03.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_04.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_05.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_06.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_07.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_07.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-22/dax-27-measures/carousel.pdf",
+   "url": "/files/posts/2026-10-22/dax-27-measures/carousel.pdf",
+   "name": "dax-27-measures.pdf",
+   "pages": 7
+  },
+  "spec": "days/2026-10-22/s2.spec.json",
+  "sources": [
+   {
+    "title": "SUM (DAX)",
+    "url": "https://dax.guide/sum/"
+   },
+   {
+    "title": "COUNTROWS (DAX)",
+    "url": "https://dax.guide/countrows/"
+   },
+   {
+    "title": "DISTINCTCOUNT (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/distinctcount-function-dax"
+   },
+   {
+    "title": "AVERAGEX (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/averagex-function-dax"
+   },
+   {
+    "title": "AVERAGE (DAX)",
+    "url": "https://dax.guide/average/"
+   },
+   {
+    "title": "SUMX (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/sumx-function-dax"
+   },
+   {
+    "title": "MAX (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/aggregation-functions-dax"
+   },
+   {
+    "title": "DIVIDE (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+   },
+   {
+    "title": "CALCULATE (DAX)",
+    "url": "https://dax.guide/CALCULATE/"
+   },
+   {
+    "title": "REMOVEFILTERS (DAX)",
+    "url": "https://dax.guide/removefilters/"
+   },
+   {
+    "title": "ALL (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/all-function-dax"
+   },
+   {
+    "title": "FILTER (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/filter-function-dax"
+   },
+   {
+    "title": "TOTALYTD (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/totalytd-function-dax"
+   },
+   {
+    "title": "SAMEPERIODLASTYEAR (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/sameperiodlastyear-function-dax"
+   },
+   {
+    "title": "DATEADD (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/dateadd-function-dax"
+   },
+   {
+    "title": "RANKX (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/rankx-function-dax"
+   },
+   {
+    "title": "RELATED (DAX)",
+    "url": "https://learn.microsoft.com/en-us/dax/related-function-dax"
+   }
+  ],
+  "createdAt": "2026-10-22T09:59:11.778312+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-22/dax-27-measures/cover_b.jpg",
+   "url": "/files/posts/2026-10-22/dax-27-measures/cover_b.jpg",
+   "hook": "save-before"
+  },
+  "coverChoice": "a",
+  "hookFamily": "pain-payoff",
+  "coverBMechanic": "save-before"
+ },
+ {
+  "id": "2026-10-22-s3",
+  "date": "2026-10-22",
+  "slot": 3,
+  "slotTime": "19:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega-kids",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "explain-to-kid",
+  "pillar": "Kids",
+  "slug": "chatgpt-to-a-5-year-old",
+  "title": "How I'd explain ChatGPT to a 5-year-old",
+  "caption": "Everyone uses ChatGPT. Few analysts use it well.\n12 ideas from a school day, each with the real prompt an analyst types.\nFollow @thedataguy16 and comment GPTKID. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#chatgpt #dataanalyst #ai #promptengineering #excel #thedataguy16",
+  "keyword": "GPTKID",
+  "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. Next topic in kidsRules.queue (ChatGPT/AI for data analysts). Practical prompts, not AI news. Cover B: simple explainer.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "ChatGPT/AI for data analysts",
+  "slides": [
+   {
+    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/slide_01.jpg",
+    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/slide_02.jpg",
+    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/slide_03.jpg",
+    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/slide_04.jpg",
+    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/slide_05.jpg",
+    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/slide_05.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/carousel.pdf",
+   "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/carousel.pdf",
+   "name": "chatgpt-to-a-5-year-old.pdf",
+   "pages": 5
+  },
+  "spec": "days/2026-10-22/s3.spec.json",
+  "sources": [
+   {
+    "title": "OpenAI: prompt engineering best practices for ChatGPT",
+    "url": "https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt"
+   },
+   {
+    "title": "OpenAI: best practices for prompt engineering (API)",
+    "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api"
+   }
+  ],
+  "createdAt": "2026-10-22T09:59:11.778973+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
+   "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
+   "hook": "simple-explainer"
+  },
+  "coverChoice": "a",
+  "hookFamily": "kids-topic",
+  "coverBMechanic": "simple-explainer"
+ },
+ {
+  "id": "2026-10-22-s4",
+  "date": "2026-10-22",
+  "slot": 4,
+  "slotTime": "21:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "notes-drop",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "notes-pages",
+  "pillar": "Skills",
+  "slug": "pandas-notes-first-job",
+  "title": "pandas notes for your first analyst job: 18 pages, every line run",
+  "caption": "Your first analyst task will be a messy Excel export.\nThese 18 pages clean it, join it, pivot it and export it. Every line shows its real output.\nFollow @thedataguy16 and comment PANDASNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#pandas #python #dataanalyst #datacleaning #analystjobs #thedataguy16",
+  "keyword": "PANDASNOTES",
+  "why": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides. pandas is the least recent notes tool (never done). Hook family: before day one; cover B: sticker number.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "pandas",
+  "slides": [
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_01.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_02.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_03.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_04.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_05.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_06.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_07.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_08.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_09.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_10.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_10.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_11.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_11.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-22/pandas-notes-first-job/carousel.pdf",
+   "url": "/files/posts/2026-10-22/pandas-notes-first-job/carousel.pdf",
+   "name": "pandas-notes-first-job.pdf",
+   "pages": 21
+  },
+  "spec": "days/2026-10-22/s4.spec.json",
+  "sources": [
+   {
+    "title": "pandas API reference",
+    "url": "https://pandas.pydata.org/docs/reference/index.html"
+   }
+  ],
+  "createdAt": "2026-10-22T09:59:11.780337+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",
+   "url": "/files/posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",
+   "hook": "sticker-number"
+  },
+  "coverChoice": "a",
+  "hookFamily": "before-day-one",
+  "coverBMechanic": "sticker-number"
  }
 ]

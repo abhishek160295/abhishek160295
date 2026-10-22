@@ -1,5 +1,5 @@
 {
- "dailyMix": "4 carousels a day from playbook.weeklyRotation + 1 learning reel at 20:00 (playbook.reelRules). KIDS daily at 19:00.",
+ "dailyMix": "4 high-performance carousels a day from playbook.weeklyRotation. NO REELS (owner rule, reconfirmed 22 Oct). KIDS daily at 19:00.",
  "designRules": "Renderer v2 (premium). Read the header comment of render.py for all slide types. Non-mega covers MUST set art (sql|powerbi|python|excel|roadmap|career) and badge (e.g. '30 Q&A'); mega posts start with marker_cover instead. Put exactly one accent word in ~tildes~ (serif italic) in cover, list and CTA titles (marker_cover too: it renders as a yellow highlighter swipe). Every list slide gets a tag and a punchy title. Max 3 text items or 2 code items per list slide. Roadmaps use timeline slides (2 phases per slide). Use table slides for numeric comparisons and compare slides for do/don't. CTA slides must set keyword. Code lines 38 chars max. Renderer v3: marker covers fan the first 3 inside pages, carry a sticker with the real PDF page count (spec.sticker overrides) and a 'Comment KEYWORD for the PDF' chip; split slides render as two cards with a VS medallion; every page has a progress bar and page counter.",
  "handle": "@thedataguy16",
  "music": "search 'anime', pick from top 10",
@@ -24,11 +24,6 @@
   {
    "slot": 4,
    "time": "21:00"
-  },
-  {
-   "slot": "R",
-   "time": "20:00",
-   "reel": true
   }
  ],
  "styleRule": "NO DARK THEMES (owner rule, 27 Sep 2026): every slide, cover, CTA, product page and cover_alt must have a light background; no dark cards, dark code windows or dark panels. The renderer's 4 styles (ember, mist, terracotta, paper) are all light; 'midnight' is a legacy alias for mist. Set spec.style on every post. The 3 non-mega posts of a day each use a different style, and a slot does not repeat yesterday's style. Mega posts always use style paper. All slides inside one post share one style. Never add a theme:'ink' or any dark override.",
