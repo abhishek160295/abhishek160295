@@ -62,9 +62,9 @@ acts = [  # (start, end, cue, from, to, level)
 ]
 for a, b, cue, s0, s1, lv in acts:
     place(mus, fit(cue, s0, s1, b - a) * lv, a, fade=0)
-mus *= 0.30 * rms(speech(vo)) / rms(mus[mus.any(1)])
+mus *= 0.20 * rms(speech(vo)) / rms(mus[mus.any(1)])
 env = movavg(np.abs(vo).max(1), int(0.05 * SR))
-mus *= movavg(np.where(env > 0.02, 0.42, 1.0).astype(np.float32), int(0.4 * SR))[:, None]
+mus *= movavg(np.where(env > 0.02, 0.32, 1.0).astype(np.float32), int(0.4 * SR))[:, None]
 
 # ---- synthesized SFX ----
 sfx = np.zeros_like(vo); rng = np.random.default_rng(7); sr = rms(speech(vo))
@@ -83,7 +83,7 @@ def whoosh(t, g, rev=False):
     if rev: env_ = np.clip(tt / 0.9, 0, 1) ** 4
     place(sfx, stereo(x * env_), t, g, fade=0.01)
 freeze(title['aT'], sr * 3.0)
-for k in range(int(title['T1']), int(ch[2])): tick(k + 0.2, sr * (0.9 if k % 2 == 0 else 0.6) * 2.0)
+for k in range(int(title['T1']), int(ch[2])): tick(k + 0.2, sr * (0.9 if k % 2 == 0 else 0.6) * 1.3)
 rew = first('card'); whoosh(rew['T0'] - 0.2, sr * 0.9, rev=True)
 for k in range(1, 9): whoosh(ch[k] - 0.15, sr * 0.55)
 for s in tl:
