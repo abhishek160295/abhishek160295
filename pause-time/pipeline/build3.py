@@ -1,27 +1,48 @@
 import json, re, difflib
 D = '.'
 V2 = json.load(open('timeline2.json'))
+import wave as _wave
+NBT = ["Right now, on this highway, nothing is moving. Nothing except you.",
+       "How did a kid who once saved an ice cream end up here? Let's rewind.",
+       "But first, the science says you shouldn't survive this.",
+       "You already know what happens next.",
+       "She's not here to stop you. She's here to recruit you."]
+NBV = [(434.0, 440.4), (249.4, 262.0), (39.0, 41.5), (443.0, 447.5), (584.0, 591.0)]
+def _nb():
+    W_ = json.load(open('vo/NB_words.json')); aw = [re.sub(r"[^a-z0-9']", '', w['w'].lower()) for w in W_]
+    dur = _wave.open('vo/NB.wav').getnframes() / 44100
+    starts = []
+    for t in NBT:
+        first = re.sub(r"[^a-z0-9']", '', t.split()[0].lower())
+        j = next(k for k in range(len(aw)) if aw[k] == first and (not starts or W_[k]['t'] > starts[-1]))
+        starts.append(W_[j]['t'])
+    out = []
+    for k, t in enumerate(NBT):
+        b = starts[k + 1] - 0.1 if k + 1 < len(NBT) else dur
+        out.append(dict(src='NB', a=max(starts[k] - 0.08, 0), b=b, sp='N', scene=0, text=t, anchor=NBV[k][0], vs=NBV[k][0], ve=NBV[k][1], i=100 + k))
+    return out
+NB = _nb()
 
 CARD, CH = 'card', 'chapter'
 ORDER = [
-    ('cold', [53, 54, 55, 57]),
+    ('cold', ['B0', 53, 54, 55, 57, 'B1']),
     ('title', [7]),
     (CARD, ('rewind', '6 MONTHS EARLIER', 2.6)),
     (CH, (1, 'THE FIRST SECOND')), ('lines', range(0, 7)),
-    (CH, (2, 'THE PHYSICS OF A FROZEN WORLD')), ('lines', range(8, 19)),
+    (CH, (2, 'THE PHYSICS OF A FROZEN WORLD')), ('lines', ['B2'] + list(range(8, 19))),
     (CH, (3, 'THE RULES')), ('lines', range(19, 26)),
     (CH, (4, 'THE GOOD DAYS')), ('lines', range(26, 33)),
     (CH, (5, 'THE SILENCE')), ('lines', range(33, 40)),
     (CH, (6, 'THE FALL')), ('lines', range(40, 51)),
-    (CH, (7, 'FRIDAY')), ('lines', [51, 52, 56, 58, 59, 60, 61, 62, 63, 64]),
-    (CH, (8, 'THE WOMAN IN THE GRAY COAT')), ('lines', range(65, 76)),
+    (CH, (7, 'FRIDAY')), ('lines', [51, 52, 56, 'B3', 58, 59, 60, 61, 62, 63, 64]),
+    (CH, (8, 'THE WOMAN IN THE GRAY COAT')), ('lines', list(range(65, 76)) + ['B4']),
     ('outro', [76]),
 ]
-HOLD = {57: 2.2, 5: 1.2, 25: 0.8, 33: 2.5, 36: 1.0, 50: 1.2, 56: 1.0, 68: 1.2, 73: 0.6, 39: 1.0}
+HOLD = {101: 1.0, 57: 0.8, 5: 1.2, 25: 0.8, 33: 2.5, 36: 1.0, 50: 1.2, 56: 1.0, 68: 1.2, 73: 0.6, 39: 1.0}
 
 # ---- word timings for animated subtitles (script words, ASR timestamps) ----
 norm = lambda w: re.sub(r"[^a-z0-9']", '', w.lower())
-WORDS = {k: json.load(open(f'vo/{k}_words.json')) for k in ['N1', 'N2', 'J', 'W', 'NX', 'WX']}
+WORDS = {k: json.load(open(f'vo/{k}_words.json')) for k in ['N1', 'N2', 'J', 'W', 'NX', 'WX', 'NB']}
 def word_times(s):
     text = re.sub(r'\[.*?\]\s*', '', s['text'])
     disp = text.split()
@@ -46,13 +67,21 @@ def word_times(s):
     for k in range(1, len(out)): out[k] = max(out[k], out[k - 1] + 0.05)
     return list(zip(disp, out))
 
+import numpy as _np
+_x = _np.frombuffer(_wave.open('vo/NB.wav').readframes(10**9), _np.int16).astype(_np.float32) / 32768
+for e in NB:
+    x = _x[int(e['a'] * 44100):int(e['b'] * 44100)]
+    en = _np.sqrt(_np.convolve(x ** 2, _np.ones(882) / 882, 'same')); idx = _np.where(en > 0.12 * en.max())[0]
+    e['b'] = e['a'] + idx[-1] / 44100 + 0.08; e['a'] = e['a'] + max(idx[0] / 44100 - 0.05, 0)
 entries = []
 for kind, val in ORDER:
     if kind in (CARD, CH):
         entries.append(dict(kind=kind, val=val))
     else:
         for i in val:
-            e = dict(V2[i]); e['kind'] = kind; e['words'] = word_times(e); entries.append(e)
+            e = dict(NB[int(i[1])]) if isinstance(i, str) else dict(V2[i])
+            if i == 8: e['vs'] = 41.5
+            e['kind'] = kind; e['words'] = word_times(e); entries.append(e)
 
 T = 0.4; tl = []
 for n, e in enumerate(entries):

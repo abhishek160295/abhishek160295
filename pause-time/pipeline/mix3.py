@@ -21,7 +21,7 @@ def place(buf, clip, t, g=1.0, fade=0.012):
 
 tl = json.load(open(f'{D}/timeline3.json'))
 T = tl[-1]['T1']; n = int((T + 2) * SR)
-src = {k: load(f'{D}/vo/{k}.mp3') for k in ['N1', 'N2', 'J', 'W', 'NX', 'WX']}
+src = {k: load(f'{D}/vo/{k}.mp3') for k in ['N1', 'N2', 'J', 'W', 'NX', 'WX', 'NB']}
 speech = lambda v: v[np.abs(v).max(1) > 0.2 * np.abs(v).max()]
 ref = rms(speech(src['N1'])); gain = {k: ref / rms(speech(v)) for k, v in src.items()}
 
