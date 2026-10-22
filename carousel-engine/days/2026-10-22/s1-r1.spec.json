@@ -1,0 +1,234 @@
+{
+ "series": "Excel round",
+ "style": "ember",
+ "layout": "cards",
+ "format": "list",
+ "cover_bg": "mint",
+ "cover_alt": {
+  "title": "One formula counts unique names: ~SUMPRODUCT~",
+  "hook": "one-sharp-fact",
+  "bg": "yellow"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Excel round tomorrow? Practise these ~22~ tasks."
+  },
+  {
+   "type": "sheet",
+   "title": "~Lookups~ they always ask",
+   "ribbon": "Find one value in a table",
+   "tip": [
+    "Interview trap:",
+    "VLOOKUP only looks right. INDEX + MATCH looks any way."
+   ],
+   "rows": [
+    {
+     "name": "Region of order 103",
+     "formula": "=VLOOKUP(103,A2:F8,3,FALSE)",
+     "result": "North"
+    },
+    {
+     "name": "Look left: Neha's order number",
+     "formula": "=INDEX(A2:A8,MATCH(\"Neha Gupta\",B2:B8,0))",
+     "result": "104"
+    },
+    {
+     "name": "Missing order, no #N/A",
+     "formula": "=IFERROR(VLOOKUP(999,A2:F8,3,FALSE),\"Not found\")",
+     "result": "Not found"
+    },
+    {
+     "name": "Sales of order 105",
+     "formula": "=INDEX(A2:F8,MATCH(105,A2:A8,0),5)",
+     "result": "950"
+    }
+   ],
+   "data": "Example sheet, A2:F8 = Order, Rep, Region, City, Sales, Date. 7 orders (Apr to Jun 2024), order 104 entered twice, B2 is a messy name."
+  },
+  {
+   "type": "sheet",
+   "title": "~Conditional~ maths",
+   "ribbon": "SUMIF, COUNTIF and friends",
+   "tip": [
+    "Say this:",
+    "SUMIFS puts the sum range first. SUMIF puts it last."
+   ],
+   "rows": [
+    {
+     "name": "Total sales, North",
+     "formula": "=SUMIF(C2:C8,\"North\",E2:E8)",
+     "result": "4,200"
+    },
+    {
+     "name": "Orders above 1,000",
+     "formula": "=COUNTIF(E2:E8,\">1000\")",
+     "result": "3"
+    },
+    {
+     "name": "North sales from Kanpur only",
+     "formula": "=SUMIFS(E2:E8,C2:C8,\"North\",D2:D8,\"Kanpur\")",
+     "result": "3,000"
+    },
+    {
+     "name": "Average South order",
+     "formula": "=AVERAGEIF(C2:C8,\"South\",E2:E8)",
+     "result": "875"
+    },
+    {
+     "name": "Order 101 as % of total",
+     "formula": "=ROUND(E2/SUM($E$2:$E$8)*100,1)",
+     "result": "16.8"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "Clean messy ~text~",
+   "ribbon": "Names from forms are never clean",
+   "tip": [
+    "Interview trap:",
+    "TRIM removes extra spaces between words too, not only at the ends."
+   ],
+   "rows": [
+    {
+     "name": "Remove extra spaces",
+     "formula": "=TRIM(B2)",
+     "result": "ravi kumar"
+    },
+    {
+     "name": "Fix the case too",
+     "formula": "=PROPER(TRIM(B2))",
+     "result": "Ravi Kumar"
+    },
+    {
+     "name": "First name only",
+     "formula": "=LEFT(B3,FIND(\" \",B3)-1)",
+     "result": "Priya"
+    },
+    {
+     "name": "City with region label",
+     "formula": "=D2&\" (\"&C2&\")\"",
+     "result": "Lucknow (North)"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "~Dates~ without panic",
+   "ribbon": "A date is a number underneath",
+   "tip": [
+    "Remember:",
+    "Subtracting two dates gives days. Format the cell as a number."
+   ],
+   "rows": [
+    {
+     "name": "Month name",
+     "formula": "=TEXT(F2,\"mmm\")",
+     "result": "Apr"
+    },
+    {
+     "name": "Month key for a pivot",
+     "formula": "=TEXT(F2,\"yyyy-mm\")",
+     "result": "2024-04"
+    },
+    {
+     "name": "Days between two orders",
+     "formula": "=F7-F2",
+     "result": "78"
+    },
+    {
+     "name": "Working days, Mon to Fri",
+     "formula": "=NETWORKDAYS(F2,F3)",
+     "result": "6"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "title": "The ~tricky~ ones",
+   "ribbon": "Where most freshers get stuck",
+   "tip": [
+    "Interview trap:",
+    "LARGE counts ties. Two orders of 1,500 make the 2nd highest 1,500 too."
+   ],
+   "rows": [
+    {
+     "name": "Flag the duplicate order",
+     "formula": "=IF(COUNTIF($A$2:A8,A8)>1,\"Duplicate\",\"\")",
+     "result": "Duplicate"
+    },
+    {
+     "name": "Rank order 102 by sales",
+     "formula": "=RANK(E3,$E$2:$E$8)",
+     "result": "5"
+    },
+    {
+     "name": "Second highest sale",
+     "formula": "=LARGE(E2:E8,2)",
+     "result": "1,500"
+    },
+    {
+     "name": "Count unique reps (B3:B8)",
+     "formula": "=SUMPRODUCT(1/COUNTIF(B3:B8,B3:B8))",
+     "result": "3"
+    },
+    {
+     "name": "Label each order",
+     "formula": "=IF(E2>=1000,\"High\",IF(E2>=700,\"Mid\",\"Low\"))",
+     "result": "High"
+    }
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "They also ask ~why~",
+   "cols": [
+    "#",
+    "Question",
+    "Short answer"
+   ],
+   "rows": [
+    [
+     "VLOOKUP or INDEX + MATCH?",
+     "INDEX + MATCH. It looks left and does not break when a column is added."
+    ],
+    [
+     "Why FALSE at the end of VLOOKUP?",
+     "Exact match. TRUE gives the nearest value and needs sorted data."
+    ],
+    [
+     "What does $ do in $E$2?",
+     "Locks the cell, so it stays fixed when you copy the formula."
+    ],
+    [
+     "COUNT vs COUNTA?",
+     "COUNT counts numbers. COUNTA counts every filled cell."
+    ],
+    [
+     "SUMIF vs SUMIFS?",
+     "SUMIF takes one condition. SUMIFS takes many, sum range first."
+    ],
+    [
+     "Pivot did not update?",
+     "Right click, Refresh. New rows need the source range or a Table."
+    ],
+    [
+     "How do you remove duplicates?",
+     "Data tab, Remove Duplicates. Flag them first with COUNTIF to check."
+    ],
+    [
+     "Why does a date show 45385?",
+     "Dates are numbers. Change the cell format to Date."
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Practise one page a ~day~.",
+   "body": "Comment XLROUND and I'll DM you the full 9-page PDF.",
+   "keyword": "XLROUND",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

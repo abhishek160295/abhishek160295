@@ -1,24 +1,24 @@
-== s1 08:30 ROLE VS :: Service vs product company analyst: which one should you pick first? [10-page PDF, 10 post slides]
-  ok  sql    svc-query: [['Central', 4350.0], ['North', 300.0], ['West', 4250.0]]
-  ok  sql    prod-query: [[1, 3], [2, 3]]
-== s2 10:30 BIG-NUMBER CHEAT SHEET :: 27 DAX measures you'll write in your first Power BI job, with answers [11-page PDF, 11 post slides]
-  ok  python dax-answers: dax answers ok
-== s3 19:00 KIDS (big tool/role) :: How I'd explain ChatGPT to a 5-year-old [5-page PDF, 5 post slides]
-  ok  sql    slide 2: 'SELECT SUM(amount) FROM orders;'
-== s4 21:00 NOTES DROP :: pandas notes for your first analyst job: 18 topics, every line run [37-page PDF, 19 post slides]
-  ok  python page1: 
-  ok  python page2: 
-  ok  python page3: 
-  ok  python page4: 
-  ok  python page5: 
-  ok  python page6: 
-  ok  python page7: 
-  ok  python page8: 
-  ok  python page9: 
-  ok  python page10: 
-  ok  python page11: 
-  ok  python page12: 
-  ok  python page13: 
-  ok  python page14: 
-  ok  python page15: 
+== s1-r1 08:30 proven interview list :: 22 Excel tasks for your interview round, solved on one sheet [9-page PDF, 9 post slides]
+  ok  excel  x1: North
+  ok  excel  x2: 104
+  ok  excel  x3: Not found
+  ok  excel  x4: 950
+  ok  excel  x5: 4200
+  ok  excel  x6: 3
+  ok  excel  x7: 3000
+  ok  excel  x8: 875
+  ok  excel  x9: 16.8
+  ok  excel  x10: ravi kumar
+  ok  excel  x11: Ravi Kumar
+  ok  excel  x12: Priya
+  ok  excel  x13: Lucknow (North)
+  ok  excel  x14: Apr
+  ok  excel  x15: 2024-04
+  ok  excel  x16: 78
+  ok  excel  x17: 6
+  ok  excel  x18: Duplicate
+  ok  excel  x19: 5
+  ok  excel  x20: 1500
+  ok  excel  x21: 3
+  ok  excel  x22: High
 contact sheet: posts/2026-10-22/contact.jpg

@@ -600,7 +600,7 @@ CSS += r"""
 /* ===== v5: hook-only covers, card pages ===== */
 .mg.hk{background:#FFD84D}
 .hk5{position:absolute;inset:0;display:flex;align-items:center;padding:90px 84px}
-.hk5t{width:100%;font:800 176px/0.96 Bricolage,Inter,sans-serif;letter-spacing:-6px;color:#141210;text-wrap:balance;overflow-wrap:break-word}
+.hk5t{width:100%;font:800 176px/0.96 Bricolage,Inter,sans-serif;letter-spacing:-6px;color:#141210;text-wrap:balance;overflow-wrap:normal}
 .hk5t em{font-family:Bricolage,Inter,sans-serif;font-style:normal;color:#B3121B;background:linear-gradient(100deg,transparent 1%,var(--hl) 2%,var(--hl) 97%,transparent 99%);background-size:100% 34%;background-position:0 88%;background-repeat:no-repeat;padding:0 6px;margin:0 -6px}
 .mg.s5{background:#FBF7EF}
 .mg.s5 .pap{background:radial-gradient(rgba(27,26,23,.10) 1.6px,transparent 2px) 0 0/34px 34px,#FBF7EF}
@@ -626,6 +626,8 @@ CSS += r"""
 .q5{font:700 30px/1.22 Inter;color:#141210}
 .a5{font:500 28px/1.3 Inter;color:#3C372F}
 .a5.mono{font:600 26px/1.3 JBMono;color:#1D4E89;overflow-wrap:anywhere}
+.mg *{font-variant-ligatures:none!important;font-feature-settings:"liga" 0,"calt" 0!important}
+.hk5t em{font-weight:800}
 """
 
 KW = r"\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|FULL JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|HAVING|LIMIT|OFFSET|OVER|PARTITION BY|ROWS BETWEEN|PRECEDING|CURRENT ROW|CASE|WHEN|THEN|ELSE|END|WITH|DISTINCT|UNION|ALL|DESC|ASC|INTERVAL|import|from|def|return|for|in|if|elif|else|print|lambda|True|False|None|as|with|class|VAR|RETURN)\b"

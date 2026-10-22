@@ -351,6 +351,7 @@
    "SQL dates in one page (mega-sheet)",
    "SQL explained as a kirana store (analogy series)",
    "SQL explained with cricket (analogy series)",
+   "Service vs product company analyst: which one should you pick first?",
    "Statistics for data analysts in one page (mega-sheet)",
    "Stop spamming Easy Apply. Run this 1-hour job search.",
    "Top 10 DAX functions behind every Power BI report (mega-sheet)",
@@ -394,6 +395,7 @@
    "DAVSPA",
    "DAX",
    "DAX10",
+   "DAX27",
    "DAX8",
    "DAXKID",
    "DAXPACK",
@@ -406,6 +408,7 @@
    "EXCEL21",
    "FIRSTLOOK",
    "GITKID",
+   "GPTKID",
    "JDTEARDOWN",
    "JOBHUNT",
    "JOINKID",
@@ -427,6 +430,7 @@
    "PANDASHEET",
    "PANDASKID",
    "PANDASLIVE",
+   "PANDASNOTES",
    "PBI20",
    "PBI30",
    "PBIATOZ",
@@ -496,6 +500,7 @@
    "STATS",
    "STATS48",
    "STATSXL",
+   "SVSP",
    "TEXTCLEAN",
    "WHICHJOIN",
    "WHICHXL",
@@ -514,5 +519,44 @@
    "XLTASK24",
    "XLVSPBI"
   ]
+ },
+ "replacements": {
+  "s1-r1": {
+   "slot": 1,
+   "slotTime": "08:30",
+   "rotation": "proven interview list",
+   "format": "list",
+   "pillar": "Interview",
+   "style": "ember",
+   "layout": "cards",
+   "hookType": "shortcut",
+   "evidence": "Proven: 16 SQL problems 21,718 views / 14 follows; 20 pandas one-liners 24,823 / 9.",
+   "why": "Replaces 2026-10-22-s1 (vs-split, 'Service vs product company analyst: which one should you pick first?'): different proven format. Proven: 16 SQL problems 21,718 views / 14 follows; 20 pandas one-liners 24,823 / 9.",
+   "hookFamily": "the-round",
+   "hookA": {
+    "family": "The test or round itself",
+    "why": "Frames the post around the round, never around failing it, so no invented statistic is needed.",
+    "patterns": [
+     "Excel round tomorrow? Revise only these 18 pages",
+     "The SQL test has 4 question types. Here's each one, solved.",
+     "Every Power BI question from a fresher interview, answered"
+    ]
+   },
+   "coverBMechanic": "one-sharp-fact",
+   "hookB": {
+    "mechanic": "one-sharp-fact",
+    "how": "One surprising, verified fact on the cover; the full sheet inside.",
+    "example": "Ctrl + E does what 3 formulas do."
+   },
+   "topic": "Excel",
+   "brief": "Big interview list on Excel: 15-30 numbered items with real answers/code (list slides, max 2 code items or 3 text items per slide, code lines <= 38 chars), cover with art + badge + cover_alt with a different hook.",
+   "replaces": "2026-10-22-s1",
+   "avoid": {
+    "title": "Service vs product company analyst: which one should you pick first?",
+    "topic": "Service vs Product company analyst",
+    "format": "vs-split",
+    "keyword": "SVSP"
+   }
+  }
  }
 }

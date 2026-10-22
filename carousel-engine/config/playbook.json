@@ -713,6 +713,12 @@
     "post": "2026-10-22-s4",
     "family": "before-day-one",
     "mechanic": "sticker-number"
+   },
+   {
+    "date": "2026-10-22",
+    "post": "2026-10-22-s1-r1",
+    "family": "the-round",
+    "mechanic": "one-sharp-fact"
    }
   ]
  },

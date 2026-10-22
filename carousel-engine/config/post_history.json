@@ -2401,7 +2401,7 @@
   "slot": 1,
   "slotTime": "08:30",
   "kind": "carousel",
-  "status": "draft",
+  "status": "rejected",
   "format": "vs-split",
   "layout": "editorial",
   "style": "paper",
@@ -2482,7 +2482,10 @@
   },
   "coverChoice": "a",
   "hookFamily": "decision-settler",
-  "coverBMechanic": "comment-line"
+  "coverBMechanic": "comment-line",
+  "rejectedAt": "2026-10-22T11:51:40.759457+05:30",
+  "noReplace": false,
+  "replacedBy": "2026-10-22-s1-r1"
  },
  {
   "id": "2026-10-22-s2",
@@ -2627,7 +2630,7 @@
     "url": "https://learn.microsoft.com/en-us/dax/related-function-dax"
    }
   ],
-  "createdAt": "2026-10-22T10:17:10.427076+05:30",
+  "createdAt": "2026-10-22T11:57:21.094060+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/dax-27-measures/cover_b.jpg",
    "url": "/files/posts/2026-10-22/dax-27-measures/cover_b.jpg",
@@ -2696,7 +2699,7 @@
     "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api"
    }
   ],
-  "createdAt": "2026-10-22T10:17:10.427730+05:30",
+  "createdAt": "2026-10-22T11:57:21.094800+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
@@ -2817,7 +2820,7 @@
     "url": "https://pandas.pydata.org/docs/reference/index.html"
    }
   ],
-  "createdAt": "2026-10-22T10:17:10.429589+05:30",
+  "createdAt": "2026-10-22T11:57:21.096820+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",
    "url": "/files/posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",
@@ -2826,5 +2829,95 @@
   "coverChoice": "a",
   "hookFamily": "before-day-one",
   "coverBMechanic": "sticker-number"
+ },
+ {
+  "id": "2026-10-22-s1-r1",
+  "date": "2026-10-22",
+  "slot": 1,
+  "slotTime": "08:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "list",
+  "layout": "cards",
+  "style": "ember",
+  "hookType": "shortcut",
+  "pillar": "Interview",
+  "slug": "excel-round-22-tasks",
+  "title": "22 Excel tasks for your interview round, solved on one sheet",
+  "caption": "The Excel round is lookups, SUMIFS, messy names and dates. Not shortcuts.\n22 tasks on one example sheet, each with the answer Excel returns, plus the why questions they ask after.\nFollow @thedataguy16 and comment XLROUND. I'll DM you the full 9-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#excel #exceltips #dataanalyst #interviewprep #analystjobs #thedataguy16",
+  "keyword": "XLROUND",
+  "why": "Proven: 16 SQL problems 21,718 views / 14 follows; 20 pandas one-liners 24,823 / 9. Replaces the rejected Service vs product post with a different proven format. Hook family: the round itself; cover B: one sharp fact.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Excel",
+  "slides": [
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_01.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_02.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_03.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_04.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_05.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_06.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_07.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_08.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/excel-round-22-tasks/slide_09.jpg",
+    "url": "/files/posts/2026-10-22/excel-round-22-tasks/slide_09.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-22/excel-round-22-tasks/carousel.pdf",
+   "url": "/files/posts/2026-10-22/excel-round-22-tasks/carousel.pdf",
+   "name": "excel-round-22-tasks.pdf",
+   "pages": 9
+  },
+  "spec": "days/2026-10-22/s1-r1.spec.json",
+  "sources": [
+   {
+    "title": "VLOOKUP function",
+    "url": "https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1"
+   },
+   {
+    "title": "SUMIFS function",
+    "url": "https://support.microsoft.com/en-us/office/sumifs-function-c9e748f5-7ea7-455d-9406-611cebce642b"
+   },
+   {
+    "title": "NETWORKDAYS function",
+    "url": "https://support.microsoft.com/en-us/office/networkdays-function-48e717bf-a7a3-495f-969e-5005e3eb18e7"
+   }
+  ],
+  "createdAt": "2026-10-22T11:57:31.003396+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-22/excel-round-22-tasks/cover_b.jpg",
+   "url": "/files/posts/2026-10-22/excel-round-22-tasks/cover_b.jpg",
+   "hook": "one-sharp-fact"
+  },
+  "coverChoice": "a",
+  "replaces": "2026-10-22-s1",
+  "hookFamily": "the-round",
+  "coverBMechanic": "one-sharp-fact"
  }
 ]
