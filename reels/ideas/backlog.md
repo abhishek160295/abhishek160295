@@ -9,12 +9,9 @@ Each line is topic, then the visual metaphor. Remove an idea once it's produced.
 - Waiting vs Starting: waits for a green light that never comes vs walks while it's red and finds a path
 - Perfect vs Done: sanding one block forever vs shipping 5 rough blocks that form a bridge
 - Reacting vs Responding: a ball bouncing chaotically vs a ball absorbing the hit and rolling forward
-- Excuses vs Results: a figure builds a wall of excuse blocks between themselves and the flag
-- Scroll vs Build: a thumb scrolls endless lines vs the same lines stack into a tower
 - Rest vs Quit: battery recharges and continues vs battery unplugs and dims forever
 - Amateur vs Pro: practices until they get it right vs until they can't get it wrong (one hit vs 10 in a row)
 - Effort vs Leverage: pushing a boulder vs placing a lever and tipping it with one finger
-- Comparison vs Focus: one figure keeps looking at the other lane and trips; the other looks ahead
 
 ## Percentage ladder
 - 99% vs 1% habits: three archers, only the one who keeps re-drawing hits

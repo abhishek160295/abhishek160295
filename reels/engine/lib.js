@@ -495,3 +495,28 @@ function battery(ctx, x, y, level, o = {}) {
   fill(ctx, (c) => c.roundRect(L + 6, T + 6, fw, h - 12, 4), { color: col, glow, alpha });
   if (showPct) text(ctx, `${Math.round(level * 100)}%`, x, T - 26, { size: 28, weight: 700, color: col, glow: glow * 0.6, alpha });
 }
+
+// Run fn with the canvas rotated by angle a around (x, y).
+function rotAt(ctx, x, y, a, fn) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.translate(-x, -y); fn(); ctx.restore();
+}
+
+// Track hurdle standing on groundY. o.rot tips it forward around its base.
+function hurdle(ctx, x, groundY, o = {}) {
+  const { h = 70, w = 56, color = C.soft, glow = 0, alpha = 1, rot = 0 } = o;
+  rotAt(ctx, x + w / 2, groundY, rot, () => {
+    neon(ctx, (c) => {
+      c.moveTo(x - w / 2, groundY); c.lineTo(x - w / 2, groundY - h);
+      c.moveTo(x + w / 2, groundY); c.lineTo(x + w / 2, groundY - h);
+      c.moveTo(x - w / 2 - 8, groundY - h); c.lineTo(x + w / 2 + 8, groundY - h);
+    }, { color, width: 6, glow: glow || 8, alpha, core: 0.35 });
+  });
+}
+
+// Dashed "gaze" line between two points (who is looking at whom).
+function gaze(ctx, a, b, o = {}) {
+  stroke(ctx, (c) => { c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); }, { color: C.red, width: 3, glow: 10, dash: [10, 12], ...o });
+}
+
+// Standard split-row floor: glossy line.
+function floorLine(ctx, g) { fadeLine(ctx, 80, W - 80, g, { alpha: 0.35, width: 3 }); }
