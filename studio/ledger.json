@@ -1,0 +1,9 @@
+{
+  "rule": "Never reuse a concept, metaphor or title listed here. Append every published reel.",
+  "reference_creator_banned": ["motivation vs discipline pull-ups/push-ups", "hammer action vs words", "I CAN'T -> I CAN", "try/fail/try again -> WIN", "boulder uphill today/month/year", "messy action vs perfection ladder", "consistency vs intensity tree", "carrot confidence vs ego", "tree what people see / don't see", "risk watering seed comfort zone", "working hard vs smart fishing", "multitasking vs focus", "hard now easy later wave", "growth curve days/months/decades", "fear failure vs judgement archery", "dream big act small staircase", "problems grow when you think", "a bad day is not a bad life chart", "giving up vs consistency boulder", "if you try / don't try bike", "be delusional mirror", "goal discipline action dots", "success sign shatter", "learning from mistakes nails"],
+  "published": [
+    {"id": "day001", "title": "Start before you're ready", "concepts": ["waiting for right time vs starting now (clock + building bricks)", "overthinking scribble untangles into path", "comfort zone bubble stretched and popped", "1.01^365 vs 0.99^365 graph", "IMPOSSIBLE -> I'M POSSIBLE apostrophe"]},
+    {"id": "day002", "title": "Small choices, big life", "concepts": ["snooze vs rise alarm clock", "drops fill glass - nothing happening until it is", "same 24 hours hourglass: scrolling vs building stairs", "domino chain small habit -> your life", "future self watching - merge"]},
+    {"id": "day003", "title": "Pressure makes diamonds", "concepts": ["coal under weights becomes diamond", "bow pulled back by setbacks hits bullseye", "drop excuse bags to jump higher", "crowd walks one way, lonely staircase", "cocoon struggle -> butterfly"]}
+  ]
+}
