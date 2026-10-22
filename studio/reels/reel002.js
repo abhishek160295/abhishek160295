@@ -24,26 +24,26 @@ const REEL = { title: 'Small choices, big life', bpm: 150, scenes: [
   // top: stays in bed, time flies
   E.ground(c, g1, 90, 990); bed(c, 120, g1);
   const m1 = 300 + 290 * E.p(t, 1.6, 5.6, 'in');
-  clock(c, 560, g1 - 60, t, hm(m1), m1 > 420 ? RED : '#fff');
+  clock(c, 500, g1 - 60, t, hm(m1), m1 > 420 ? RED : '#fff');
   const reach = E.p(t, 1.0, 1.25) * (1 - E.p(t, 1.35, 1.6));
   E.figure(c, { x: 300, y: g1 - 92, s, rot: -Math.PI / 2, pose: { ...E.pose('stand'), aF: E.lerp(.1, -1.6, reach), eF: .1 } });
   for (let i = 0; i < 3; i++) { const k = ((t - 1.6 + i * .6) % 1.8) / 1.8; if (t > 1.6) E.text(c, 'z', 200 + k * 80 + i * 10, g1 - 150 - k * 140, { size: 30 + i * 8, weight: 800, color: '#888', alpha: Math.sin(k * Math.PI) }); }
   // bottom: gets up and climbs
-  E.ground(c, g2, 90, 990); bed(c, 120, g2); clock(c, 560, g2 - 60, t, '5:00', '#fff');
+  E.ground(c, g2, 90, 990); bed(c, 120, g2); clock(c, 500, g2 - 60, t, '5:00', '#fff');
   let x = 300, y = g2 - 92, rot = -Math.PI / 2, pose = E.pose('stand');
   if (t > 1.1) { const k = E.p(t, 1.1, 1.6, 'out'); rot = E.lerp(-Math.PI / 2, 0, k); x = E.lerp(300, 470, k); y = E.lerp(g2 - 92, g2 - 68 - E.FIG_H * s, k); }
   if (t > 1.6) {
-    const steps = 5, sx = 640, sw = 66, sh = 52;
+    const steps = 5, sx = 590, sw = 66, sh = 52;
     for (let i = 0; i < steps; i++) { const a = E.p(t, 1.7 + i * .12, 1.95 + i * .12, 'back'); E.rrect(c, sx + i * sw, g2 - (i + 1) * sh * a, sw - 4, (i + 1) * sh * a, 4, i === steps - 1 ? '#3a3a3a' : '#2a2a2a', '#999', 3); }
-    const k = E.p(t, 1.8, 4.9, 'inOut'), px = E.lerp(470, sx + steps * sw - 30, k);
+    const k = E.p(t, 1.8, 4.9, 'inOut'), px = E.lerp(470, sx + steps * sw - 62, k);
     const lvl = Math.max(0, Math.min(steps, Math.floor((px - sx + 20) / sw) + 1));
     rot = 0; x = px; y = g2 - 68 * (px < 560 ? 1 : 0) - lvl * sh - E.FIG_H * s + (px < 560 ? 0 : 0);
     if (px < sx - 20) y = g2 - E.FIG_H * s - 2;
     pose = t > 4.95 ? E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.95, 5.3, 'back')) : E.run(px / 22);
   }
   E.figure(c, { x, y, s, rot, pose, glow: t > 4.95 ? 18 : 0 });
-  if (t > 4.9) E.trophy(c, 1000, g2 - 5 * 52 - 4, E.p(t, 4.9, 5.3, 'back') * .55);
-  E.particles(c, 1000, g2 - 300, t - 5.0, { n: 30, speed: 420 });
+  if (t > 4.9) E.trophy(c, 902, g2 - 5 * 52 - 4, E.p(t, 4.9, 5.3, 'back') * .55);
+  E.particles(c, 902, g2 - 300, t - 5.0, { n: 30, speed: 420 });
 } },
 // 2 — Drops fill the glass
 { dur: 6.4, cues: [[5.05, 'impact']], draw(c, t) {

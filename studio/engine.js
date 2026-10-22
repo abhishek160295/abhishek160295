@@ -109,6 +109,7 @@ E.text = (c, str, x, y, o = {}) => {
 };
 // fade + rise in at t0, optional fade out at t1
 E.title = (c, str, x, y, t, t0, t1 = 1e9, o = {}) => {
+  if (t0 <= .1) t0 = -1; // lines that open a scene are on screen from its first frame
   const a = E.p(t, t0, t0 + .35, 'out') * (1 - E.p(t, t1, t1 + .3, 'in'));
   E.text(c, str, x, y, { ...o, alpha: a * (o.alpha ?? 1), dy: (1 - E.p(t, t0, t0 + .35, 'out')) * 18 });
 };
@@ -187,7 +188,10 @@ window.setupReel = reel => {
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
     const sc = reel.scenes[i], t = T - starts[i];
     c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
-    c.save(); sc.draw(c, t, sc.dur); c.restore();
+    // safe frame: keep every scene clear of the Reels/TikTok/Shorts UI
+    // (right action rail x>950, top bar, caption block) — scale 0.88 about (573, 960)
+    c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);
+    sc.draw(c, t, sc.dur); c.restore();
     // fade to black between scenes (first frame of reel is already live — no fade-in)
     const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
     const a = 1 - fin * fout; if (a > 0) { c.fillStyle = `rgba(0,0,0,${a})`; c.fillRect(0, 0, W, H); }

@@ -92,8 +92,8 @@ const REEL = { title: 'Your circle decides your future', bpm: 150, scenes: [
   E.title(c, "They'll doubt you.", W / 2, 440, t, .05, 4.6, { size: 56, weight: 800 });
   E.title(c, "Then ask how you did it.", W / 2, 440, t, 4.8, 1e9, { size: 52, weight: 900, color: GOLD, glow: 26 });
   const gy = 1150, L = 360, R = 720, s = .7;
-  c.save(); c.fillStyle = '#1a1a1a'; c.fillRect(0, gy, L, 500); c.fillRect(R, gy, W - R, 500); c.restore();
-  E.line(c, 0, gy, L, gy, '#888', 5); E.line(c, R, gy, W, gy, '#888', 5); E.line(c, L, gy, L, gy + 500, '#555', 4); E.line(c, R, gy, R, gy + 500, '#555', 4);
+  c.save(); c.fillStyle = '#1a1a1a'; c.fillRect(-300, gy, L + 300, 600); c.fillRect(R, gy, W - R + 300, 600); c.restore();
+  E.line(c, -300, gy, L, gy, '#888', 5); E.line(c, R, gy, W + 300, gy, '#888', 5); E.line(c, L, gy, L, gy + 500, '#555', 4); E.line(c, R, gy, R, gy + 500, '#555', 4);
   [70, 160].forEach((x, i) => E.figure(c, { x, y: gy - E.FIG_H * s - 2, s, color: '#666', pose: t > 4.7 ? E.mix(E.pose('arms'), { ...E.pose('point'), aF: 2.4 }, E.p(t, 4.7, 5)) : E.pose('arms') }));
   E.bubble(c, 'Impossible.', 120, gy - 300, E.p(t, .3, .6, 'back') * (1 - E.p(t, 3.8, 4.2)), { size: 28 });
   E.bubble(c, 'Give up.', 230, gy - 420, E.p(t, .9, 1.2, 'back') * (1 - E.p(t, 3.8, 4.2)), { size: 28 });
@@ -102,9 +102,9 @@ const REEL = { title: 'Your circle decides your future', bpm: 150, scenes: [
   for (let i = 0; i < n; i++) { const a = E.p(t, 1.4 + i * .35, 1.6 + i * .35, 'back'); if (a > 0) E.rrect(c, L + i * pw + 2, gy - 6, (pw - 4) * a, 18, 3, i === n - 1 ? GOLD : '#c49a6c'); }
   let x = 300, pose = E.pose('stand');
   if (t > 1.4 && t < 3.6) { x = Math.min(L + (Math.floor((t - 1.4) / .35)) * pw, R - 30); pose = E.pose('crouch'); }
-  if (t >= 3.6) { const k = E.p(t, 3.6, 4.5, 'inOut'); x = E.lerp(L + 5 * pw, 900, k); pose = k < 1 ? E.run(x / 20) : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.5, 4.9, 'back')); }
+  if (t >= 3.6) { const k = E.p(t, 3.6, 4.5, 'inOut'); x = E.lerp(L + 5 * pw, 830, k); pose = k < 1 ? E.run(x / 20) : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.5, 4.9, 'back')); }
   E.figure(c, { x, y: gy - E.FIG_H * s - 2, s, pose, glow: t > 4.5 ? 22 : 0 });
-  if (t > 4.4) E.trophy(c, 990, gy - 4, E.p(t, 4.4, 4.8, 'back') * .6);
-  E.particles(c, 960, gy - 100, t - 4.6, { n: 30, speed: 400 });
+  if (t > 4.4) E.trophy(c, 920, gy - 4, E.p(t, 4.4, 4.8, 'back') * .6);
+  E.particles(c, 900, gy - 100, t - 4.6, { n: 30, speed: 400 });
 } },
 ] };

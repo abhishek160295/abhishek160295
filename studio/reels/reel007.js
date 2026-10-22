@@ -1,28 +1,24 @@
 // Reel 007 — "Most people quit at 99%"
 const REEL = { title: 'Most people quit at 99%', bpm: 150, scenes: [
-// 1 — Rocket
+// 3 — 99% loading
 { dur: 6.4, draw(c, t) {
-  E.text(c, 'The start takes the most energy.', W / 2, 440, { size: 46, weight: 800, alpha: 1 - E.p(t, 3.1, 3.4) });
-  E.title(c, 'Then momentum takes over.', W / 2, 440, t, 3.5, 1e9, { size: 52, weight: 900, color: GOLD, glow: 24 });
-  const gy = 1360, lift = E.p(t, 1.0, 3.2, 'in'), zoom = E.p(t, 3.2, 3.6, 'in');
-  const fuel = 1 - .85 * E.p(t, .8, 3.2, 'out');
-  // stars streaming once we're moving
-  for (let i = 0; i < 40; i++) { const x = E.rnd(i) * W, sp = 400 + 900 * lift, y = (E.rnd(i + 3) * 1600 + t * sp) % 1600 + 300; E.line(c, x, y, x, y + 4 + 40 * lift + 120 * zoom, `rgba(255,255,255,${.15 + .4 * lift})`, 3); }
-  E.ground(c, gy + lift * 800, 90, 990);
-  const ry = gy - 40 - lift * 400 + Math.sin(t * 3) * 10 * zoom, rx = 600 + Math.sin(t * 40) * 3 * (t > .6 && t < 3.3 ? 1 : 0);
-  // flame
-  if (t > .6) { const f = 1 + Math.sin(t * 50) * .15; c.save(); c.fillStyle = GOLD; c.shadowColor = '#ff8a3d'; c.shadowBlur = 50; c.beginPath(); c.moveTo(rx - 34, ry); c.quadraticCurveTo(rx, ry + 220 * f * (1.2 - lift * .5), rx + 34, ry); c.fill(); c.fillStyle = '#fff'; c.beginPath(); c.moveTo(rx - 16, ry); c.quadraticCurveTo(rx, ry + 100 * f, rx + 16, ry); c.fill(); c.restore();
-    if (t < 1.8) for (let i = 0; i < 16; i++) { const k = ((t * 2 + E.rnd(i)) % 1); E.glowDot(c, rx + (E.rnd(i + 5) - .5) * 300 * k, gy - 10 - k * 40, 40 * (1 - k), 'rgba(200,200,200,.5)'); } }
-  c.save(); c.translate(rx, ry); c.fillStyle = '#eee'; c.strokeStyle = '#fff'; c.lineWidth = 4;
-  c.beginPath(); c.moveTo(-44, 0); c.lineTo(-44, -220); c.quadraticCurveTo(0, -330, 44, -220); c.lineTo(44, 0); c.closePath(); c.fill();
-  c.fillStyle = RED; c.beginPath(); c.moveTo(-44, -10); c.lineTo(-90, 30); c.lineTo(-44, -80); c.fill(); c.beginPath(); c.moveTo(44, -10); c.lineTo(90, 30); c.lineTo(44, -80); c.fill();
-  c.fillStyle = '#0b2a44'; c.beginPath(); c.arc(0, -180, 22, 0, 7); c.fill(); c.strokeStyle = '#999'; c.stroke(); c.restore();
-  // effort gauge
-  const gx = 150, gt = 760, gh = 520;
-  E.text(c, 'EFFORT', gx + 30, gt - 40, { size: 26, weight: 900, ls: 3, color: GREY });
-  E.rrect(c, gx, gt, 60, gh, 14, '#111', '#aaa', 4);
-  const fcol = fuel < .3 ? RED : GOLD; c.save(); c.shadowColor = fcol; c.shadowBlur = 20; E.rrect(c, gx + 8, gt + 8 + (gh - 16) * (1 - fuel), 44, (gh - 16) * fuel, 10, fcol); c.restore();
-  E.text(c, Math.round(fuel * 100) + '%', gx + 30, gt + gh + 40, { size: 32, weight: 800, color: fcol });
+  E.title(c, 'Most people quit at 99%.', W / 2, 440, t, .05, 4.5, { size: 54, weight: 900 });
+  E.title(c, "Don't be most people.", W / 2, 440, t, 4.7, 1e9, { size: 58, weight: 900, color: GOLD, glow: 26 });
+  const bx = 160, by = 960, bw = 760, bh = 80;
+  let p = .99 * E.p(t, .3, 2.4, 'out');
+  if (t > 3.9) p = E.lerp(.99, 1, E.p(t, 3.9, 4.5));
+  const done = p >= 1;
+  E.rrect(c, bx, by, bw, bh, 40, '#0e0e0e', '#ddd', 5);
+  c.save(); c.shadowColor = done ? GREEN : '#fff'; c.shadowBlur = 20; E.rrect(c, bx + 10, by + 10, (bw - 20) * p, bh - 20, 30, done ? GREEN : '#e8e8e8'); c.restore();
+  E.text(c, done ? 'COMPLETE' : `${Math.floor(p * 100)}%`, W / 2, by + 160, { size: 64, weight: 900, color: done ? GREEN : '#fff', glow: done ? 24 : 0 });
+  const end = bx + 10 + (bw - 20) * p, gy = by + bh;
+  // the one who quits
+  const quit = E.p(t, 2.7, 3.5, 'inOut');
+  if (t < 3.6) E.figure(c, { x: t < 2.6 ? end + 70 : E.lerp(end + 70, -100, quit), y: by - 20 - E.FIG_H * .7, s: .7, f: t < 2.6 ? -1 : -1, pose: t < 2.4 ? { ...E.pose('push') } : t < 2.7 ? E.pose('sad') : E.walk(t * 9), alpha: 1 - quit * .7 });
+  // the one who finishes
+  if (t > 3.3) { const k = E.p(t, 3.3, 3.9, 'out'); E.figure(c, { x: E.lerp(1150, end + 70, k), y: by - 20 - E.FIG_H * .7, s: .7, f: -1, glow: 22, pose: t < 3.9 ? E.run(t * 14) : t < 4.6 ? E.pose('push') : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.6, 4.9, 'back')) }); }
+  E.particles(c, bx + bw, by + 40, t - 4.5, { n: 40, speed: 500, color: GREEN });
+  E.flash(c, t, 4.5, .3, '61,220,132', .3);
 } },
 // 2 — The stonecutter
 { dur: 6.4, draw(c, t) {
@@ -51,25 +47,29 @@ const REEL = { title: 'Most people quit at 99%', bpm: 150, scenes: [
   E.particles(c, rx, gy - 150, t - 4.0, { n: 60, speed: 800, grav: 300 });
   E.flash(c, t, 4.0, .4, '245,197,66', .4);
 } },
-// 3 — 99% loading
+// 1 — Rocket
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'Most people quit at 99%.', W / 2, 440, t, .05, 4.5, { size: 54, weight: 900 });
-  E.title(c, "Don't be most people.", W / 2, 440, t, 4.7, 1e9, { size: 58, weight: 900, color: GOLD, glow: 26 });
-  const bx = 160, by = 960, bw = 760, bh = 80;
-  let p = .99 * E.p(t, .3, 2.4, 'out');
-  if (t > 3.9) p = E.lerp(.99, 1, E.p(t, 3.9, 4.5));
-  const done = p >= 1;
-  E.rrect(c, bx, by, bw, bh, 40, '#0e0e0e', '#ddd', 5);
-  c.save(); c.shadowColor = done ? GREEN : '#fff'; c.shadowBlur = 20; E.rrect(c, bx + 10, by + 10, (bw - 20) * p, bh - 20, 30, done ? GREEN : '#e8e8e8'); c.restore();
-  E.text(c, done ? 'COMPLETE' : `${Math.floor(p * 100)}%`, W / 2, by + 160, { size: 64, weight: 900, color: done ? GREEN : '#fff', glow: done ? 24 : 0 });
-  const end = bx + 10 + (bw - 20) * p, gy = by + bh;
-  // the one who quits
-  const quit = E.p(t, 2.7, 3.5, 'inOut');
-  if (t < 3.6) E.figure(c, { x: t < 2.6 ? end + 70 : E.lerp(end + 70, -100, quit), y: by - 20 - E.FIG_H * .7, s: .7, f: t < 2.6 ? -1 : -1, pose: t < 2.4 ? { ...E.pose('push') } : t < 2.7 ? E.pose('sad') : E.walk(t * 9), alpha: 1 - quit * .7 });
-  // the one who finishes
-  if (t > 3.3) { const k = E.p(t, 3.3, 3.9, 'out'); E.figure(c, { x: E.lerp(1150, end + 70, k), y: by - 20 - E.FIG_H * .7, s: .7, f: -1, glow: 22, pose: t < 3.9 ? E.run(t * 14) : t < 4.6 ? E.pose('push') : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.6, 4.9, 'back')) }); }
-  E.particles(c, bx + bw, by + 40, t - 4.5, { n: 40, speed: 500, color: GREEN });
-  E.flash(c, t, 4.5, .3, '61,220,132', .3);
+  E.text(c, 'The start takes the most energy.', W / 2, 440, { size: 46, weight: 800, alpha: 1 - E.p(t, 3.1, 3.4) });
+  E.title(c, 'Then momentum takes over.', W / 2, 440, t, 3.5, 1e9, { size: 52, weight: 900, color: GOLD, glow: 24 });
+  const gy = 1360, lift = E.p(t, 1.0, 3.2, 'in'), zoom = E.p(t, 3.2, 3.6, 'in');
+  const fuel = 1 - .85 * E.p(t, .8, 3.2, 'out');
+  // stars streaming once we're moving
+  for (let i = 0; i < 40; i++) { const x = E.rnd(i) * W, sp = 400 + 900 * lift, y = (E.rnd(i + 3) * 1600 + t * sp) % 1600 + 300; E.line(c, x, y, x, y + 4 + 40 * lift + 120 * zoom, `rgba(255,255,255,${.15 + .4 * lift})`, 3); }
+  E.ground(c, gy + lift * 800, 90, 990);
+  const ry = gy - 40 - lift * 400 + Math.sin(t * 3) * 10 * zoom, rx = 600 + Math.sin(t * 40) * 3 * (t > .6 && t < 3.3 ? 1 : 0);
+  // flame
+  if (t > .6) { const f = 1 + Math.sin(t * 50) * .15; c.save(); c.fillStyle = GOLD; c.shadowColor = '#ff8a3d'; c.shadowBlur = 50; c.beginPath(); c.moveTo(rx - 34, ry); c.quadraticCurveTo(rx, ry + 220 * f * (1.2 - lift * .5), rx + 34, ry); c.fill(); c.fillStyle = '#fff'; c.beginPath(); c.moveTo(rx - 16, ry); c.quadraticCurveTo(rx, ry + 100 * f, rx + 16, ry); c.fill(); c.restore();
+    if (t < 1.8) for (let i = 0; i < 16; i++) { const k = ((t * 2 + E.rnd(i)) % 1); E.glowDot(c, rx + (E.rnd(i + 5) - .5) * 300 * k, gy - 10 - k * 40, 40 * (1 - k), 'rgba(200,200,200,.5)'); } }
+  c.save(); c.translate(rx, ry); c.fillStyle = '#eee'; c.strokeStyle = '#fff'; c.lineWidth = 4;
+  c.beginPath(); c.moveTo(-44, 0); c.lineTo(-44, -220); c.quadraticCurveTo(0, -330, 44, -220); c.lineTo(44, 0); c.closePath(); c.fill();
+  c.fillStyle = RED; c.beginPath(); c.moveTo(-44, -10); c.lineTo(-90, 30); c.lineTo(-44, -80); c.fill(); c.beginPath(); c.moveTo(44, -10); c.lineTo(90, 30); c.lineTo(44, -80); c.fill();
+  c.fillStyle = '#0b2a44'; c.beginPath(); c.arc(0, -180, 22, 0, 7); c.fill(); c.strokeStyle = '#999'; c.stroke(); c.restore();
+  // effort gauge
+  const gx = 150, gt = 760, gh = 520;
+  E.text(c, 'EFFORT', gx + 30, gt - 40, { size: 26, weight: 900, ls: 3, color: GREY });
+  E.rrect(c, gx, gt, 60, gh, 14, '#111', '#aaa', 4);
+  const fcol = fuel < .3 ? RED : GOLD; c.save(); c.shadowColor = fcol; c.shadowBlur = 20; E.rrect(c, gx + 8, gt + 8 + (gh - 16) * (1 - fuel), 44, (gh - 16) * fuel, 10, fcol); c.restore();
+  E.text(c, Math.round(fuel * 100) + '%', gx + 30, gt + gh + 40, { size: 32, weight: 800, color: fcol });
 } },
 // 4 — The kite
 { dur: 6.4, draw(c, t) {

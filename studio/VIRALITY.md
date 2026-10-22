@@ -11,6 +11,9 @@
 9. **30–35s, 5 scenes.** Dense enough to rewatch, short enough to finish.
 10. **Never repeated.** The concept isn't in ledger.json, and it isn't the reference creator's idea.
 
+11. **Title = first scene.** The scene that opens the reel shows exactly what the title and caption promise.
+12. **Platform safe zone.** No text or payoff under the right action rail (x>950), the top bar (y<230) or the caption block (y>1560). The engine renders every scene inside a 0.88 safe frame, and `python3 audit.py` must come back clean apart from passing motion.
+
 Look: black, white stick figures, one accent per scene (red = struggle, gold = win, green = growth, ice = transformation).
 Audio: silent master. Add a trending sound in-app (phonk / epic / emotional piano) at full volume.
 Posting: 5 a day, spaced ~3h apart (e.g. 8am, 11am, 2pm, 5pm, 8pm local). Pin a question comment.

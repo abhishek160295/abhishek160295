@@ -24,7 +24,7 @@ const REEL = { title: "Start before you're ready", bpm: 150, scenes: [
   c.lineWidth = 4; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.sin(spin) * 58, cy - Math.cos(spin) * 58); c.stroke();
   c.restore();
   E.title(c, 'Starting now', W / 2, 1040, t, -1, 1e9, { size: 44, weight: 600 });
-  const k = E.p(t, .5, 4.9, 'inOut'), x = E.lerp(140, 850, k);
+  const k = E.p(t, .5, 4.9, 'inOut'), x = E.lerp(140, 780, k);
   for (let i = 0; i < 16; i++) {
     const bx = 100 + i * 60; if (bx > x + 70) break;
     const a = E.p(x + 70 - bx, 0, 40, 'back');
@@ -32,8 +32,8 @@ const REEL = { title: "Start before you're ready", bpm: 150, scenes: [
   }
   const done = t > 5.0;
   E.figure(c, { x, y: g2 - E.FIG_H * s - 2, s, pose: done ? E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 5.1, 5.5, 'back')) : E.walk(x / 26) });
-  if (t > 4.95) E.trophy(c, 960, g2 - 6, E.p(t, 4.95, 5.35, 'back') * .8, 1, 40);
-  E.particles(c, 960, g2 - 50, t - 5.15, { n: 26, speed: 380, grav: 300 });
+  if (t > 4.95) E.trophy(c, 880, g2 - 6, E.p(t, 4.95, 5.35, 'back') * .8, 1, 40);
+  E.particles(c, 880, g2 - 50, t - 5.15, { n: 26, speed: 380, grav: 300 });
 } },
 // 2 — Overthinking → One step
 { dur: 6.4, cues: [[3.3, 'whoosh'], [4.55, 'pop']], draw(c, t) {

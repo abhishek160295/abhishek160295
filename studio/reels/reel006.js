@@ -1,22 +1,5 @@
 // Reel 006 — "Someday is not a day of the week"
 const REEL = { title: 'Someday is not a day of the week', bpm: 150, scenes: [
-// 1 — Life in years
-{ dur: 6.4, draw(c, t) {
-  E.text(c, 'Your life in years.', W / 2, 470, { size: 54, weight: 800, alpha: 1 - E.p(t, 2.5, 2.8) });
-  E.title(c, 'How many are you wasting?', W / 2, 470, t, 2.9, 4.6, { size: 50, weight: 800, color: '#ddd' });
-  E.title(c, 'Make the rest count.', W / 2, 470, t, 4.8, 1e9, { size: 60, weight: 900, color: GOLD, glow: 26 });
-  const used = 25, gone = Math.floor(used * E.p(t, .5, 2.4, 'inOut'));
-  for (let i = 0; i < 90; i++) {
-    const col = i % 9, row = Math.floor(i / 9), x = 180 + col * 90, y = 600 + row * 84;
-    const pulse = i >= used ? E.p(t, 3.4 + (i - used) * .015, 3.7 + (i - used) * .015) : 0;
-    c.save();
-    if (i < gone) { c.fillStyle = '#5a5a5a'; c.beginPath(); c.arc(x, y, 24, 0, 7); c.fill(); }
-    else { c.strokeStyle = pulse > 0 ? GOLD : '#bbb'; c.lineWidth = 4; c.shadowColor = GOLD; c.shadowBlur = 16 * pulse; c.beginPath(); c.arc(x, y, 24, 0, 7); c.stroke(); if (pulse > 0) { c.globalAlpha = .25 * pulse; c.fillStyle = GOLD; c.fill(); } }
-    c.restore();
-  }
-  E.text(c, `${gone} gone`, W / 2, 1440, { size: 36, weight: 700, color: GREY, alpha: E.p(t, .5, .8) * (1 - E.p(t, 3.3, 3.6)) });
-  E.text(c, `${90 - used} left`, W / 2, 1440, { size: 36, weight: 800, color: GOLD, glow: 12, alpha: E.p(t, 3.5, 3.8) });
-} },
 // 2 — The calendar
 { dur: 6.4, draw(c, t) {
   E.title(c, "I'll start…", W / 2, 440, t, .05, 3.4, { size: 56, weight: 800 });
@@ -43,6 +26,23 @@ const REEL = { title: 'Someday is not a day of the week', bpm: 150, scenes: [
   }
   if (t > 4.0) { c.save(); c.shadowColor = GOLD; c.shadowBlur = 40; E.text(c, 'TODAY', cx, cy + 50, { size: 96, weight: 900, color: '#111' }); c.restore(); E.glowDot(c, cx, cy, 420, 'rgba(245,197,66,.25)', E.p(t, 4.0, 4.4)); }
   E.flash(c, t, 4.0, .35, '245,197,66', .3);
+} },
+// 1 — Life in years
+{ dur: 6.4, draw(c, t) {
+  E.text(c, 'Your life in years.', W / 2, 470, { size: 54, weight: 800, alpha: 1 - E.p(t, 2.5, 2.8) });
+  E.title(c, 'How many are you wasting?', W / 2, 470, t, 2.9, 4.6, { size: 50, weight: 800, color: '#ddd' });
+  E.title(c, 'Make the rest count.', W / 2, 470, t, 4.8, 1e9, { size: 60, weight: 900, color: GOLD, glow: 26 });
+  const used = 25, gone = Math.floor(used * E.p(t, .5, 2.4, 'inOut'));
+  for (let i = 0; i < 90; i++) {
+    const col = i % 9, row = Math.floor(i / 9), x = 180 + col * 90, y = 600 + row * 84;
+    const pulse = i >= used ? E.p(t, 3.4 + (i - used) * .015, 3.7 + (i - used) * .015) : 0;
+    c.save();
+    if (i < gone) { c.fillStyle = '#5a5a5a'; c.beginPath(); c.arc(x, y, 24, 0, 7); c.fill(); }
+    else { c.strokeStyle = pulse > 0 ? GOLD : '#bbb'; c.lineWidth = 4; c.shadowColor = GOLD; c.shadowBlur = 16 * pulse; c.beginPath(); c.arc(x, y, 24, 0, 7); c.stroke(); if (pulse > 0) { c.globalAlpha = .25 * pulse; c.fillStyle = GOLD; c.fill(); } }
+    c.restore();
+  }
+  E.text(c, `${gone} gone`, W / 2, 1440, { size: 36, weight: 700, color: GREY, alpha: E.p(t, .5, .8) * (1 - E.p(t, 3.3, 3.6)) });
+  E.text(c, `${90 - used} left`, W / 2, 1440, { size: 36, weight: 800, color: GOLD, glow: 12, alpha: E.p(t, 3.5, 3.8) });
 } },
 // 3 — The train
 { dur: 6.4, draw(c, t) {
