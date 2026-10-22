@@ -1,11 +1,11 @@
 == s1 08:30 ROLE VS :: Service vs product company analyst: which one should you pick first? [10-page PDF, 10 post slides]
   ok  sql    svc-query: [['Central', 4350.0], ['North', 300.0], ['West', 4250.0]]
   ok  sql    prod-query: [[1, 3], [2, 3]]
-== s2 10:30 BIG-NUMBER CHEAT SHEET :: 27 DAX measures you'll write in your first Power BI job, with answers [7-page PDF, 7 post slides]
+== s2 10:30 BIG-NUMBER CHEAT SHEET :: 27 DAX measures you'll write in your first Power BI job, with answers [11-page PDF, 11 post slides]
   ok  python dax-answers: dax answers ok
 == s3 19:00 KIDS (big tool/role) :: How I'd explain ChatGPT to a 5-year-old [5-page PDF, 5 post slides]
   ok  sql    slide 2: 'SELECT SUM(amount) FROM orders;'
-== s4 21:00 NOTES DROP :: pandas notes for your first analyst job: 18 pages, every line run [21-page PDF, 11 post slides]
+== s4 21:00 NOTES DROP :: pandas notes for your first analyst job: 18 topics, every line run [37-page PDF, 19 post slides]
   ok  python page1: 
   ok  python page2: 
   ok  python page3: 

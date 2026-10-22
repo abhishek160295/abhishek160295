@@ -593,6 +593,41 @@ CSS += r"""
 .mca .msh{border:3px solid #1B1A17;color:#1B1A17;background:#fff}
 """
 
+COVER_BG = [("#FFD84D", "#FFFFFF"), ("#D9F4E4", "#FFD84D"), ("#FFE0E6", "#FFD84D"), ("#DCEBFF", "#FFD84D"), ("#FFF3DC", "#FFD84D")]
+COVER_BG_BY_NAME = {"yellow": COVER_BG[0], "mint": COVER_BG[1], "pink": COVER_BG[2], "sky": COVER_BG[3], "cream": COVER_BG[4]}
+
+CSS += r"""
+/* ===== v5: hook-only covers, card pages ===== */
+.mg.hk{background:#FFD84D}
+.hk5{position:absolute;inset:0;display:flex;align-items:center;padding:90px 84px}
+.hk5t{width:100%;font:800 176px/0.96 Bricolage,Inter,sans-serif;letter-spacing:-6px;color:#141210;text-wrap:balance;overflow-wrap:break-word}
+.hk5t em{font-family:Bricolage,Inter,sans-serif;font-style:normal;color:#B3121B;background:linear-gradient(100deg,transparent 1%,var(--hl) 2%,var(--hl) 97%,transparent 99%);background-size:100% 34%;background-position:0 88%;background-repeat:no-repeat;padding:0 6px;margin:0 -6px}
+.mg.s5{background:#FBF7EF}
+.mg.s5 .pap{background:radial-gradient(rgba(27,26,23,.10) 1.6px,transparent 2px) 0 0/34px 34px,#FBF7EF}
+.s5w,.b5w{position:absolute;inset:0;padding:64px 60px 112px;display:flex;flex-direction:column}
+.s5h{margin-bottom:22px}
+.ch5{display:inline-block;font:800 22px JBMono;letter-spacing:2px;text-transform:uppercase;color:#fff;background:#B3121B;border-radius:10px;padding:8px 14px;margin-bottom:16px}
+.s5h h2{font:800 74px/1.0 Bricolage;letter-spacing:-2.5px;color:#141210;text-wrap:balance}
+.s5h h2 em{font-family:Bricolage;font-style:normal;background:linear-gradient(100deg,transparent 1%,#FFD84D 2%,#FFD84D 97%,transparent 99%);background-size:100% 40%;background-position:0 88%;background-repeat:no-repeat;padding:0 4px}
+.rb5{font:600 32px/1.25 Inter;color:#5A544B;margin-top:10px}
+.mg.s5 .sdat{margin-top:14px;font:600 22px/1.35 Inter;background:#fff;border:2px dashed #CDBF9F;color:#4A443B}
+.rows5{display:flex;flex-direction:column;gap:16px;flex:1 0 auto}
+.c5{display:grid;grid-template-columns:62px 1fr;align-items:start;gap:18px;background:#fff;border:3px solid #141210;border-radius:22px;padding:18px 22px;box-shadow:6px 7px 0 #141210}
+.n5{width:58px;height:58px;border-radius:50%;background:#FFD84D;border:3px solid #141210;display:grid;place-items:center;font:800 28px Bricolage;color:#141210}
+.b5{min-width:0;display:flex;flex-direction:column;gap:10px}
+.nm5{font:700 33px/1.2 Inter;color:#141210}
+.cd5{font:600 30px/1.35 JBMono;color:#1D4E89;background:#EEF4FB;border-radius:12px;padding:10px 14px;overflow-wrap:anywhere;white-space:pre-wrap}
+.hd5{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rs5{flex:0 1 auto;max-width:100%;font:800 27px/1.2 JBMono;color:#12603F;background:#D9F4E4;border-radius:10px;padding:7px 12px;overflow-wrap:anywhere}
+.mg.s5 .tipn{margin-top:20px;font-size:28px}
+.t5{gap:12px}
+.r5{display:grid;grid-template-columns:52px 1fr;gap:4px 16px;background:#fff;border:3px solid #141210;border-radius:18px;padding:16px 20px;box-shadow:5px 6px 0 #141210}
+.i5{grid-row:span 2;width:46px;height:46px;border-radius:50%;background:#FFD84D;border:2.5px solid #141210;display:grid;place-items:center;font:800 22px Bricolage}
+.q5{font:700 30px/1.22 Inter;color:#141210}
+.a5{font:500 28px/1.3 Inter;color:#3C372F}
+.a5.mono{font:600 26px/1.3 JBMono;color:#1D4E89;overflow-wrap:anywhere}
+"""
+
 KW = r"\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|FULL JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|HAVING|LIMIT|OFFSET|OVER|PARTITION BY|ROWS BETWEEN|PRECEDING|CURRENT ROW|CASE|WHEN|THEN|ELSE|END|WITH|DISTINCT|UNION|ALL|DESC|ASC|INTERVAL|import|from|def|return|for|in|if|elif|else|print|lambda|True|False|None|as|with|class|VAR|RETURN)\b"
 
 def inl(t):
@@ -798,19 +833,10 @@ def mega_page(s, i, n):
     segs = "".join(f'<i class="{"on" if k <= i else ""}"></i>' for k in range(1, n + 1))
     sig = (f'<div class="sig sig3"><span class="h">{MONO}@thedataguy16</span><span class="dots">{segs}</span>'
            f'<span class="pg">{"Save this" if i == n else f"{i:02d} / {n:02d}"}{icon("bookmark", 26, 2.4) if i == n else icon("arrow-right", 26, 2.6)}</span></div>')
-    if t == "marker_cover":
-        prev = s.get("_previews") or []
-        fan = "".join(f'<img class="f{k}" src="{p}">' for k, p in enumerate(prev[:3]))
-        kw = s.get("_keyword")
-        inner = (f'<div class="cv3"><div class="cvtop"><div class="who">{MONO}<b>thedataguy16</b>{icon("badge-check", 30, 2.4)}</div>'
-                 f'<span class="chip">{icon("bookmark", 26, 2.4)}Save for later</span></div>'
-                 f'<div class="cvh"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
-                 + (f'<div class="fan n{len(prev[:3])}">{fan}</div>' if fan else "")
-                 + (f'<div class="stk"><span>{inl(s["_sticker"])}</span></div>' if s.get("_sticker") else "")
-                 + '<div class="cvbot">' + (f'<span class="kwc">{icon("message-circle", 30, 2.4)}Comment <b>{html.escape(kw)}</b> for the PDF</span>' if kw else "<span></span>")
-                 + f'<span class="swp">Swipe{icon("arrow-right", 30, 2.8)}</span></div></div>')
-        cls = "mg mc3" + (" nofan" if not fan else "")
-        return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
+    if t == "marker_cover":  # v5: the hook and nothing else
+        bg = s.get("_bg") or COVER_BG[sum(map(ord, s.get("title", ""))) % len(COVER_BG)]
+        inner = f'<div class="hk5" style="background:{bg[0]}"><div class="hk5t" style="--hl:{bg[1]}">{inl(s["title"])}</div></div>'
+        return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="mg hk"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
     elif t == "mproduct":
         ph = "".join(f'<div class="mpp"><span class="d">{html.escape(r)}</span><span class="dot"></span><b>{inl(nm)}</b></div>' for r, nm in s.get("phases", []))
         st = "".join(f'<div class="mps"><b>{inl(v)}</b><span>{inl(l)}</span></div>' for v, l in s.get("stats", []))
@@ -830,16 +856,17 @@ def mega_page(s, i, n):
                  f'<div class="mca"><span class="fol">{icon("user-check", 32, 2.4)}{inl(s.get("action","Follow @thedataguy16"))}</span>'
                  f'<span class="msh">{icon("send", 30, 2.4)}Send to a friend</span></div></div>')
         cls = "mg mcta"
-    elif t == "sheet":
-        def fxrow(r):
-            fx = f'<div class="fx">{html.escape(r["formula"])}</div>'
-            if r.get("result") in (None, ""): return fx
-            return f'<div class="fxl">{fx}<span class="rs">&rarr; {html.escape(str(r["result"]))}</span></div>'
-        rows = "".join(f'<div class="sr"><div class="n">{k}</div><div class="nm">{inl(r["name"])}</div>{fxrow(r)}</div>' for k, r in enumerate(s["rows"], s.get("start", 1)))
-        inner = (f'<div class="shw"><div class="shh"><h2>{inl(s["title"])}</h2><div><span class="rib">{inl(s.get("ribbon",""))}</span></div>'
-                 f'<div class="by">By @thedataguy16</div>' + (f'<div class="sdat">Sample data: {html.escape(s["data"])}</div>' if s.get("data") else "") + f'</div><div class="shr">{rows}</div>'
+    elif t == "sheet":  # v5: max 5 bold cards, big code, answer under it
+        def card(k, r):
+            res = "" if r.get("result") in (None, "") else f'<span class="rs5">&rarr; {html.escape(str(r["result"]))}</span>'
+            return (f'<div class="c5"><span class="n5">{k}</span><div class="b5"><div class="hd5"><div class="nm5">{inl(r["name"])}</div>{res}</div>'
+                    f'<div class="cd5">{html.escape(r["formula"])}</div></div></div>')
+        rows = "".join(card(k, r) for k, r in enumerate(s["rows"], s.get("start", 1)))
+        chip = f'<span class="ch5">{html.escape(s.get("_series", ""))}{" · " + s["_part"] if s.get("_part") else ""}</span>' if s.get("_series") else ""
+        inner = (f'<div class="s5w"><div class="s5h">{chip}<h2>{inl(s["title"])}</h2>' + (f'<p class="rb5">{inl(s.get("ribbon",""))}</p>' if s.get("ribbon") else "")
+                 + (f'<div class="sdat">Data: {html.escape(s["data"])}</div>' if s.get("data") else "") + f'</div><div class="rows5">{rows}</div>'
                  + (f'<div class="tipn">{icon("lightbulb", 30, 2.4)}<div><b>{inl(s["tip"][0])}</b> {inl(s["tip"][1])}</div></div>' if s.get("tip") else "") + '</div>')
-        cls = "mg nb"
+        cls = "mg s5"
     elif t == "kids":
         cells = "".join(f'<div class="kc"><div class="kt">{inl(c["term"])}</div><div class="kb">{inl(c["kid"])}</div>'
                         + (f'<div class="kx">{inl(c["sql"])}</div>' if c.get("sql") else "")
@@ -867,12 +894,15 @@ def mega_page(s, i, n):
         inner = (f'<div class="s3w"><div class="s3h"><span class="s3n">{s.get("_n", i - 1):02d}</span><h2>{inl(head or "")}</h2></div>'
                  f'{card(s["top"], "a")}<div class="s3vs">VS</div>{card(s["bottom"], "b")}</div>')
         cls = "mg sp3"
-    else:  # bigtable
+    else:  # bigtable v5: roomy rows, question then answer
         cols = s.get("cols", ["#", "Question", "Answer"])
-        rows = "".join(f'<tr><td class="i">{k}</td><td class="q">{inl(q)}</td><td class="a">{html.escape(a)}</td></tr>' for k, (q, a) in enumerate(s["rows"], s.get("start", 1)))
-        inner = (f'<div class="btw"><div class="bth"><h2>{inl(s["title"])}</h2><div class="by">by @thedataguy16</div></div>'
-                 f'<table class="btt"><tr>{"".join(f"<th>{html.escape(c)}</th>" for c in cols)}</tr>{rows}</table></div>')
-        cls = "mg bt"
+        code = s.get("lang") or cols[-1].lower() in ("sql", "pandas", "python", "dax", "keys (windows)", "formula")
+        rows = "".join(f'<div class="r5"><span class="i5">{k}</span><div class="q5">{inl(q)}</div><div class="a5{" mono" if code else ""}">{html.escape(a)}</div></div>'
+                       for k, (q, a) in enumerate(s["rows"], s.get("start", 1)))
+        chip = f'<span class="ch5">{html.escape(s.get("_series", ""))}{" · " + s["_part"] if s.get("_part") else ""}</span>' if s.get("_series") else ""
+        inner = (f'<div class="b5w"><div class="s5h">{chip}<h2>{inl(s["title"])}</h2><p class="rb5">{html.escape(cols[1])} &rarr; {html.escape(cols[-1])}</p></div>'
+                 f'<div class="rows5 t5">{rows}</div></div>')
+        cls = "mg s5"
     return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}{sig}<div class="grain"></div></div></body></html>')
 
 MEGA_TYPES = ("marker_cover", "sheet", "bigtable", "kids", "split", "flow", "mproduct", "mcta")
@@ -941,8 +971,8 @@ async def fit(pg):
             continue
         break
 
-MEGA_OVER_JS = ("()=>{const w=document.querySelector('.shw,.btw,.cvh,.kdw,.s3w,.flw');if(!w)return false;const fan=document.querySelector('.fan,.cvbot');const lim=(w.classList.contains('cvh')&&fan?fan.getBoundingClientRect().top:document.querySelector('.sig,.cvbot').getBoundingClientRect().top)-10;"
-                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.s3c,.fls,.tipn').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
+MEGA_OVER_JS = ("()=>{const hk=document.querySelector('.hk5t');if(hk){const r=hk.getBoundingClientRect();return r.height>1150||hk.scrollWidth>hk.clientWidth+2};const w=document.querySelector('.shw,.btw,.cvh,.kdw,.s3w,.flw,.s5w,.b5w,.hk5');if(!w)return false;const fan=document.querySelector('.fan,.cvbot');const sg=document.querySelector('.sig,.cvbot');const lim=(w.classList.contains('cvh')&&fan?fan.getBoundingClientRect().top:(sg?sg.getBoundingClientRect().top:99999))-10;"
+                "let m=0;w.querySelectorAll('.sr,.btt,.mks,.mkt,.kc,.s3c,.fls,.tipn,.c5,.r5,.hk5t').forEach(e=>m=Math.max(m,e.getBoundingClientRect().bottom));return m>lim||w.scrollHeight>w.clientHeight+2}")
 
 async def mega_fit(pg):
     shrinks, over = 0, False
@@ -950,7 +980,7 @@ async def mega_fit(pg):
         over = await pg.evaluate(MEGA_OVER_JS)
         if not over: break
         shrinks += 1
-        await pg.evaluate("()=>{document.querySelectorAll(document.querySelector('.cvh')?'.cvh *':'.mg *').forEach(e=>{const fs=parseFloat(getComputedStyle(e).fontSize);e.style.fontSize=(fs*0.95)+'px'})}")
+        await pg.evaluate("()=>{document.querySelectorAll(document.querySelector('.hk5')?'.hk5t':document.querySelector('.cvh')?'.cvh *':'.mg *').forEach(e=>{const fs=parseFloat(getComputedStyle(e).fontSize);e.style.fontSize=(fs*0.95)+'px'})}")
     return shrinks, bool(over)
 
 async def render(spec, out):
@@ -974,7 +1004,7 @@ async def render(spec, out):
         for idx in order:
             i, s = idx + 1, sl[idx]
             if s["type"] == "marker_cover":
-                s = dict(s, _previews=[_src(files[k]) for k in content[:3]], _sticker=sticker, _keyword=kw); cover_ctx = s
+                s = dict(s, _bg=COVER_BG_BY_NAME.get(spec.get("cover_bg", ""))); cover_ctx = s
             await pg.set_content(mega_page(s, i, len(sl)) if s["type"] in MEGA_TYPES else page(s, i, len(sl), series, style, layout))
             await pg.evaluate("document.fonts.ready")
             if s["type"] in MEGA_TYPES:
@@ -991,6 +1021,8 @@ async def render(spec, out):
             await pg.screenshot(path=str(f), type="jpeg", quality=94); files[idx] = str(f)
         if spec.get("cover_alt"):  # second hook option for the cover -> cover_b.jpg
             alt = dict(cover_ctx if sl[0]["type"] == "marker_cover" else sl[0], **{k: v for k, v in spec["cover_alt"].items() if k != "hook"})
+            if sl[0]["type"] == "marker_cover":
+                alt["_bg"] = spec["cover_alt"].get("bg") and COVER_BG_BY_NAME.get(spec["cover_alt"]["bg"]) or COVER_BG[(sum(map(ord, alt["title"])) + 2) % len(COVER_BG)]
             if sl[0]["type"] == "marker_cover":  # mega series keep the marker look for both hooks
                 await pg.set_content(mega_page(alt, 1, len(sl))); await pg.evaluate("document.fonts.ready"); await mega_fit(pg)
             else:
@@ -1019,10 +1051,31 @@ PRODUCT = {"type": "product", "kicker": "The 90-Day System · 5.0 Best Seller",
     "price": "", "mrp": "", "buy_title": "0 to job-ready, one day at a time", "byline": "Built by Abhishek · 7 yrs in data · 31,000+ helped",
     "button": "Link in bio", "url": "https://topmate.io/abhishek_kumar1085/1990922"}
 
+SHEET_MAX, TABLE_MAX = 5, 8
+
+
+def expand_pages(slides, series=""):
+    """v5 readability: a sheet shows at most 5 cards, a table at most 8 rows; longer pages continue on the next slide."""
+    out = []
+    for x in slides:
+        lim = SHEET_MAX if x["type"] == "sheet" else TABLE_MAX if x["type"] == "bigtable" else None
+        if lim and len(x["rows"]) > lim:
+            n = -(-len(x["rows"]) // lim); size = -(-len(x["rows"]) // n)  # even split: 8 rows -> 4 + 4, not 5 + 3
+            parts = [x["rows"][i:i + size] for i in range(0, len(x["rows"]), size)]
+            for k, rows in enumerate(parts):
+                y = dict(x, rows=rows, start=x.get("start", 1) + k * size, _part=f"{k + 1}/{len(parts)}", _series=series)
+                if k > 0: y.pop("data", None)
+                if k < len(parts) - 1: y.pop("tip", None)
+                out.append(y)
+        else:
+            out.append(dict(x, _series=series) if lim else x)
+    return out
+
+
 def with_product(spec):
     """Insert the product pitch slide right before the CTA (default on; spec.product=false disables).
     Marker-series posts get the brand versions: mproduct + mcta."""
-    sl = list(spec["slides"])
+    sl = expand_pages(list(spec["slides"]), spec.get("series", ""))
     series = bool(sl) and sl[0]["type"] == "marker_cover"
     if series:
         sl = [dict(x, type="mcta", _pdf_pages=spec.get("_pdf_pages"), _series=spec.get("series", "")) if x["type"] == "cta" else x for x in sl]
@@ -1063,7 +1116,11 @@ def preview_spec(spec):
     n = spec.get("preview_pages")
     if not n: return spec
     sl = spec["slides"]; body = [x for x in sl[1:] if x["type"] != "cta"]; cta = [x for x in sl if x["type"] == "cta"]
-    return dict(spec, slides=[sl[0]] + body[:n] + cta)
+    while n > 1:  # Instagram allows 20 slides; pages may split, so shrink the preview until it fits
+        p = dict(spec, slides=[sl[0]] + body[:n] + cta)
+        if len(with_product(p)) <= 20: return p
+        n -= 1
+    return dict(spec, slides=[sl[0]] + body[:1] + cta)
 
 def page_count(spec):
     return len(with_product(spec))

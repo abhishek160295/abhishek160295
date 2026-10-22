@@ -2,50 +2,86 @@
  {
   "slide": 1,
   "type": "marker_cover",
-  "shrinks": 1,
-  "overflow": false,
-  "emojiWrap": [],
-  "clipped": [],
-  "minFont": 30
- },
- {
-  "slide": 2,
-  "type": "sheet",
-  "shrinks": 3,
-  "overflow": false,
-  "emojiWrap": [],
-  "clipped": [],
-  "minFont": 18.0049
- },
- {
-  "slide": 3,
-  "type": "sheet",
-  "shrinks": 5,
-  "overflow": false,
-  "emojiWrap": [],
-  "clipped": [],
-  "minFont": 16.2495
- },
- {
-  "slide": 4,
-  "type": "sheet",
-  "shrinks": 3,
-  "overflow": false,
-  "emojiWrap": [],
-  "clipped": [],
-  "minFont": 18.0049
- },
- {
-  "slide": 5,
-  "type": "bigtable",
   "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 20
+  "minFont": 99
+ },
+ {
+  "slide": 2,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 3,
+  "type": "sheet",
+  "shrinks": 2,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19.855
+ },
+ {
+  "slide": 4,
+  "type": "sheet",
+  "shrinks": 4,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 17.9191
+ },
+ {
+  "slide": 5,
+  "type": "sheet",
+  "shrinks": 1,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20.9
  },
  {
   "slide": 6,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 7,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 8,
+  "type": "bigtable",
+  "shrinks": 1,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20.9
+ },
+ {
+  "slide": 9,
+  "type": "bigtable",
+  "shrinks": 1,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20.9
+ },
+ {
+  "slide": 10,
   "type": "mproduct",
   "shrinks": 0,
   "overflow": false,
@@ -54,7 +90,7 @@
   "minFont": 21
  },
  {
-  "slide": 7,
+  "slide": 11,
   "type": "mcta",
   "shrinks": 0,
   "overflow": false,

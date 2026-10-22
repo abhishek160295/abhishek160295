@@ -2474,7 +2474,7 @@
     "url": "https://www.knowledgehut.com/blog/it-service-management/service-based-companies-in-india"
    }
   ],
-  "createdAt": "2026-10-22T09:59:11.777476+05:30",
+  "createdAt": "2026-10-22T10:17:10.425920+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/service-vs-product-analyst/cover_b.jpg",
    "url": "/files/posts/2026-10-22/service-vs-product-analyst/cover_b.jpg",
@@ -2498,7 +2498,7 @@
   "pillar": "Skills",
   "slug": "dax-27-measures",
   "title": "27 DAX measures you'll write in your first Power BI job, with answers",
-  "caption": "Every Power BI report runs on the same 27 measures.\nHere they are on one small model, each with the answer it returns, plus which one to use when your manager asks.\nFollow @thedataguy16 and comment DAX27. I'll DM you the full 7-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "caption": "Every Power BI report runs on the same 27 measures.\nHere they are on one small model, each with the answer it returns, plus which one to use when your manager asks.\nFollow @thedataguy16 and comment DAX27. I'll DM you the full 11-page PDF.\nWant the complete 90-day system? Link in bio.",
   "hashtags": "#powerbi #dax #dataanalyst #businessintelligence #analystjobs #thedataguy16",
   "keyword": "DAX27",
   "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Power BI is the strongest topic (57K median reach); first Power BI cheat sheet since 8 Oct. Hook family: pain + payoff; cover B: save before.",
@@ -2532,13 +2532,29 @@
    {
     "path": "posts/2026-10-22/dax-27-measures/slide_07.jpg",
     "url": "/files/posts/2026-10-22/dax-27-measures/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_08.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_09.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_10.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_10.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/dax-27-measures/slide_11.jpg",
+    "url": "/files/posts/2026-10-22/dax-27-measures/slide_11.jpg"
    }
   ],
   "pdf": {
    "path": "posts/2026-10-22/dax-27-measures/carousel.pdf",
    "url": "/files/posts/2026-10-22/dax-27-measures/carousel.pdf",
    "name": "dax-27-measures.pdf",
-   "pages": 7
+   "pages": 11
   },
   "spec": "days/2026-10-22/s2.spec.json",
   "sources": [
@@ -2611,7 +2627,7 @@
     "url": "https://learn.microsoft.com/en-us/dax/related-function-dax"
    }
   ],
-  "createdAt": "2026-10-22T09:59:11.778312+05:30",
+  "createdAt": "2026-10-22T10:17:10.427076+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/dax-27-measures/cover_b.jpg",
    "url": "/files/posts/2026-10-22/dax-27-measures/cover_b.jpg",
@@ -2680,7 +2696,7 @@
     "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api"
    }
   ],
-  "createdAt": "2026-10-22T09:59:11.778973+05:30",
+  "createdAt": "2026-10-22T10:17:10.427730+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
    "url": "/files/posts/2026-10-22/chatgpt-to-a-5-year-old/cover_b.jpg",
@@ -2703,8 +2719,8 @@
   "hookType": "notes-pages",
   "pillar": "Skills",
   "slug": "pandas-notes-first-job",
-  "title": "pandas notes for your first analyst job: 18 pages, every line run",
-  "caption": "Your first analyst task will be a messy Excel export.\nThese 18 pages clean it, join it, pivot it and export it. Every line shows its real output.\nFollow @thedataguy16 and comment PANDASNOTES. I'll DM you the full 21-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "title": "pandas notes for your first analyst job: 18 topics, every line run",
+  "caption": "Your first analyst task will be a messy Excel export.\nThese 18 topics clean it, join it, pivot it and export it. Every line shows its real output.\nFollow @thedataguy16 and comment PANDASNOTES. I'll DM you the full 37-page PDF.\nWant the complete 90-day system? Link in bio.",
   "hashtags": "#pandas #python #dataanalyst #datacleaning #analystjobs #thedataguy16",
   "keyword": "PANDASNOTES",
   "why": "Proven: comment-keyword CTA median reach 66K, 105 follows (n=3); tajamul.codes 'Complete Python Notes' 9.1K likes with real pages as slides. pandas is the least recent notes tool (never done). Hook family: before day one; cover B: sticker number.",
@@ -2754,13 +2770,45 @@
    {
     "path": "posts/2026-10-22/pandas-notes-first-job/slide_11.jpg",
     "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_11.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_12.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_12.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_13.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_13.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_14.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_14.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_15.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_15.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_16.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_16.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_17.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_17.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_18.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_18.jpg"
+   },
+   {
+    "path": "posts/2026-10-22/pandas-notes-first-job/slide_19.jpg",
+    "url": "/files/posts/2026-10-22/pandas-notes-first-job/slide_19.jpg"
    }
   ],
   "pdf": {
    "path": "posts/2026-10-22/pandas-notes-first-job/carousel.pdf",
    "url": "/files/posts/2026-10-22/pandas-notes-first-job/carousel.pdf",
    "name": "pandas-notes-first-job.pdf",
-   "pages": 21
+   "pages": 37
   },
   "spec": "days/2026-10-22/s4.spec.json",
   "sources": [
@@ -2769,7 +2817,7 @@
     "url": "https://pandas.pydata.org/docs/reference/index.html"
    }
   ],
-  "createdAt": "2026-10-22T09:59:11.780337+05:30",
+  "createdAt": "2026-10-22T10:17:10.429589+05:30",
   "coverAlt": {
    "path": "posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",
    "url": "/files/posts/2026-10-22/pandas-notes-first-job/cover_b.jpg",

@@ -161,8 +161,12 @@ def lint(spec, meta, brief, pages, day_metas=(), hist=()):
         if a.split()[-1] not in blob or c.split()[-1] not in blob:
             E.append(f"ROLE VS must cover the planned pair: {brief['topic']}")
     # ---- quality bar (prompts/quality_bar.md) ----
-    if sl[0]["type"] == "marker_cover" and not sl[0].get("sub"):
-        E.append("cover needs a sub line with the concrete payoff")
+    if sl[0]["type"] == "marker_cover":  # v5: the cover is the hook and nothing else
+        words = len(_plain(sl[0]["title"]).split())
+        if words > 10:
+            W.append(f"cover hook is {words} words; 10 or fewer stops the scroll better")
+        if sl[0].get("sub"):
+            W.append("cover sub line is ignored: covers show only the hook")
     first = lines[0].strip().lower() if lines else ""
     if re.match(r"(here are|here's|in this post|check out|do you want|are you|want to learn|did you know)", first):
         E.append("caption line 1 opens generically; lead with the pain")

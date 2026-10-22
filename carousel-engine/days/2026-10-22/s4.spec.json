@@ -5,15 +5,14 @@
  "format": "mega",
  "preview_pages": 8,
  "cover_alt": {
-  "title": "18 pages.<br>Every line<br>~run~ for you.",
-  "sub": "pandas for your first analyst job.",
-  "hook": "sticker-number"
+  "title": "18 topics. Every line ~run~ for you.",
+  "hook": "sticker-number",
+  "bg": "pink"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "pandas notes<br>for your ~first~<br>analyst job",
-   "sub": "18 pages. Every line shows its real output.<br>One messy sales table, start to finish."
+   "title": "Your first analyst task, done in ~pandas~"
   },
   {
    "type": "sheet",
@@ -1007,9 +1006,10 @@
   {
    "type": "cta",
    "title": "One page<br>a ~day~.",
-   "body": "Comment PANDASNOTES and I'll DM you the full 21-page PDF.",
+   "body": "Comment PANDASNOTES and I'll DM you the full 37-page PDF.",
    "keyword": "PANDASNOTES",
    "action": "Follow @thedataguy16"
   }
- ]
+ ],
+ "cover_bg": "mint"
 }

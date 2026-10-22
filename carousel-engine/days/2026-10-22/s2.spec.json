@@ -4,20 +4,19 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "Save this before<br>your ~Power BI~<br>round.",
-  "sub": "27 DAX measures, each with its answer.",
-  "hook": "save-before"
+  "title": "Save this before your ~Power BI~ round",
+  "hook": "save-before",
+  "bg": "yellow"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "27 DAX measures<br>you'll write in your<br>~first~ Power BI job",
-   "sub": "Each one with the answer it returns<br>on the same 8-order model."
+   "title": "27 DAX measures every Power BI job ~uses~"
   },
   {
    "type": "sheet",
-   "title": "Power BI",
-   "ribbon": "10 measures for every report",
+   "title": "The ~basics~ of every report",
+   "ribbon": "Totals, counts, averages",
    "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown.",
    "tip": [
     "Interview trap:",
@@ -78,8 +77,8 @@
   },
   {
    "type": "sheet",
-   "title": "Power BI",
-   "ribbon": "CALCULATE and filters",
+   "title": "~CALCULATE~ and filters",
+   "ribbon": "The one function interviews test",
    "start": 11,
    "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown.",
    "tip": [
@@ -136,8 +135,8 @@
   },
   {
    "type": "sheet",
-   "title": "Power BI",
-   "ribbon": "Time and ranking",
+   "title": "~Time~ and ranking",
+   "ribbon": "YTD, last month, top 5",
    "start": 20,
    "data": "Sales: 8 orders, Jan 2024 to Mar 2025. Customers: Retail or B2B. Read in a card, no filters, unless shown. Plus a Date table.",
    "tip": [
@@ -265,9 +264,10 @@
   {
    "type": "cta",
    "title": "Build these<br>~today~.",
-   "body": "Comment DAX27 and I'll DM you the full 7-page PDF.",
+   "body": "Comment DAX27 and I'll DM you the full 11-page PDF.",
    "keyword": "DAX27",
    "action": "Follow @thedataguy16"
   }
- ]
+ ],
+ "cover_bg": "sky"
 }

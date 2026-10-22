@@ -2,86 +2,158 @@
  {
   "slide": 1,
   "type": "marker_cover",
-  "shrinks": 1,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 30
+  "minFont": 99
  },
  {
   "slide": 2,
   "type": "sheet",
-  "shrinks": 2,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18.9525
+  "minFont": 22
  },
  {
   "slide": 3,
   "type": "sheet",
-  "shrinks": 4,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 17.1047
+  "minFont": 22
  },
  {
   "slide": 4,
   "type": "sheet",
-  "shrinks": 2,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18.9525
+  "minFont": 22
  },
  {
   "slide": 5,
   "type": "sheet",
-  "shrinks": 2,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18.9525
+  "minFont": 22
  },
  {
   "slide": 6,
   "type": "sheet",
-  "shrinks": 1,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 19.95
+  "minFont": 22
  },
  {
   "slide": 7,
   "type": "sheet",
-  "shrinks": 1,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 19.95
+  "minFont": 22
  },
  {
   "slide": 8,
   "type": "sheet",
-  "shrinks": 3,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 18.0049
+  "minFont": 22
  },
  {
   "slide": 9,
   "type": "sheet",
-  "shrinks": 5,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 16.2495
+  "minFont": 22
  },
  {
   "slide": 10,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 11,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 12,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 13,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 14,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 15,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 16,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 17,
+  "type": "sheet",
+  "shrinks": 2,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19.855
+ },
+ {
+  "slide": 18,
   "type": "mproduct",
   "shrinks": 0,
   "overflow": false,
@@ -90,7 +162,7 @@
   "minFont": 21
  },
  {
-  "slide": 11,
+  "slide": 19,
   "type": "mcta",
   "shrinks": 0,
   "overflow": false,

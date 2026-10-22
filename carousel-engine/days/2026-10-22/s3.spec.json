@@ -4,15 +4,14 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "ChatGPT is<br>~simple~ once<br>you see it<br>like this",
-  "sub": "12 ideas from one school day.",
-  "hook": "simple-explainer"
+  "title": "ChatGPT is ~simple~ once you see it like this",
+  "hook": "simple-explainer",
+  "bg": "mint"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "How I'd explain<br>~ChatGPT~<br>to a 5-year-old",
-   "sub": "12 ideas from one school day.<br>The real prompt under each."
+   "title": "How I'd explain ~ChatGPT~ to a 5-year-old"
   },
   {
    "type": "kids",
@@ -109,5 +108,6 @@
    "keyword": "GPTKID",
    "action": "Follow @thedataguy16"
   }
- ]
+ ],
+ "cover_bg": "pink"
 }

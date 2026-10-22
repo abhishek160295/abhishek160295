@@ -2,11 +2,11 @@
  {
   "slide": 1,
   "type": "marker_cover",
-  "shrinks": 1,
+  "shrinks": 0,
   "overflow": false,
   "emojiWrap": [],
   "clipped": [],
-  "minFont": 30
+  "minFont": 99
  },
  {
   "slide": 2,

@@ -4,15 +4,14 @@
  "layout": "editorial",
  "format": "mega",
  "cover_alt": {
-  "title": "TCS or<br>~Swiggy~?<br>Pick your first job.",
-  "sub": "Service vs product company, side by side.",
-  "hook": "comment-line"
+  "title": "TCS or ~Swiggy~ for your first job?",
+  "hook": "comment-line",
+  "bg": "sky"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "Service company<br>vs<br>~Product~ company",
-   "sub": "Same analyst title. Very different job."
+   "title": "Service or product company analyst? Pick ~right~."
   },
   {
    "type": "split",
@@ -172,5 +171,6 @@
    "keyword": "SVSP",
    "action": "Follow @thedataguy16"
   }
- ]
+ ],
+ "cover_bg": "yellow"
 }

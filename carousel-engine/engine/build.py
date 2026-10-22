@@ -1,6 +1,6 @@
 """check: lint + verify + render + layout QA + contact sheet for a day's specs (nothing saved to history).
 finalize: re-check, then append to post_history.json, update playbook state and load the desk."""
-import asyncio, json, pathlib, sys, shutil
+import asyncio, json, pathlib, re, sys, shutil
 from .core import ROOT, DAYS, POSTS, load, save, history, now_ist, SLOTS
 from .validate import lint
 from .verify import verify_post
@@ -36,6 +36,20 @@ def outdir(date, meta):
     return POSTS / date / meta["slug"]
 
 
+def sync_pages(date, sid, spec, meta, pages):
+    """Long pages split automatically (renderer v5), so the real PDF length is only known here: keep the
+    caption and CTA slide in step with it instead of failing the post."""
+    fix = lambda t: re.sub(r"\b\d+-page PDF", f"{pages}-page PDF", t)
+    cta = json.dumps(spec["slides"][-1], ensure_ascii=False)
+    cap = fix(meta["caption"]); new_cta = fix(cta)
+    if cap != meta["caption"] or new_cta != cta:
+        meta["caption"] = cap; spec["slides"][-1] = json.loads(new_cta)
+        d = DAYS / date
+        json.dump(spec, open(d / f"{sid}.spec.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+        m = json.load(open(d / f"{sid}.meta.json", encoding="utf-8")); m["caption"] = cap
+        json.dump(m, open(d / f"{sid}.meta.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+
+
 def check_one(date, sid, brief, plan, day_metas, hist):
     spec, meta = load_post(date, sid)
     meta.setdefault("id", f"{date}-{sid}")  # so a re-check never clashes with this post's own history entry
@@ -43,6 +57,7 @@ def check_one(date, sid, brief, plan, day_metas, hist):
     spec.setdefault("style", brief["style"]); spec.setdefault("layout", brief["layout"])
     pages = R.page_count(spec)
     res["pages"] = pages
+    sync_pages(date, sid, spec, meta, pages)
     brief = dict(brief, banned=plan["banned"])
     e, w = lint(spec, meta, brief, pages, day_metas, hist)
     res["errors"] += e; res["warnings"] += w
