@@ -197,3 +197,36 @@ window.setupReel = reel => {
     E.text(c, 'INSPIRED DAILY', W / 2, H * .8, { size: 22, weight: 700, ls: 7, color: '#ffffff', alpha: .26 });
   };
 };
+
+// ---------- shared props ----------
+E.bubble = (c, str, x, y, a = 1, o = {}) => {
+  if (a <= 0) return;
+  c.save(); c.globalAlpha *= a; c.font = `700 ${o.size ?? 30}px Inter`;
+  const w = c.measureText(str).width + 44, h = (o.size ?? 30) + 34;
+  c.translate(x, y); c.scale(.6 + .4 * Math.min(1, a * 1.2), .6 + .4 * Math.min(1, a * 1.2));
+  E.rrect(c, -w / 2, -h / 2, w, h, h / 2, o.fill ?? '#1d1d1d', o.stroke ?? '#777', 3);
+  c.fillStyle = o.fill ?? '#1d1d1d'; c.beginPath(); c.moveTo((o.tail ?? -1) * w * .2, h / 2 - 2); c.lineTo((o.tail ?? -1) * w * .3, h / 2 + 18); c.lineTo((o.tail ?? -1) * w * .05, h / 2 - 2); c.fill();
+  c.restore();
+  E.text(c, str, x, y, { size: (o.size ?? 30) * (.6 + .4 * Math.min(1, a * 1.2)), weight: 700, color: o.color ?? '#ddd', alpha: a });
+};
+E.flag = (c, x, gy, a = 1, glow = 30) => {
+  c.save(); c.globalAlpha *= a; E.line(c, x, gy, x, gy - 220, '#ddd', 6);
+  c.fillStyle = GOLD; c.shadowColor = GOLD; c.shadowBlur = glow; c.beginPath(); c.moveTo(x + 3, gy - 220); c.lineTo(x + 110, gy - 185); c.lineTo(x + 3, gy - 150); c.fill(); c.restore();
+};
+E.crown = (c, x, y, s = 1, a = 1, rot = 0, glow = 24) => {
+  c.save(); c.translate(x, y); c.rotate(rot); c.scale(s, s); c.globalAlpha *= a;
+  c.fillStyle = GOLD; c.shadowColor = GOLD; c.shadowBlur = glow;
+  c.beginPath(); c.moveTo(-50, 25); c.lineTo(-50, -20); c.lineTo(-25, 5); c.lineTo(0, -35); c.lineTo(25, 5); c.lineTo(50, -20); c.lineTo(50, 25); c.closePath(); c.fill();
+  c.restore();
+};
+E.stairs = (c, x, gy, n, sw, sh, a = 1, o = {}) => {
+  for (let i = 0; i < n; i++) {
+    const k = typeof a === 'function' ? a(i) : a; if (k <= 0) continue;
+    E.rrect(c, x + i * sw, gy - (i + 1) * sh * k, sw - 4, (i + 1) * sh * k, 4, o.fill ?? '#262626', (o.top === i ? GOLD : o.stroke) ?? '#999', 3);
+  }
+};
+E.cloud = (c, x, y, s = 1, a = 1, col = '#5a5a5a') => {
+  c.save(); c.globalAlpha *= a; c.fillStyle = col; c.translate(x, y); c.scale(s, s);
+  [[-70, 10, 55], [-20, -25, 70], [45, -5, 60], [90, 20, 45], [0, 25, 60]].forEach(([dx, dy, r]) => { c.beginPath(); c.arc(dx, dy, r, 0, 7); c.fill(); });
+  c.restore();
+};

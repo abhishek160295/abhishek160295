@@ -1,9 +1,119 @@
 {
-  "rule": "Never reuse a concept, metaphor or title listed here. Append every published reel.",
-  "reference_creator_banned": ["motivation vs discipline pull-ups/push-ups", "hammer action vs words", "I CAN'T -> I CAN", "try/fail/try again -> WIN", "boulder uphill today/month/year", "messy action vs perfection ladder", "consistency vs intensity tree", "carrot confidence vs ego", "tree what people see / don't see", "risk watering seed comfort zone", "working hard vs smart fishing", "multitasking vs focus", "hard now easy later wave", "growth curve days/months/decades", "fear failure vs judgement archery", "dream big act small staircase", "problems grow when you think", "a bad day is not a bad life chart", "giving up vs consistency boulder", "if you try / don't try bike", "be delusional mirror", "goal discipline action dots", "success sign shatter", "learning from mistakes nails"],
-  "published": [
-    {"id": "day001", "title": "Start before you're ready", "concepts": ["waiting for right time vs starting now (clock + building bricks)", "overthinking scribble untangles into path", "comfort zone bubble stretched and popped", "1.01^365 vs 0.99^365 graph", "IMPOSSIBLE -> I'M POSSIBLE apostrophe"]},
-    {"id": "day002", "title": "Small choices, big life", "concepts": ["snooze vs rise alarm clock", "drops fill glass - nothing happening until it is", "same 24 hours hourglass: scrolling vs building stairs", "domino chain small habit -> your life", "future self watching - merge"]},
-    {"id": "day003", "title": "Pressure makes diamonds", "concepts": ["coal under weights becomes diamond", "bow pulled back by setbacks hits bullseye", "drop excuse bags to jump higher", "crowd walks one way, lonely staircase", "cocoon struggle -> butterfly"]}
-  ]
+ "rule": "Never reuse a concept, metaphor or title listed here. Append every published reel.",
+ "reference_creator_banned": [
+  "motivation vs discipline pull-ups/push-ups",
+  "hammer action vs words",
+  "I CAN'T -> I CAN",
+  "try/fail/try again -> WIN",
+  "boulder uphill today/month/year",
+  "messy action vs perfection ladder",
+  "consistency vs intensity tree",
+  "carrot confidence vs ego",
+  "tree what people see / don't see",
+  "risk watering seed comfort zone",
+  "working hard vs smart fishing",
+  "multitasking vs focus",
+  "hard now easy later wave",
+  "growth curve days/months/decades",
+  "fear failure vs judgement archery",
+  "dream big act small staircase",
+  "problems grow when you think",
+  "a bad day is not a bad life chart",
+  "giving up vs consistency boulder",
+  "if you try / don't try bike",
+  "be delusional mirror",
+  "goal discipline action dots",
+  "success sign shatter",
+  "learning from mistakes nails"
+ ],
+ "published": [
+  {
+   "id": "reel001",
+   "title": "Start before you're ready",
+   "concepts": [
+    "waiting for right time vs starting now (clock + building bricks)",
+    "overthinking scribble untangles into path",
+    "comfort zone bubble stretched and popped",
+    "1.01^365 vs 0.99^365 graph",
+    "IMPOSSIBLE -> I'M POSSIBLE apostrophe"
+   ]
+  },
+  {
+   "id": "reel002",
+   "title": "Small choices, big life",
+   "concepts": [
+    "snooze vs rise alarm clock",
+    "drops fill glass - nothing happening until it is",
+    "same 24 hours hourglass: scrolling vs building stairs",
+    "domino chain small habit -> your life",
+    "future self watching - merge"
+   ]
+  },
+  {
+   "id": "reel003",
+   "title": "Pressure makes diamonds",
+   "concepts": [
+    "coal under weights becomes diamond",
+    "bow pulled back by setbacks hits bullseye",
+    "drop excuse bags to jump higher",
+    "crowd walks one way, lonely staircase",
+    "cocoon struggle -> butterfly"
+   ]
+  },
+  {
+   "id": "reel004",
+   "title": "Nobody is coming to save you",
+   "concepts": [
+    "pit: rope never comes, carve footholds and climb",
+    "distraction notification bubbles vs quiet goal flag",
+    "storm cloud passes, rain grows sprouts",
+    "energy battery drained by scrolling, charged by sleep/workout/reading",
+    "walk alone, glowing footprints others follow"
+   ]
+  },
+  {
+   "id": "reel005",
+   "title": "Your circle decides your future",
+   "concepts": [
+    "crab bucket pulls you back, climb anyway",
+    "lighting other candles never dims yours",
+    "average of five: grey circle vs gold circle",
+    "plant wilting in shade moved to sun (environment)",
+    "doubters across gap, build the bridge, 'How?!'"
+   ]
+  },
+  {
+   "id": "reel006",
+   "title": "Someday is not a day of the week",
+   "concepts": [
+    "life in years dot grid 25 gone / 65 left",
+    "calendar flips Monday/Next month/New Year/Someday, tears to TODAY",
+    "opportunity train: hesitate vs hop on",
+    "4h/day phone = 11 years, figure steps out of phone",
+    "candle 'your time' burns: scroll vs build"
+   ]
+  },
+  {
+   "id": "reel007",
+   "title": "Most people quit at 99%",
+   "concepts": [
+    "rocket burns most fuel at launch, then momentum",
+    "stonecutter hit 101 splits rock",
+    "loading bar 99% quitter vs finisher",
+    "kite rises against wind of problems",
+    "climber turns around: look how far you've come"
+   ]
+  },
+  {
+   "id": "reel008",
+   "title": "Know your worth",
+   "concepts": [
+    "price tag $1 flipped to PRICELESS",
+    "shrinking in crowd, spotlight, stand out",
+    "their chapter 20 rewinds to step 1 (comparison)",
+    "mute icon silences critic bubbles",
+    "trip, crown rolls away, fix your crown"
+   ]
+  }
+ ]
 }
