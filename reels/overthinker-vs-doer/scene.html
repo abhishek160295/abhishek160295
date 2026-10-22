@@ -1,0 +1,167 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W=1080,H=1920,DUR=25;
+const TOP={y0:300,y1:990,fl:930,acc:'176,160,255',name:'1 · OVERTHINKER'},BOT={y0:1010,y1:1700,fl:1640,acc:'255,198,110',name:'2 · DOER'};
+const FX0=250,SC=.78,EM='"Noto Color Emoji"';
+const C=document.getElementById('c'),X=C.getContext('2d');
+const mk=(w=W,h=H)=>{const c=document.createElement('canvas');c.width=w;c.height=h;return c};
+const FIG=mk(),FG=FIG.getContext('2d'),B1=mk(270,480),B1X=B1.getContext('2d'),B2=mk(90,160),B2X=B2.getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,t)=>a+(b-a)*t,seg=(t,a,b)=>clamp((t-a)/(b-a));
+const eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,eo=t=>1-Math.pow(1-t,3),bump=q=>Math.sin(Math.PI*clamp(q));
+const back=q=>{q=clamp(q);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(q-1,3)+c1*Math.pow(q-1,2)};
+const L2=(a,b,t)=>[lerp(a[0],b[0],t),lerp(a[1],b[1],t)];
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function sprite(col,st){const c=mk(128,128),g=c.getContext('2d'),r=g.createRadialGradient(64,64,0,64,64,64);st.forEach(([o,a])=>r.addColorStop(o,`rgba(${col},${a})`));g.fillStyle=r;g.fillRect(0,0,128,128);return c}
+const SOFT=[[0,1],[.15,.6],[.4,.2],[.75,.05],[1,0]];const SL=sprite('176,160,255',SOFT),SG=sprite('255,198,110',SOFT),SWH=sprite('255,255,255',SOFT);
+function spr(c,S,x,y,w,h,a){if(a<=.002)return;c.globalAlpha=Math.min(1,a);c.drawImage(S,x-w/2,y-h/2,w,h);c.globalAlpha=1}
+const GR=[];for(let k=0;k<6;k++){const g=mk(540,960),gx=g.getContext('2d'),id=gx.createImageData(540,960),r=rng(k+7);for(let i=0;i<id.data.length;i+=4){const v=128+(r()-.5)*200;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gx.putImageData(id,0,0);GR.push(g)}
+let T=0;
+
+// ---------- figure (front view, feet at 0,0) ----------
+function elbow(s,h,dir){const L=82,dx=h[0]-s[0],dy=h[1]-s[1],d=Math.max(1,Math.hypot(dx,dy)),dd=Math.min(d,163.9),a=Math.sqrt(Math.max(0,L*L-(dd/2)**2));return[s[0]+dx/2-dy/d*a*dir,s[1]+dy/2+dx/d*a*dir]}
+function pose(f){const hipY=-172+(f.crouch||0)*80,neck=[0,hipY-148+(f.crouch||0)*10],head=[neck[0]+(f.look||0)*14,neck[1]-52+(f.duck||0)*26];
+ const kO=18+(f.crouch||0)*36,kY=hipY/2-(f.crouch||0)*22,hip=[0,hipY],sL=[-22,neck[1]+18],sR=[22,neck[1]+18],hd=f.hands(hipY,neck,head);
+ const dl=hd[0][1]<head[1]-30?-1:1,dr=hd[1][1]<head[1]-30?1:-1;
+ return{legs:[[hip,[-kO,kY],[-38,-8]],[hip,[kO,kY],[38,-8]]],torso:[neck,hip],nk:[neck,head],head,arms:[[sL,elbow(sL,hd[0],dl),hd[0]],[sR,elbow(sR,hd[1],dr),hd[1]]],hands:hd}}
+function line(c,p,w){c.lineWidth=w;c.beginPath();c.moveTo(...p[0]);for(let i=1;i<p.length;i++)c.lineTo(...p[i]);c.stroke()}
+function drawFig(P,x,fy,col,glow,extra){FG.setTransform(1,0,0,1,0,0);FG.globalCompositeOperation='source-over';FG.clearRect(0,0,W,H);FG.setTransform(SC,0,0,SC,x,fy);FG.lineCap=FG.lineJoin='round';
+ const part=(p,w)=>{FG.globalCompositeOperation='destination-out';FG.strokeStyle='#000';line(FG,p,w+9);FG.globalCompositeOperation='source-over';FG.strokeStyle=col;line(FG,p,w)};
+ const dot=(p,r)=>{FG.globalCompositeOperation='destination-out';FG.fillStyle='#000';FG.beginPath();FG.arc(p[0],p[1],r+4.5,0,7);FG.fill();FG.globalCompositeOperation='source-over';FG.fillStyle=col;FG.beginPath();FG.arc(p[0],p[1],r,0,7);FG.fill()};
+ P.legs.forEach(l=>part(l,20));part(P.torso,23);part(P.nk,14);dot(P.head,34);if(extra)extra(FG,P);P.arms.forEach(a=>part(a,18));P.hands.forEach(h=>dot(h,11.5));
+ X.save();X.shadowColor=glow;X.shadowBlur=26;X.drawImage(FIG,0,0);X.restore()}
+const phoneInHand=(c,P)=>{const h=P.hands[1];c.fillStyle='#111';c.beginPath();c.roundRect(h[0]-36,h[1]-50,34,58,6);c.fill();c.fillStyle='rgba(180,200,255,.8)';c.fillRect(h[0]-32,h[1]-45,26,46)};
+
+// ---------- UI helpers ----------
+function rr(x,y,w,h,r,fill,stroke){X.beginPath();X.roundRect(x,y,w,h,r);if(fill){X.fillStyle=fill;X.fill()}if(stroke){X.strokeStyle=stroke;X.lineWidth=2;X.stroke()}}
+function txt(s,x,y,font,col,align='left',base='middle'){X.font=font;X.fillStyle=col;X.textAlign=align;X.textBaseline=base;X.fillText(s,x,y)}
+function phone(x,y,w,h,title){rr(x,y,w,h,34,'#0b0c10','rgba(255,255,255,.14)');rr(x+10,y+10,w-20,h-20,26,'#14161d');rr(x+w/2-50,y+18,100,22,11,'#000');
+ X.fillStyle='rgba(255,255,255,.06)';X.fillRect(x+10,y+52,w-20,58);txt(title,x+w/2,y+81,`600 26px Inter, ${EM}`,'#fff','center')}
+function bubbleMsg(x,y,s,mine,a=1,maxW=300){X.save();X.globalAlpha=a;X.font=`500 25px Inter, ${EM}`;const words=s.split(' ');let lines=[''];words.forEach(w=>{const tl=(lines[lines.length-1]+' '+w).trim();if(X.measureText(tl).width>maxW-36)lines.push(w);else lines[lines.length-1]=tl});
+ const bw=Math.min(maxW,Math.max(...lines.map(l=>X.measureText(l).width))+36),bh=lines.length*32+20,bx=mine?x-bw:x;rr(bx,y-bh,bw,bh,20,mine?'#3478f6':'#2a2d36');
+ lines.forEach((l,i)=>txt(l,bx+18,y-bh+26+i*32,`500 25px Inter, ${EM}`,'#fff'));X.restore();return bh}
+function think(x,y,s,p,o={}){if(p<=0)return;const sc=back(p)*(o.s||1),fade=o.a??1;X.save();X.translate(x,y);X.scale(sc,sc);X.globalAlpha=clamp(p*3)*fade;
+ X.font=`600 ${o.fs||27}px Inter, ${EM}`;const w=X.measureText(s).width+44,h=(o.fs||27)+32;
+ X.shadowColor='rgba(0,0,0,.45)';X.shadowBlur=18;rr(-w/2,-h/2,w,h,h/2,o.bg||'#f4f2ff');X.shadowBlur=0;
+ if(o.tail){const [tx,ty]=o.tail;X.fillStyle=o.bg||'#f4f2ff';[[.35,9],[.62,6]].forEach(([k,r])=>{X.beginPath();X.arc(tx*k,ty*k,r,0,7);X.fill()})}
+ txt(s,0,1,`600 ${o.fs||27}px Inter, ${EM}`,o.col||'#1b1830','center');X.restore()}
+function stag(str,cx,y,o){const{font,track=0,col='255,255,255',a=1,t0,per=.02,dur=.4,out=99,od=.3,rise=14,glow=0,gcol='255,200,140'}=o;
+ X.font=font;X.letterSpacing='0px';const ch=[...str],ws=ch.map(k=>X.measureText(k).width),tot=ws.reduce((s,w)=>s+w,0)+track*(ch.length-1);let x=cx-tot/2;
+ const ao=1-eio(seg(T,out,out+od));X.save();X.textBaseline='alphabetic';X.textAlign='left';X.shadowColor=glow?`rgba(${gcol},.6)`:'rgba(0,0,0,.6)';X.shadowBlur=glow||14;
+ ch.forEach((k,i)=>{const p=eo(seg(T,t0+i*per,t0+i*per+dur)),al=a*p*ao;if(al>.003){X.fillStyle=`rgba(${col},${al})`;X.fillText(k,x,y+(1-p)*rise)}x+=ws[i]+track});X.restore()}
+
+// ---------- schedules ----------
+const DRAFTS=['hey','hey!!','heyyy :)','hello stranger','hey'];
+const DS=[];{let t=2.0;DRAFTS.forEach((d,i)=>{const ty=d.length/20,last=i==DRAFTS.length-1;DS.push({d,t0:t,t1:t+ty,t2:last?99:t+ty+.3,t3:last?99:t+ty+.3+d.length/45});t=last?99:t+ty+.3+d.length/45+.08})}
+function draftAt(t){for(const s of DS){if(t<s.t0)return '';if(t<s.t1)return s.d.slice(0,Math.floor((t-s.t0)*20));if(t<s.t2)return s.d;if(t<s.t3)return s.d.slice(0,Math.max(0,s.d.length-Math.floor((t-s.t2)*45)))}return 'hey'}
+const R1B=[['too eager?',150,560,2.6],['too dry?',700,420,3.1],['emoji?? 🤔',140,450,3.6],["what if they're busy",620,610,4.1],['they posted 2 hrs ago...',330,410,4.6],['wait till tomorrow?',720,470,5.1],['do they even like me',300,700,5.6],['ugh.',90,770,6.1]];
+const R2B=[['need new shoes first',330,420,8.4],['everyone will stare',140,520,9.0],["what's the PERFECT plan",320,700,9.6],['am I too out of shape?',220,780,10.2],['start Monday.',120,420,10.9]];
+const R3B=[['what will people think?',360,420,13.6],['my voice sounds weird',170,700,14.2],['cringe??',110,500,14.8],['lighting is bad',300,800,15.3],['someone from school will see',380,600,15.8]];
+const TABS=['best workout plan','is cardio bad?','gym anxiety tips','which shoes 2026','creatine??','how to look like I know what...'];
+const EYES=[...Array(14)].map((_,i)=>{const r=rng(i+50);return[60+r()*960,400+r()*500,14.6+i*.12]});
+const ALLB=[...R1B,...R2B,...R3B];
+
+function panel(P,t){const g=X.createLinearGradient(0,P.y0,0,P.y1);if(P===TOP){g.addColorStop(0,'#171a2b');g.addColorStop(1,'#0c0d16')}else{g.addColorStop(0,'#2a1a10');g.addColorStop(1,'#140c07')}
+ X.fillStyle=g;X.fillRect(0,P.y0,W,P.y1-P.y0);X.strokeStyle='rgba(255,255,255,.035)';X.lineWidth=1;X.beginPath();for(let x=0;x<=W;x+=60){X.moveTo(x,P.y0);X.lineTo(x,P.y1)}for(let y=P.y0;y<=P.y1;y+=60){X.moveTo(0,y);X.lineTo(W,y)}X.stroke();
+ X.fillStyle='rgba(0,0,0,.35)';X.fillRect(0,P.fl,W,P.y1-P.fl);X.fillStyle=`rgba(${P.acc},.25)`;X.fillRect(0,P.fl,W,2);
+ X.globalCompositeOperation='lighter';spr(X,P===TOP?SL:SG,FX0,P.fl-150,520,520,.22);X.globalCompositeOperation='source-over';
+ const a=eo(seg(t,.3,.8));X.save();X.globalAlpha=a;rr(30,P.y0+24,X.measureText?0:0,0,0);X.font='800 26px Inter';X.letterSpacing='4px';const w=X.measureText(P.name).width;rr(30,P.y0+22,w+34,46,23,`rgba(${P.acc},.16)`,`rgba(${P.acc},.6)`);txt(P.name,47,P.y0+46,'800 26px Inter',`rgb(${P.acc})`);X.letterSpacing='0px';X.restore()}
+
+function frame(t){T=t;X.setTransform(1,0,0,1,0,0);X.globalCompositeOperation='source-over';X.globalAlpha=1;X.fillStyle='#07070b';X.fillRect(0,0,W,H);
+ const R=t<1.8?0:t<7.6?1:t<13?2:t<18.2?3:4;
+ panel(TOP,t);panel(BOT,t);
+ // ================= TOP: overthinker =================
+ let oPose={crouch:0,look:0,duck:0,hands:(hy,n,h)=>[[-40,hy+30],[40,hy+30]]},oExtra=null;
+ const stress=(k)=>({look:Math.sin(t*9)*.7*k,duck:.25*k,hands:(hy,n,h)=>[[h[0]-38,h[1]-4],[h[0]+38,h[1]-4]].map((p,i)=>L2(i?[40,hy+30]:[-40,hy+30],p,k))});
+ const typing={hands:(hy,n,h)=>[[-14,n[1]+92],[18,n[1]+88]]};
+ X.save();X.beginPath();X.rect(0,TOP.y0,W,TOP.y1-TOP.y0);X.clip();
+ if(R===1){const k=bump(seg(t,2.5,3.0))+bump(seg(t,3.6,4.1))+bump(seg(t,4.6,5.1))+bump(seg(t,5.6,6.3))>0?1:0,s=clamp((Math.sin(t*3)+1)/2);
+  oPose=t<6.6?(Math.floor(t*1.3)%2?{...stress(1)}:{...typing,look:Math.sin(t*5)*.2}):{crouch:.35,duck:.7,hands:(hy,n,h)=>[[h[0]-30,h[1]+14],[h[0]+30,h[1]+14]]};if(t<6.6&&!(Math.floor(t*1.3)%2))oExtra=phoneInHand;
+  phone(560,345,420,560,'Alex');const dr=draftAt(t),cur=Math.floor(t*2.5)%2?'|':'';
+  rr(580,825,300,56,28,'#22252e');txt(dr+cur,600,853,`500 24px Inter, ${EM}`,'#fff');X.beginPath();X.arc(925,853,24,0,7);X.fillStyle='#2c3a5a';X.fill();txt('↑',925,854,'700 26px Inter','#7f8db3','center');
+  bubbleMsg(590,560,'nice seeing you last week!',false,1);
+  if(t>6.6){txt('Draft saved.',770,790,'500 22px Inter','rgba(255,255,255,'+eo(seg(t,6.6,6.9))*.55+')','center')}
+  R1B.forEach(([s,x,y,t0])=>think(x,y,s,seg(t,t0,t0+.35),{a:1-seg(t,7.3,7.6)}));
+ }else if(R===2){oPose=t<11.5?{...typing,look:Math.sin(t*4)*.3}:stress(1);if(t<11.5)oExtra=phoneInHand;
+  rr(520,350,500,500,18,'#f2f3f7');rr(520,350,500,64,[18,18,0,0],'#d9dbe3');const n=Math.min(37,Math.floor(1+36*eio(seg(t,7.9,11.3))));
+  for(let i=0;i<5;i++){if(i<n){rr(530+i*84,362,80,46,10,i==Math.min(4,n-1)?'#fff':'#c7c9d3');X.save();X.beginPath();X.rect(536+i*84,362,68,46);X.clip();txt(TABS[(n-1-i+60)%TABS.length],540+i*84,385,'500 15px Inter','#333');X.restore()}}
+  if(n>5){rr(948,368,62,34,17,'#ff4d5e');txt('+'+(n-5),979,385,'800 18px Inter','#fff','center')}
+  rr(545,440,450,52,26,'#fff','#c7c9d3');txt('🔍 '+TABS[(n-1)%TABS.length],565,466,`500 21px Inter, ${EM}`,'#333');
+  for(let i=0;i<6;i++){X.fillStyle='#d9dbe3';X.fillRect(545,520+i*48,i%2?300:400,14);X.fillStyle='#e8e9ee';X.fillRect(545,540+i*48,360,10)}
+  txt(n+' tabs open',770,815,'700 22px Inter','#ff4d5e','center');
+  const cal=seg(t,11.5,11.8);if(cal>0){X.save();X.translate(830,560);X.rotate(.12);X.scale(back(cal),back(cal));rr(-120,-90,240,180,16,'#fff');rr(-120,-90,240,48,[16,16,0,0],'#ff4d5e');txt(t<12.1?'MONDAY':'NEXT MONDAY',0,-66,'800 24px Inter','#fff','center');txt(t<12.1?'START':'START (for real)',0,10,'800 30px Inter','#222','center');
+   if(t>12.1){X.strokeStyle='#ff4d5e';X.lineWidth=0}X.restore()}
+  if(t>12.25)stag('DAY 0.',770,920,{font:'800 34px Inter',col:'255,110,110',t0:12.25,track:4});
+  R2B.forEach(([s,x,y,t0])=>think(x,y,s,seg(t,t0,t0+.35),{a:1-seg(t,12.7,13)}));
+ }else if(R===3){oPose=t<16.8?stress(clamp(Math.sin(t*2)*2)):{crouch:.35,duck:.7,hands:(hy,n,h)=>[[h[0]-30,h[1]+14],[h[0]+30,h[1]+14]]};
+  X.strokeStyle='#555a6b';X.lineWidth=8;X.beginPath();X.moveTo(800,700);X.lineTo(740,920);X.moveTo(800,700);X.lineTo(860,920);X.moveTo(800,700);X.lineTo(800,925);X.stroke();
+  rr(720,430,160,280,22,'#0b0c10','#444');rr(732,442,136,256,16,t<16.8?'#1d2233':'#2a0f12');
+  if(t<16.8){X.fillStyle=`rgba(255,60,60,${.6+.4*Math.sin(t*8)})`;X.beginPath();X.arc(760,470,9,0,7);X.fill();txt('REC',778,471,'800 16px Inter','#ff5a5a')}
+  else{txt('🗑️',800,560,`64px ${EM}`,'#fff','center');txt('Video',800,625,'700 20px Inter','#ff8a8a','center');txt('deleted.',800,650,'700 20px Inter','#ff8a8a','center')}
+  EYES.forEach(([x,y,t0])=>{const p=seg(t,t0,t0+.25);if(p>0&&t<17.6){X.save();X.globalAlpha=clamp(p*3)*(1-seg(t,17.3,17.6));txt('👀',x,y,`${Math.round(40*back(p))}px ${EM}`,'#fff','center');X.restore()}});
+  R3B.forEach(([s,x,y,t0])=>think(x,y,s,seg(t,t0,t0+.35),{a:1-seg(t,17.6,17.9)}));
+ }else if(R===4){oPose={crouch:.4,duck:.6,look:Math.sin(t*1.5)*.3,hands:(hy,n,h)=>[[h[0]-36,h[1]+10],[h[0]+36,h[1]+10]]};
+  const r=rng(77);ALLB.forEach(([s],i)=>{const x=80+r()*920,y=400+r()*470,t0=18.3+i*.07;think(x,y,s,seg(t,t0,t0+.3),{s:.72,a:.85})});
+  if(t<22.2)think(560,450,'almost ready...',seg(t,19.0,19.3),{s:1.25,bg:'#fff',a:1-seg(t,21.9,22.2)});
+  think(560,430,'1 or 2...? 🤔',seg(t,22.4,22.7),{s:1.15});think(470,560,'what if they judge me',seg(t,23.0,23.3),{s:1.15});think(600,690,"I'll comment tomorrow.",seg(t,23.6,23.9),{s:1.25,bg:'#fff'});
+ }else{oPose={look:Math.sin(t*2)*.4,hands:(hy,n,h)=>[[-40,hy+30],[40,hy+30]]};think(560,520,'hmm...',seg(t,.7,1.0),{s:1.1})}
+ drawFig(pose(oPose),FX0,TOP.fl,'#e9e6ff','rgba(176,160,255,.35)',oExtra);
+ X.restore();
+ // ================= BOTTOM: doer =================
+ let dPose={hands:(hy,n,h)=>[[-40,hy+30],[40,hy+30]]},dExtra=null;
+ const relax={look:Math.sin(T*2)*.3,hands:(hy,n,h)=>[[-44,hy+4],[44,hy+4]]},proud={hands:(hy,n,h)=>[[-44,hy+4],[44,hy+4]]};
+ X.save();X.beginPath();X.rect(0,BOT.y0,W,BOT.y1-BOT.y0);X.clip();
+ if(R===1){dPose=t<3.0?typing:t<4.5?{look:.3,...typing}:t<5.2?{hands:(hy,n,h)=>[[-40,hy+30],[34,h[1]-90-Math.sin(t*20)*10]]}:relax;if(t<4.5)dExtra=phoneInHand;
+  phone(560,1055,420,560,'Alex');bubbleMsg(590,1270,'nice seeing you last week!',false,1);
+  const full="hey! how've you been? 👋",inp=t<3.0?[...full].slice(0,Math.floor(seg(t,2,2.85)*[...full].length)).join(''):'';
+  rr(580,1535,300,56,28,'#22252e');txt(inp+(t<3&&Math.floor(t*2.5)%2?'|':''),600,1563,`500 24px Inter, ${EM}`,'#fff');X.beginPath();X.arc(925,1563,24,0,7);X.fillStyle=t>2.85?'#3478f6':'#2c3a5a';X.fill();txt('↑',925,1564,'700 26px Inter','#fff','center');
+  if(t>3.0){const p=eo(seg(t,3.0,3.3));bubbleMsg(960,lerp(1530,1390,p),full,true,p);if(t>3.3)txt('Delivered ✓✓',958,1405,'500 16px Inter','rgba(255,255,255,.5)','right')}
+  if(t>3.6&&t<4.4){rr(590,1440,90,44,22,'#2a2d36');for(let i=0;i<3;i++){X.fillStyle=`rgba(255,255,255,${.4+.5*bump(((t*2.5)+i*.3)%1)})`;X.beginPath();X.arc(614+i*21,1462,6,0,7);X.fill()}}
+  if(t>4.4){const p=eo(seg(t,4.4,4.65));bubbleMsg(590,1500,'omg hey!! was just thinking about you 😊',false,p,330)}
+ }else if(R===2){const q=t>8&&t<12.6?(1-Math.cos(2*Math.PI*(t-8)/.45))/2:0,n=Math.min(11,Math.floor(Math.max(0,t-8)/.45+.5));
+  dPose=t<12.6?{crouch:q*.9,duck:-.1,hands:(hy,n2,h)=>[[-60,n2[1]+60+q*10],[60,n2[1]+60+q*10]]}:proud;
+  txt('SQUATS',770,1130,'800 30px Inter','rgba(255,198,110,.8)','center');X.save();X.shadowColor='rgba(255,180,90,.6)';X.shadowBlur=30;txt('×'+n,770,1290,'800 150px "Inter Display"','#fff','center');X.restore();
+  for(let i=0;i<4;i++){const ph=((t*1.3+i*.25)%1);if(t>9&&t<12.6){X.fillStyle=`rgba(140,200,255,${(1-ph)*.9})`;X.beginPath();X.ellipse(FX0+(i%2?40:-40)+(i-1.5)*8,BOT.fl-330+ph*90,5,8,0,0,7);X.fill()}}
+  think(470,1150,'this is hard 😮‍💨',seg(t,9.6,9.9),{a:1-seg(t,10.6,10.8),bg:'#fff4e2'});think(470,1150,'keep going.',seg(t,10.8,11.1),{a:1-seg(t,12.6,12.9),bg:'#fff4e2'});
+  if(t>11.8)stag('DAY 1. ✅',770,1450,{font:`800 44px Inter, ${EM}`,col:'255,210,140',t0:11.8,track:3});
+ }else if(R===3){dPose=t<13.9?typing:t<16.8?{look:.2,...typing}:{hands:(hy,n,h)=>[[-40,hy+30],[34,h[1]-90-Math.sin(t*20)*10]]};if(t<16.8)dExtra=phoneInHand;
+  phone(560,1055,420,560,'New Reel');const g=X.createLinearGradient(590,1130,950,1400);g.addColorStop(0,'#ff8a5b');g.addColorStop(1,'#7a5cff');rr(590,1180,360,220,16,g);txt('▶',770,1290,'60px Inter','rgba(255,255,255,.9)','center');
+  const posted=t>13.9;const press=bump(seg(t,13.8,14.0));rr(600+press*4,1520+press*3,340-press*8,64,32,posted?'#22c55e':'#3478f6');txt(posted?'Posted ✓':'POST',770,1553,'800 28px Inter','#fff','center');
+  if(posted){const lk=Math.floor(312*eio(seg(t,14.2,16.6)));txt('❤️ '+lk,600,1420,`800 30px Inter, ${EM}`,'#fff');
+   [['this helped me ❤️',15.2],['needed this today',15.9],['more pls 🙏',16.4]].forEach(([s,t0],i)=>{const p=eo(seg(t,t0,t0+.3));if(p>0){X.save();X.globalAlpha=p;rr(600,1450+i*0+0,0,0,0);X.restore();think(800,1225+i*62,s,seg(t,t0,t0+.3),{fs:22,bg:'#fff',s:.95})}})}
+ }else if(R===4){dPose=proud;
+  [['💬','Talks with Alex every day'],['💪','Day 365'],['📈','10.4K followers']].forEach(([e,s],i)=>{const p=seg(t,18.6+i*.25,18.95+i*.25);if(p<=0)return;X.save();X.translate(770,1140+i*150);X.scale(back(p),back(p));X.globalAlpha=clamp(p*3);
+   rr(-250,-58,500,116,24,'rgba(255,198,110,.12)','rgba(255,198,110,.55)');txt(e,-200,2,`48px ${EM}`,'#fff','center');txt(s,-150,2,'700 30px Inter','#fff');X.restore()});
+  if(t>22.6)think(420,1190,'2.',seg(t,22.6,22.9),{s:1.4,bg:'#fff4e2'});
+ }else{dPose={hands:(hy,n,h)=>[[-40,hy+30],[40,hy+30]]};think(470,1200,"let's go.",seg(t,.9,1.2),{s:1.1,bg:'#fff4e2'})}
+ drawFig(pose(dPose),FX0,BOT.fl,'#fff1df','rgba(255,198,110,.4)',dExtra);
+ X.restore();
+ // ================= header =================
+ const g=X.createLinearGradient(0,0,0,300);g.addColorStop(0,'#0a0a10');g.addColorStop(1,'#07070b');X.fillStyle=g;X.fillRect(0,0,W,300);
+ if(t<1.8){stag('Same goals.',540,120,{font:'300 52px Inter',t0:.15,out:1.7});stag('Different brains.',540,185,{font:'700 56px Inter',t0:.55,col:'255,214,170',out:1.7})}
+ else if(R<4){const names=['','SEND THE TEXT','START THE GYM','POST THE VIDEO'],st=[0,1.8,7.6,13][R];
+  stag('ROUND '+R+' / 3',540,92,{font:'700 26px Inter',track:8,t0:st,col:'200,200,215',out:R==3?18.1:st+5.7});stag(names[R],540,158,{font:'800 60px "Inter Display"',track:2,t0:st+.1,out:R==3?18.1:st+5.7})}
+ else if(t<21.8){stag('1 YEAR LATER',540,140,{font:'800 60px "Inter Display"',track:6,t0:18.25,out:21.7})}
+ else{stag('Which one are you?',540,110,{font:'300 50px Inter',t0:21.85});stag('Comment 1 or 2 👇',540,180,{font:`800 56px Inter, ${EM}`,t0:22.15,col:'255,214,170'})}
+ // scoreboard
+ const sc=(t>5?1:0)+(t>11.8?1:0)+(t>16.8?1:0),pop=Math.max(bump(seg(t,5,5.35)),bump(seg(t,11.8,12.15)),bump(seg(t,16.8,17.15)));
+ if(t>.6&&!(t>21.8)){X.save();X.globalAlpha=eo(seg(t,.6,1));X.textBaseline='middle';const y=240;
+  txt('OVERTHINKER',380,y,'700 24px Inter','rgb(176,160,255)','right');txt('0',450,y,'800 50px "Inter Display"','#fff','center');txt(':',540,y-3,'800 44px Inter','rgba(255,255,255,.4)','center');
+  X.save();X.translate(630,y);X.scale(1+.45*pop,1+.45*pop);X.shadowColor='rgba(255,198,110,.8)';X.shadowBlur=30*pop;txt(String(sc),0,0,'800 50px "Inter Display"','rgb(255,210,140)','center');X.restore();txt('DOER',700,y,'700 24px Inter','rgb(255,198,110)','left');
+  if(pop>0){const p=Math.max(seg(t,5,5.8),seg(t,11.8,12.6),seg(t,16.8,17.6));if(p<1)txt('+1',680,y-40-40*p,'800 34px Inter',`rgba(255,210,140,${1-p})`,'center')}X.restore()}
+ X.fillStyle='#07070b';X.fillRect(0,990,W,20);X.fillStyle='rgba(255,255,255,.08)';X.fillRect(0,999,W,2);
+ // ================= message overlay =================
+ const mo=eio(seg(t,19.7,20.0))*(1-eio(seg(t,21.6,21.9)));
+ if(mo>0){X.fillStyle=`rgba(4,4,8,${.82*mo})`;X.fillRect(0,0,W,H);X.save();X.globalAlpha=mo;
+  stag('CLARITY COMES',540,930,{font:'800 104px "Inter Display"',track:2,t0:19.85,per:.03,glow:30,gcol:'255,255,255'});
+  stag('FROM ACTION.',540,1050,{font:'800 104px "Inter Display"',track:2,t0:20.15,per:.03,col:'255,206,150',glow:40});
+  stag('Not from thinking about it.',540,1130,{font:'300 44px Inter',t0:20.7,per:.02});X.restore()}
+ // ================= post =================
+ B1X.drawImage(C,0,0,270,480);B2X.drawImage(B1,0,0,90,160);X.globalCompositeOperation='screen';X.globalAlpha=.12;X.drawImage(B1,0,0,W,H);X.globalAlpha=.16;X.drawImage(B2,0,0,W,H);X.globalAlpha=1;X.globalCompositeOperation='source-over';
+ const vg=X.createRadialGradient(540,960,500,540,960,1200);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');X.fillStyle=vg;X.fillRect(0,0,W,H);
+ X.globalCompositeOperation='overlay';X.globalAlpha=.07;X.drawImage(GR[Math.floor(t*24)%6],0,0,W,H);X.globalAlpha=1;X.globalCompositeOperation='source-over';
+ const fade=1-eo(seg(t,0,.25))+eio(seg(t,24.5,25));if(fade>0){X.fillStyle=`rgba(0,0,0,${clamp(fade)})`;X.fillRect(0,0,W,H)}
+ return C.toDataURL('image/png')}
+window.frame=frame;
+Promise.all([document.fonts.load('800 100px "Inter Display"'),document.fonts.load('300 40px Inter'),document.fonts.load('600 40px Inter'),document.fonts.load('800 40px Inter'),document.fonts.load('40px "Noto Color Emoji"')]).then(()=>window.ready=true);
+</script></body></html>
