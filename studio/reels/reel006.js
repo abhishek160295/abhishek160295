@@ -24,7 +24,7 @@ const REEL = { title: 'Someday is not a day of the week', bpm: 150, scenes: [
     page(words[idx], '#111', 0);
     c.restore();
   }
-  if (t > 4.0) { c.save(); c.shadowColor = GOLD; c.shadowBlur = 40; E.text(c, 'TODAY', cx, cy + 50, { size: 96, weight: 900, color: '#111' }); c.restore(); E.glowDot(c, cx, cy, 420, 'rgba(245,197,66,.25)', E.p(t, 4.0, 4.4)); }
+  if (t > 4.0) { E.text(c, 'TODAY', cx, cy + 50, { size: 96, weight: 900, color: '#111' }); E.glowDot(c, cx, cy, 420, 'rgba(245,197,66,.25)', E.p(t, 4.0, 4.4)); }
   E.flash(c, t, 4.0, .35, '245,197,66', .3);
 } },
 // 1 — Life in years

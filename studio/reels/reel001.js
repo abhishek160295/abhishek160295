@@ -141,7 +141,6 @@ const REEL = { title: "Start before you're ready", bpm: 150, scenes: [
     const to = j === 0 ? 0 : j === 1 ? 2 : j + 2;
     const x = E.lerp(xA(j), xB(to), m);
     c.fillStyle = lit > 0 ? `rgb(${E.lerp(150, 245, lit)},${E.lerp(150, 197, lit)},${E.lerp(150, 66, lit)})` : '#969696';
-    c.shadowColor = GOLD; c.shadowBlur = 30 * lit;
     c.fillText(A[j], x, base);
   }
   c.restore();
@@ -159,7 +158,7 @@ const REEL = { title: "Start before you're ready", bpm: 150, scenes: [
   const [hx, hy] = E.hand({ ...fig, pose: t < 2.4 ? pose : E.pose('carryUp') });
   const drop = E.p(t, 2.5, 3.3, 'in');
   const ax = E.lerp(t < 2.4 ? hx : (target + 40), xB(1), drop), ay = E.lerp(t < 2.4 ? hy - 30 : top - 140, base, drop);
-  c.save(); c.font = font; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillStyle = GOLD; c.shadowColor = GOLD; c.shadowBlur = 30;
+  c.save(); c.font = font; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillStyle = GOLD;
   c.fillText("'", ax - (drop < 1 ? 14 : 0) * (1 - drop), ay); c.restore();
   E.rays(c, W / 2, base - 45, 700, lit * (1 - E.p(t, 4.2, 6.4)) * .35, GOLD, 16, t * .2);
   E.flash(c, t, 3.35, .45, '245,197,66', .35);

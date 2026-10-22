@@ -61,7 +61,7 @@ E.figure = (c, o) => {
   c.globalAlpha *= o.alpha ?? 1;
   c.strokeStyle = col; c.fillStyle = col;
   c.lineWidth = o.lw ?? 13; c.lineCap = 'round'; c.lineJoin = 'round';
-  if (o.glow) { c.shadowColor = o.glowColor ?? col; c.shadowBlur = o.glow; }
+  if (o.glow) { c.shadowColor = o.glowColor ?? col; c.shadowBlur = Math.min(o.glow, 12); }
   const dir = a => [Math.sin(a) * f, Math.cos(a)];
   const limb = (x, y, a1, bend, l1, l2) => {
     const d1 = dir(a1), kx = x + d1[0] * l1, ky = y + d1[1] * l1, d2 = dir(a1 + bend);
@@ -103,7 +103,7 @@ E.text = (c, str, x, y, o = {}) => {
   c.textAlign = o.align ?? 'center'; c.textBaseline = 'middle';
   c.letterSpacing = (o.ls ?? 0) + 'px';
   c.fillStyle = o.color ?? WHITE;
-  if (o.glow) { c.shadowColor = o.glowColor ?? o.color ?? WHITE; c.shadowBlur = o.glow; c.fillText(str, x, y); }
+  // type is always razor-sharp: no glow or shadow on text (o.glow is ignored)
   c.fillText(str, x, y + (o.dy ?? 0));
   c.restore();
 };

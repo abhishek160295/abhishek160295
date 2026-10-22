@@ -14,6 +14,8 @@
 11. **Title = first scene.** The scene that opens the reel shows exactly what the title and caption promise.
 12. **Platform safe zone.** No text or payoff under the right action rail (x>950), the top bar (y<230) or the caption block (y>1560). The engine renders every scene inside a 0.88 safe frame, and `python3 audit.py` must come back clean apart from passing motion.
 
+13. **Sharp type, premium graphics.** Text never has glow, shadow or blur. It is solid and razor-sharp. Graphic glow is subtle (capped) and only on objects. Visual quality must match or beat the reference.
+
 Look: black, white stick figures, one accent per scene (red = struggle, gold = win, green = growth, ice = transformation).
 Audio: silent master. Add a trending sound in-app (phonk / epic / emotional piano) at full volume.
 Posting: 5 a day, spaced ~3h apart (e.g. 8am, 11am, 2pm, 5pm, 8pm local). Pin a question comment.
