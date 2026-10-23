@@ -107,11 +107,21 @@ E.text = (c, str, x, y, o = {}) => {
   c.fillText(str, x, y + (o.dy ?? 0));
   c.restore();
 };
-// fade + rise in at t0, optional fade out at t1
+// kinetic title: words land one after another (fade + rise), optional exit at t1
 E.title = (c, str, x, y, t, t0, t1 = 1e9, o = {}) => {
   if (t0 <= .1) t0 = -1; // lines that open a scene are on screen from its first frame
-  const a = E.p(t, t0, t0 + .35, 'out') * (1 - E.p(t, t1, t1 + .3, 'in'));
-  E.text(c, str, x, y, { ...o, alpha: a * (o.alpha ?? 1), dy: (1 - E.p(t, t0, t0 + .35, 'out')) * 18 });
+  const out = 1 - E.p(t, t1, t1 + .3, 'in');
+  if (out <= 0 || t < t0) return;
+  c.save(); c.font = `${o.weight ?? 600} ${o.size ?? 46}px ${o.family ?? 'Inter'}`; c.letterSpacing = (o.ls ?? 0) + 'px';
+  const words = str.split(' '), sp = c.measureText(' ').width, ws = words.map(w => c.measureText(w).width);
+  c.restore();
+  const total = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1);
+  let cx = o.align === 'left' ? x : o.align === 'right' ? x - total : x - total / 2;
+  words.forEach((w, i) => {
+    const k = E.p(t, t0 + i * .07, t0 + i * .07 + .32, 'out');
+    E.text(c, w, cx + ws[i] / 2, y, { ...o, align: 'center', alpha: k * out * (o.alpha ?? 1), dy: (1 - k) * 24 });
+    cx += ws[i] + sp;
+  });
 };
 
 // ---------- shapes ----------
@@ -191,6 +201,8 @@ window.setupReel = reel => {
     // safe frame: keep every scene clear of the Reels/TikTok/Shorts UI
     // (right action rail x>950, top bar, caption block) — scale 0.88 about (573, 960)
     c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);
+    // slow cinematic push-in across each scene
+    const z = 1 + .025 * (t / sc.dur); c.translate(540, 960); c.scale(z, z); c.translate(-540, -960);
     sc.draw(c, t, sc.dur); c.restore();
     // fade to black between scenes (first frame of reel is already live — no fade-in)
     const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
@@ -233,4 +245,38 @@ E.cloud = (c, x, y, s = 1, a = 1, col = '#5a5a5a') => {
   c.save(); c.globalAlpha *= a; c.fillStyle = col; c.translate(x, y); c.scale(s, s);
   [[-70, 10, 55], [-20, -25, 70], [45, -5, 60], [90, 20, 45], [0, 25, 60]].forEach(([dx, dy, r]) => { c.beginPath(); c.arc(dx, dy, r, 0, 7); c.fill(); });
   c.restore();
+};
+E.bed = (c, x, gy, label) => {
+  E.rrect(c, x, gy - 70, 300, 34, 8, '#2b2b2b', '#777', 4);
+  E.rrect(c, x + 8, gy - 98, 70, 26, 12, '#cfcfcf');
+  E.line(c, x + 10, gy - 36, x + 10, gy, '#777', 6); E.line(c, x + 290, gy - 36, x + 290, gy, '#777', 6);
+  E.line(c, x, gy - 70, x, gy - 140, '#777', 7);
+  if (label) E.text(c, label, x + 150, gy - 18, { size: 22, weight: 900, ls: 3, color: '#888' });
+};
+E.clock = (c, x, y, label, col = '#fff', ring = false, t = 0, s = 1) => {
+  c.save(); c.translate(x + (ring ? Math.sin(t * 90) * 6 : 0), y); c.scale(s, s);
+  const w = Math.max(124, label.length * 26 + 40);
+  E.rrect(c, -w / 2, -36, w, 72, 14, '#111', '#ddd', 4);
+  E.text(c, label, 0, 2, { size: 36, weight: 800, color: col });
+  if (ring) { c.strokeStyle = '#fff'; c.lineWidth = 4; for (const d of [-1, 1]) { c.beginPath(); c.arc(0, 0, w / 2 + 26, -Math.PI / 2 + d * .5 - .25, -Math.PI / 2 + d * .5 + .25); c.stroke(); } }
+  c.restore();
+};
+E.coin = (c, x, y, r = 24, a = 1) => {
+  c.save(); c.globalAlpha *= a; c.fillStyle = GOLD; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+  c.strokeStyle = '#a7801f'; c.lineWidth = r * .14; c.beginPath(); c.arc(x, y, r * .68, 0, 7); c.stroke(); c.restore();
+};
+E.moon = (c, x, y, r = 46, a = 1) => {
+  c.save(); c.globalAlpha *= a; c.fillStyle = '#e8e4d0'; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+  c.fillStyle = '#000'; c.beginPath(); c.arc(x + r * .45, y - r * .25, r * .9, 0, 7); c.fill(); c.restore();
+};
+E.umbrella = (c, x, y, s = 1, a = 1) => {
+  c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s);
+  c.fillStyle = GOLD; c.beginPath(); c.arc(0, 0, 110, Math.PI, 0);
+  for (let i = 4; i >= 0; i--) c.arc(-88 + 44 * i, 0, 22, 0, Math.PI, false);
+  c.closePath(); c.fill();
+  E.line(c, 0, 0, 0, 150, '#ddd', 6); c.strokeStyle = '#ddd'; c.lineWidth = 6; c.beginPath(); c.arc(-14, 150, 14, 0, Math.PI); c.stroke(); c.restore();
+};
+E.phone = (c, x, y, s = 1, a = 1, screen = '#9fd3ff') => {
+  c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s);
+  E.rrect(c, -14, -26, 28, 50, 6, '#222', '#ddd', 3); E.rrect(c, -10, -21, 20, 38, 3, screen); c.restore();
 };

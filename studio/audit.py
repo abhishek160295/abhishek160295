@@ -4,7 +4,7 @@ W,H=1080,1920
 def frames(f, fps=4):
     raw=subprocess.run(['ffmpeg','-v','error','-i',f,'-vf',f'fps={fps},format=gray','-f','rawvideo','-'],capture_output=True).stdout
     return np.frombuffer(raw,np.uint8).reshape(-1,H,W)
-for n in range(1,9):
+for n in range(int(sys.argv[1]) if len(sys.argv)>1 else 1, int(sys.argv[2]) if len(sys.argv)>2 else 9):
     f=f'out/reel{n:03d}.mp4'; fr=frames(f)
     first=frames(f,30)[0]
     hook=(first[300:600]>120).sum()  # title band lit on frame 0?
