@@ -3,8 +3,8 @@ const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
 // 1 — Stop explaining yourself
 { dur: 6.4, draw(c, t) {
   E.title(c, 'Stop explaining yourself', W / 2, 420, t, -1, 1e9, { size: 52, weight: 900 });
-  E.title(c, 'to people who chose to misunderstand you.', W / 2, 490, t, .5, 3.3, { size: 36, weight: 700, color: '#ccc' });
-  E.title(c, 'to people who chose to misunderstand you.', W / 2, 490, t, 3.5, 1e9, { size: 36, weight: 800, color: GOLD });
+  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, .5, 3.3, { size: 42, weight: 700, color: '#ccc' });
+  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, 3.5, 1e9, { size: 42, weight: 800, color: GOLD });
   const gy = 1320, s = .85;
   E.ground(c, gy, 90, 990);
   const unroll = E.p(t, .3, 2.6, 'out') * (1 - E.p(t, 3.0, 3.5, 'in'));
@@ -19,9 +19,8 @@ const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
 } },
 // 2 — Sunny days vs rainy days
 { dur: 6.4, draw(c, t) {
-  E.title(c, "Sunny days: everyone's here.", W / 2, 420, t, -1, 2.3, { size: 50, weight: 800 });
-  E.title(c, 'Then the rain comes…', W / 2, 420, t, 2.5, 3.8, { size: 52, weight: 800, color: '#ccc' });
-  E.title(c, "Rainy days show who's real.", W / 2, 420, t, 4.0, 1e9, { size: 50, weight: 900, color: GOLD });
+  E.title(c, "Sunny days: everyone's here.", W / 2, 420, t, -1, 3.6, { size: 50, weight: 800 });
+  E.title(c, "Rainy days show who's real.", W / 2, 420, t, 3.8, 1e9, { size: 50, weight: 900, color: GOLD });
   const gy = 1320, rain = E.p(t, 2.2, 2.7);
   // sun → cloud
   c.save(); c.globalAlpha = 1 - rain; c.fillStyle = GOLD; c.beginPath(); c.arc(820, 660, 64, 0, 7); c.fill(); c.restore(); E.rays(c, 820, 660, 260, (1 - rain) * .3, GOLD, 14, t * .2);
@@ -57,7 +56,7 @@ const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
     let bx = hx + 40 + wob, by = hy - 70 - i * 72 - (1 - E.p(t, t0, t0 + .25, 'out')) * 80;
     if (no) { bx += fallK * (i % 2 ? 1 : -1) * (180 + i * 60); by = E.lerp(by, gy - 36, fallK); }
     c.save(); c.translate(bx, by); c.rotate(no ? fallK * (i % 2 ? .8 : -.8) : wob * .004);
-    E.rrect(c, -110, -32, 220, 64, 8, '#8a6a46', '#b8925f', 3); E.text(c, str, 0, 0, { size: 24, weight: 800, color: '#fff3dc' });
+    E.rrect(c, -125, -34, 250, 68, 8, '#8a6a46', '#b8925f', 3); E.text(c, str, 0, 0, { size: 28, weight: 800, color: '#fff3dc' });
     c.restore();
   });
   E.bubble(c, 'No.', x + 300, gy - 330, E.p(t, 2.6, 2.85, 'back') * (1 - E.p(t, 3.8, 4.0)), { size: 64, stroke: '#fff', color: '#fff' });
@@ -100,7 +99,7 @@ const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
   loads.forEach((lab, i) => {
     const x = 190 + i * 230, rev = E.p(t, 1.4 + i * .35, 1.8 + i * .35);
     const fig = { x, y: gy - E.FIG_H * s - 2, s, pose: { ...E.walk(t * 7 + i * 1.7, .3), tor: .18 + rev * .1 } };
-    if (rev > 0) { c.save(); c.globalAlpha = rev; c.setLineDash([10, 8]); c.strokeStyle = GOLD; c.lineWidth = 4; c.beginPath(); c.roundRect(x - 120, fig.y - 70, 90, 120, 18); c.stroke(); c.restore(); E.text(c, lab, x - 75, fig.y - 100, { size: 22, weight: 900, ls: 2, color: GOLD, alpha: rev }); }
+    if (rev > 0) { c.save(); c.globalAlpha = rev; c.setLineDash([10, 8]); c.strokeStyle = GOLD; c.lineWidth = 4; c.beginPath(); c.roundRect(x - 120, fig.y - 70, 90, 120, 18); c.stroke(); c.restore(); E.text(c, lab, x - 75, fig.y - 100, { size: 28, weight: 900, ls: 2, color: GOLD, alpha: rev }); }
     E.figure(c, { ...fig, color: t > 3.9 ? '#fff' : '#cfcfcf' });
   });
   if (t > 3.9) E.glowDot(c, 540, 1100, 520, 'rgba(245,197,66,.18)', E.p(t, 3.9, 4.6));

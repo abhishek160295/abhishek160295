@@ -35,8 +35,8 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
   E.ground(c, g1, 90, 990); E.ground(c, g2, 90, 990);
   days.forEach((d, i) => {
     const x = 160 + i * 190, a = E.p(t, .3 + i * .55, .55 + i * .55, 'back');
-    E.text(c, d, x, g1 + 34, { size: 24, weight: 800, ls: 2, color: '#666' });
-    E.text(c, d, x, g2 + 34, { size: 24, weight: 800, ls: 2, color: i === 4 && t > 3.6 ? GOLD : '#666' });
+    E.text(c, d, x, g1 + 38, { size: 30, weight: 800, ls: 2, color: '#666' });
+    E.text(c, d, x, g2 + 38, { size: 30, weight: 800, ls: 2, color: i === 4 && t > 3.6 ? GOLD : '#666' });
     if (a <= 0) return;
     const hype = [E.run(t * 16), E.run(t * 11), E.walk(t * 6), E.pose('sad'), E.pose('stand')][i];
     const col = ['#fff', '#ddd', '#aaa', '#888', '#666'][i];
@@ -54,8 +54,6 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
   const k = E.p(t, .3, 4.2, 'in'), mins = 23 * 60 + k * (3 * 60 + 47 + 6 * 60 - 0); // 11:00 PM → 6:47 AM
   const m = Math.floor(mins) % (24 * 60), h24 = Math.floor(m / 60), hh = ((h24 + 11) % 12) + 1, mm = String(m % 60).padStart(2, '0');
   E.clock(c, 540, 650, `${hh}:${mm} ${h24 >= 12 ? 'PM' : 'AM'}`, h24 >= 1 && h24 < 12 ? RED : '#fff', false, t, 1.3);
-  const vids = Math.max(1, Math.round(1 + 186 * k));
-  E.text(c, `Videos watched: ${vids}`, 540, 770, { size: 34, weight: 700, color: GREY });
   // window: night → sunrise
   const sun = E.p(t, 3.8, 4.6);
   c.save(); const g = c.createLinearGradient(0, 860, 0, 1080); g.addColorStop(0, sun > 0 ? `rgba(255,${Math.round(150 + 40 * sun)},80,${.85 * sun})` : '#0b1020'); g.addColorStop(1, sun > 0 ? `rgba(255,210,120,${.9 * sun})` : '#141a30');
@@ -71,15 +69,14 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
 } },
 // 4 — Waiting for motivation
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'Waiting to feel motivated?', W / 2, 420, t, -1, 2.9, { size: 52, weight: 800 });
-  E.title(c, 'Start anyway.', W / 2, 420, t, 3.1, 4.3, { size: 60, weight: 900 });
-  E.title(c, 'Motivation follows action.', W / 2, 420, t, 4.5, 1e9, { size: 52, weight: 900, color: GOLD });
+  E.title(c, 'Waiting to feel motivated?', W / 2, 420, t, -1, 4.0, { size: 52, weight: 800 });
+  E.title(c, 'Motivation follows action.', W / 2, 420, t, 4.2, 1e9, { size: 52, weight: 900, color: GOLD });
   const gy = 1300, mx = 250;
   E.ground(c, gy, 90, 990);
   // vending machine
   E.rrect(c, mx - 120, gy - 440, 240, 440, 18, '#161616', '#888', 5);
   E.rrect(c, mx - 100, gy - 420, 200, 70, 8, '#0d0d0d', '#555', 3);
-  E.text(c, 'MOTIVATION', mx, gy - 385, { size: 26, weight: 900, ls: 2, color: GOLD });
+  E.text(c, 'MOTIVATION', mx, gy - 385, { size: 28, weight: 900, ls: 2, color: GOLD });
   E.rrect(c, mx - 100, gy - 330, 140, 220, 8, '#0b0b0b', '#444', 3);
   for (let i = 0; i < 6; i++) E.rrect(c, mx + 55, gy - 320 + i * 34, 30, 22, 4, '#2a2a2a', '#666', 2);
   E.rrect(c, mx - 80, gy - 80, 160, 40, 6, '#0b0b0b', '#555', 3);
@@ -108,7 +105,7 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
   E.glowDot(c, dx, gy - 160, 260 + 80 * E.p(t, 3.6, 4.6), 'rgba(245,197,66,.45)');
   c.save(); c.fillStyle = GOLD; c.fillRect(dx - 70, gy - 320, 140, 320); c.restore();
   E.rrect(c, dx - 82, gy - 332, 164, 332, 6, null, '#ddd', 6);
-  E.text(c, 'YOUR DREAMS', dx, gy - 370, { size: 26, weight: 900, ls: 3, color: GOLD });
+  E.text(c, 'YOUR DREAMS', dx - 20, gy - 370, { size: 32, weight: 900, ls: 3, color: GOLD });
   let x, pose;
   if (!snap) { x = E.lerp(400, 600, E.p(t, .3, 3.4, 'out')); pose = { ...E.pose('push'), tor: .55, aF: .3, aB: -.2, lB: -.7 + Math.sin(t * 7) * .15, lF: .5 - Math.sin(t * 7) * .15 }; }
   else { const k = E.p(t, 3.55, 4.5, 'inOut'); x = E.lerp(600, dx, k); pose = k < 1 ? E.run(x / 20) : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.5, 4.9, 'back')); }

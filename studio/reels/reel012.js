@@ -21,9 +21,7 @@ const REEL = { title: 'Pay yourself first', bpm: 150, scenes: [
     else if (i >= 8) { out = E.p(t, 3.9 + (i - 8) * .15, 4.25 + (i - 8) * .15, 'inOut'); tx = 800; ty = 1300; }
     if (out < 1) E.coin(c, E.lerp(cx, tx, out), E.lerp(cy, ty, out) - Math.sin(out * Math.PI) * 120, 24);
   }
-  if (!reset) drains.forEach(([str, t0], i) => E.bubble(c, str, i % 2 ? 860 : 220, 680 + i * 80, E.p(t, t0 - .2, t0, 'back') * (1 - E.p(t, 3.4, 3.6)), { size: 26, stroke: RED, color: '#ffb3b5', fill: '#2a0d0f' }));
-  // a moth flies out of the empty wallet
-  if (t > 3.0 && t < 3.7) { const k = (t - 3.0) / .7, mx = wx + Math.sin(k * 12) * 40, my = wy - 140 - k * 260; c.save(); c.fillStyle = '#9a9a9a'; c.globalAlpha = 1 - k * .3; for (const d of [-1, 1]) { c.beginPath(); c.ellipse(mx + d * 18, my, 18, 10 + 6 * Math.abs(Math.sin(t * 40)), d * .4, 0, 7); c.fill(); } c.restore(); }
+  if (!reset) drains.forEach(([str, t0], i) => E.bubble(c, str, i % 2 ? 860 : 220, 680 + i * 80, E.p(t, t0 - .2, t0, 'back') * (1 - E.p(t, 3.4, 3.6)), { size: 30, stroke: RED, color: '#ffb3b5', fill: '#2a0d0f' }));
   E.text(c, `${Math.round(coins / 12 * 100)}%`, wx, wy + 190, { size: 40, weight: 900, color: coins < 4 ? RED : '#fff', alpha: reset ? 0 : 1 });
   // piggy bank labelled YOU
   if (reset) { const k = E.p(t, 3.7, 4.0, 'back'); c.save(); c.translate(800, 1300); c.scale(k, k);
@@ -47,7 +45,7 @@ const REEL = { title: 'Pay yourself first', bpm: 150, scenes: [
   c.beginPath(); c.moveTo(-110, -110); c.lineTo(-60, -170); c.lineTo(80, -170); c.lineTo(130, -110); c.fill();
   c.fillStyle = '#9fd3ff'; c.beginPath(); c.moveTo(-90, -112); c.lineTo(-52, -158); c.lineTo(10, -158); c.lineTo(10, -112); c.fill(); c.beginPath(); c.moveTo(24, -112); c.lineTo(24, -158); c.lineTo(72, -158); c.lineTo(110, -112); c.fill();
   c.fillStyle = '#222'; [-120, 120].forEach(dx => { c.beginPath(); c.arc(dx, -30, 34, 0, 7); c.fill(); }); c.restore();
-  E.rrect(c, 560, g1 - 250, 230, 50, 10, '#2a0d0f', RED, 3); E.text(c, 'EMI: 60 months', 675, g1 - 225, { size: 26, weight: 900, color: '#ffb3b5', alpha: E.p(t, .8, 1.1) });
+  E.rrect(c, 560, g1 - 250, 230, 50, 10, '#2a0d0f', RED, 3); E.text(c, 'EMI: 60 months', 675, g1 - 225, { size: 28, weight: 900, color: '#ffb3b5', alpha: E.p(t, .8, 1.1) });
   E.figure(c, { x: 300, y: g1 - E.FIG_H * s - 2, s, pose: { ...E.pose('arms'), hd: -.3 }, alpha: 1 - fade * .6 });
   E.text(c, 'Savings: 0', 300, g1 - 260, { size: 28, weight: 800, color: RED, alpha: E.p(t, 1.2, 1.5) });
   // quiet compounding
@@ -81,15 +79,14 @@ const REEL = { title: 'Pay yourself first', bpm: 150, scenes: [
 } },
 // 4 — Discipline weighs ounces, regret weighs tons
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'Discipline weighs ounces.', W / 2, 420, t, -1, 2.2, { size: 52, weight: 800 });
-  E.title(c, 'Regret weighs tons.', W / 2, 420, t, 2.4, 4.3, { size: 56, weight: 900, color: RED });
-  E.title(c, 'Choose your weight.', W / 2, 420, t, 4.5, 1e9, { size: 58, weight: 900, color: GOLD });
+  E.title(c, 'Discipline weighs ounces.', W / 2, 420, t, -1, 2.4, { size: 52, weight: 800 });
+  E.title(c, 'Regret weighs tons.', W / 2, 420, t, 2.6, 1e9, { size: 58, weight: 900, color: RED });
   const g1 = 900, g2 = 1420;
   E.ground(c, g1, 90, 990);
   const lift = (Math.sin(t * 4) + 1) / 2;
   const f1 = { x: 540, y: g1 - E.FIG_H * .75 - 2, s: .75, pose: { ...E.pose('stand'), aB: E.lerp(-2.4, -2.9, lift), eB: -.3, aF: E.lerp(2.4, 2.9, lift), eF: .3 } };
   E.figure(c, f1); const [hx, hy] = E.hand(f1);
-  E.rrect(c, hx - 80, hy - 50, 150, 44, 8, '#ddd'); E.text(c, 'DISCIPLINE', hx - 5, hy - 28, { size: 20, weight: 900, color: '#111' });
+  E.rrect(c, hx - 100, hy - 56, 190, 52, 8, '#ddd'); E.text(c, 'DISCIPLINE', hx - 5, hy - 30, { size: 26, weight: 900, color: '#111' });
   c.save(); E.shake(c, t, 2.6, .5, 26);
   E.ground(c, g2, 90, 990);
   const drop = E.p(t, 2.2, 2.6, 'in');
@@ -101,8 +98,7 @@ const REEL = { title: 'Pay yourself first', bpm: 150, scenes: [
 } },
 // 5 — One cookie now or two later
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'One cookie now…', W / 2, 420, t, -1, 2.4, { size: 56, weight: 800 });
-  E.title(c, '…or a plate full later?', W / 2, 420, t, 2.6, 4.4, { size: 52, weight: 800 });
+  E.title(c, 'One cookie now, or a plate later?', W / 2, 420, t, -1, 4.4, { size: 48, weight: 800 });
   E.title(c, 'Patience pays.', W / 2, 420, t, 4.6, 1e9, { size: 64, weight: 900, color: GOLD });
   const gy = 1340, tx = 640, ty = gy - 220;
   E.ground(c, gy, 90, 990);

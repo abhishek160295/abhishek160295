@@ -4,13 +4,12 @@ const REEL = { title: 'Your brain at 2 AM', bpm: 150, scenes: [
 { dur: 6.4, draw(c, t) {
   E.title(c, 'Your brain at 2 AM:', W / 2, 420, t, -1, 3.1, { size: 58, weight: 900 });
   E.title(c, "Thoughts aren't facts.", W / 2, 420, t, 3.3, 1e9, { size: 56, weight: 900, color: GOLD });
-  E.title(c, 'Let them go.', W / 2, 495, t, 4.6, 1e9, { size: 46, weight: 700 });
   const gy = 1320, bx = 380;
   E.clock(c, 540, 630, '2:00 AM', '#fff', false, t, 1.1);
   const thoughts = [['That thing you said in 2014', 330, 760, .3], ['What if it all goes wrong?', 720, 850, .8], ['Are they mad at me?', 330, 940, 1.3], ['Am I behind in life?', 740, 1030, 1.8]];
   thoughts.forEach(([str, x, y, t0], i) => {
     const pop = 3.4 + i * .3, a = E.p(t, t0, t0 + .25, 'back') * (1 - E.p(t, pop, pop + .12));
-    E.bubble(c, str, x + Math.sin(t * 5 + i) * 4, y, a, { size: 28, stroke: '#888' });
+    E.bubble(c, str, x + Math.sin(t * 5 + i) * 4, y, a, { size: 32, stroke: '#888' });
     E.particles(c, x, y, t - pop, { n: 18, speed: 300, color: '#bbb', life: .7, seed: i * 7 });
   });
   E.ground(c, gy, 90, 990); E.bed(c, bx, gy);
@@ -35,7 +34,7 @@ const REEL = { title: 'Your brain at 2 AM', bpm: 150, scenes: [
     const bxp = x - 40 - r * .7, byp = fig.y - 60 - r * .4 + 40;
     c.save(); c.fillStyle = '#2b2b2b'; c.strokeStyle = '#888'; c.lineWidth = 5; c.beginPath(); c.arc(bxp, byp, r, 0, 7); c.fill(); c.stroke(); c.restore();
     E.line(c, x - 10, fig.y - 70, bxp + r * .6, byp - r * .4, '#888', 5);
-    E.text(c, 'WHAT IF', bxp, byp, { size: 24 + r * .14, weight: 900, ls: 2, color: '#ccc' });
+    E.text(c, 'WHAT IF', bxp, byp, { size: 30 + r * .14, weight: 900, ls: 2, color: '#ccc' });
   }
   E.figure(c, fig);
   E.particles(c, 270, 900, t - burst, { n: 40, speed: 700, color: '#999', grav: 200 });
@@ -43,9 +42,8 @@ const REEL = { title: 'Your brain at 2 AM', bpm: 150, scenes: [
 } },
 // 3 — Recharge yourself
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'You charge your phone every night.', W / 2, 420, t, -1, 2.5, { size: 44, weight: 800 });
-  E.title(c, 'When did you recharge yourself?', W / 2, 420, t, 2.7, 4.4, { size: 46, weight: 800 });
-  E.title(c, 'Rest is productive.', W / 2, 420, t, 4.6, 1e9, { size: 58, weight: 900, color: GOLD });
+  E.title(c, 'You charge your phone every night.', W / 2, 420, t, -1, 3.0, { size: 44, weight: 800 });
+  E.title(c, 'When did you recharge yourself?', W / 2, 420, t, 3.2, 1e9, { size: 48, weight: 900, color: GOLD });
   const gy = 1320;
   E.ground(c, gy, 90, 990);
   // table + phone charging
@@ -89,9 +87,8 @@ const REEL = { title: 'Your brain at 2 AM', bpm: 150, scenes: [
 } },
 // 5 — Talk to yourself like a child
 { dur: 6.4, draw(c, t) {
-  E.title(c, "You'd never say this to a child…", W / 2, 420, t, -1, 2.2, { size: 46, weight: 800 });
-  E.title(c, 'So why say it to yourself?', W / 2, 420, t, 2.4, 4.4, { size: 50, weight: 800 });
-  E.title(c, 'Be kind to you.', W / 2, 420, t, 4.6, 1e9, { size: 64, weight: 900, color: GOLD });
+  E.title(c, "You'd never say this to a child…", W / 2, 420, t, -1, 3.2, { size: 46, weight: 800 });
+  E.title(c, 'So why say it to yourself?', W / 2, 420, t, 3.4, 1e9, { size: 52, weight: 900, color: GOLD });
   const gy = 1320; E.ground(c, gy, 90, 990);
   const hurt = E.p(t, .6, 1.4), heal = E.p(t, 3.8, 4.6);
   const ks = E.lerp(E.lerp(.5, .42, hurt), .52, heal);

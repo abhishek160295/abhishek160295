@@ -2,9 +2,8 @@
 const REEL = { title: 'Nobody claps at 5 AM', bpm: 150, scenes: [
 // 1 — Day 1 vs Day 100
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'Day 1 feels impossible.', W / 2, 420, t, -1, 2.0, { size: 52, weight: 800 });
-  E.title(c, 'Nobody sees days 2 to 99.', W / 2, 420, t, 2.2, 4.2, { size: 52, weight: 800, color: '#ccc' });
-  E.title(c, 'Show up for the boring days.', W / 2, 420, t, 4.4, 1e9, { size: 50, weight: 900, color: GOLD });
+  E.title(c, 'Day 1 feels impossible.', W / 2, 420, t, -1, 4.0, { size: 52, weight: 800 });
+  E.title(c, 'Show up for the boring days.', W / 2, 420, t, 4.2, 1e9, { size: 50, weight: 900, color: GOLD });
   const gy = 1320, x = 540, s = 1;
   const k = E.p(t, 1.2, 3.8, 'inOut'), day = Math.max(1, Math.round(1 + 99 * k));
   E.text(c, `DAY ${day}`, W / 2, 620, { size: 64, weight: 900, ls: 4, color: day === 100 ? GOLD : '#fff' });
@@ -65,7 +64,7 @@ const REEL = { title: 'Nobody claps at 5 AM', bpm: 150, scenes: [
     const by = E.lerp(620, lt - 46 - i * 46, k);
     c.save(); c.globalAlpha = E.p(t, t0, t0 + .12);
     E.rrect(c, lx - 90, by, 180, 42, 6, '#2a2a2a', '#777', 3);
-    E.text(c, lab, lx, by + 21, { size: 24, weight: 800, color: '#ccc' }); c.restore();
+    E.text(c, lab, lx, by + 21, { size: 28, weight: 800, color: '#ccc' }); c.restore();
   });
   const wk = E.p(t, 2.7, 3.05, 'in');
   if (wk > 0) { const by = E.lerp(560, rt - 130, wk); E.rrect(c, rx - 100, by, 200, 130, 10, GOLD); E.text(c, 'WHY', rx, by + 65, { size: 56, weight: 900, color: '#111' }); }
@@ -80,12 +79,12 @@ const REEL = { title: 'Nobody claps at 5 AM', bpm: 150, scenes: [
   E.ground(c, gy, 90, 990); E.flag(c, 870, gy, 1, 20);
   // bench
   E.rrect(c, 360, gy - 70, 180, 16, 4, '#9a6b4a'); E.line(c, 375, gy - 54, 375, gy, '#9a6b4a', 6); E.line(c, 525, gy - 54, 525, gy, '#9a6b4a', 6);
-  E.text(c, 'REST', 450, gy + 36, { size: 24, weight: 900, ls: 3, color: GREY });
+  E.text(c, 'REST', 450, gy + 40, { size: 30, weight: 900, ls: 3, color: GREY });
   // quitter turns back
   const qk = E.p(t, 1.6, 3.6, 'inOut');
   const qx = t < 1.4 ? E.lerp(150, 380, E.p(t, 0, 1.4, 'lin')) : E.lerp(380, -60, qk);
   E.figure(c, { x: qx, y: gy - E.FIG_H * s - 2, s, f: t < 1.4 ? 1 : -1, color: t < 1.4 ? '#fff' : '#777', pose: t < 1.4 ? E.walk(qx / 22) : E.walk(qx / 22, .2) });
-  if (t > 1.6 && t < 3.6) E.text(c, 'QUIT', qx, gy - 250, { size: 26, weight: 900, ls: 3, color: RED, alpha: 1 - qk });
+  if (t > 1.6 && t < 3.6) E.text(c, 'QUIT', qx, gy - 250, { size: 32, weight: 900, ls: 3, color: RED, alpha: 1 - qk });
   // rester sits, recharges, finishes
   let x = t < 1.4 ? E.lerp(100, 450, E.p(t, 0, 1.4, 'lin')) : 450, y = gy - E.FIG_H * s - 2, pose = E.walk(x / 22);
   const charge = E.p(t, 1.6, 3.6, 'lin');
@@ -97,9 +96,8 @@ const REEL = { title: 'Nobody claps at 5 AM', bpm: 150, scenes: [
 } },
 // 5 — One brick a day
 { dur: 6.4, draw(c, t) {
-  E.title(c, "Don't try to build a wall.", W / 2, 420, t, -1, 2.4, { size: 52, weight: 800 });
-  E.title(c, 'Lay one brick. Every day.', W / 2, 420, t, 2.6, 4.4, { size: 52, weight: 800 });
-  E.title(c, "That's how empires are built.", W / 2, 420, t, 4.6, 1e9, { size: 48, weight: 900, color: GOLD });
+  E.title(c, "Don't try to build a wall.", W / 2, 420, t, -1, 3.0, { size: 52, weight: 800 });
+  E.title(c, 'Lay one brick. Every day.', W / 2, 420, t, 3.2, 1e9, { size: 54, weight: 900, color: GOLD });
   const gy = 1320, cols = 9, rows = 8, bw = 60, bh = 30, x0 = 330;
   const total = cols * rows, n = Math.floor(total * E.p(t, .4, 4.3, 'in'));
   const day = Math.max(1, Math.round(365 * E.p(t, .4, 4.3, 'in')));

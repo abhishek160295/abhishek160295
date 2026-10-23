@@ -118,7 +118,7 @@ E.title = (c, str, x, y, t, t0, t1 = 1e9, o = {}) => {
   const total = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1);
   let cx = o.align === 'left' ? x : o.align === 'right' ? x - total : x - total / 2;
   words.forEach((w, i) => {
-    const k = E.p(t, t0 + i * .07, t0 + i * .07 + .32, 'out');
+    const k = E.p(t, t0 + i * .04, t0 + i * .04 + .22, 'out');
     E.text(c, w, cx + ws[i] / 2, y, { ...o, align: 'center', alpha: k * out * (o.alpha ?? 1), dy: (1 - k) * 24 });
     cx += ws[i] + sp;
   });

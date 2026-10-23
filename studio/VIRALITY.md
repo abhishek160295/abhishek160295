@@ -16,6 +16,8 @@
 
 13. **Sharp type, premium graphics.** Text never has glow, shadow or blur. It is solid and razor-sharp. Graphic glow is subtle (capped) and only on objects. Visual quality must match or beat the reference.
 
+14. **One hook, one payoff.** Max two lines per scene, each on screen 2.5s+. Labels 28px or bigger. One or two props per scene: the picture carries the idea, not the text. Calm motivational tone, no meme gags.
+
 Look: black, white stick figures, one accent per scene (red = struggle, gold = win, green = growth, ice = transformation).
 Audio: silent master. Add a trending sound in-app (phonk / epic / emotional piano) at full volume.
 Posting: 5 a day, spaced ~3h apart (e.g. 8am, 11am, 2pm, 5pm, 8pm local). Pin a question comment.
