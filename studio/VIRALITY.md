@@ -20,4 +20,11 @@
 
 Look: black, white stick figures, one accent per scene (red = struggle, gold = win, green = growth, ice = transformation).
 Audio: silent master. Add a trending sound in-app (phonk / epic / emotional piano) at full volume.
-Posting: 5 a day, spaced ~3h apart (e.g. 8am, 11am, 2pm, 5pm, 8pm local). Pin a question comment.
+Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Reels and TikTok. Pin a question comment.
+
+## Selection bar (3 a day = only the best)
+- Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
+- Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
+- Every scene: one hook line, one payoff line, one or two props.
+- YouTube Shorts: title under 60 characters ending in #shorts; description is 1 line plus 3 hashtags. The loop must be clean, because Shorts rewards rewatches.
+- Slot logic: the morning-themed reel at 9am, the emotional or relatable one at 2pm, the late-night or reflective one at 8pm.
