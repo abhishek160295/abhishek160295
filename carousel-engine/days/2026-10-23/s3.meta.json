@@ -1,0 +1,26 @@
+{
+ "title": "How I'd explain pandas to a 5-year-old",
+ "slug": "pandas-to-a-5-year-old",
+ "keyword": "PDKID",
+ "caption": "pandas looks scary until you see it as a class register.\n12 ideas from a school day, each with the real line of code an analyst writes.\nFollow @thedataguy16 and comment PDKID. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#pandas #python #dataanalyst #learnpython #datascience #thedataguy16",
+ "hookType": "explain-to-kid",
+ "pillar": "Kids",
+ "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. Next topic in kidsRules.queue (pandas). Cover B: simple explainer.",
+ "sources": [
+  {
+   "title": "pandas user guide",
+   "url": "https://pandas.pydata.org/docs/user_guide/index.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "read",
+    "lang": "python",
+    "code": "df.to_csv(\"sales.csv\", index=False)\ndf = pd.read_csv(\"sales.csv\")\nprint(df.shape)",
+    "expect_stdout": "(8, 13)"
+   }
+  ]
+ }
+}

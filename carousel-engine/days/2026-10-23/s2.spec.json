@@ -1,0 +1,209 @@
+{
+ "series": "First 30 days",
+ "style": "ember",
+ "layout": "cards",
+ "format": "plan",
+ "cover_bg": "mint",
+ "cover_alt": {
+  "title": "Save this before your ~joining~ date",
+  "hook": "save-before",
+  "bg": "pink"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Your first 30 days as an analyst, ~planned~"
+  },
+  {
+   "type": "bigtable",
+   "title": "Week 1: ~learn~ the data",
+   "cols": [
+    "#",
+    "Do this",
+    "Done when"
+   ],
+   "start": 1,
+   "rows": [
+    [
+     "Get access: email, Excel, SQL client, BI tool, shared drive",
+     "You can open every file your team talks about"
+    ],
+    [
+     "Ask for the last 3 reports your team sent",
+     "You know what the team ships every week"
+    ],
+    [
+     "Find where each report's numbers come from",
+     "You can name the source table or file for each"
+    ],
+    [
+     "Write a glossary: every short form you hear",
+     "MTD, GMV, TAT, churn all have a one-line meaning"
+    ],
+    [
+     "Sit with whoever makes the main report",
+     "You have watched it built once, start to end"
+    ],
+    [
+     "Note the 5 numbers your manager looks at first",
+     "You know what matters before you build anything"
+    ],
+    [
+     "Week-end note to your manager: what you learnt",
+     "Five lines, no slides, sent on Friday"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Week 2: ~own~ one report",
+   "cols": [
+    "#",
+    "Do this",
+    "Done when"
+   ],
+   "start": 8,
+   "rows": [
+    [
+     "Take over one small recurring report",
+     "Your name is on it from this week"
+    ],
+    [
+     "Rebuild it once, slowly, by hand",
+     "Your total matches last week's version"
+    ],
+    [
+     "Write the steps in a text file",
+     "Someone else could run it from your notes"
+    ],
+    [
+     "Add 3 checks: row count, total, blanks",
+     "You catch a broken file before your manager does"
+    ],
+    [
+     "Send it before the deadline, not on it",
+     "It reaches them a few hours early"
+    ],
+    [
+     "Ask: what do you do with this report?",
+     "You know the decision it feeds"
+    ],
+    [
+     "Fix one small thing people complain about",
+     "One column, label or sort order is better"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Week 3: ~speed~ it up",
+   "cols": [
+    "#",
+    "Do this",
+    "Done when"
+   ],
+   "start": 15,
+   "rows": [
+    [
+     "Time each step of your report",
+     "You know which step eats the most minutes"
+    ],
+    [
+     "Replace copy-paste with formulas or a pivot",
+     "The slowest manual step is gone"
+    ],
+    [
+     "Turn the raw data into an Excel Table",
+     "New rows flow into formulas and pivots"
+    ],
+    [
+     "Save your SQL queries in one file with comments",
+     "You can rerun any pull in a minute"
+    ],
+    [
+     "Learn the 10 shortcuts you use most",
+     "Mouse trips go down every day"
+    ],
+    [
+     "Ask a senior to review one of your queries",
+     "You get one better way of writing it"
+    ],
+    [
+     "Document what changed and why",
+     "The next person is not confused"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Week 4: your first ~insight~",
+   "cols": [
+    "#",
+    "Do this",
+    "Done when"
+   ],
+   "start": 22,
+   "rows": [
+    [
+     "Pick one number that moved this month",
+     "You know which number and by how much"
+    ],
+    [
+     "Break it down by region, product or channel",
+     "You know where the change came from"
+    ],
+    [
+     "Check it is real: data error or real change?",
+     "You have ruled out a broken file"
+    ],
+    [
+     "Write it in 3 lines: what, why, so what",
+     "A busy manager gets it in 20 seconds"
+    ],
+    [
+     "Show it to your manager before anyone else",
+     "No surprises in a team meeting"
+    ],
+    [
+     "Add it to your report as a small note",
+     "Your report now says something, not only shows"
+    ],
+    [
+     "Ask for feedback on your first month",
+     "You know one thing to keep and one to fix"
+    ]
+   ]
+  },
+  {
+   "type": "bigtable",
+   "title": "Days 29 and 30: ~set up~ month two",
+   "cols": [
+    "#",
+    "Do this",
+    "Done when"
+   ],
+   "start": 29,
+   "rows": [
+    [
+     "List what you own, what you shadow, what you skip",
+     "Your work is clear to you and your manager"
+    ],
+    [
+     "Pick one skill your team uses that you lack",
+     "Month two has one learning goal"
+    ],
+    [
+     "Keep a wins file: date, task, result",
+     "Your appraisal writes itself later"
+    ]
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Day 1 is ~closer~ than you think.",
+   "body": "Comment FIRST30 and I'll DM you the full 8-page PDF.",
+   "keyword": "FIRST30",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

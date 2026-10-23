@@ -1,0 +1,44 @@
+== s1 08:30 BIG-NUMBER CHEAT SHEET :: 25 business maths formulas every analyst uses, each with its answer [9-page PDF, 9 post slides]
+  ok  excel  m1: 12.5
+  ok  excel  m2: 14
+  ok  excel  m3: 51000
+  ok  excel  m4: 14.5
+  ok  excel  m5: 5
+  ok  excel  m6: 144333
+  ok  excel  m7: 32000
+  ok  excel  m8: 62857
+  ok  excel  m9: 3
+  ok  excel  m10: 170
+  ok  excel  m11: 82665
+  ok  excel  m12: 124000
+  ok  excel  m13: 29000
+  ok  excel  m14: 8500
+  ok  excel  m15: Outlier
+  ok  excel  m16: 4
+  ok  excel  m17: 24
+  ok  excel  m18: 200
+  ok  excel  m19: 19.7
+  ok  excel  m20: 95
+  ok  excel  m21: 383000
+  ok  excel  m22: 161000
+  ok  excel  m23: 0.83
+  ok  excel  m24: 180133
+  ok  excel  m25: 2.26
+== s2 10:30 roadmap/plan :: Your first 30 days as a data analyst: the day-by-day plan [8-page PDF, 8 post slides]
+== s3 19:00 KIDS (big tool/role) :: How I'd explain pandas to a 5-year-old [5-page PDF, 5 post slides]
+  ok  python read: (8, 13)
+  ok  python slide 2: 'df.head()'
+  ok  python slide 2: 'df[df["region"] == "North"]'
+  ok  python slide 2: 'df.sort_values("sales", ascending=False)'
+  ok  python slide 2: 'df.isna().sum()'
+  ok  python slide 2: 'df["total"] = df["qty"] * df["price"]'
+  ok  python slide 3: 'df.groupby("region")["sales"].sum()'
+  ok  python slide 3: 'df.merge(customers, on="customer_id")'
+  ok  python slide 3: 'df.drop_duplicates()'
+  ok  python slide 3: 'df["name"].str.strip().str.title()'
+  ok  python slide 3: 'df["region"].value_counts()'
+  ok  python slide 3: 'df.to_excel("report.xlsx", index=False)'
+== s4 21:00 ROLE VS :: BI Developer vs Data Analyst: same tools, different jobs [9-page PDF, 9 post slides]
+  ok  sql    bi-view: []
+  ok  sql    da-city: [['Pune', 4250.0], ['Indore', 3150.0]]
+contact sheet: posts/2026-10-23/contact.jpg

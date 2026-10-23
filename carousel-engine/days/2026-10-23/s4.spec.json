@@ -1,0 +1,155 @@
+{
+ "series": "vs",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_bg": "pink",
+ "cover_alt": {
+  "title": "Same Power BI. ~2~ different jobs.",
+  "hook": "sticker-number",
+  "bg": "sky"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "BI Developer or Data Analyst? ~Pick~ one."
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "What you build",
+    "points": [
+     "Dashboards and the data model behind them",
+     "Used by many people, every day"
+    ],
+    "line": "You build the tool."
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "What you build",
+    "points": [
+     "Answers to business questions",
+     "Used for one decision, often this week"
+    ],
+    "line": "You use the tool, and more."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "Same orders table, different job",
+    "points": [
+     "Prepare clean data for the dashboard",
+     "CREATE VIEW v_sales AS SELECT order_date, region, city, amount FROM orders WHERE status = 'Delivered';"
+    ],
+    "line": "Build once, refresh daily."
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "Same orders table, different job",
+    "points": [
+     "Answer: which city sells most?",
+     "SELECT city, SUM(amount) FROM orders WHERE status = 'Delivered' GROUP BY city ORDER BY 2 DESC;"
+    ],
+    "line": "Ask, answer, move on."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "Daily tools",
+    "points": [
+     "Power BI or Tableau, DAX",
+     "Power Query, SQL views",
+     "Refresh schedules, access rules"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "Daily tools",
+    "points": [
+     "SQL and Excel, all day",
+     "Power BI for quick visuals",
+     "Python when the data gets big"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "A normal day",
+    "points": [
+     "Fix a refresh that failed at 6 am",
+     "Add a new page to the sales dashboard",
+     "Speed up a slow report"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "A normal day",
+    "points": [
+     "Pull numbers for the weekly review",
+     "Explain why returns went up",
+     "Clean a messy file from another team"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "What they test freshers on",
+    "points": [
+     "Data modelling: facts, dimensions, relationships",
+     "DAX measures and a small dashboard task"
+    ],
+    "line": "Show one dashboard you built."
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "What they test freshers on",
+    "points": [
+     "SQL queries and Excel tasks",
+     "A case: what would you check first?"
+    ],
+    "line": "Show one question you answered."
+   }
+  },
+  {
+   "type": "split",
+   "top": {
+    "label": "BI Developer",
+    "head": "Pick it if you...",
+    "points": [
+     "Like building things that run every day",
+     "Enjoy design, models and speed"
+    ],
+    "line": null
+   },
+   "bottom": {
+    "label": "Data Analyst",
+    "head": "Pick it if you...",
+    "points": [
+     "Like asking why and finding out",
+     "Enjoy talking to the business"
+    ],
+    "line": null
+   }
+  },
+  {
+   "type": "cta",
+   "title": "Pick your ~lane~.",
+   "body": "Comment BIVSDA and I'll DM you the full 9-page PDF.",
+   "keyword": "BIVSDA",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

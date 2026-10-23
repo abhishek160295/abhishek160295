@@ -837,7 +837,7 @@ def mega_page(s, i, n):
            f'<span class="pg">{"Save this" if i == n else f"{i:02d} / {n:02d}"}{icon("bookmark", 26, 2.4) if i == n else icon("arrow-right", 26, 2.6)}</span></div>')
     if t == "marker_cover":  # v5: the hook and nothing else
         bg = s.get("_bg") or COVER_BG[sum(map(ord, s.get("title", ""))) % len(COVER_BG)]
-        inner = f'<div class="hk5" style="background:{bg[0]}"><div class="hk5t" style="--hl:{bg[1]}">{inl(s["title"])}</div></div>'
+        inner = f'<div class="hk5" style="background:{bg[0]}"><div class="hk5t" style="--hl:{bg[1]}">{re.sub(r"(?<![\w-])(\w+(?:-\w+)+)(?![\w-])", r'<span style="white-space:nowrap">\1</span>', inl(s["title"]))}</div></div>'
         return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="mg hk"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
     elif t == "mproduct":
         ph = "".join(f'<div class="mpp"><span class="d">{html.escape(r)}</span><span class="dot"></span><b>{inl(nm)}</b></div>' for r, nm in s.get("phases", []))

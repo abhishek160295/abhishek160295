@@ -1,0 +1,35 @@
+{
+ "title": "BI Developer vs Data Analyst: same tools, different jobs",
+ "slug": "bi-developer-vs-data-analyst",
+ "keyword": "BIVSDA",
+ "caption": "Both open Power BI every day. Only one of them builds it.\nWhat each one builds, the SQL each one writes, how they test freshers, and which one fits you.\nFollow @thedataguy16 and comment BIVSDA. I'll DM you the full 9-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#powerbi #dataanalyst #bideveloper #analystjobs #freshers #thedataguy16",
+ "hookType": "role-vs",
+ "pillar": "Career",
+ "why": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Pair from roleVs.queue (BI Developer vs Data Analyst), moved ahead of 'Fresher vs 2-year analyst' so it does not overlap today's first-30-days plan. Hook family: decision settler; cover B: sticker number.",
+ "verify": {
+  "checks": [
+   {
+    "id": "bi-view",
+    "lang": "sql",
+    "query": "CREATE VIEW v_sales AS SELECT order_date, region, city, amount FROM orders WHERE status = 'Delivered';",
+    "expect": []
+   },
+   {
+    "id": "da-city",
+    "lang": "sql",
+    "query": "SELECT city, SUM(amount) FROM orders WHERE status = 'Delivered' GROUP BY city ORDER BY 2 DESC;",
+    "expect": [
+     [
+      "Pune",
+      4250.0
+     ],
+     [
+      "Indore",
+      3150.0
+     ]
+    ]
+   }
+  ]
+ }
+}

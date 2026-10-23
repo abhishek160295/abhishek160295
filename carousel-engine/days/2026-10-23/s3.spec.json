@@ -1,0 +1,116 @@
+{
+ "series": "pandas",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_bg": "sky",
+ "lang": "python",
+ "cover_alt": {
+  "title": "pandas is ~simple~ once you see it like this",
+  "hook": "simple-explainer",
+  "bg": "yellow"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "How I'd explain ~pandas~ to a 5-year-old"
+  },
+  {
+   "type": "kids",
+   "title": "pandas",
+   "subtitle": "explained to kids (1/2)",
+   "mascot": "assets/mascot.jpg",
+   "lang": "python",
+   "cells": [
+    {
+     "term": "DataFrame",
+     "kid": "Your class register: every row is a student, every column is name, roll number, marks.",
+     "sql": "df = pd.read_csv(\"sales.csv\")",
+     "emoji": "📒✏️"
+    },
+    {
+     "term": "head()",
+     "kid": "Peeping at the first few pages of a new storybook before reading it all.",
+     "sql": "df.head()",
+     "emoji": "📖👀"
+    },
+    {
+     "term": "Filter",
+     "kid": "Picking only the red sweets out of a big mixed box.",
+     "sql": "df[df[\"region\"] == \"North\"]",
+     "emoji": "🍬🔴"
+    },
+    {
+     "term": "Sort",
+     "kid": "Lining up for the class photo, shortest in front, tallest at the back.",
+     "sql": "df.sort_values(\"sales\", ascending=False)",
+     "emoji": "📸📏"
+    },
+    {
+     "term": "Missing values",
+     "kid": "Empty boxes in the attendance register when nobody marked the day.",
+     "sql": "df.isna().sum()",
+     "emoji": "🗓️❓"
+    },
+    {
+     "term": "New column",
+     "kid": "Adding a total marks column after all the subject marks.",
+     "sql": "df[\"total\"] = df[\"qty\"] * df[\"price\"]",
+     "emoji": "➕🧮"
+    }
+   ]
+  },
+  {
+   "type": "kids",
+   "title": "pandas",
+   "subtitle": "explained to kids (2/2)",
+   "mascot": "assets/mascot.jpg",
+   "lang": "python",
+   "cells": [
+    {
+     "term": "groupby",
+     "kid": "Teacher adds up the marks of each house: Red, Blue, Green, Yellow.",
+     "sql": "df.groupby(\"region\")[\"sales\"].sum()",
+     "emoji": "🏠🏆"
+    },
+    {
+     "term": "merge",
+     "kid": "Matching each student's name with their bus number from another list.",
+     "sql": "df.merge(customers, on=\"customer_id\")",
+     "emoji": "🚌📋"
+    },
+    {
+     "term": "Duplicates",
+     "kid": "The same friend counted twice in the birthday party guest list.",
+     "sql": "df.drop_duplicates()",
+     "emoji": "🎂👯"
+    },
+    {
+     "term": "Clean text",
+     "kid": "Writing every name the same neat way: Amit, not amit or AMIT.",
+     "sql": "df[\"name\"].str.strip().str.title()",
+     "emoji": "✍️🧼"
+    },
+    {
+     "term": "value_counts",
+     "kid": "Counting how many kids want samosa, how many want dosa.",
+     "sql": "df[\"region\"].value_counts()",
+     "emoji": "🥟📊"
+    },
+    {
+     "term": "Export",
+     "kid": "Giving your neat homework copy to the teacher.",
+     "sql": "df.to_excel(\"report.xlsx\", index=False)",
+     "emoji": "📤📝"
+    }
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Now teach<br>a ~friend~.",
+   "body": "Comment PDKID and I'll DM you the full 5-page PDF.",
+   "keyword": "PDKID",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

@@ -144,7 +144,6 @@
   "noRepeatDays": 60,
   "partTwoAfterDays": 21,
   "queue": [
-   "pandas",
    "Excel formulas part 2 (lookups, IF, SUMIFS)",
    "SQL part 2 (GROUP BY, JOINs, window functions)",
    "Power Query",
@@ -207,6 +206,11 @@
     "topic": "ChatGPT/AI for data analysts",
     "date": "2026-10-22",
     "keyword": "GPTKID"
+   },
+   {
+    "topic": "pandas",
+    "date": "2026-10-23",
+    "keyword": "PDKID"
    }
   ],
   "rejectedTopics": [
@@ -434,10 +438,10 @@
   "queue": [
    "Fresher analyst vs 2-year analyst",
    "Data Analyst vs Consultant",
-   "BI Developer vs Data Analyst",
    "Data Analyst vs AI Engineer",
    "Data Analyst vs Product Analyst",
-   "Service vs Product company analyst"
+   "Service vs Product company analyst",
+   "BI Developer vs Data Analyst"
   ],
   "used": [
    {
@@ -469,6 +473,11 @@
     "pair": "Service vs Product company analyst",
     "date": "2026-10-22",
     "keyword": "SVSP"
+   },
+   {
+    "pair": "BI Developer vs Data Analyst",
+    "date": "2026-10-23",
+    "keyword": "BIVSDA"
    }
   ]
  },
@@ -503,6 +512,11 @@
     "tool": "SQL",
     "date": "2026-10-22",
     "title": "SQL window functions: 18 queries with their results, from RANK to LAG"
+   },
+   {
+    "tool": "Business maths",
+    "date": "2026-10-23",
+    "title": "25 business maths formulas every analyst uses, each with its answer"
    }
   ]
  },
@@ -725,6 +739,30 @@
     "post": "2026-10-22-s1-r2",
     "family": "decision-settler",
     "mechanic": "comment-line"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s1",
+    "family": "pain-payoff",
+    "mechanic": "comment-line"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s2",
+    "family": "before-day-one",
+    "mechanic": "save-before"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s3",
+    "family": "kids-topic",
+    "mechanic": "simple-explainer"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s4",
+    "family": "decision-settler",
+    "mechanic": "sticker-number"
    }
   ]
  },

@@ -1,0 +1,83 @@
+[
+ {
+  "slide": 1,
+  "type": "marker_cover",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 99
+ },
+ {
+  "slide": 2,
+  "type": "sheet",
+  "shrinks": 2,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19.855
+ },
+ {
+  "slide": 3,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 4,
+  "type": "sheet",
+  "shrinks": 3,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 18.8622
+ },
+ {
+  "slide": 5,
+  "type": "sheet",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 22
+ },
+ {
+  "slide": 6,
+  "type": "sheet",
+  "shrinks": 2,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 19.855
+ },
+ {
+  "slide": 7,
+  "type": "bigtable",
+  "shrinks": 1,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20.9
+ },
+ {
+  "slide": 8,
+  "type": "mproduct",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 21
+ },
+ {
+  "slide": 9,
+  "type": "mcta",
+  "shrinks": 0,
+  "overflow": false,
+  "emojiWrap": [],
+  "clipped": [],
+  "minFont": 20
+ }
+]
