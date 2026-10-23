@@ -701,7 +701,8 @@
    "salary-anchored hooks (12-18 LPA)",
    "tool vs tool",
    "quiz / challenge hooks",
-   "myths, analogies, interviewer-POV, single-concept explainers"
+   "myths, analogies, interviewer-POV, single-concept explainers",
+   "Short hook-only covers with no sub line (owner, 23 Oct 2026: not working; keep the earlier number + payoff style)"
   ],
   "usage": [
    {
@@ -754,18 +755,6 @@
    },
    {
     "date": "2026-10-23",
-    "post": "2026-10-23-s3",
-    "family": "kids-topic",
-    "mechanic": "simple-explainer"
-   },
-   {
-    "date": "2026-10-23",
-    "post": "2026-10-23-s4",
-    "family": "decision-settler",
-    "mechanic": "sticker-number"
-   },
-   {
-    "date": "2026-10-23",
     "post": "2026-10-23-s1-r1",
     "family": "the-round",
     "mechanic": "one-sharp-fact"
@@ -775,6 +764,18 @@
     "post": "2026-10-23-s2-r1",
     "family": "pain-payoff",
     "mechanic": "comment-line"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s3",
+    "family": "kids-topic",
+    "mechanic": "simple-explainer"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s4",
+    "family": "decision-settler",
+    "mechanic": "sticker-number"
    }
   ]
  },

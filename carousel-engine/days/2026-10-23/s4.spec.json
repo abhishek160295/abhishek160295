@@ -3,16 +3,16 @@
  "style": "paper",
  "layout": "editorial",
  "format": "mega",
- "cover_bg": "pink",
  "cover_alt": {
-  "title": "Same Power BI. ~2~ different jobs.",
-  "hook": "sticker-number",
-  "bg": "sky"
+  "title": "BI Developer<br>or<br>~Data~ Analyst?",
+  "sub": "Which one should a fresher aim for?",
+  "hook": "sticker-number"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "BI Developer or Data Analyst? ~Pick~ one."
+   "title": "BI Developer<br>vs<br>~Data~ Analyst",
+   "sub": "Same Power BI. Different jobs."
   },
   {
    "type": "split",

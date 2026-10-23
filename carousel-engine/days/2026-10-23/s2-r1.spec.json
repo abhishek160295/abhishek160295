@@ -3,17 +3,17 @@
  "style": "paper",
  "layout": "editorial",
  "format": "mega",
- "cover_bg": "yellow",
  "lang": "python",
  "cover_alt": {
-  "title": "Comment ~PYBASE~ for all 20 lines",
-  "hook": "comment-line",
-  "bg": "sky"
+  "title": "Stuck in pandas?<br>Learn these<br>~20~ lines first.",
+  "sub": "The Python under every pandas line.",
+  "hook": "comment-line"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "Python before ~pandas~: 20 lines"
+   "title": "20 Python lines<br>to learn<br>before ~pandas~",
+   "sub": "Lists, dicts, text, dates, errors.<br>Each line run, output shown."
   },
   {
    "type": "sheet",

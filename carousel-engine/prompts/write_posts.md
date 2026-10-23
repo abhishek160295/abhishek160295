@@ -8,10 +8,9 @@ Date: {{DATE}} (IST). Mode: {{MODE}}. Write these slot ids: {{SLOTS}}.
    and keywords you may not reuse. For a replacement, `avoid` lists the topic and angle of the rejected post: pick a clearly different one.
    Hooks: brief.hookA names the hook family for cover A (patterns to adapt, never copy a title) and brief.hookB the
    mechanic for spec.cover_alt (set cover_alt.hook to the mechanic id). playbook.hookBank.avoid is banned.
-   Renderer v5: slide 1 shows ONLY the hook (no sub line). Write it in 10 words or fewer with one ~highlighted~ word,
-   and pick spec.cover_bg (yellow|mint|pink|sky|cream). cover_alt = {title, hook, bg} with a different colour.
-   Sheets: 5 cards per slide read best; longer pages split on their own, so write as many rows as the topic needs.
-   Each sheet gets a punchy title (with one ~highlight~) and a short ribbon; the chip already shows the series name.
+   Covers (owner, 23 Oct): earlier style only. Title = number + payoff over 2-3 lines with <br> and one ~highlight~
+   ("38 Python lines<br>that do your<br>~boring~ office work"), plus a sub line with the concrete promise. cover_alt also
+   gets a title + sub. Sheets: 5 cards per slide read best; longer pages split on their own.
 2. Read config/playbook.json (formats, kidsRules, hookRules, ctaRule) and config/engine.json (designRules, productRule) and one
    matching example in examples/ for the spec shape. Read render.py's header for slide types.
 3. Use WebSearch (2-4 searches per post) for a fresh angle: what freshers in India are asking about this tool/role right now,

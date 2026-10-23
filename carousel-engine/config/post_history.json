@@ -3181,147 +3181,6 @@
   "replacedBy": "2026-10-23-s2-r1"
  },
  {
-  "id": "2026-10-23-s3",
-  "date": "2026-10-23",
-  "slot": 3,
-  "slotTime": "19:00",
-  "kind": "carousel",
-  "status": "draft",
-  "format": "mega-kids",
-  "layout": "editorial",
-  "style": "paper",
-  "hookType": "explain-to-kid",
-  "pillar": "Kids",
-  "slug": "pandas-to-a-5-year-old",
-  "title": "How I'd explain pandas to a 5-year-old",
-  "caption": "pandas looks scary until you see it as a class register.\n12 ideas from a school day, each with the real line of code an analyst writes.\nFollow @thedataguy16 and comment PDKID. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
-  "hashtags": "#pandas #python #dataanalyst #learnpython #datascience #thedataguy16",
-  "keyword": "PDKID",
-  "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. Next topic in kidsRules.queue (pandas). Cover B: simple explainer.",
-  "music": "search 'anime', pick from top 10",
-  "topic": "pandas",
-  "slides": [
-   {
-    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_01.jpg",
-    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_01.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_02.jpg",
-    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_02.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_03.jpg",
-    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_03.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_04.jpg",
-    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_04.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_05.jpg",
-    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_05.jpg"
-   }
-  ],
-  "pdf": {
-   "path": "posts/2026-10-23/pandas-to-a-5-year-old/carousel.pdf",
-   "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/carousel.pdf",
-   "name": "pandas-to-a-5-year-old.pdf",
-   "pages": 5
-  },
-  "spec": "days/2026-10-23/s3.spec.json",
-  "sources": [
-   {
-    "title": "pandas user guide",
-    "url": "https://pandas.pydata.org/docs/user_guide/index.html"
-   }
-  ],
-  "createdAt": "2026-10-23T05:56:42.413439+05:30",
-  "coverAlt": {
-   "path": "posts/2026-10-23/pandas-to-a-5-year-old/cover_b.jpg",
-   "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/cover_b.jpg",
-   "hook": "simple-explainer"
-  },
-  "coverChoice": "a",
-  "hookFamily": "kids-topic",
-  "coverBMechanic": "simple-explainer"
- },
- {
-  "id": "2026-10-23-s4",
-  "date": "2026-10-23",
-  "slot": 4,
-  "slotTime": "21:00",
-  "kind": "carousel",
-  "status": "draft",
-  "format": "vs-split",
-  "layout": "editorial",
-  "style": "paper",
-  "hookType": "role-vs",
-  "pillar": "Career",
-  "slug": "bi-developer-vs-data-analyst",
-  "title": "BI Developer vs Data Analyst: same tools, different jobs",
-  "caption": "Both open Power BI every day. Only one of them builds it.\nWhat each one builds, the SQL each one writes, how they test freshers, and which one fits you.\nFollow @thedataguy16 and comment BIVSDA. I'll DM you the full 9-page PDF.\nWant the complete 90-day system? Link in bio.",
-  "hashtags": "#powerbi #dataanalyst #bideveloper #analystjobs #freshers #thedataguy16",
-  "keyword": "BIVSDA",
-  "why": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Pair from roleVs.queue (BI Developer vs Data Analyst), moved ahead of 'Fresher vs 2-year analyst' so it does not overlap today's first-30-days plan. Hook family: decision settler; cover B: sticker number.",
-  "music": "search 'anime', pick from top 10",
-  "topic": "BI Developer vs Data Analyst",
-  "slides": [
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_01.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_01.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_02.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_02.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_03.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_03.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_04.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_04.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_05.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_05.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_06.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_06.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_07.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_07.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_08.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_08.jpg"
-   },
-   {
-    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_09.jpg",
-    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_09.jpg"
-   }
-  ],
-  "pdf": {
-   "path": "posts/2026-10-23/bi-developer-vs-data-analyst/carousel.pdf",
-   "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/carousel.pdf",
-   "name": "bi-developer-vs-data-analyst.pdf",
-   "pages": 9
-  },
-  "spec": "days/2026-10-23/s4.spec.json",
-  "sources": [],
-  "createdAt": "2026-10-23T05:56:42.414621+05:30",
-  "coverAlt": {
-   "path": "posts/2026-10-23/bi-developer-vs-data-analyst/cover_b.jpg",
-   "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/cover_b.jpg",
-   "hook": "sticker-number"
-  },
-  "coverChoice": "a",
-  "hookFamily": "decision-settler",
-  "coverBMechanic": "sticker-number"
- },
- {
   "id": "2026-10-23-s1-r1",
   "date": "2026-10-23",
   "slot": 1,
@@ -3400,7 +3259,7 @@
     "url": "https://www.sqlite.org/lang_select.html"
    }
   ],
-  "createdAt": "2026-10-23T11:57:35.751341+05:30",
+  "createdAt": "2026-10-23T15:15:58.084676+05:30",
   "coverAlt": {
    "path": "posts/2026-10-23/excel-tasks-in-sql-24/cover_b.jpg",
    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/cover_b.jpg",
@@ -3478,7 +3337,7 @@
     "url": "https://docs.python.org/3/tutorial/"
    }
   ],
-  "createdAt": "2026-10-23T11:57:35.753660+05:30",
+  "createdAt": "2026-10-23T15:15:58.086068+05:30",
   "coverAlt": {
    "path": "posts/2026-10-23/python-before-pandas-20/cover_b.jpg",
    "url": "/files/posts/2026-10-23/python-before-pandas-20/cover_b.jpg",
@@ -3488,5 +3347,146 @@
   "replaces": "2026-10-23-s2",
   "hookFamily": "pain-payoff",
   "coverBMechanic": "comment-line"
+ },
+ {
+  "id": "2026-10-23-s3",
+  "date": "2026-10-23",
+  "slot": 3,
+  "slotTime": "19:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega-kids",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "explain-to-kid",
+  "pillar": "Kids",
+  "slug": "pandas-to-a-5-year-old",
+  "title": "How I'd explain pandas to a 5-year-old",
+  "caption": "pandas looks scary until you see it as a class register.\n12 ideas from a school day, each with the real line of code an analyst writes.\nFollow @thedataguy16 and comment PDKID. I'll DM you the full 5-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#pandas #python #dataanalyst #learnpython #datascience #thedataguy16",
+  "keyword": "PDKID",
+  "why": "Proven: Kids Power BI 88,929 views / 1,012 follows / 61% non-followers; Kids Python 71,511 / 1,059. Next topic in kidsRules.queue (pandas). Cover B: simple explainer.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "pandas",
+  "slides": [
+   {
+    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_01.jpg",
+    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_02.jpg",
+    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_03.jpg",
+    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_04.jpg",
+    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/pandas-to-a-5-year-old/slide_05.jpg",
+    "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/slide_05.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-23/pandas-to-a-5-year-old/carousel.pdf",
+   "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/carousel.pdf",
+   "name": "pandas-to-a-5-year-old.pdf",
+   "pages": 5
+  },
+  "spec": "days/2026-10-23/s3.spec.json",
+  "sources": [
+   {
+    "title": "pandas user guide",
+    "url": "https://pandas.pydata.org/docs/user_guide/index.html"
+   }
+  ],
+  "createdAt": "2026-10-23T15:15:58.087098+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-23/pandas-to-a-5-year-old/cover_b.jpg",
+   "url": "/files/posts/2026-10-23/pandas-to-a-5-year-old/cover_b.jpg",
+   "hook": "simple-explainer"
+  },
+  "coverChoice": "a",
+  "hookFamily": "kids-topic",
+  "coverBMechanic": "simple-explainer"
+ },
+ {
+  "id": "2026-10-23-s4",
+  "date": "2026-10-23",
+  "slot": 4,
+  "slotTime": "21:00",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "vs-split",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "role-vs",
+  "pillar": "Career",
+  "slug": "bi-developer-vs-data-analyst",
+  "title": "BI Developer vs Data Analyst: same tools, different jobs",
+  "caption": "Both open Power BI every day. Only one of them builds it.\nWhat each one builds, the SQL each one writes, how they test freshers, and which one fits you.\nFollow @thedataguy16 and comment BIVSDA. I'll DM you the full 9-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#powerbi #dataanalyst #bideveloper #analystjobs #freshers #thedataguy16",
+  "keyword": "BIVSDA",
+  "why": "Proven: Split DA vs DS 46,911 views / 120 follows / 53% non-followers; DA vs BA 29,835 / 53. Pair from roleVs.queue (BI Developer vs Data Analyst), moved ahead of 'Fresher vs 2-year analyst' so it does not overlap today's first-30-days plan. Hook family: decision settler; cover B: sticker number.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "BI Developer vs Data Analyst",
+  "slides": [
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_01.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_02.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_03.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_04.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_05.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_06.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_07.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_08.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/bi-developer-vs-data-analyst/slide_09.jpg",
+    "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/slide_09.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-23/bi-developer-vs-data-analyst/carousel.pdf",
+   "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/carousel.pdf",
+   "name": "bi-developer-vs-data-analyst.pdf",
+   "pages": 9
+  },
+  "spec": "days/2026-10-23/s4.spec.json",
+  "sources": [],
+  "createdAt": "2026-10-23T15:15:58.088488+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-23/bi-developer-vs-data-analyst/cover_b.jpg",
+   "url": "/files/posts/2026-10-23/bi-developer-vs-data-analyst/cover_b.jpg",
+   "hook": "sticker-number"
+  },
+  "coverChoice": "a",
+  "hookFamily": "decision-settler",
+  "coverBMechanic": "sticker-number"
  }
 ]

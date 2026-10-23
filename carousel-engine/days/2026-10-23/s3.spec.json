@@ -3,17 +3,17 @@
  "style": "paper",
  "layout": "editorial",
  "format": "mega",
- "cover_bg": "sky",
  "lang": "python",
  "cover_alt": {
-  "title": "pandas is ~simple~ once you see it like this",
-  "hook": "simple-explainer",
-  "bg": "yellow"
+  "title": "pandas<br>is ~simple~ once<br>you see it<br>like this",
+  "sub": "12 ideas. One school day.",
+  "hook": "simple-explainer"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "How I'd explain ~pandas~ to a 5-year-old"
+   "title": "How I'd explain<br>~pandas~<br>to a 5-year-old",
+   "sub": "12 ideas from one school day.<br>The real pandas line under each."
   },
   {
    "type": "kids",

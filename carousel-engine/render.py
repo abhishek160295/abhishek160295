@@ -835,10 +835,19 @@ def mega_page(s, i, n):
     segs = "".join(f'<i class="{"on" if k <= i else ""}"></i>' for k in range(1, n + 1))
     sig = (f'<div class="sig sig3"><span class="h">{MONO}@thedataguy16</span><span class="dots">{segs}</span>'
            f'<span class="pg">{"Save this" if i == n else f"{i:02d} / {n:02d}"}{icon("bookmark", 26, 2.4) if i == n else icon("arrow-right", 26, 2.6)}</span></div>')
-    if t == "marker_cover":  # v5: the hook and nothing else
-        bg = s.get("_bg") or COVER_BG[sum(map(ord, s.get("title", ""))) % len(COVER_BG)]
-        inner = f'<div class="hk5" style="background:{bg[0]}"><div class="hk5t" style="--hl:{bg[1]}">{re.sub(r"(?<![\w-])(\w+(?:-\w+)+)(?![\w-])", r'<span style="white-space:nowrap">\1</span>', inl(s["title"]))}</div></div>'
-        return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="mg hk"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
+    if t == "marker_cover":  # hook + payoff line + slide previews (owner prefers this to hook-only covers, 23 Oct)
+        prev = s.get("_previews") or []
+        fan = "".join(f'<img class="f{k}" src="{p}">' for k, p in enumerate(prev[:3]))
+        kw = s.get("_keyword")
+        inner = (f'<div class="cv3"><div class="cvtop"><div class="who">{MONO}<b>thedataguy16</b>{icon("badge-check", 30, 2.4)}</div>'
+                 f'<span class="chip">{icon("bookmark", 26, 2.4)}Save for later</span></div>'
+                 f'<div class="cvh"><div class="mkt">{inl(s["title"])}</div>' + (f'<div class="mks">{inl(s["sub"])}</div>' if s.get("sub") else "") + '</div>'
+                 + (f'<div class="fan n{len(prev[:3])}">{fan}</div>' if fan else "")
+                 + (f'<div class="stk"><span>{inl(s["_sticker"])}</span></div>' if s.get("_sticker") else "")
+                 + '<div class="cvbot">' + (f'<span class="kwc">{icon("message-circle", 30, 2.4)}Comment <b>{html.escape(kw)}</b> for the PDF</span>' if kw else "<span></span>")
+                 + f'<span class="swp">Swipe{icon("arrow-right", 30, 2.8)}</span></div></div>')
+        cls = "mg mc3" + (" nofan" if not fan else "")
+        return (f'<html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="{cls}"><div class="pap"></div>{inner}<div class="grain"></div></div></body></html>')
     elif t == "mproduct":
         ph = "".join(f'<div class="mpp"><span class="d">{html.escape(r)}</span><span class="dot"></span><b>{inl(nm)}</b></div>' for r, nm in s.get("phases", []))
         st = "".join(f'<div class="mps"><b>{inl(v)}</b><span>{inl(l)}</span></div>' for v, l in s.get("stats", []))
@@ -1006,7 +1015,7 @@ async def render(spec, out):
         for idx in order:
             i, s = idx + 1, sl[idx]
             if s["type"] == "marker_cover":
-                s = dict(s, _bg=COVER_BG_BY_NAME.get(spec.get("cover_bg", ""))); cover_ctx = s
+                s = dict(s, _previews=[_src(files[k]) for k in content[:3]], _sticker=sticker, _keyword=kw); cover_ctx = s
             await pg.set_content(mega_page(s, i, len(sl)) if s["type"] in MEGA_TYPES else page(s, i, len(sl), series, style, layout))
             await pg.evaluate("document.fonts.ready")
             if s["type"] in MEGA_TYPES:
@@ -1023,8 +1032,6 @@ async def render(spec, out):
             await pg.screenshot(path=str(f), type="jpeg", quality=94); files[idx] = str(f)
         if spec.get("cover_alt"):  # second hook option for the cover -> cover_b.jpg
             alt = dict(cover_ctx if sl[0]["type"] == "marker_cover" else sl[0], **{k: v for k, v in spec["cover_alt"].items() if k != "hook"})
-            if sl[0]["type"] == "marker_cover":
-                alt["_bg"] = spec["cover_alt"].get("bg") and COVER_BG_BY_NAME.get(spec["cover_alt"]["bg"]) or COVER_BG[(sum(map(ord, alt["title"])) + 2) % len(COVER_BG)]
             if sl[0]["type"] == "marker_cover":  # mega series keep the marker look for both hooks
                 await pg.set_content(mega_page(alt, 1, len(sl))); await pg.evaluate("document.fonts.ready"); await mega_fit(pg)
             else:

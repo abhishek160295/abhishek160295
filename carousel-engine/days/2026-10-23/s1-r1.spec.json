@@ -3,17 +3,17 @@
  "style": "paper",
  "layout": "editorial",
  "format": "mega",
- "cover_bg": "mint",
  "lang": "sql",
  "cover_alt": {
-  "title": "Comment ~XLSQL~ for all 24 side by side",
-  "hook": "comment-line",
-  "bg": "yellow"
+  "title": "Know Excel?<br>You already know<br>half of ~SQL~.",
+  "sub": "24 tasks you do daily, in SQL.",
+  "hook": "comment-line"
  },
  "slides": [
   {
    "type": "marker_cover",
-   "title": "Know Excel? You already know ~SQL~."
+   "title": "24 Excel tasks<br>written in ~SQL~,<br>with the answers",
+   "sub": "Filters, SUMIF, pivots, VLOOKUP.<br>Each query run, each result shown."
   },
   {
    "type": "sheet",
