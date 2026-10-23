@@ -61,7 +61,7 @@ E.figure = (c, o) => {
   c.globalAlpha *= o.alpha ?? 1;
   c.strokeStyle = col; c.fillStyle = col;
   c.lineWidth = o.lw ?? 13; c.lineCap = 'round'; c.lineJoin = 'round';
-  if (o.glow) { c.shadowColor = o.glowColor ?? col; c.shadowBlur = Math.min(o.glow, 12); }
+  // figures stay crisp: no halo blur (o.glow kept for API compatibility)
   const dir = a => [Math.sin(a) * f, Math.cos(a)];
   const limb = (x, y, a1, bend, l1, l2) => {
     const d1 = dir(a1), kx = x + d1[0] * l1, ky = y + d1[1] * l1, d2 = dir(a1 + bend);
@@ -112,7 +112,8 @@ E.title = (c, str, x, y, t, t0, t1 = 1e9, o = {}) => {
   if (t0 <= .1) t0 = -1; // lines that open a scene are on screen from its first frame
   const out = 1 - E.p(t, t1, t1 + .3, 'in');
   if (out <= 0 || t < t0) return;
-  c.save(); c.font = `${o.weight ?? 600} ${o.size ?? 46}px ${o.family ?? 'Inter'}`; c.letterSpacing = (o.ls ?? 0) + 'px';
+  o = { family: '"Inter Display", Inter', ...o };
+  c.save(); c.font = `${o.weight ?? 600} ${o.size ?? 46}px ${o.family}`; c.letterSpacing = (o.ls ?? 0) + 'px';
   const words = str.split(' '), sp = c.measureText(' ').width, ws = words.map(w => c.measureText(w).width);
   c.restore();
   const total = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1);
@@ -130,7 +131,7 @@ E.line = (c, x1, y1, x2, y2, col = GREY, w = 5, glow = 0) => {
   if (glow) { c.shadowColor = col; c.shadowBlur = glow; }
   c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.restore();
 };
-E.ground = (c, y, x1 = 0, x2 = W, col = '#6b6b6b') => E.line(c, x1, y, x2, y, col, 5);
+E.ground = (c, y, x1 = 0, x2 = W, col = '#8f8f8f') => E.line(c, x1, y, x2, y, col, 5);
 E.rrect = (c, x, y, w, h, r, fill, stroke, lw = 4) => {
   c.beginPath(); c.roundRect(x, y, w, h, r);
   if (fill) { c.fillStyle = fill; c.fill(); }
@@ -168,7 +169,7 @@ E.particles = (c, x, y, t, o = {}) => { // burst at t=0, t in seconds since burs
     const ang = E.rnd(i + (o.seed ?? 0)) * Math.PI * 2, sp = (o.speed ?? 600) * (.3 + E.rnd(i * 3.1 + 7) * .7);
     const px = x + Math.cos(ang) * sp * t, py = y + Math.sin(ang) * sp * t + (o.grav ?? 400) * t * t;
     c.globalAlpha = (1 - t / life) * (o.alpha ?? 1);
-    c.fillStyle = o.color ?? GOLD; c.shadowColor = o.color ?? GOLD; c.shadowBlur = 12;
+    c.fillStyle = o.color ?? GOLD;
     const r = (o.size ?? 5) * (.5 + E.rnd(i * 5.7) * .8);
     c.beginPath(); c.arc(px, py, r, 0, Math.PI * 2); c.fill();
   }
@@ -189,7 +190,8 @@ E.camera = (c, s, fx, fy, cx = W / 2, cy = H / 2) => { c.translate(cx, cy); c.sc
 // ---------- reel runtime ----------
 window.E = E; Object.assign(window, { W, H, FPS, GOLD, RED, GREEN, ICE, GREY, DIM, WHITE });
 window.setupReel = reel => {
-  const cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+  const S = window.RENDER_SCALE || 1; // supersample: draw at S× and downscale in ffmpeg
+  const cv = document.getElementById('cv'); cv.width = W * S; cv.height = H * S;
   const c = cv.getContext('2d');
   let starts = [], acc = 0; for (const s of reel.scenes) { starts.push(acc); acc += s.dur; }
   reel.total = acc;
@@ -197,7 +199,7 @@ window.setupReel = reel => {
   window.renderAt = T => {
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
     const sc = reel.scenes[i], t = T - starts[i];
-    c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
+    c.setTransform(S, 0, 0, S, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
     // safe frame: keep every scene clear of the Reels/TikTok/Shorts UI
     // (right action rail x>950, top bar, caption block) — scale 0.88 about (573, 960)
     c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);

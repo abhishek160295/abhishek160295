@@ -3,11 +3,11 @@ const inBed = { tor: 0, hd: 0, aB: .2, eB: .3, aF: 2.6, eF: .3, lB: 1.57, kB: 0,
 const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
 // 1 — The promise vs the snooze
 { dur: 6.4, draw(c, t) {
-  E.title(c, 'Every night vs every morning:', W / 2, 420, t, -1, 4.3, { size: 46, weight: 800 });
+  E.title(c, 'Me at 11 PM vs me at 5 AM:', W / 2, 420, t, -1, 4.3, { size: 50, weight: 800 });
   E.title(c, 'Be who you promised to be.', W / 2, 420, t, 4.5, 1e9, { size: 52, weight: 900, color: GOLD });
   const g1 = 900, g2 = 1440, s = .8;
-  E.text(c, '11 PM YOU', 120, 560, { size: 30, weight: 900, ls: 3, color: GREY, align: 'left' });
-  E.text(c, '5 AM YOU', 120, 1080, { size: 30, weight: 900, ls: 3, color: GREY, align: 'left' });
+  E.text(c, '11 PM ME', 120, 560, { size: 30, weight: 900, ls: 3, color: GREY, align: 'left' });
+  E.text(c, '5 AM ME', 120, 1080, { size: 30, weight: 900, ls: 3, color: GREY, align: 'left' });
   E.moon(c, 900, 600, 40);
   E.ground(c, g1, 90, 990); E.bed(c, 120, g1);
   const pump = Math.sin(t * 9) * .3;
@@ -24,27 +24,6 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
   if (bl > 0) E.rrect(c, 150 + (1 - bl) * 120, g2 - 112, 240 - (1 - bl) * 120, 30, 14, '#5a6a8a');
   E.bubble(c, '5 more minutes…', 600, g2 - 200, E.p(t, 2.0, 2.3, 'back'), { size: 30 });
   for (let i = 0; i < 3; i++) { const k = ((t - 2.4 + i * .6) % 1.8) / 1.8; if (t > 2.4) E.text(c, 'z', 200 + k * 80 + i * 10, g2 - 150 - k * 140, { size: 30 + i * 8, weight: 800, color: '#888', alpha: Math.sin(k * Math.PI) }); }
-} },
-// 2 — Hype vs habit across the week
-{ dur: 6.4, draw(c, t) {
-  E.title(c, 'Hype fades by Wednesday.', W / 2, 420, t, -1, 3.6, { size: 52, weight: 800 });
-  E.title(c, 'Habits show up on Friday.', W / 2, 420, t, 3.8, 1e9, { size: 52, weight: 900, color: GOLD });
-  const g1 = 900, g2 = 1400, s = .6, days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
-  E.text(c, 'HYPE', 100, 590, { size: 30, weight: 900, ls: 4, color: GREY, align: 'left' });
-  E.text(c, 'HABIT', 100, 1090, { size: 30, weight: 900, ls: 4, align: 'left' });
-  E.ground(c, g1, 90, 990); E.ground(c, g2, 90, 990);
-  days.forEach((d, i) => {
-    const x = 160 + i * 190, a = E.p(t, .3 + i * .55, .55 + i * .55, 'back');
-    E.text(c, d, x, g1 + 38, { size: 30, weight: 800, ls: 2, color: '#666' });
-    E.text(c, d, x, g2 + 38, { size: 30, weight: 800, ls: 2, color: i === 4 && t > 3.6 ? GOLD : '#666' });
-    if (a <= 0) return;
-    const hype = [E.run(t * 16), E.run(t * 11), E.walk(t * 6), E.pose('sad'), E.pose('stand')][i];
-    const col = ['#fff', '#ddd', '#aaa', '#888', '#666'][i];
-    if (i < 4) E.figure(c, { x, y: g1 - E.FIG_H * s - 2 + (1 - a) * 40, s, pose: hype, color: col, alpha: a });
-    else E.figure(c, { x, y: g1 - 18, s, rot: -Math.PI / 2, pose: hype, color: col, alpha: a });
-    E.figure(c, { x, y: g2 - E.FIG_H * s - 2 + (1 - a) * 40, s, alpha: a, pose: i === 4 && t > 3.8 ? E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 3.8, 4.2, 'back')) : E.walk(t * 7 + i), color: i === 4 && t > 3.6 ? GOLD : '#fff', glow: i === 4 && t > 3.6 ? 10 : 0 });
-  });
-  if (t > 3.6) E.particles(c, 920, g2 - 140, t - 3.8, { n: 30, speed: 380 });
 } },
 // 3 — Just one more video
 { dur: 6.4, draw(c, t) {
@@ -66,6 +45,27 @@ const REEL = { title: '11 PM you vs 5 AM you', bpm: 150, scenes: [
   c.save(); c.translate(px, py); c.rotate(.3); E.rrect(c, -24, -44, 48, 88, 8, '#222', '#ddd', 3); c.beginPath(); c.rect(-19, -38, 38, 76); c.clip();
   c.fillStyle = '#9fd3ff'; c.fillRect(-19, -38, 38, 76); for (let i = 0; i < 5; i++) { const yy = ((i * 22 - t * 220) % 110 + 110) % 110 - 40; c.fillStyle = '#4a7fb0'; c.fillRect(-15, yy, 30, 14); }
   c.restore();
+} },
+// 2 — Hype vs habit across the week
+{ dur: 6.4, draw(c, t) {
+  E.title(c, 'Hype fades by Wednesday.', W / 2, 420, t, -1, 3.6, { size: 52, weight: 800 });
+  E.title(c, 'Habits show up on Friday.', W / 2, 420, t, 3.8, 1e9, { size: 52, weight: 900, color: GOLD });
+  const g1 = 900, g2 = 1400, s = .6, days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+  E.text(c, 'HYPE', 100, 590, { size: 30, weight: 900, ls: 4, color: GREY, align: 'left' });
+  E.text(c, 'HABIT', 100, 1090, { size: 30, weight: 900, ls: 4, align: 'left' });
+  E.ground(c, g1, 90, 990); E.ground(c, g2, 90, 990);
+  days.forEach((d, i) => {
+    const x = 160 + i * 190, a = E.p(t, .3 + i * .55, .55 + i * .55, 'back');
+    E.text(c, d, x, g1 + 38, { size: 30, weight: 800, ls: 2, color: '#666' });
+    E.text(c, d, x, g2 + 38, { size: 30, weight: 800, ls: 2, color: i === 4 && t > 3.6 ? GOLD : '#666' });
+    if (a <= 0) return;
+    const hype = [E.run(t * 16), E.run(t * 11), E.walk(t * 6), E.pose('sad'), E.pose('stand')][i];
+    const col = ['#fff', '#ddd', '#aaa', '#888', '#666'][i];
+    if (i < 4) E.figure(c, { x, y: g1 - E.FIG_H * s - 2 + (1 - a) * 40, s, pose: hype, color: col, alpha: a });
+    else E.figure(c, { x, y: g1 - 18, s, rot: -Math.PI / 2, pose: hype, color: col, alpha: a });
+    E.figure(c, { x, y: g2 - E.FIG_H * s - 2 + (1 - a) * 40, s, alpha: a, pose: i === 4 && t > 3.8 ? E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 3.8, 4.2, 'back')) : E.walk(t * 7 + i), color: i === 4 && t > 3.6 ? GOLD : '#fff', glow: i === 4 && t > 3.6 ? 10 : 0 });
+  });
+  if (t > 3.6) E.particles(c, 920, g2 - 140, t - 3.8, { n: 30, speed: 380 });
 } },
 // 4 — Waiting for motivation
 { dur: 6.4, draw(c, t) {

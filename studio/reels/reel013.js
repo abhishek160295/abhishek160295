@@ -1,22 +1,5 @@
 // Reel 013 — "Rainy days show who's real"
 const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
-// 1 — Stop explaining yourself
-{ dur: 6.4, draw(c, t) {
-  E.title(c, 'Stop explaining yourself', W / 2, 420, t, -1, 1e9, { size: 52, weight: 900 });
-  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, .5, 3.3, { size: 42, weight: 700, color: '#ccc' });
-  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, 3.5, 1e9, { size: 42, weight: 800, color: GOLD });
-  const gy = 1320, s = .85;
-  E.ground(c, gy, 90, 990);
-  const unroll = E.p(t, .3, 2.6, 'out') * (1 - E.p(t, 3.0, 3.5, 'in'));
-  // the explanation scroll
-  const sx = 330, len = 560 * unroll;
-  if (len > 4) { E.rrect(c, sx, gy - 150, len, 120, 6, '#efe6d0'); for (let i = 0; i < 4; i++) E.line(c, sx + 20, gy - 125 + i * 24, sx + Math.max(20, len - 30 - (i % 2) * 60), gy - 125 + i * 24, '#a59a80', 5); c.save(); c.fillStyle = '#d8ccb0'; c.beginPath(); c.arc(sx + len, gy - 90, 26, 0, 7); c.fill(); c.restore(); }
-  // listeners walk away
-  [0, 1].forEach(i => { const k = E.p(t, 1.0 + i * .2, 3.0 + i * .2, 'inOut'); const x = E.lerp(680 + i * 120, 1200 + i * 120, k); E.figure(c, { x, y: gy - E.FIG_H * .75 - 2, s: .75, color: '#666', f: k > 0 ? 1 : -1, pose: k > 0 && k < 1 ? E.walk(x / 24) : E.pose('arms') }); });
-  let x = 240, f = 1, pose = { ...E.pose('point'), aF: 1.3 + Math.sin(t * 8) * .25, aB: -.6 + Math.sin(t * 8 + 1) * .3, eB: .6 };
-  if (t > 3.5) { const k = E.p(t, 3.6, 5.6, 'inOut'); x = E.lerp(240, 760, k); pose = k < 1 ? E.walk(x / 24) : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 5.6, 5.9, 'back')); }
-  E.figure(c, { x, y: gy - E.FIG_H * s - 2, s, f, pose, glow: t > 3.5 ? 10 : 0 });
-} },
 // 2 — Sunny days vs rainy days
 { dur: 6.4, draw(c, t) {
   E.title(c, "Sunny days: everyone's here.", W / 2, 420, t, -1, 3.6, { size: 50, weight: 800 });
@@ -36,6 +19,23 @@ const REEL = { title: "Rainy days show who's real", bpm: 150, scenes: [
   // the one who returns with an umbrella
   if (t > 3.6) { const k = E.p(t, 3.6, 4.4, 'inOut'), ux = E.lerp(1150, 650, k); E.figure(c, { x: ux, y: gy - E.FIG_H * s - 2, s, f: -1, color: GOLD, pose: k < 1 ? E.run(ux / 20) : { ...E.pose('stand'), aF: 2.7, eF: .1 } }); E.umbrella(c, ux - 70, gy - 330, .9); }
   E.figure(c, { x: 540, y: gy - E.FIG_H * .8 - 2, s: .8, pose: t < 2.3 ? E.pose('cheer') : t < 4.4 ? E.pose('sad') : E.mix(E.pose('sad'), E.pose('stand'), E.p(t, 4.4, 4.8)) });
+} },
+// 1 — Stop explaining yourself
+{ dur: 6.4, draw(c, t) {
+  E.title(c, 'Stop explaining yourself', W / 2, 420, t, -1, 1e9, { size: 52, weight: 900 });
+  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, .5, 3.3, { size: 42, weight: 700, color: '#ccc' });
+  E.title(c, 'to people who chose not to understand.', W / 2, 495, t, 3.5, 1e9, { size: 42, weight: 800, color: GOLD });
+  const gy = 1320, s = .85;
+  E.ground(c, gy, 90, 990);
+  const unroll = E.p(t, .3, 2.6, 'out') * (1 - E.p(t, 3.0, 3.5, 'in'));
+  // the explanation scroll
+  const sx = 330, len = 560 * unroll;
+  if (len > 4) { E.rrect(c, sx, gy - 150, len, 120, 6, '#efe6d0'); for (let i = 0; i < 4; i++) E.line(c, sx + 20, gy - 125 + i * 24, sx + Math.max(20, len - 30 - (i % 2) * 60), gy - 125 + i * 24, '#a59a80', 5); c.save(); c.fillStyle = '#d8ccb0'; c.beginPath(); c.arc(sx + len, gy - 90, 26, 0, 7); c.fill(); c.restore(); }
+  // listeners walk away
+  [0, 1].forEach(i => { const k = E.p(t, 1.0 + i * .2, 3.0 + i * .2, 'inOut'); const x = E.lerp(680 + i * 120, 1200 + i * 120, k); E.figure(c, { x, y: gy - E.FIG_H * .75 - 2, s: .75, color: '#666', f: k > 0 ? 1 : -1, pose: k > 0 && k < 1 ? E.walk(x / 24) : E.pose('arms') }); });
+  let x = 240, f = 1, pose = { ...E.pose('point'), aF: 1.3 + Math.sin(t * 8) * .25, aB: -.6 + Math.sin(t * 8 + 1) * .3, eB: .6 };
+  if (t > 3.5) { const k = E.p(t, 3.6, 5.6, 'inOut'); x = E.lerp(240, 760, k); pose = k < 1 ? E.walk(x / 24) : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 5.6, 5.9, 'back')); }
+  E.figure(c, { x, y: gy - E.FIG_H * s - 2, s, f, pose, glow: t > 3.5 ? 10 : 0 });
 } },
 // 3 — Saying yes to everyone
 { dur: 6.4, draw(c, t) {

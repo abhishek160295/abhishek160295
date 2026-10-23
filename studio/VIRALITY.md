@@ -22,6 +22,9 @@ Look: black, white stick figures, one accent per scene (red = struggle, gold = w
 Audio: silent master. Add a trending sound in-app (phonk / epic / emotional piano) at full volume.
 Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Reels and TikTok. Pin a question comment.
 
+15. **Max sharpness.** Frames are drawn at 2160x3840 and lanczos-downscaled to a 1080p master (Reels/TikTok) and a 1440p master (YouTube Shorts gets sharper VP9 at 1440p and above). No halo blur on figures or particles. Titles use Inter Display. Ground and lines are high-contrast.
+16. **"That's me" hooks.** Write hooks in first person or about a moment the viewer has lived ("Me at 11 PM vs me at 5 AM"). The most relatable scene opens the reel and must match its title.
+
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
 - Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
