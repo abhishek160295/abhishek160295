@@ -1,44 +1,31 @@
-== s1 08:30 BIG-NUMBER CHEAT SHEET :: 25 business maths formulas every analyst uses, each with its answer [9-page PDF, 9 post slides]
-  ok  excel  m1: 12.5
-  ok  excel  m2: 14
-  ok  excel  m3: 51000
-  ok  excel  m4: 14.5
-  ok  excel  m5: 5
-  ok  excel  m6: 144333
-  ok  excel  m7: 32000
-  ok  excel  m8: 62857
-  ok  excel  m9: 3
-  ok  excel  m10: 170
-  ok  excel  m11: 82665
-  ok  excel  m12: 124000
-  ok  excel  m13: 29000
-  ok  excel  m14: 8500
-  ok  excel  m15: Outlier
-  ok  excel  m16: 4
-  ok  excel  m17: 24
-  ok  excel  m18: 200
-  ok  excel  m19: 19.7
-  ok  excel  m20: 95
-  ok  excel  m21: 383000
-  ok  excel  m22: 161000
-  ok  excel  m23: 0.83
-  ok  excel  m24: 180133
-  ok  excel  m25: 2.26
-== s2 10:30 roadmap/plan :: Your first 30 days as a data analyst: the day-by-day plan [8-page PDF, 8 post slides]
-== s3 19:00 KIDS (big tool/role) :: How I'd explain pandas to a 5-year-old [5-page PDF, 5 post slides]
-  ok  python read: (8, 13)
-  ok  python slide 2: 'df.head()'
-  ok  python slide 2: 'df[df["region"] == "North"]'
-  ok  python slide 2: 'df.sort_values("sales", ascending=False)'
-  ok  python slide 2: 'df.isna().sum()'
-  ok  python slide 2: 'df["total"] = df["qty"] * df["price"]'
-  ok  python slide 3: 'df.groupby("region")["sales"].sum()'
-  ok  python slide 3: 'df.merge(customers, on="customer_id")'
-  ok  python slide 3: 'df.drop_duplicates()'
-  ok  python slide 3: 'df["name"].str.strip().str.title()'
-  ok  python slide 3: 'df["region"].value_counts()'
-  ok  python slide 3: 'df.to_excel("report.xlsx", index=False)'
-== s4 21:00 ROLE VS :: BI Developer vs Data Analyst: same tools, different jobs [9-page PDF, 9 post slides]
-  ok  sql    bi-view: []
-  ok  sql    da-city: [['Pune', 4250.0], ['Indore', 3150.0]]
+== s1-r1 08:30 BIG-NUMBER CHEAT SHEET :: 24 Excel tasks written in SQL, each with the rows it returns [11-page PDF, 11 post slides]
+  ok  sql    q1: [[1, 1, 1, 1, 1, '2024-01-10', 500.0, 5, 'Delivered', 'West', 'Pune'], [2, 2, 1, 1, 3, '2024-01-22', 900.0, 2, 'Delivered', 'West', 'Pune'], [6, 6, 4, 4, 3, '2024-03-09', 450.0, 1, 'Delivered', 'West', 'Pune'], [7, 7, 1, 1, 2, '2024-03-15', 2400.0, 40, 'Delivered', 'West', 'Pune']]
+  ok  sql    q2: [[3, 1200.0], [4, 1800.0], [7, 2400.0], [8, 1350.0]]
+  ok  sql    q3: [[1, 'Pune'], [2, 'Pune'], [5, 'Kanpur'], [6, 'Pune']]...
+  ok  sql    q4: [['Amit', 'amit@mail.com'], ['Divya', 'divya@mail.com'], ['Rahul', 'rahul@mail.com'], ['Meena', 'meena@mail.com']]...
+  ok  sql    q5: [['Ravi'], ['Imran'], ['Karan'], ['Vikas']]
+  ok  sql    q6: [[7, 2400.0], [4, 1800.0], [8, 1350.0], [3, 1200.0]]...
+  ok  sql    q7: [[8900.0]]
+  ok  sql    q8: [[6]]
+  ok  sql    q9: [['Indore', 4350.0], ['Kanpur', 300.0], ['Pune', 4250.0]]
+  ok  sql    q10: [['HR', 46500.0], ['IT', 64667.0], ['Sales', 55000.0]]
+  ok  sql    q11: [[72000, 45000]]
+  ok  sql    q12: [[8, 4]]
+  ok  sql    q13: [['Indore', 3, 4350.0], ['Kanpur', 1, 300.0], ['Pune', 4, 4250.0]]
+  ok  sql    q14: [['Central', 3150.0], ['West', 4250.0]]
+  ok  sql    q15: [['Indore', 4350.0], ['Pune', 4250.0]]
+  ok  sql    q16: [['Indore', 4350.0], ['Pune', 4250.0]]
+  ok  sql    q17: [['Pune'], ['Indore'], ['Kanpur']]
+  ok  sql    q18: [[4]]
+  ok  sql    q19: [[1, 'Amit'], [2, 'Amit'], [3, 'Divya'], [4, 'Divya']]...
+  ok  sql    q20: [['Sanjay', None]]
+  ok  sql    q21: [[1, 'Small'], [2, 'Small'], [3, 'Big'], [4, 'Big']]...
+  ok  sql    q22: [['Asha', '98200 11111'], ['Ravi', 'Not given'], ['Neha', '98200 33333'], ['Imran', 'Not given']]...
+  ok  sql    q23: [['PUNE', 4], ['INDORE', 6], ['KANPUR', 6], ['PUNE', 4]]...
+  ok  sql    q24: [[1, '01'], [2, '01'], [3, '02'], [4, '02']]...
+== s2-r1 10:30 BIG-NUMBER CHEAT SHEET :: 20 Python lines to know before pandas, each with its output [8-page PDF, 8 post slides]
+  ok  python page1: 
+  ok  python page2: 
+  ok  python page3: 
+  ok  python page4: 
 contact sheet: posts/2026-10-23/contact.jpg

@@ -1,0 +1,582 @@
+{
+ "title": "24 Excel tasks written in SQL, each with the rows it returns",
+ "slug": "excel-tasks-in-sql-24",
+ "keyword": "XLSQL",
+ "caption": "If you can use filters, SUMIF, pivots and VLOOKUP, you already know half of SQL.\n24 Excel tasks, each written as a SQL query with the rows it returns.\nFollow @thedataguy16 and comment XLSQL. I'll DM you the full 11-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#sql #excel #dataanalyst #learnsql #analystjobs #thedataguy16",
+ "hookType": "big-list",
+ "pillar": "Skills",
+ "illustrative": true,
+ "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Replaces rejected 2026-10-23-s1 (business maths). Planner offered a Power BI interview list; Power BI ran 22 Oct and an interview list was rejected 22 Oct, so this is a tool cheat sheet, the format the owner has been posting. Hook family: pain + payoff; cover B: comment line.",
+ "sources": [
+  {
+   "title": "SQLite SELECT",
+   "url": "https://www.sqlite.org/lang_select.html"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "q1",
+    "lang": "sql",
+    "query": "SELECT * FROM orders WHERE city = 'Pune';",
+    "expect": [
+     [
+      1,
+      1,
+      1,
+      1,
+      1,
+      "2024-01-10",
+      500.0,
+      5,
+      "Delivered",
+      "West",
+      "Pune"
+     ],
+     [
+      2,
+      2,
+      1,
+      1,
+      3,
+      "2024-01-22",
+      900.0,
+      2,
+      "Delivered",
+      "West",
+      "Pune"
+     ],
+     [
+      6,
+      6,
+      4,
+      4,
+      3,
+      "2024-03-09",
+      450.0,
+      1,
+      "Delivered",
+      "West",
+      "Pune"
+     ],
+     [
+      7,
+      7,
+      1,
+      1,
+      2,
+      "2024-03-15",
+      2400.0,
+      40,
+      "Delivered",
+      "West",
+      "Pune"
+     ]
+    ]
+   },
+   {
+    "id": "q2",
+    "lang": "sql",
+    "query": "SELECT order_id, amount FROM orders WHERE amount > 1000;",
+    "expect": [
+     [
+      3,
+      1200.0
+     ],
+     [
+      4,
+      1800.0
+     ],
+     [
+      7,
+      2400.0
+     ],
+     [
+      8,
+      1350.0
+     ]
+    ]
+   },
+   {
+    "id": "q3",
+    "lang": "sql",
+    "query": "SELECT order_id, city FROM orders WHERE city IN ('Pune', 'Kanpur');",
+    "expect": [
+     [
+      1,
+      "Pune"
+     ],
+     [
+      2,
+      "Pune"
+     ],
+     [
+      5,
+      "Kanpur"
+     ],
+     [
+      6,
+      "Pune"
+     ],
+     [
+      7,
+      "Pune"
+     ]
+    ]
+   },
+   {
+    "id": "q4",
+    "lang": "sql",
+    "query": "SELECT name, email FROM customers WHERE email LIKE '%mail%';",
+    "expect": [
+     [
+      "Amit",
+      "amit@mail.com"
+     ],
+     [
+      "Divya",
+      "divya@mail.com"
+     ],
+     [
+      "Rahul",
+      "rahul@mail.com"
+     ],
+     [
+      "Meena",
+      "meena@mail.com"
+     ],
+     [
+      "Sanjay",
+      "amit@mail.com"
+     ]
+    ]
+   },
+   {
+    "id": "q5",
+    "lang": "sql",
+    "query": "SELECT name FROM employees WHERE phone IS NULL;",
+    "expect": [
+     [
+      "Ravi"
+     ],
+     [
+      "Imran"
+     ],
+     [
+      "Karan"
+     ],
+     [
+      "Vikas"
+     ]
+    ]
+   },
+   {
+    "id": "q6",
+    "lang": "sql",
+    "query": "SELECT order_id, amount FROM orders ORDER BY amount DESC;",
+    "expect": [
+     [
+      7,
+      2400.0
+     ],
+     [
+      4,
+      1800.0
+     ],
+     [
+      8,
+      1350.0
+     ],
+     [
+      3,
+      1200.0
+     ],
+     [
+      2,
+      900.0
+     ],
+     [
+      1,
+      500.0
+     ],
+     [
+      6,
+      450.0
+     ],
+     [
+      5,
+      300.0
+     ]
+    ]
+   },
+   {
+    "id": "q7",
+    "lang": "sql",
+    "query": "SELECT SUM(amount) FROM orders;",
+    "expect": [
+     [
+      8900.0
+     ]
+    ]
+   },
+   {
+    "id": "q8",
+    "lang": "sql",
+    "query": "SELECT COUNT(*) FROM orders WHERE status = 'Delivered';",
+    "expect": [
+     [
+      6
+     ]
+    ]
+   },
+   {
+    "id": "q9",
+    "lang": "sql",
+    "query": "SELECT city, SUM(amount) FROM orders GROUP BY city;",
+    "expect": [
+     [
+      "Indore",
+      4350.0
+     ],
+     [
+      "Kanpur",
+      300.0
+     ],
+     [
+      "Pune",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "q10",
+    "lang": "sql",
+    "query": "SELECT dept, ROUND(AVG(salary)) FROM employees GROUP BY dept;",
+    "expect": [
+     [
+      "HR",
+      46500.0
+     ],
+     [
+      "IT",
+      64667.0
+     ],
+     [
+      "Sales",
+      55000.0
+     ]
+    ]
+   },
+   {
+    "id": "q11",
+    "lang": "sql",
+    "query": "SELECT MAX(salary), MIN(salary) FROM employees;",
+    "expect": [
+     [
+      72000,
+      45000
+     ]
+    ]
+   },
+   {
+    "id": "q12",
+    "lang": "sql",
+    "query": "SELECT COUNT(*), COUNT(phone) FROM employees;",
+    "expect": [
+     [
+      8,
+      4
+     ]
+    ]
+   },
+   {
+    "id": "q13",
+    "lang": "sql",
+    "query": "SELECT city, COUNT(*), SUM(amount) FROM orders GROUP BY city;",
+    "expect": [
+     [
+      "Indore",
+      3,
+      4350.0
+     ],
+     [
+      "Kanpur",
+      1,
+      300.0
+     ],
+     [
+      "Pune",
+      4,
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "q14",
+    "lang": "sql",
+    "query": "SELECT region, SUM(amount) FROM orders WHERE status = 'Delivered' GROUP BY region;",
+    "expect": [
+     [
+      "Central",
+      3150.0
+     ],
+     [
+      "West",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "q15",
+    "lang": "sql",
+    "query": "SELECT city, SUM(amount) FROM orders GROUP BY city HAVING SUM(amount) > 3000;",
+    "expect": [
+     [
+      "Indore",
+      4350.0
+     ],
+     [
+      "Pune",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "q16",
+    "lang": "sql",
+    "query": "SELECT city, SUM(amount) AS total FROM orders GROUP BY city ORDER BY total DESC LIMIT 2;",
+    "expect": [
+     [
+      "Indore",
+      4350.0
+     ],
+     [
+      "Pune",
+      4250.0
+     ]
+    ]
+   },
+   {
+    "id": "q17",
+    "lang": "sql",
+    "query": "SELECT DISTINCT city FROM orders;",
+    "expect": [
+     [
+      "Pune"
+     ],
+     [
+      "Indore"
+     ],
+     [
+      "Kanpur"
+     ]
+    ]
+   },
+   {
+    "id": "q18",
+    "lang": "sql",
+    "query": "SELECT COUNT(DISTINCT customer_id) FROM orders;",
+    "expect": [
+     [
+      4
+     ]
+    ]
+   },
+   {
+    "id": "q19",
+    "lang": "sql",
+    "query": "SELECT o.order_id, c.name FROM orders o JOIN customers c ON o.customer_id = c.customer_id;",
+    "expect": [
+     [
+      1,
+      "Amit"
+     ],
+     [
+      2,
+      "Amit"
+     ],
+     [
+      3,
+      "Divya"
+     ],
+     [
+      4,
+      "Divya"
+     ],
+     [
+      5,
+      "Rahul"
+     ],
+     [
+      6,
+      "Meena"
+     ],
+     [
+      7,
+      "Amit"
+     ],
+     [
+      8,
+      "Divya"
+     ]
+    ]
+   },
+   {
+    "id": "q20",
+    "lang": "sql",
+    "query": "SELECT c.name, o.order_id FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_id IS NULL;",
+    "expect": [
+     [
+      "Sanjay",
+      null
+     ]
+    ]
+   },
+   {
+    "id": "q21",
+    "lang": "sql",
+    "query": "SELECT order_id, CASE WHEN amount >= 1000 THEN 'Big' ELSE 'Small' END FROM orders;",
+    "expect": [
+     [
+      1,
+      "Small"
+     ],
+     [
+      2,
+      "Small"
+     ],
+     [
+      3,
+      "Big"
+     ],
+     [
+      4,
+      "Big"
+     ],
+     [
+      5,
+      "Small"
+     ],
+     [
+      6,
+      "Small"
+     ],
+     [
+      7,
+      "Big"
+     ],
+     [
+      8,
+      "Big"
+     ]
+    ]
+   },
+   {
+    "id": "q22",
+    "lang": "sql",
+    "query": "SELECT name, COALESCE(phone, 'Not given') FROM employees;",
+    "expect": [
+     [
+      "Asha",
+      "98200 11111"
+     ],
+     [
+      "Ravi",
+      "Not given"
+     ],
+     [
+      "Neha",
+      "98200 33333"
+     ],
+     [
+      "Imran",
+      "Not given"
+     ],
+     [
+      "Pooja",
+      "98200 55555"
+     ],
+     [
+      "Karan",
+      "Not given"
+     ],
+     [
+      "Sneha",
+      "98200 77777"
+     ],
+     [
+      "Vikas",
+      "Not given"
+     ]
+    ]
+   },
+   {
+    "id": "q23",
+    "lang": "sql",
+    "query": "SELECT UPPER(city), LENGTH(city) FROM customers;",
+    "expect": [
+     [
+      "PUNE",
+      4
+     ],
+     [
+      "INDORE",
+      6
+     ],
+     [
+      "KANPUR",
+      6
+     ],
+     [
+      "PUNE",
+      4
+     ],
+     [
+      "BHOPAL",
+      6
+     ]
+    ]
+   },
+   {
+    "id": "q24",
+    "lang": "sql",
+    "query": "SELECT order_id, strftime('%m', order_date) FROM orders;",
+    "expect": [
+     [
+      1,
+      "01"
+     ],
+     [
+      2,
+      "01"
+     ],
+     [
+      3,
+      "02"
+     ],
+     [
+      4,
+      "02"
+     ],
+     [
+      5,
+      "03"
+     ],
+     [
+      6,
+      "03"
+     ],
+     [
+      7,
+      "03"
+     ],
+     [
+      8,
+      "04"
+     ]
+    ]
+   }
+  ]
+ }
+}

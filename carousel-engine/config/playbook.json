@@ -514,9 +514,9 @@
     "title": "SQL window functions: 18 queries with their results, from RANK to LAG"
    },
    {
-    "tool": "Business maths",
+    "tool": "Python",
     "date": "2026-10-23",
-    "title": "25 business maths formulas every analyst uses, each with its answer"
+    "title": "20 Python lines to know before pandas, each with its output"
    }
   ]
  },
@@ -763,6 +763,18 @@
     "post": "2026-10-23-s4",
     "family": "decision-settler",
     "mechanic": "sticker-number"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s1-r1",
+    "family": "the-round",
+    "mechanic": "one-sharp-fact"
+   },
+   {
+    "date": "2026-10-23",
+    "post": "2026-10-23-s2-r1",
+    "family": "pain-payoff",
+    "mechanic": "comment-line"
    }
   ]
  },

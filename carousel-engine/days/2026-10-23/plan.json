@@ -310,6 +310,7 @@
    "25 ChatGPT prompts that do an analyst's grunt work (mega-sheet)",
    "25 Excel interview questions, 1-line answers",
    "25 Python interview questions, 1-line answers",
+   "25 business maths formulas every analyst uses, each with its answer",
    "6 Excel errors and the 10-second fix",
    "6 pandas questions. Pick the right line.",
    "7 LinkedIn mistakes that hide you from recruiters",
@@ -377,13 +378,14 @@
    "Top 10 Power Query steps every analyst uses (mega-sheet)",
    "Which Excel formula should I use? (flowchart)",
    "Window functions cheat sheet: one OVER() replaces a self-join",
-   "Your resume vs one that gets calls"
+   "Your first 30 days as a data analyst: the day-by-day plan",
+   "Your resume vs one that gets calls",
+   "pandas notes for your first analyst job: 18 topics, every line run"
   ],
   "title_templates_last_3_days": [
    "N X lines that do your boring office work",
    "N X measures you'll write in your first X job, with answers",
    "X notes for X jobs: N pages, every formula tested",
-   "X notes for your first X job: N topics, every line run",
    "X vs product X: same X, different questions",
    "X window functions: N queries with their results, from rank to lag",
    "bubble sort, visualised in X",
@@ -397,6 +399,7 @@
    "ADVSQL14",
    "ATOZ",
    "AUCTION",
+   "BIVSDA",
    "CASEKPI",
    "CHARTKID",
    "CHARTS",
@@ -426,6 +429,7 @@
    "ETLKID",
    "EXCEL",
    "EXCEL21",
+   "FIRST30",
    "FIRSTLOOK",
    "GITKID",
    "GPTKID",
@@ -437,6 +441,7 @@
    "LEARNORDER",
    "LINKEDIN",
    "LOOKUPS",
+   "MATHS25",
    "MISEXCEL",
    "MISJD",
    "MLKIDS",
@@ -465,6 +470,7 @@
    "PBISHEET",
    "PD10",
    "PD8",
+   "PDKID",
    "PIVOTKID",
    "PIVOTPAGE",
    "POWERBI",
@@ -541,5 +547,83 @@
    "XLTASK24",
    "XLVSPBI"
   ]
+ },
+ "replacements": {
+  "s1-r1": {
+   "slot": 1,
+   "slotTime": "08:30",
+   "rotation": "BIG-NUMBER CHEAT SHEET",
+   "format": "mega",
+   "pillar": "Skills",
+   "style": "paper",
+   "layout": "editorial",
+   "hookType": "big-list",
+   "evidence": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "why": "Replaces 2026-10-23-s1 (mega, '25 business maths formulas every analyst uses, each with its answer'): different proven format. Proven: 16 SQL problems 21,718 views / 14 follows; 20 pandas one-liners 24,823 / 9. | Override 11:53 IST: Power BI ran 22 Oct and an interview list was rejected 22 Oct; tool cheat sheet on SQL (Excel tasks written in SQL). Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "hookFamily": "the-round",
+   "hookA": {
+    "family": "The test or round itself",
+    "why": "Frames the post around the round, never around failing it, so no invented statistic is needed.",
+    "patterns": [
+     "Excel round tomorrow? Revise only these 18 pages",
+     "The SQL test has 4 question types. Here's each one, solved.",
+     "Every Power BI question from a fresher interview, answered"
+    ]
+   },
+   "coverBMechanic": "one-sharp-fact",
+   "hookB": {
+    "mechanic": "one-sharp-fact",
+    "how": "One surprising, verified fact on the cover; the full sheet inside.",
+    "example": "Ctrl + E does what 3 formulas do."
+   },
+   "topic": "SQL",
+   "brief": "Big interview list on Power BI: 15-30 numbered items with real answers/code (list slides, max 2 code items or 3 text items per slide, code lines <= 38 chars), cover with art + badge + cover_alt with a different hook.",
+   "replaces": "2026-10-23-s1",
+   "avoid": {
+    "title": "25 business maths formulas every analyst uses, each with its answer",
+    "topic": "Business maths",
+    "format": "mega",
+    "keyword": "MATHS25"
+   }
+  },
+  "s2-r1": {
+   "slot": 2,
+   "slotTime": "10:30",
+   "rotation": "BIG-NUMBER CHEAT SHEET",
+   "format": "mega",
+   "pillar": "Skills",
+   "style": "paper",
+   "layout": "editorial",
+   "hookType": "only-cheat-sheet",
+   "evidence": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "why": "Replaces 2026-10-23-s2 (plan, 'Your first 30 days as a data analyst: the day-by-day plan'): different proven format. Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. | Override 11:53 IST: every Excel angle ran within 60 days; core-Python cheat sheet. Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60.",
+   "hookFamily": "pain-payoff",
+   "hookA": {
+    "family": "Pain + payoff",
+    "why": "Names the boring task and promises it disappears. Matches the 31 Excel shortcuts (31K) and only-cheat-sheet (33K) winners.",
+    "patterns": [
+     "38 Python lines that do your boring office work",
+     "The 25 Excel formulas behind every MIS report",
+     "40 SQL queries your first manager will ask for",
+     "Stop Googling these 30 pandas lines",
+     "Power BI in one page: every DAX line a fresher actually writes"
+    ]
+   },
+   "coverBMechanic": "comment-line",
+   "hookB": {
+    "mechanic": "comment-line",
+    "how": "The comment CTA is the hook on cover B.",
+    "example": "Comment EXCEL and I'll send you all 21 pages"
+   },
+   "topic": "Python",
+   "brief": "Mega paper cheat sheet on Excel. Odd/large number 25-60 in the title ('the only X cheat sheet you need', 'N X that pay you forever', 'N X you will use at work'). Never 'Top 10'. marker_cover + 2-3 sheet/bigtable pages + cta. Every row verified.",
+   "replaces": "2026-10-23-s2",
+   "avoid": {
+    "title": "Your first 30 days as a data analyst: the day-by-day plan",
+    "topic": "First 30 days in your first analyst job",
+    "format": "plan",
+    "keyword": "FIRST30"
+   }
+  }
  }
 }

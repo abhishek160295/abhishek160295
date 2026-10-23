@@ -2647,7 +2647,7 @@
   "slot": 3,
   "slotTime": "19:00",
   "kind": "carousel",
-  "status": "draft",
+  "status": "posted",
   "format": "mega-kids",
   "layout": "editorial",
   "style": "paper",
@@ -2708,7 +2708,8 @@
   },
   "coverChoice": "a",
   "hookFamily": "kids-topic",
-  "coverBMechanic": "simple-explainer"
+  "coverBMechanic": "simple-explainer",
+  "postedAt": "2026-10-23T11:53:31.655342+05:30"
  },
  {
   "id": "2026-10-22-s4",
@@ -2716,7 +2717,7 @@
   "slot": 4,
   "slotTime": "21:00",
   "kind": "carousel",
-  "status": "draft",
+  "status": "rejected",
   "format": "notes-drop",
   "layout": "editorial",
   "style": "paper",
@@ -2829,7 +2830,9 @@
   },
   "coverChoice": "a",
   "hookFamily": "before-day-one",
-  "coverBMechanic": "sticker-number"
+  "coverBMechanic": "sticker-number",
+  "rejectedAt": "2026-10-23T11:53:31.890327+05:30",
+  "noReplace": false
  },
  {
   "id": "2026-10-22-s1-r1",
@@ -3020,7 +3023,7 @@
   "slot": 1,
   "slotTime": "08:30",
   "kind": "carousel",
-  "status": "draft",
+  "status": "rejected",
   "format": "mega",
   "layout": "editorial",
   "style": "paper",
@@ -3097,7 +3100,10 @@
   },
   "coverChoice": "a",
   "hookFamily": "pain-payoff",
-  "coverBMechanic": "comment-line"
+  "coverBMechanic": "comment-line",
+  "rejectedAt": "2026-10-23T11:53:32.269043+05:30",
+  "noReplace": false,
+  "replacedBy": "2026-10-23-s1-r1"
  },
  {
   "id": "2026-10-23-s2",
@@ -3105,7 +3111,7 @@
   "slot": 2,
   "slotTime": "10:30",
   "kind": "carousel",
-  "status": "draft",
+  "status": "rejected",
   "format": "plan",
   "layout": "cards",
   "style": "ember",
@@ -3169,7 +3175,10 @@
   },
   "coverChoice": "a",
   "hookFamily": "before-day-one",
-  "coverBMechanic": "save-before"
+  "coverBMechanic": "save-before",
+  "rejectedAt": "2026-10-23T11:53:32.284241+05:30",
+  "noReplace": false,
+  "replacedBy": "2026-10-23-s2-r1"
  },
  {
   "id": "2026-10-23-s3",
@@ -3311,5 +3320,173 @@
   "coverChoice": "a",
   "hookFamily": "decision-settler",
   "coverBMechanic": "sticker-number"
+ },
+ {
+  "id": "2026-10-23-s1-r1",
+  "date": "2026-10-23",
+  "slot": 1,
+  "slotTime": "08:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "big-list",
+  "pillar": "Skills",
+  "slug": "excel-tasks-in-sql-24",
+  "title": "24 Excel tasks written in SQL, each with the rows it returns",
+  "caption": "If you can use filters, SUMIF, pivots and VLOOKUP, you already know half of SQL.\n24 Excel tasks, each written as a SQL query with the rows it returns.\nFollow @thedataguy16 and comment XLSQL. I'll DM you the full 11-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#sql #excel #dataanalyst #learnsql #analystjobs #thedataguy16",
+  "keyword": "XLSQL",
+  "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Replaces rejected 2026-10-23-s1 (business maths). Planner offered a Power BI interview list; Power BI ran 22 Oct and an interview list was rejected 22 Oct, so this is a tool cheat sheet, the format the owner has been posting. Hook family: pain + payoff; cover B: comment line.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "SQL",
+  "slides": [
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_01.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_02.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_03.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_04.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_05.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_06.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_07.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_08.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_08.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_09.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_09.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_10.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_10.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/excel-tasks-in-sql-24/slide_11.jpg",
+    "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/slide_11.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-23/excel-tasks-in-sql-24/carousel.pdf",
+   "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/carousel.pdf",
+   "name": "excel-tasks-in-sql-24.pdf",
+   "pages": 11
+  },
+  "spec": "days/2026-10-23/s1-r1.spec.json",
+  "sources": [
+   {
+    "title": "SQLite SELECT",
+    "url": "https://www.sqlite.org/lang_select.html"
+   }
+  ],
+  "createdAt": "2026-10-23T11:57:35.751341+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-23/excel-tasks-in-sql-24/cover_b.jpg",
+   "url": "/files/posts/2026-10-23/excel-tasks-in-sql-24/cover_b.jpg",
+   "hook": "comment-line"
+  },
+  "coverChoice": "a",
+  "replaces": "2026-10-23-s1",
+  "hookFamily": "the-round",
+  "coverBMechanic": "one-sharp-fact"
+ },
+ {
+  "id": "2026-10-23-s2-r1",
+  "date": "2026-10-23",
+  "slot": 2,
+  "slotTime": "10:30",
+  "kind": "carousel",
+  "status": "draft",
+  "format": "mega",
+  "layout": "editorial",
+  "style": "paper",
+  "hookType": "big-list",
+  "pillar": "Skills",
+  "slug": "python-before-pandas-20",
+  "title": "20 Python lines to know before pandas, each with its output",
+  "caption": "Most freshers jump to pandas and get stuck on a list, a dict or a date.\n20 core Python lines an analyst uses, each run, with the output it prints.\nFollow @thedataguy16 and comment PYBASE. I'll DM you the full 8-page PDF.\nWant the complete 90-day system? Link in bio.",
+  "hashtags": "#python #learnpython #dataanalyst #pythonforbeginners #analystjobs #thedataguy16",
+  "keyword": "PYBASE",
+  "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Replaces rejected 2026-10-23-s2 (first 30 days plan). Planner offered an Excel cheat sheet; every Excel angle ran within 60 days (dates 4 Oct, 40 formulas 16 Oct), so this is a core-Python cheat sheet, the tool whose cheat sheet the owner posted on 21 Oct. Hook family: pain + payoff; cover B: comment line.",
+  "music": "search 'anime', pick from top 10",
+  "topic": "Python",
+  "slides": [
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_01.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_01.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_02.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_02.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_03.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_03.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_04.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_04.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_05.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_05.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_06.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_06.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_07.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_07.jpg"
+   },
+   {
+    "path": "posts/2026-10-23/python-before-pandas-20/slide_08.jpg",
+    "url": "/files/posts/2026-10-23/python-before-pandas-20/slide_08.jpg"
+   }
+  ],
+  "pdf": {
+   "path": "posts/2026-10-23/python-before-pandas-20/carousel.pdf",
+   "url": "/files/posts/2026-10-23/python-before-pandas-20/carousel.pdf",
+   "name": "python-before-pandas-20.pdf",
+   "pages": 8
+  },
+  "spec": "days/2026-10-23/s2-r1.spec.json",
+  "sources": [
+   {
+    "title": "Python tutorial",
+    "url": "https://docs.python.org/3/tutorial/"
+   }
+  ],
+  "createdAt": "2026-10-23T11:57:35.753660+05:30",
+  "coverAlt": {
+   "path": "posts/2026-10-23/python-before-pandas-20/cover_b.jpg",
+   "url": "/files/posts/2026-10-23/python-before-pandas-20/cover_b.jpg",
+   "hook": "comment-line"
+  },
+  "coverChoice": "a",
+  "replaces": "2026-10-23-s2",
+  "hookFamily": "pain-payoff",
+  "coverBMechanic": "comment-line"
  }
 ]

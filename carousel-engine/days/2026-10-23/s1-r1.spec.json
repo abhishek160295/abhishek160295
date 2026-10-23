@@ -1,0 +1,199 @@
+{
+ "series": "Excel to SQL",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_bg": "mint",
+ "lang": "sql",
+ "cover_alt": {
+  "title": "Comment ~XLSQL~ for all 24 side by side",
+  "hook": "comment-line",
+  "bg": "yellow"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Know Excel? You already know ~SQL~."
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "~Filter~ like Excel",
+   "ribbon": "Your filter button, in SQL",
+   "tip": [
+    "Remember:",
+    "Text goes in single quotes in SQL. 'Pune', not \"Pune\"."
+   ],
+   "rows": [
+    {
+     "name": "Filter one city",
+     "formula": "SELECT * FROM orders WHERE city = 'Pune';",
+     "result": "1 1 1 1 1 2024-01-10 500 5 Delivered West Pune, 2 2 1 1 3 2024-01-22 900 2 Delivered West Pune, 6 6 4 4 3 2024-03-09 450 1 Delivered West Pune, ..."
+    },
+    {
+     "name": "Number filter: above 1,000",
+     "formula": "SELECT order_id, amount FROM orders WHERE amount > 1000;",
+     "result": "3 1,200, 4 1,800, 7 2,400, ..."
+    },
+    {
+     "name": "Filter two values",
+     "formula": "SELECT order_id, city FROM orders WHERE city IN ('Pune', 'Kanpur');",
+     "result": "1 Pune, 2 Pune, 5 Kanpur, ..."
+    },
+    {
+     "name": "Text contains 'mail'",
+     "formula": "SELECT name, email FROM customers WHERE email LIKE '%mail%';",
+     "result": "Amit amit@mail.com, Divya divya@mail.com, Rahul rahul@mail.com, ..."
+    },
+    {
+     "name": "Filter blanks",
+     "formula": "SELECT name FROM employees WHERE phone IS NULL;",
+     "result": "Ravi, Imran, Karan, ..."
+    },
+    {
+     "name": "Sort largest to smallest",
+     "formula": "SELECT order_id, amount FROM orders ORDER BY amount DESC;",
+     "result": "7 2,400, 4 1,800, 8 1,350, ..."
+    }
+   ],
+   "data": "Practice tables (example): orders (8 orders, Pune, Indore, Kanpur), customers (5), employees (8 staff, some phones blank)."
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "Your ~formulas~, in SQL",
+   "ribbon": "SUMIF, COUNTIF, AVERAGEIF and friends",
+   "tip": [
+    "Interview trap:",
+    "COUNT(*) counts rows. COUNT(phone) skips the blanks."
+   ],
+   "rows": [
+    {
+     "name": "SUM of a column",
+     "formula": "SELECT SUM(amount) FROM orders;",
+     "result": "8,900"
+    },
+    {
+     "name": "COUNTIF status = Delivered",
+     "formula": "SELECT COUNT(*) FROM orders WHERE status = 'Delivered';",
+     "result": "6"
+    },
+    {
+     "name": "SUMIF by city",
+     "formula": "SELECT city, SUM(amount) FROM orders GROUP BY city;",
+     "result": "Indore 4,350, Kanpur 300, Pune 4,250"
+    },
+    {
+     "name": "AVERAGEIF by dept",
+     "formula": "SELECT dept, ROUND(AVG(salary)) FROM employees GROUP BY dept;",
+     "result": "HR 46,500, IT 64,667, Sales 55,000"
+    },
+    {
+     "name": "MAX and MIN together",
+     "formula": "SELECT MAX(salary), MIN(salary) FROM employees;",
+     "result": "72,000 45,000"
+    },
+    {
+     "name": "COUNTA vs COUNT",
+     "formula": "SELECT COUNT(*), COUNT(phone) FROM employees;",
+     "result": "8 4"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "~Pivot~ tables, in SQL",
+   "ribbon": "Rows, values, filters",
+   "tip": [
+    "Say this:",
+    "WHERE filters rows before grouping. HAVING filters the groups after."
+   ],
+   "rows": [
+    {
+     "name": "Pivot: city x total and count",
+     "formula": "SELECT city, COUNT(*), SUM(amount) FROM orders GROUP BY city;",
+     "result": "Indore 3 4,350, Kanpur 1 300, Pune 4 4,250"
+    },
+    {
+     "name": "Pivot with a report filter",
+     "formula": "SELECT region, SUM(amount) FROM orders WHERE status = 'Delivered' GROUP BY region;",
+     "result": "Central 3,150, West 4,250"
+    },
+    {
+     "name": "Value filter: totals above 3,000",
+     "formula": "SELECT city, SUM(amount) FROM orders GROUP BY city HAVING SUM(amount) > 3000;",
+     "result": "Indore 4,350, Pune 4,250"
+    },
+    {
+     "name": "Top 2 cities by sales",
+     "formula": "SELECT city, SUM(amount) AS total FROM orders GROUP BY city ORDER BY total DESC LIMIT 2;",
+     "result": "Indore 4,350, Pune 4,250"
+    },
+    {
+     "name": "Remove duplicates",
+     "formula": "SELECT DISTINCT city FROM orders;",
+     "result": "Pune, Indore, Kanpur"
+    },
+    {
+     "name": "Count unique customers",
+     "formula": "SELECT COUNT(DISTINCT customer_id) FROM orders;",
+     "result": "4"
+    }
+   ]
+  },
+  {
+   "type": "sheet",
+   "lang": "sql",
+   "per_page": 3,
+   "title": "~VLOOKUP~ and IF, in SQL",
+   "ribbon": "Joins and CASE",
+   "tip": [
+    "Interview trap:",
+    "LEFT JOIN keeps every order, like VLOOKUP. Missing matches show NULL, not #N/A."
+   ],
+   "rows": [
+    {
+     "name": "VLOOKUP customer name",
+     "formula": "SELECT o.order_id, c.name FROM orders o JOIN customers c ON o.customer_id = c.customer_id;",
+     "result": "1 Amit, 2 Amit, 3 Divya, ..."
+    },
+    {
+     "name": "VLOOKUP that keeps missing",
+     "formula": "SELECT c.name, o.order_id FROM customers c LEFT JOIN orders o ON c.customer_id = o.customer_id WHERE o.order_id IS NULL;",
+     "result": "Sanjay NULL"
+    },
+    {
+     "name": "IF: label big orders",
+     "formula": "SELECT order_id, CASE WHEN amount >= 1000 THEN 'Big' ELSE 'Small' END FROM orders;",
+     "result": "1 Small, 2 Small, 3 Big, ..."
+    },
+    {
+     "name": "IFERROR for blanks",
+     "formula": "SELECT name, COALESCE(phone, 'Not given') FROM employees;",
+     "result": "Asha 98200 11111, Ravi Not given, Neha 98200 33333, ..."
+    },
+    {
+     "name": "Text: UPPER and LENGTH",
+     "formula": "SELECT UPPER(city), LENGTH(city) FROM customers;",
+     "result": "PUNE 4, INDORE 6, KANPUR 6, ..."
+    },
+    {
+     "name": "Month from a date",
+     "formula": "SELECT order_id, strftime('%m', order_date) FROM orders;",
+     "result": "1 01, 2 01, 3 02, ..."
+    }
+   ]
+  },
+  {
+   "type": "cta",
+   "title": "Open Excel. Then open ~SQL~.",
+   "body": "Comment XLSQL and I'll DM you the full 11-page PDF.",
+   "keyword": "XLSQL",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

@@ -1,0 +1,179 @@
+{
+ "series": "Python basics",
+ "style": "paper",
+ "layout": "editorial",
+ "format": "mega",
+ "cover_bg": "yellow",
+ "lang": "python",
+ "cover_alt": {
+  "title": "Comment ~PYBASE~ for all 20 lines",
+  "hook": "comment-line",
+  "bg": "sky"
+ },
+ "slides": [
+  {
+   "type": "marker_cover",
+   "title": "Python before ~pandas~: 20 lines"
+  },
+  {
+   "type": "sheet",
+   "lang": "python",
+   "title": "~Lists~ and loops",
+   "ribbon": "Your column of values",
+   "tip": [
+    "Interview trap:",
+    "Python counts from 0. sales[0] is the first value, sales[-1] the last."
+   ],
+   "rows": [
+    {
+     "name": "Total of a list",
+     "formula": "sum(sales)",
+     "result": "5050"
+    },
+    {
+     "name": "First and last value",
+     "formula": "sales[0], sales[-1]",
+     "result": "(1200, 950)"
+    },
+    {
+     "name": "Sort high to low",
+     "formula": "sorted(sales, reverse=True)",
+     "result": "[1500, 1200, 950, 800, 600]"
+    },
+    {
+     "name": "Keep values above 900",
+     "formula": "[s for s in sales if s > 900]",
+     "result": "[1200, 1500, 950]"
+    },
+    {
+     "name": "Add 18% GST to each",
+     "formula": "[round(s * 1.18) for s in sales]",
+     "result": "[1416, 944, 1770, 708, 1121]"
+    }
+   ],
+   "data": "sales = [1200, 800, 1500, 600, 950]"
+  },
+  {
+   "type": "sheet",
+   "lang": "python",
+   "title": "~Dictionaries~",
+   "ribbon": "Lookup tables, like VLOOKUP",
+   "tip": [
+    "Remember:",
+    "Use .get() when a key may be missing. Square brackets crash with KeyError."
+   ],
+   "rows": [
+    {
+     "name": "Look up a value",
+     "formula": "region[\"Pune\"]",
+     "result": "West"
+    },
+    {
+     "name": "Safe lookup with a default",
+     "formula": "region.get(\"Delhi\", \"Unknown\")",
+     "result": "Unknown"
+    },
+    {
+     "name": "Add a key, then count keys",
+     "formula": "region[\"Jaipur\"] = \"North\"",
+     "result": "4"
+    },
+    {
+     "name": "Count items in a list",
+     "formula": "from collections import Counter\ncity_count = Counter([\"Pune\", \"Pune\", \"Indore\"])",
+     "result": "{'Pune': 2, 'Indore': 1}"
+    },
+    {
+     "name": "Loop over key and value",
+     "formula": "\", \".join(f\"{k}:{v}\" for k, v in region.items())",
+     "result": "Pune:West, Indore:Central, ..."
+    }
+   ],
+   "data": "region = {\"Pune\": \"West\", \"Indore\": \"Central\", \"Kanpur\": \"North\"}"
+  },
+  {
+   "type": "sheet",
+   "lang": "python",
+   "title": "~Strings~ that clean data",
+   "ribbon": "Names and codes from messy forms",
+   "tip": [
+    "Interview trap:",
+    "Strings never change in place. name.strip() returns a new string; save it."
+   ],
+   "rows": [
+    {
+     "name": "Remove spaces",
+     "formula": "name.strip()",
+     "result": "ravi KUMAR"
+    },
+    {
+     "name": "Fix the case",
+     "formula": "name.strip().title()",
+     "result": "Ravi Kumar"
+    },
+    {
+     "name": "Split into first and last",
+     "formula": "name.strip().split()",
+     "result": "[ravi, KUMAR]"
+    },
+    {
+     "name": "Replace text",
+     "formula": "\"INV-2024-001\".replace(\"-\", \"\")",
+     "result": "INV2024001"
+    },
+    {
+     "name": "Format money",
+     "formula": "f\"Rs {1234567:,}\"",
+     "result": "Rs 1,234,567"
+    }
+   ],
+   "data": "name = \"  ravi KUMAR \""
+  },
+  {
+   "type": "sheet",
+   "lang": "python",
+   "title": "~Dates~ and errors",
+   "ribbon": "The two things that break scripts",
+   "tip": [
+    "Say this:",
+    "try/except keeps one bad row from stopping the whole report."
+   ],
+   "rows": [
+    {
+     "name": "Days between two dates",
+     "formula": "(date(2024, 6, 20) - date(2024, 4, 3)).days",
+     "result": "78"
+    },
+    {
+     "name": "Text to a date",
+     "formula": "datetime.strptime(\"03-04-2024\", \"%d-%m-%Y\").date()",
+     "result": "2024-04-03"
+    },
+    {
+     "name": "Date to month name",
+     "formula": "date(2024, 4, 3).strftime(\"%b %Y\")",
+     "result": "Apr 2024"
+    },
+    {
+     "name": "Write your own function",
+     "formula": "def gst(x, rate=0.18):\n    return round(x * (1 + rate), 2)",
+     "result": "1180"
+    },
+    {
+     "name": "Handle a bad value",
+     "formula": "def to_num(x):\n    try:\n        return float(x)\n    except ValueError:\n        return 0.0",
+     "result": "0"
+    }
+   ],
+   "data": "from datetime import date, datetime",
+   "per_page": 3
+  },
+  {
+   "type": "cta",
+   "title": "Type these, don't just ~save~.",
+   "body": "Comment PYBASE and I'll DM you the full 8-page PDF.",
+   "keyword": "PYBASE",
+   "action": "Follow @thedataguy16"
+  }
+ ]
+}

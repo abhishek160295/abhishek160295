@@ -1,0 +1,40 @@
+{
+ "title": "20 Python lines to know before pandas, each with its output",
+ "slug": "python-before-pandas-20",
+ "keyword": "PYBASE",
+ "caption": "Most freshers jump to pandas and get stuck on a list, a dict or a date.\n20 core Python lines an analyst uses, each run, with the output it prints.\nFollow @thedataguy16 and comment PYBASE. I'll DM you the full 8-page PDF.\nWant the complete 90-day system? Link in bio.",
+ "hashtags": "#python #learnpython #dataanalyst #pythonforbeginners #analystjobs #thedataguy16",
+ "hookType": "big-list",
+ "pillar": "Skills",
+ "why": "Proven: 31 Excel shortcuts 31,148 views / 82 follows / 44% non-followers; The only Power BI cheat sheet 33,464 / 60. Replaces rejected 2026-10-23-s2 (first 30 days plan). Planner offered an Excel cheat sheet; every Excel angle ran within 60 days (dates 4 Oct, 40 formulas 16 Oct), so this is a core-Python cheat sheet, the tool whose cheat sheet the owner posted on 21 Oct. Hook family: pain + payoff; cover B: comment line.",
+ "sources": [
+  {
+   "title": "Python tutorial",
+   "url": "https://docs.python.org/3/tutorial/"
+  }
+ ],
+ "verify": {
+  "checks": [
+   {
+    "id": "page1",
+    "lang": "python",
+    "code": "sales = [1200, 800, 1500, 600, 950]\nsum(sales)\nsales[0], sales[-1]\nsorted(sales, reverse=True)\n[s for s in sales if s > 900]\n[round(s * 1.18) for s in sales]"
+   },
+   {
+    "id": "page2",
+    "lang": "python",
+    "code": "region = {\"Pune\": \"West\", \"Indore\": \"Central\", \"Kanpur\": \"North\"}\nregion[\"Pune\"]\nregion.get(\"Delhi\", \"Unknown\")\nregion[\"Jaipur\"] = \"North\"\nfrom collections import Counter\ncity_count = Counter([\"Pune\", \"Pune\", \"Indore\"])\n\", \".join(f\"{k}:{v}\" for k, v in region.items())"
+   },
+   {
+    "id": "page3",
+    "lang": "python",
+    "code": "name = \"  ravi KUMAR \"\nname.strip()\nname.strip().title()\nname.strip().split()\n\"INV-2024-001\".replace(\"-\", \"\")\nf\"Rs {1234567:,}\""
+   },
+   {
+    "id": "page4",
+    "lang": "python",
+    "code": "from datetime import date, datetime\n(date(2024, 6, 20) - date(2024, 4, 3)).days\ndatetime.strptime(\"03-04-2024\", \"%d-%m-%Y\").date()\ndate(2024, 4, 3).strftime(\"%b %Y\")\ndef gst(x, rate=0.18):\n    return round(x * (1 + rate), 2)\ndef to_num(x):\n    try:\n        return float(x)\n    except ValueError:\n        return 0.0"
+   }
+  ]
+ }
+}
