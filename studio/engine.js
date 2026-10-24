@@ -317,3 +317,4 @@ E.shaded = (c, x, y, w, h, r, light, dark, stroke) => {
   if (stroke) { c.strokeStyle = stroke; c.lineWidth = 3; c.stroke(); }
   c.globalAlpha = .35; c.fillStyle = '#fff'; c.beginPath(); c.roundRect(x + 4, y + 3, w - 8, Math.min(6, h / 4), 3); c.fill(); c.restore();
 };
+E.heart = (c, x, y, s = 1, a = 1, col = RED) => { c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.beginPath(); c.moveTo(0, 30); c.bezierCurveTo(-60, -10, -30, -60, 0, -28); c.bezierCurveTo(30, -60, 60, -10, 0, 30); c.fill(); c.restore(); };
