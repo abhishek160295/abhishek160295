@@ -60,7 +60,7 @@ E.figure = (c, o) => {
   c.scale(s, s);
   c.globalAlpha *= o.alpha ?? 1;
   c.strokeStyle = col; c.fillStyle = col;
-  c.lineWidth = o.lw ?? 13; c.lineCap = 'round'; c.lineJoin = 'round';
+  c.lineWidth = o.lw ?? (E.bold ? 16 : 13); c.lineCap = 'round'; c.lineJoin = 'round';
   // figures stay crisp: no halo blur (o.glow kept for API compatibility)
   const dir = a => [Math.sin(a) * f, Math.cos(a)];
   const limb = (x, y, a1, bend, l1, l2) => {
@@ -96,6 +96,7 @@ E.headPos = o => {
 
 // ---------- type ----------
 E.text = (c, str, x, y, o = {}) => {
+  if (o.hud && E._hud && !o._now) { E._hud.push(() => E.text(c, str, x, y, { ...o, _now: true })); return; }
   const a = o.alpha ?? 1; if (a <= 0.001) return;
   c.save();
   c.globalAlpha *= a;
@@ -109,6 +110,7 @@ E.text = (c, str, x, y, o = {}) => {
 };
 // kinetic title: words land one after another (fade + rise), optional exit at t1
 E.title = (c, str, x, y, t, t0, t1 = 1e9, o = {}) => {
+  if (E._hud && !o._now) { E._hud.push(() => E.title(c, str, x, y, t, t0, t1, { ...o, _now: true })); return; }
   if (t0 <= .1) t0 = -1; // lines that open a scene are on screen from its first frame
   const out = 1 - E.p(t, t1, t1 + .3, 'in');
   if (out <= 0 || t < t0) return;
@@ -194,7 +196,7 @@ window.setupReel = reel => {
   const cv = document.getElementById('cv'); cv.width = W * S; cv.height = H * S;
   const c = cv.getContext('2d');
   let starts = [], acc = 0; for (const s of reel.scenes) { starts.push(acc); acc += s.dur; }
-  reel.total = acc; const fast = reel.pace === 'fast';
+  reel.total = acc; const fast = reel.pace === 'fast'; E.bold = fast;
   window.REEL_INFO = { total: acc, frames: Math.round(acc * FPS), starts, cues: reel.scenes.flatMap((s, i) => (s.cues || []).map(q => [q[0] + starts[i], q[1]])), bpm: reel.bpm, title: reel.title };
   window.renderAt = T => {
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
@@ -210,9 +212,22 @@ window.setupReel = reel => {
     if (fast) {
       // fast pacing: hard cut + punch-in on every new scene, stronger push and a slow drift so no frame sits still
       const punch = i === 0 ? 1 : 1 + .07 * (1 - E.ease.out(E.clamp(t / .3)));
+      E._hud = [];
+      c.save();
+      let px = 540, py = 960;
+      if (sc.cam) {
+        // scene camera: frame the action box [x1,y1,x2,y2] into the safe action area (centre 510,1010 on screen),
+        // compensating for the 0.88 safe frame already applied, so props fill the frame like the reference
+        const [x1, y1, x2, y2] = typeof sc.cam === 'function' ? sc.cam(t) : sc.cam;
+        const k = Math.min(860 / (x2 - x1), 840 / (y2 - y1), 1.9);
+        c.translate(573 + (510 - 573) / .88, 960 + (1010 - 960) / .88); c.scale(k / .88, k / .88);
+        px = (x1 + x2) / 2; py = (y1 + y2) / 2; c.translate(-px, -py);
+      }
       const z = punch * (1 + .06 * (t / sc.dur));
-      c.translate(540 + Math.sin(T * .9) * 6, 960 + Math.cos(T * .7) * 5); c.scale(z, z); c.translate(-540, -960);
+      c.translate(px + Math.sin(T * .9) * 6, py + Math.cos(T * .7) * 5); c.scale(z, z); c.translate(-px, -py);
       sc.draw(c, t, sc.dur); c.restore();
+      c.restore(); c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);
+      const hud = E._hud; E._hud = null; hud.forEach(f => f()); c.restore();
     } else {
       // slow cinematic push-in across each scene
       const z = 1 + .025 * (t / sc.dur); c.translate(540, 960); c.scale(z, z); c.translate(-540, -960);
@@ -293,4 +308,12 @@ E.umbrella = (c, x, y, s = 1, a = 1) => {
 E.phone = (c, x, y, s = 1, a = 1, screen = '#9fd3ff') => {
   c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s);
   E.rrect(c, -14, -26, 28, 50, 6, '#222', '#ddd', 3); E.rrect(c, -10, -21, 20, 38, 3, screen); c.restore();
+};
+
+// shaded block: vertical light→dark gradient with a top highlight, for props with depth
+E.shaded = (c, x, y, w, h, r, light, dark, stroke) => {
+  const g = c.createLinearGradient(x, y, x, y + h); g.addColorStop(0, light); g.addColorStop(1, dark);
+  c.save(); c.beginPath(); c.roundRect(x, y, w, h, r); c.fillStyle = g; c.fill();
+  if (stroke) { c.strokeStyle = stroke; c.lineWidth = 3; c.stroke(); }
+  c.globalAlpha = .35; c.fillStyle = '#fff'; c.beginPath(); c.roundRect(x + 4, y + 3, w - 8, Math.min(6, h / 4), 3); c.fill(); c.restore();
 };

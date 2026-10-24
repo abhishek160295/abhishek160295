@@ -27,6 +27,8 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 
 17. **Zero dead time.** Reels are 25s: five 5-second scenes (`pace: 'fast'`). Hook at 0s, payoff by about 2.6s, and something moves every second (hard cut with a punch-in, constant push and drift, ambient dust, idle motion during holds). No fades to black. `python3 audit.py` must report `DEAD TIME: none` (no still stretch of 0.4s or more).
 
+18. **Reference-level punch.** Every fast scene sets a `cam` box around its action so props fill the frame (titles stay on a fixed text layer). Strokes are 16px, main props are shaded, and every scene has one big physical action (splash, burst, smash, sprint). Targets against the reference: motion of 1.5 or more and screen fill of about 4–6%.
+
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
 - Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
