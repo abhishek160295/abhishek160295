@@ -194,21 +194,33 @@ window.setupReel = reel => {
   const cv = document.getElementById('cv'); cv.width = W * S; cv.height = H * S;
   const c = cv.getContext('2d');
   let starts = [], acc = 0; for (const s of reel.scenes) { starts.push(acc); acc += s.dur; }
-  reel.total = acc;
+  reel.total = acc; const fast = reel.pace === 'fast';
   window.REEL_INFO = { total: acc, frames: Math.round(acc * FPS), starts, cues: reel.scenes.flatMap((s, i) => (s.cues || []).map(q => [q[0] + starts[i], q[1]])), bpm: reel.bpm, title: reel.title };
   window.renderAt = T => {
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
     const sc = reel.scenes[i], t = T - starts[i];
     c.setTransform(S, 0, 0, S, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
+    if (fast) for (let k = 0; k < 34; k++) { // ambient dust: constant, subtle background motion
+      const x = ((E.rnd(k) * W + T * (14 + 26 * E.rnd(k + 7))) % (W + 40)) - 20, y = E.rnd(k + 3) * H + Math.sin(T * .6 + k) * 24;
+      c.fillStyle = `rgba(255,255,255,${.06 + .1 * E.rnd(k + 11)})`; c.beginPath(); c.arc(x, y, 1.5 + 2.5 * E.rnd(k + 5), 0, 7); c.fill();
+    }
     // safe frame: keep every scene clear of the Reels/TikTok/Shorts UI
     // (right action rail x>950, top bar, caption block) — scale 0.88 about (573, 960)
     c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);
-    // slow cinematic push-in across each scene
-    const z = 1 + .025 * (t / sc.dur); c.translate(540, 960); c.scale(z, z); c.translate(-540, -960);
-    sc.draw(c, t, sc.dur); c.restore();
-    // fade to black between scenes (first frame of reel is already live — no fade-in)
-    const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
-    const a = 1 - fin * fout; if (a > 0) { c.fillStyle = `rgba(0,0,0,${a})`; c.fillRect(0, 0, W, H); }
+    if (fast) {
+      // fast pacing: hard cut + punch-in on every new scene, stronger push and a slow drift so no frame sits still
+      const punch = i === 0 ? 1 : 1 + .07 * (1 - E.ease.out(E.clamp(t / .3)));
+      const z = punch * (1 + .06 * (t / sc.dur));
+      c.translate(540 + Math.sin(T * .9) * 6, 960 + Math.cos(T * .7) * 5); c.scale(z, z); c.translate(-540, -960);
+      sc.draw(c, t, sc.dur); c.restore();
+    } else {
+      // slow cinematic push-in across each scene
+      const z = 1 + .025 * (t / sc.dur); c.translate(540, 960); c.scale(z, z); c.translate(-540, -960);
+      sc.draw(c, t, sc.dur); c.restore();
+      // fade to black between scenes (first frame of reel is already live — no fade-in)
+      const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
+      const a = 1 - fin * fout; if (a > 0) { c.fillStyle = `rgba(0,0,0,${a})`; c.fillRect(0, 0, W, H); }
+    }
     // vignette + watermark
     const g = c.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, H * .75);
     g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.45)'); c.fillStyle = g; c.fillRect(0, 0, W, H);

@@ -13,7 +13,7 @@ for n in range(int(sys.argv[1]) if len(sys.argv)>1 else 1, int(sys.argv[2]) if l
         t=i/4
         z={'right-rail':im[950:1650,950:]>110,'top-UI':im[:230]>110,'bottom-UI':np.r_[im[1560:]]>110,'left-edge':im[300:1500,:30]>110}
         for k,m in z.items():
-            if m.sum()>150: issues.setdefault(k,[]).append(t)
+            if m.sum()>150 and (m.any(axis=1).sum()>10): issues.setdefault(k,[]).append(t)  # ignore thin ground lines
     rng=lambda ts: ', '.join(f'{a:.1f}-{b:.1f}s' for a,b in merge(ts))
     def merge(ts):
         out=[];
@@ -21,4 +21,12 @@ for n in range(int(sys.argv[1]) if len(sys.argv)>1 else 1, int(sys.argv[2]) if l
             if out and t-out[-1][1]<=.3: out[-1][1]=t
             else: out.append([t,t])
         return out
-    print(f'reel{n:03d}: frame0 title px={hook}', '; '.join(f'{k}: {rng(v)}' for k,v in issues.items()) or 'clean')
+    lo=frames(f,15)[:, ::4, ::4].astype(np.int16); d=np.abs(np.diff(lo,axis=0)).mean(axis=(1,2)); st=d<0.15
+    dead=[]; s0=None
+    for i,v in enumerate(list(st)+[False]):
+        if v and s0 is None: s0=i
+        if not v and s0 is not None:
+            if i-s0>=6: dead.append(f'{s0/15:.1f}s+{(i-s0)/15:.1f}')
+            s0=None
+    issues['dead-time(>=0.4s still)']=[] if not dead else dead
+    print(f'reel{n:03d}: frame0 title px={hook}', 'DEAD TIME: '+(', '.join(issues.pop('dead-time(>=0.4s still)')) or 'none'), '| '+('; '.join(f'{k}: {rng(v)}' for k,v in issues.items()) or 'safe-zone clean'))

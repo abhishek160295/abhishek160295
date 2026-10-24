@@ -25,6 +25,8 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 15. **Max sharpness.** Frames are drawn at 2160x3840 and lanczos-downscaled to a 1080p master (Reels/TikTok) and a 1440p master (YouTube Shorts gets sharper VP9 at 1440p and above). No halo blur on figures or particles. Titles use Inter Display. Ground and lines are high-contrast.
 16. **"That's me" hooks.** Write hooks in first person or about a moment the viewer has lived ("Me at 11 PM vs me at 5 AM"). The most relatable scene opens the reel and must match its title.
 
+17. **Zero dead time.** Reels are 25s: five 5-second scenes (`pace: 'fast'`). Hook at 0s, payoff by about 2.6s, and something moves every second (hard cut with a punch-in, constant push and drift, ambient dust, idle motion during holds). No fades to black. `python3 audit.py` must report `DEAD TIME: none` (no still stretch of 0.4s or more).
+
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
 - Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
