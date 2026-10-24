@@ -317,30 +317,3 @@ E.shaded = (c, x, y, w, h, r, light, dark, stroke) => {
   if (stroke) { c.strokeStyle = stroke; c.lineWidth = 3; c.stroke(); }
   c.globalAlpha = .35; c.fillStyle = '#fff'; c.beginPath(); c.roundRect(x + 4, y + 3, w - 8, Math.min(6, h / 4), 3); c.fill(); c.restore();
 };
-
-// ---------- "VS" split scenes (reference format: two rows, same moment, two outcomes) ----------
-E.VS = { gA: 980, gB: 1400, cam: [70, 600, 1010, 1440] };
-E.vs = (c, t, labA, labB, pay) => {
-  const k = E.p(t, pay, pay + .3);
-  E.shaded(c, 70, E.VS.gA, 940, 20, 4, '#8a8a8a', '#4a4a4a'); E.shaded(c, 70, E.VS.gB, 940, 20, 4, '#8a8a8a', '#4a4a4a');
-  c.save(); c.setLineDash([18, 14]); E.line(c, 70, 1020, 1010, 1020, '#3a3a3a', 4); c.restore();
-  const pill = (str, y, gold) => {
-    c.save(); c.font = '900 28px Inter'; c.letterSpacing = '4px'; const w = c.measureText(str).width + 44; c.restore();
-    if (gold) { c.save(); c.shadowColor = GOLD; c.shadowBlur = 24 * k; E.rrect(c, 90, y - 28, w, 56, 28, GOLD); c.restore(); }
-    else E.rrect(c, 90, y - 28, w, 56, 28, '#333');
-    E.text(c, str, 90 + w / 2, y + 1, { size: 28, weight: 900, ls: 4, color: gold ? '#111' : '#bbb' });
-  };
-  pill(labA, 650, false); pill(labB, 1070, k > .5);
-  const pulse = 1 + .06 * Math.sin(t * 6);
-  c.save(); c.translate(540, 1020); c.scale(pulse, pulse); c.fillStyle = GOLD; c.beginPath(); c.arc(0, 0, 46, 0, 7); c.fill(); c.restore();
-  E.text(c, 'VS', 540, 1022, { size: 38, weight: 900, color: '#111' });
-  // payoff burst on the winning row
-  E.particles(c, 620, E.VS.gB - 190, t - pay, { n: 80, speed: 700, grav: 260, size: 7, life: 1.6 });
-  return k;
-};
-E.heart = (c, x, y, s = 1, a = 1, col = RED) => { c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.beginPath(); c.moveTo(0, 30); c.bezierCurveTo(-60, -10, -30, -60, 0, -28); c.bezierCurveTo(30, -60, 60, -10, 0, 30); c.fill(); c.restore(); };
-// VS camera: both rows framed, then a push toward the winning row at the payoff (directs the eye, adds real motion)
-E.vsCam = (pay) => t => {
-  const k = E.ease.inOut(E.clamp((t - pay) / .7)), A = E.VS.cam, B = [100, 640, 980, 1440], sway = Math.sin(t * 2.2) * 14;
-  return A.map((v, i) => E.lerp(v, B[i], k) + (i % 2 ? 0 : sway));
-};

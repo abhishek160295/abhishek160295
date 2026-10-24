@@ -29,9 +29,6 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 
 18. **Reference-level punch.** Every fast scene sets a `cam` box around its action so props fill the frame (titles stay on a fixed text layer). Strokes are 16px, main props are shaded, and every scene has one big physical action (splash, burst, smash, sprint). Targets against the reference: motion of 1.5 or more and screen fill of about 4–6%.
 
-19. **VS format.** At least 4 of 5 scenes are side-by-side comparisons (`E.vs`: labelled rows, gold VS badge, the winning row turns gold at the payoff and bursts, and the camera pushes toward it). The 5th scene is a single big transformation ending.
-20. **Measured parity before shipping.** Each reel must match or beat the reference average: motion of 1.50 or more, screen fill of 5.7% or more, still time at or below 3.8s (target 0). If a reel falls short, it gets fixed before it ships.
-
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
 - Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
