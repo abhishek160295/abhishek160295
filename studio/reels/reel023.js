@@ -128,9 +128,9 @@ const REEL = { title: 'Finish what you start', bpm: 120, scenes: [
   // the gold seam
   const glow = E.p(t, 6.4, 7.0);
   c.save(); c.fillStyle = '#2a2414'; c.fillRect(-100, gold, 1280, 110);
-  for (let i = 0; i < 16; i++) { const x = i * 72 + 10 * E.rnd(i), y = gold + 18 + 60 * E.rnd(i + 2), r = 16 + 14 * E.rnd(i + 4); c.fillStyle = glow > 0 ? GOLD : '#5a4a1e'; c.globalAlpha = glow > 0 ? .35 + .65 * glow : 1; c.beginPath(); c.moveTo(x, y - r); c.lineTo(x + r, y); c.lineTo(x, y + r * .8); c.lineTo(x - r, y); c.fill(); }
+  for (let i = 0; i < 13; i++) { const x = 20 + i * 68 + 10 * E.rnd(i), y = gold + 18 + 60 * E.rnd(i + 2), r = 16 + 14 * E.rnd(i + 4); c.fillStyle = glow > 0 ? GOLD : '#5a4a1e'; c.globalAlpha = glow > 0 ? .35 + .65 * glow : 1; c.beginPath(); c.moveTo(x, y - r); c.lineTo(x + r, y); c.lineTo(x, y + r * .8); c.lineTo(x - r, y); c.fill(); }
   c.restore();
-  if (broke) { E.glowDot(c, 750, gold + 20, 520, 'rgba(245,197,66,.45)', glow); E.rays(c, 750, gold, 560, .3 * glow, GOLD, 16, t * .15); }
+  if (broke) { E.glowDot(c, 700, gold + 20, 420, 'rgba(245,197,66,.45)', glow); E.rays(c, 750, gold, 420, .3 * glow, GOLD, 16, t * .15); }
   E.line(c, -100, sy, 1180, sy, '#7a7a7a', 3);
   // shafts
   const dl = E.lerp(sy, 1415, E.p(t, .2, 4.6, 'out')), dr = E.lerp(sy, gold, E.p(t, .2, 6.4, 'lin'));

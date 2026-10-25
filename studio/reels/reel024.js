@@ -104,7 +104,7 @@ const REEL = { title: 'You were a seed', bpm: 120, scenes: [
   E.particles(c, 830, by - 80, t - (T0 + 6 * CY - .25), { n: 45, speed: 480, grav: 300 });
 } },
 // 3 — Listening vs ignoring: the tightrope
-{ dur: 8.5, draw(c, t) {
+{ dur: 7.5, draw(c, t) {
   const rT = 930, rB = 1460, s = .78;
   const DB = [["YOU'LL FALL", 1.0, 330, -260], ['WHO DO YOU THINK YOU ARE?', 1.9, 560, -330], ['GIVE UP', 2.8, 760, -250]];
   const cross = E.p(t, .3, 6.0, 'lin'), done = cross >= 1;
@@ -141,9 +141,9 @@ const REEL = { title: 'You were a seed', bpm: 120, scenes: [
   for (let i = 0; i < 120; i++) { c.fillStyle = `rgba(255,255,255,${.04 + .05 * E.rnd(i + 3)})`; c.beginPath(); c.arc(E.rnd(i) * 1080, sy + 20 + E.rnd(i + 9) * 760, 2 + 4 * E.rnd(i + 5), 0, 7); c.fill(); }
   c.restore();
   // the pit and the figure at the bottom
-  const CL = [['REJECTED', .4], ['IGNORED', 1.3], ['LAUGHED AT', 2.2], ['ALONE', 3.1]], lw = 90;
+  const CL = [['REJECTED', .3], ['IGNORED', 1.0], ['LAUGHED AT', 1.7], ['ALONE', 2.4]], lw = 90;
   E.rrect(c, 430, sy, 220, pitB - sy, 4, '#060606');
-  const dim = 1 - E.p(t, 3.6, 4.6);
+  const dim = 1 - E.p(t, 2.9, 3.9);
   fig(c, { x: 540, y: pitB - 60, s: .75, color: '#bdbdbd', alpha: Math.max(.0, dim), pose: { ...E.pose('sit'), hd: .7, tor: .35 } });
   // dirt thrown in, layer by layer
   CL.forEach(([str, t0], i) => {
@@ -151,13 +151,15 @@ const REEL = { title: 'You were a seed', bpm: 120, scenes: [
     const land = t0 + .45, top = pitB - lw * (i + 1);
     if (t < land) { const y = E.lerp(560, top, E.p(t, t0, land, 'in')); E.shaded(c, 470, y, 140, 80, 30, '#7a6a58', '#3b3027'); E.tag(c, str, 540, y + 40, t, t0, { size: 20, color: '#e8e8e8', fill: '#141414' }); }
     else { c.save(); const lg = c.createLinearGradient(0, top, 0, top + lw); lg.addColorStop(0, '#4a4036'); lg.addColorStop(1, '#2c2620'); c.fillStyle = lg; c.fillRect(430, top, 220, lw); c.restore();
-      E.tag(c, str, 540, top + lw / 2, t, -1, { size: 20, color: '#bbb', fill: '#141414', alpha: 1 - E.p(t, 4.2, 4.8) });
+      E.tag(c, str, 540, top + lw / 2, t, -1, { size: 20, color: '#bbb', fill: '#141414', alpha: 1 - E.p(t, 3.5, 4.1) });
       E.particles(c, 540, top, t - land, { n: 22, speed: 300, color: '#7a6a58', grav: 700, life: .6, seed: i * 5 }); }
   });
-  if (t > 3.55) { c.save(); c.fillStyle = '#2e2b28'; c.fillRect(430, sy - 2, 220, 24 * E.p(t, 3.55, 3.9)); c.restore(); }
+  if (t > 2.85) { c.save(); c.fillStyle = '#2e2b28'; c.fillRect(430, sy - 2, 220, 24 * E.p(t, 2.85, 3.2)); c.restore(); }
+  // soil keeps trickling in while they bury him
+  if (t < 3.0) for (let i = 0; i < 26; i++) { const q = (t * 1.6 + E.rnd(i)) % 1; c.save(); c.fillStyle = '#8a7a66'; c.beginPath(); c.arc(450 + E.rnd(i + 3) * 180, E.lerp(560, 900, q), 3 + 3 * E.rnd(i + 8), 0, 7); c.fill(); c.restore(); }
   E.line(c, -100, sy, 1180, sy, '#7a7a7a', 3);
   // a heartbeat under the soil
-  if (t > 4.2) { const beat = Math.max(0, Math.sin((t - 4.2) * 6)) * (1 - E.p(t, 5.4, 5.8)) + E.p(t, 5.4, 5.8); E.glowDot(c, 540, seedY, 110 + 40 * beat, 'rgba(245,197,66,.6)', beat * E.p(t, 4.2, 4.5)); c.save(); c.globalAlpha = E.p(t, 4.2, 4.5); c.fillStyle = GOLD; c.beginPath(); c.ellipse(540, seedY, 16, 22, 0, 0, 7); c.fill(); c.restore(); }
+  if (t > 3.5) { const beat = Math.max(0, Math.sin((t - 3.5) * 5)) * (1 - E.p(t, 5.4, 5.8)) + E.p(t, 5.4, 5.8); E.glowDot(c, 540, seedY, 110 + 60 * beat, 'rgba(245,197,66,.6)', beat * E.p(t, 3.5, 3.8)); c.save(); c.globalAlpha = E.p(t, 3.5, 3.8); c.fillStyle = GOLD; c.beginPath(); c.ellipse(540, seedY, 16, 22, 0, 0, 7); c.fill(); c.restore(); }
   // roots, sprout, tree
   if (t > 5.0) {
     const r = E.p(t, 5.0, 6.4, 'out');
@@ -174,9 +176,9 @@ const REEL = { title: 'You were a seed', bpm: 120, scenes: [
     c.strokeStyle = '#e0b040'; c.lineCap = 'round'; c.lineWidth = 10 * grow + 2;
     [[-1, .55, 130], [1, .5, 150], [-1, .85, 100], [1, .8, 110]].forEach(([d, h, l]) => { c.beginPath(); c.moveTo(540, base - th * h); c.lineTo(540 + d * l * grow, base - th * h - 70 * grow); c.stroke(); });
     const leaf = [[0, -300, 120], [-130, -250, 95], [130, -255, 100], [-70, -340, 90], [75, -345, 95], [-180, -180, 70], [185, -185, 75], [0, -400, 80], [-20, -220, 90]];
-    leaf.forEach(([dx, dy, r], i) => { const k = E.p(t, 6.0 + i * .12, 7.0 + i * .12, 'back'); if (k <= 0) return; c.globalAlpha = .9; c.fillStyle = i % 2 ? '#f5c542' : '#ffd970'; c.beginPath(); c.arc(540 + dx * grow, base + dy * grow, r * k * grow, 0, 7); c.fill(); });
+    leaf.forEach(([dx, dy, r], i) => { const k = E.p(t, 6.0 + i * .12, 7.0 + i * .12, 'back'); if (k <= 0) return; c.globalAlpha = .9; c.fillStyle = i % 2 ? '#f5c542' : '#ffd970'; c.beginPath(); c.arc(540 + dx * grow + Math.sin(t * 1.4 + i) * 7 * grow, base + dy * grow + Math.cos(t * 1.1 + i) * 4 * grow, r * k * grow * (1 + .03 * Math.sin(t * 2 + i)), 0, 7); c.fill(); });
     c.restore();
-    for (let i = 0; i < 18; i++) { const q = ((t * .25 + E.rnd(i)) % 1); if (t < 7.2) break; c.save(); c.globalAlpha = .8 * (1 - q); c.fillStyle = GOLD; c.beginPath(); c.arc(320 + E.rnd(i + 2) * 440 + Math.sin(t + i) * 20, 520 + q * 380, 5, 0, 7); c.fill(); c.restore(); }
+    for (let i = 0; i < 34; i++) { const q = ((t * .35 + E.rnd(i)) % 1); if (t < 6.8) break; c.save(); c.globalAlpha = .85 * (1 - q) * E.p(t, 6.8, 7.3); c.fillStyle = GOLD; c.translate(300 + E.rnd(i + 2) * 480 + Math.sin(t * 1.5 + i) * 30, 480 + q * 420); c.rotate(t * 2 + i); c.beginPath(); c.ellipse(0, 0, 9, 5, 0, 0, 7); c.fill(); c.restore(); }
   }
   E.particles(c, 540, sy, t - 5.6, { n: 40, speed: 380, color: '#7a6a58', grav: 600, life: .7 });
 } },

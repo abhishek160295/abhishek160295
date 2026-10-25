@@ -32,6 +32,13 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 19. **Scorecard ≥ 9.0.** Every reel is scored on research/scorecard.md before shipping, and anything below 9 gets reworked.
 20. **Reference #14 devices.** Every reel uses a depth stage (`floor`), at least one typewriter tag or counter for tension (`E.tag`), and a climax beat: a near-miss, others joining, or a counter landing.
 21. **Reference fit is a gate.** Every reel must be about discipline, consistency, success or never giving up, told through metaphors in a serious tone, and must build to a climax. Lifestyle, comedy and social stories don't ship, however well they score.
+22. **Story format (from Day 6).** This is the reference format. Every reel runs 30–36s and has 4 scenes of about 8–10s. Each scene is a small story with escalation:
+    - **Labels:** small caps A vs B labels, about 32px. No sentence headlines.
+    - **Palette:** black, white and grey. Gold is used only for the win, and red only for the loss.
+    - **Camera:** a slow push. No punch-ins and no dust.
+    - **Holds:** the win and the ending are held for 1–2s.
+    - **Ending:** the last scene is the emotional peak.
+    - **Sound:** each reel names its own sound (an emotional piano or a cinematic track), never "any trending sound".
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
