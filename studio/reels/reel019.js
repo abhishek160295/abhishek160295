@@ -1,7 +1,7 @@
 // Reel 019 — "It's okay to start over"
 const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes: [
 // 1 — Gold in the cracks
-{ dur: 5, cam: [300, 820, 780, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [300, 820, 780, 1320], draw(c, t) {
   E.title(c, 'Everything fell apart?', W / 2, 420, t, -1, 2.5, { size: 54, weight: 800 });
   E.title(c, 'Rebuild with gold in the cracks.', W / 2, 420, t, 2.7, 1e9, { size: 46, weight: 900, color: GOLD });
   const gy = 1300, cx = 540, cy = 1130;
@@ -26,7 +26,7 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   E.rays(c, cx, base - 20, 420, .3 * gold, GOLD, 16, t * .3);
 } },
 // 2 — Sand castle
-{ dur: 5, cam: [140, 860, 940, 1340], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [140, 860, 940, 1340], draw(c, t) {
   E.title(c, 'The wave took it all?', W / 2, 420, t, -1, 2.5, { size: 54, weight: 800 });
   E.title(c, 'Build again. Higher this time.', W / 2, 420, t, 2.7, 1e9, { size: 48, weight: 900, color: GOLD });
   const gy = 1300;
@@ -46,7 +46,7 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   E.particles(c, 700, slope(700) - 360, t - 3.6, { n: 50, speed: 500 });
 } },
 // 3 — Game over → continue
-{ dur: 5, cam: [140, 760, 940, 1330], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [140, 760, 940, 1330], draw(c, t) {
   E.title(c, 'Lost a level?', W / 2, 420, t, -1, 2.5, { size: 60, weight: 900 });
   E.title(c, 'Hit continue.', W / 2, 420, t, 2.7, 1e9, { size: 64, weight: 900, color: GOLD });
   const gy = 1300;
@@ -59,6 +59,7 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   else if (t < 2.4) { x = 520; y = 2000; pose = E.pose('stand'); }
   else { const k = E.p(t, 2.7, 3.6, 'inOut'); x = E.lerp(300, 760, k); y = gy - 20 - E.FIG_H * .8 - 2 - Math.sin(k * Math.PI) * 260; pose = k > 0 && k < 1 ? E.pose('jump') : { ...E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 3.6, 3.9, 'back')), aF: 2.6 + Math.sin(t * 6) * .2 }; col = GOLD; }
   if (y < 1900) E.figure(c, { x, y, s: .8, pose, color: col });
+  if (t > .7 && t < 1.3) E.tag(c, 'SO CLOSE', 520, 1080, t, .7, { size: 30, color: RED, fill: '#2a0d0f' });
   const go = E.p(t, 1.2, 1.4, 'back') * (1 - E.p(t, 1.9, 2.0));
   if (t > 1.0 && t < 2.6) E.particles(c, 530, gy - 20, (t - 1.0) % .5, { n: 14, speed: 300, color: '#6ac06a', grav: 600, life: .5, seed: Math.floor(t * 2) });
   if (go > 0) { c.save(); c.translate(540, 980); c.scale(go * (1 + .06 * Math.sin(t * 20)), go * (1 + .06 * Math.sin(t * 20))); E.rrect(c, -230, -60, 460, 120, 16, '#1a0a0c', RED, 6); c.restore(); E.text(c, 'GAME OVER', 540, 982, { size: 60, weight: 900, color: RED, alpha: go }); }
@@ -69,7 +70,7 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   E.particles(c, 760, gy - 200, t - 3.6, { n: 40, speed: 460 });
 } },
 // 4 — Cut back to grow back
-{ dur: 5, cam: [260, 760, 820, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [260, 760, 820, 1320], draw(c, t) {
   E.title(c, 'Had to cut things off?', W / 2, 420, t, -1, 2.5, { size: 54, weight: 800 });
   E.title(c, "That's how you grow back fuller.", W / 2, 420, t, 2.7, 1e9, { size: 46, weight: 900, color: GOLD });
   const gy = 1300, px = 600;
@@ -91,7 +92,7 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   E.particles(c, px, gy - 460, t - 3.6, { n: 40, speed: 460 });
 } },
 // 5 — Every morning is a restart
-{ dur: 5, cam: [180, 760, 900, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [180, 760, 900, 1320], draw(c, t) {
   E.title(c, 'Every sunrise is a restart.', W / 2, 420, t, -1, 2.5, { size: 52, weight: 800 });
   E.title(c, 'Begin again.', W / 2, 420, t, 2.7, 1e9, { size: 72, weight: 900, color: GOLD });
   const gy = 1300, rise = E.p(t, 0, 2.6, 'inOut');
@@ -102,6 +103,8 @@ const REEL = { title: "It's okay to start over", bpm: 150, pace: 'fast', scenes:
   c.save(); c.beginPath(); c.rect(-200, 0, 1500, gy - 40); c.clip(); c.fillStyle = GOLD; c.beginPath(); c.arc(760, sy, 110, 0, 7); c.fill(); c.restore();
   E.rays(c, 760, sy, 700, .2 + .3 * rise, GOLD, 18, t * .6);
   c.save(); c.fillStyle = '#121212'; c.beginPath(); c.moveTo(-200, gy); c.quadraticCurveTo(540, gy - 120, 1300, gy); c.lineTo(1300, gy + 200); c.lineTo(-200, gy + 200); c.fill(); c.restore();
+  [['FAILED', 300, 850, .2], ['LOST IT ALL', 520, 800, .5], ['REJECTED', 720, 880, .8]].forEach(([str, x, y, t0], i) => { const burn = E.p(t, 1.8 + i * .15, 2.4 + i * .15); if (burn < 1) E.tag(c, str, x, y - burn * 40, t, t0, { size: 28, color: '#bbb', alpha: 1 - burn }); E.particles(c, x, y, t - 1.8 - i * .15, { n: 24, speed: 260, color: GOLD, grav: -100, life: .8, seed: i * 5 }); });
+  if (t > 2.9) E.tag(c, 'DAY 1', 400, 790, t, 2.9, { size: 36, color: GOLD, fill: '#2a2208' });
   const up = E.p(t, 2.4, 3.0, 'back');
   E.figure(c, { x: 400, y: E.lerp(gy - 60 - 66 * 1.05 + 4, gy - 60 - E.FIG_H * 1.05 - 2, up), s: 1.05, color: `rgb(${Math.round(E.lerp(200, 245, rise))},${Math.round(E.lerp(200, 197, rise))},${Math.round(E.lerp(200, 66, rise))})`, pose: up <= 0 ? { ...E.pose('sit'), lF: 1.4, kF: 1.2, lB: 1.4, kB: 1.2, hd: -.2 } : { ...E.mix(E.pose('stand'), E.pose('cheer'), up), aF: 2.6 + Math.sin(t * 5) * .2, aB: -2.6 + Math.sin(t * 5) * .2 } });
   for (let i = 0; i < 4; i++) { const q = ((t + 1) * .5 + i / 4) % 1, bx = 200 + q * 700, by = 860 + Math.sin(q * 8 + i) * 30 + i * 30; c.save(); c.strokeStyle = '#222'; c.lineWidth = 5; const w = Math.sin(t * 14 + i) * 12; c.beginPath(); c.moveTo(bx - 22, by - w); c.lineTo(bx, by); c.lineTo(bx + 22, by - w); c.stroke(); c.restore(); }

@@ -2,7 +2,7 @@
 const eye = (c, x, y, s, a, look) => { c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s); c.fillStyle = '#fff'; c.beginPath(); c.ellipse(0, 0, 26, 16, 0, 0, 7); c.fill(); c.fillStyle = '#111'; c.beginPath(); c.arc(look * 10, 0, 9, 0, 7); c.fill(); c.restore(); };
 const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fast', scenes: [
 // 1 — You trip in public
-{ dur: 5, cam: [140, 820, 940, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [140, 820, 940, 1320], draw(c, t) {
   E.title(c, 'You trip in public.', W / 2, 420, t, -1, 2.5, { size: 56, weight: 800 });
   E.title(c, 'Nobody even noticed.', W / 2, 420, t, 2.7, 1e9, { size: 56, weight: 900, color: GOLD });
   const gy = 1300; E.shaded(c, 140, gy, 800, 26, 4, '#7a7a7a', '#3a3a3a');
@@ -16,6 +16,8 @@ const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fa
     const [hx, hy] = E.headPos(fig);
     if (imagine > 0) { const lk = -f * (.6 + .4 * Math.sin(t * 7 + i)); eye(c, hx - 14, hy - 4, .8 * imagine, imagine, lk); eye(c, hx + 14, hy - 4, .8 * imagine, imagine, lk); }
     if (t > 2.6) { const [px, py] = E.hand(fig); E.phone(c, px, py - 16, 1.3); E.glowDot(c, px, py - 20, 70, 'rgba(120,190,255,.45)'); }
+    if (imagine > .5 && i % 2 === 0) E.tag(c, i ? 'SO AWKWARD' : 'LOL', hx, hy - 90, t, 1.0 + i * .2, { size: 26, color: RED, fill: '#2a0d0f' });
+    if (t > 2.8 && i % 2 === 1) E.tag(c, i === 1 ? 'dinner?' : 'scrolling…', hx, hy - 90, t, 2.8 + i * .1, { size: 24, color: '#aaa' });
   });
   E.text(c, 'EVERYONE SAW', 540 + Math.sin(t * 40) * 5 * imagine, 900, { size: 48 + Math.sin(t * 9) * 4, weight: 900, ls: 4, color: RED, alpha: imagine });
   if (imagine > 0) for (let i = 0; i < 8; i++) { const q = ((t * 1.5 + i / 8) % 1); E.text(c, '!', 200 + i * 95, 1000 - q * 120, { size: 40, weight: 900, color: RED, alpha: imagine * Math.sin(q * Math.PI) }); }
@@ -26,7 +28,7 @@ const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fa
   E.particles(c, 540, gy - 250, t - 3.1, { n: 50, speed: 520 });
 } },
 // 2 — The awkward thing you said
-{ dur: 5, cam: [120, 740, 960, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [120, 740, 960, 1320], draw(c, t) {
   E.title(c, 'Replaying that awkward moment?', W / 2, 420, t, -1, 2.5, { size: 48, weight: 800 });
   E.title(c, 'They forgot it in 5 minutes.', W / 2, 420, t, 2.7, 1e9, { size: 50, weight: 900, color: GOLD });
   const gy = 1300; E.shaded(c, 120, gy, 840, 26, 4, '#7a7a7a', '#3a3a3a');
@@ -47,7 +49,7 @@ const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fa
     for (let i = 0; i < 3; i++) { const q = ((t - 2.6) * .8 + i / 3) % 1; E.text(c, 'z', 880 + q * 60, gy - 200 - q * 120, { size: 34 + i * 6, weight: 800, color: '#aaa', alpha: Math.sin(q * Math.PI) }); } }
 } },
 // 3 — Bad hair day
-{ dur: 5, cam: [140, 760, 940, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [140, 760, 940, 1320], draw(c, t) {
   E.title(c, 'Bad hair day?', W / 2, 420, t, -1, 2.5, { size: 60, weight: 900 });
   E.title(c, "Everyone's busy with their own.", W / 2, 420, t, 2.7, 1e9, { size: 48, weight: 900, color: GOLD });
   const gy = 1300; E.shaded(c, 140, gy, 800, 26, 4, '#7a7a7a', '#3a3a3a');
@@ -65,7 +67,7 @@ const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fa
   else { const q = E.p(t, 2.6, 3.4, 'out'); c.save(); c.translate(E.lerp(hx, hx - 220, q), E.lerp(hy - 34, gy - 20, q)); c.rotate(q * 3); c.fillStyle = '#4a4a4a'; c.beginPath(); c.ellipse(0, 0, 80, 18, 0, 0, 7); c.fill(); c.restore(); }
 } },
 // 4 — Scared to post
-{ dur: 5, cam: [160, 700, 920, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [160, 700, 920, 1320], draw(c, t) {
   E.title(c, 'Scared to post?', W / 2, 420, t, -1, 2.5, { size: 60, weight: 900 });
   E.title(c, 'Your first fan: Mom.', W / 2, 420, t, 2.7, 1e9, { size: 56, weight: 900, color: GOLD });
   const gy = 1300, px = 640, py = 1000;
@@ -88,15 +90,16 @@ const REEL = { title: 'Nobody is watching you that closely', bpm: 150, pace: 'fa
   E.particles(c, px - 170, py - 360, t - 3.0, { n: 40, speed: 440, color: '#ff8a8d' });
 } },
 // 5 — Do the thing
-{ dur: 5, cam: [200, 740, 880, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [200, 740, 880, 1320], draw(c, t) {
   E.title(c, 'So do the thing.', W / 2, 420, t, -1, 2.5, { size: 60, weight: 900 });
-  E.title(c, "Nobody's watching. Dance anyway.", W / 2, 420, t, 2.7, 1e9, { size: 46, weight: 900, color: GOLD });
+  E.title(c, 'Dance anyway. Others will join.', W / 2, 420, t, 2.7, 1e9, { size: 48, weight: 900, color: GOLD });
   const gy = 1300;
   E.shaded(c, 260, gy - 60, 560, 60, 8, '#6a5a4a', '#3a2e24');
   const g = c.createLinearGradient(0, 740, 0, gy - 60); g.addColorStop(0, 'rgba(255,240,200,0)'); g.addColorStop(1, 'rgba(255,240,200,.3)'); c.fillStyle = g; c.beginPath(); c.moveTo(510, 740); c.lineTo(570, 740); c.lineTo(720, gy - 60); c.lineTo(360, gy - 60); c.fill();
   const beat = t * 4.2, d = Math.sin(beat * Math.PI), free = E.p(t, .4, 1.4);
   const pose = { tor: d * .25 * free, hd: -d * .3, aF: 2.4 + d * .6 * free, eF: .3, aB: -1.2 + Math.cos(beat * Math.PI) * 1.4 * free, eB: .6, lF: .5 * d * free, kF: .6 * Math.max(0, d), lB: -.4 * d * free, kB: .6 * Math.max(0, -d) };
   E.figure(c, { x: 540 + Math.sin(t * 2.1) * 70, y: gy - 60 - E.FIG_H * 1.15 - 2 - Math.abs(d) * 26 * free, s: 1.15, pose, color: t > 2.6 ? GOLD : '#fff' });
+  [[300, 1], [780, -1], [210, 1]].forEach(([jx, f], i) => { const j = E.p(t, 2.7 + i * .45, 3.1 + i * .45); if (j <= 0) return; const dd = Math.sin(beat * Math.PI + i); E.figure(c, { x: jx, y: gy - E.FIG_H * .8 - 2 - Math.abs(dd) * 18 * j, s: .8, f, alpha: j, color: '#cfcfcf', pose: E.mix(E.pose('stand'), { ...pose, aF: 2.4 + dd * .6, aB: -1.2 + dd * 1.2 }, j) }); });
   for (let i = 0; i < 50; i++) { if (t < 1.2) break; const q = ((t - 1.2) * .5 + E.rnd(i)) % 1, x = 220 + E.rnd(i + 5) * 640 + Math.sin(q * 9 + i) * 20, y = 740 + q * 560; c.save(); c.translate(x, y); c.rotate(q * 9 + i); c.fillStyle = [GOLD, '#ff8a8d', ICE, GREEN][i % 4]; c.fillRect(-8, -5, 16, 10); c.restore(); }
   E.rays(c, 540, 900, 520, .3 * E.p(t, 2.6, 3.0), GOLD, 16, t * .3);
 } },

@@ -225,6 +225,7 @@ window.setupReel = reel => {
       }
       const z = punch * (1 + .06 * (t / sc.dur));
       c.translate(px + Math.sin(T * .9) * 6, py + Math.cos(T * .7) * 5); c.scale(z, z); c.translate(-px, -py);
+      if (sc.floor) E.stage(c, sc.floor);
       sc.draw(c, t, sc.dur); c.restore();
       c.restore(); c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960);
       const hud = E._hud; E._hud = null; hud.forEach(f => f()); c.restore();
@@ -318,3 +319,23 @@ E.shaded = (c, x, y, w, h, r, light, dark, stroke) => {
   c.globalAlpha = .35; c.fillStyle = '#fff'; c.beginPath(); c.roundRect(x + 4, y + 3, w - 8, Math.min(6, h / 4), 3); c.fill(); c.restore();
 };
 E.heart = (c, x, y, s = 1, a = 1, col = RED) => { c.save(); c.globalAlpha *= a; c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.beginPath(); c.moveTo(0, 30); c.bezierCurveTo(-60, -10, -30, -60, 0, -28); c.bezierCurveTo(30, -60, 60, -10, 0, 30); c.fill(); c.restore(); };
+
+// depth stage (reference #14): soft back-light and a graded floor instead of flat black
+E.stage = (c, gy) => {
+  c.save();
+  const back = c.createRadialGradient(540, gy - 260, 40, 540, gy - 260, 900); back.addColorStop(0, 'rgba(255,255,255,.07)'); back.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = back; c.fillRect(-600, gy - 1300, 2300, 1300);
+  const fl = c.createLinearGradient(0, gy, 0, gy + 420); fl.addColorStop(0, '#2a2a2e'); fl.addColorStop(1, 'rgba(10,10,12,0)');
+  c.fillStyle = fl; c.fillRect(-600, gy, 2300, 420);
+  c.restore();
+};
+// typewriter tag (reference #14): mono label in a box, typed out character by character
+E.tag = (c, str, x, y, t, t0, o = {}) => {
+  if (t < t0) return;
+  const n = Math.min(str.length, Math.floor((t - t0) / .045) + 1), shown = str.slice(0, n), cursor = n < str.length || Math.floor(t * 3) % 2 === 0;
+  c.save(); c.globalAlpha *= o.alpha ?? 1; c.font = `800 ${o.size ?? 28}px "JetBrains Mono", "DejaVu Sans Mono", monospace`; c.letterSpacing = '1px';
+  const w = c.measureText(str).width + 28, h = (o.size ?? 28) + 22;
+  c.fillStyle = o.fill ?? '#0c0c0c'; c.strokeStyle = o.color ?? '#ddd'; c.lineWidth = 3; c.beginPath(); c.roundRect(x - w / 2, y - h / 2, w, h, 6); c.fill(); c.stroke();
+  c.fillStyle = o.color ?? '#ddd'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(shown + (cursor ? '▌' : ''), x - w / 2 + 14, y + 1);
+  c.restore();
+};

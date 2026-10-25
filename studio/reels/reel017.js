@@ -1,15 +1,18 @@
 // Reel 017 — "5 minutes that change your day"
 const habit = (c, t, n, str, pay, size = 52) => {
-  E.text(c, `5-MINUTE HABIT ${n}/5`, W / 2, 360, { size: 28, weight: 900, ls: 6, color: GOLD, hud: true });
   const k = E.p(t, pay, pay + .25);
   E.text(c, str, W / 2, 440, { size, weight: 900, family: '"Inter Display", Inter', color: '#fff', alpha: 1 - k, hud: true });
   E.text(c, str, W / 2, 440, { size, weight: 900, family: '"Inter Display", Inter', color: GOLD, alpha: k, hud: true });
+  // the 5:00 countdown chip: tension + the premise on screen every second
+  const left = Math.max(0, 300 - Math.floor(300 * E.clamp(t / pay))), done = t >= pay;
+  const lab = done ? `${n}/5  DONE ✓` : `${n}/5  ⏱ ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+  if (E._hud) E._hud.push(() => E.tag(c, lab, W / 2, 530, t, -1, { size: 40, color: done ? GOLD : '#ddd', fill: done ? '#2a2208' : '#0c0c0c' }));
 };
 const sparkle = (c, x, y, t, t0, n = 6, r = 160) => { if (t < t0) return; for (let i = 0; i < n; i++) { const q = ((t - t0) * .9 + i / n) % 1, a = i / n * 6.28 + t; const sx = x + Math.cos(a) * r * q, sy = y + Math.sin(a) * r * .6 * q - q * 60; c.save(); c.globalAlpha = Math.sin(q * Math.PI); c.translate(sx, sy); c.rotate(t * 3 + i); c.fillStyle = GOLD; c.beginPath(); for (let p = 0; p < 4; p++) { c.rotate(Math.PI / 2); c.moveTo(0, 0); c.lineTo(4, 4); c.lineTo(0, 16); } c.fill(); c.restore(); } };
 const REEL = { title: '5 minutes that change your day', bpm: 150, pace: 'fast', scenes: [
 // 1 — Make your bed
-{ dur: 5, cam: [200, 940, 860, 1320], draw(c, t) {
-  E.title(c, '5 minutes that change your day:', W / 2, 290, t, -1, 1e9, { size: 36, weight: 700, color: '#bbb' });
+{ dur: 5, floor: 1300, cam: [200, 940, 860, 1320], draw(c, t) {
+  E.title(c, '5 minutes that change your day:', W / 2, 350, t, -1, 1e9, { size: 38, weight: 700, color: '#bbb' });
   habit(c, t, 1, 'Make your bed.', 2.4, 60);
   const gy = 1300, bx = 300, bw = 460, tidy = E.p(t, .6, 2.4, 'inOut');
   E.ground(c, gy, 160, 900);
@@ -25,10 +28,11 @@ const REEL = { title: '5 minutes that change your day', bpm: 150, pace: 'fast', 
   const pull = Math.sin(t * 10) * .25 * (1 - tidy);
   E.figure(c, { x: bx + bw + 40, y: gy - E.FIG_H - 2, f: -1, pose: t < 2.4 ? { ...E.pose('push'), tor: -.2 + pull, aF: 1.4, aB: 1.3, lB: -.2, lF: .3 } : E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 2.6, 3.0, 'back')) });
   sparkle(c, bx + bw / 2, gy - 170, t, 2.4, 8, 240);
+  if (t < 2.4) E.particles(c, bx + bw / 2, gy - 150, (t % .6), { n: 18, speed: 300, color: '#9ab', grav: 500, life: .6, seed: Math.floor(t / .6) });
   E.particles(c, bx + bw / 2, gy - 150, t - 2.4, { n: 50, speed: 520, grav: 300 });
 } },
 // 2 — Drink a glass of water
-{ dur: 5, cam: [300, 880, 800, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [300, 880, 800, 1320], draw(c, t) {
   habit(c, t, 2, 'Drink a glass of water.', 2.4, 52);
   const gy = 1300, sip = E.p(t, .5, 2.2, 'inOut'), up = Math.sin(Math.min(1, sip) * Math.PI);
   E.ground(c, gy, 200, 900);
@@ -44,7 +48,7 @@ const REEL = { title: '5 minutes that change your day', bpm: 150, pace: 'fast', 
   for (let i = 0; i < 14; i++) { const q = ((t * .6 + E.rnd(i)) % 1); E.glowDot(c, 340 + E.rnd(i + 4) * 360 + Math.sin(t * 3 + i) * 14, gy - 40 - q * 460, 14 + 8 * E.rnd(i + 2), 'rgba(160,210,255,.8)', Math.sin(q * Math.PI)); }
 } },
 // 3 — Step outside
-{ dur: 5, cam: [140, 760, 940, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [140, 760, 940, 1320], draw(c, t) {
   habit(c, t, 3, 'Step outside.', 2.4, 60);
   const gy = 1300, open = E.p(t, .5, 1.1, 'out'), out = E.p(t, 1.1, 2.5, 'inOut');
   // outside: sun, grass, light
@@ -65,7 +69,7 @@ const REEL = { title: '5 minutes that change your day', bpm: 150, pace: 'fast', 
   for (let i = 0; i < 3; i++) { if (t < 2.6) break; const q = ((t - 2.6) * .7 + i / 3) % 1, bx = 600 + q * 360, by = 840 + Math.sin(q * 9 + i) * 30; c.save(); c.strokeStyle = '#ddd'; c.lineWidth = 5; const w = Math.sin(t * 14 + i) * 12; c.beginPath(); c.moveTo(bx - 24, by - w); c.lineTo(bx, by); c.lineTo(bx + 24, by - w); c.stroke(); c.restore(); }
 } },
 // 4 — Text someone you love
-{ dur: 5, cam: [160, 820, 920, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [160, 820, 920, 1320], draw(c, t) {
   habit(c, t, 4, 'Text someone you love.', 2.4, 52);
   const gy = 1300; E.ground(c, gy, 160, 920);
   const fig = { x: 280, y: gy - E.FIG_H - 2, pose: { ...E.pose('stand'), aF: 1.1 + Math.sin(t * 16) * .06 * (t < 1.2 ? 1 : 0), eF: 1.9, hd: t < 1.3 ? .35 : -.1 } };
@@ -74,13 +78,15 @@ const REEL = { title: '5 minutes that change your day', bpm: 150, pace: 'fast', 
   if (t > 1.2 && t < 2.3) { c.save(); c.translate(px, py); c.rotate(-.3 + fly * .6); c.fillStyle = '#fff'; c.beginPath(); c.moveTo(-40, -10); c.lineTo(46, -26); c.lineTo(-10, 26); c.closePath(); c.fill(); c.fillStyle = '#ccc'; c.beginPath(); c.moveTo(-10, 26); c.lineTo(0, 4); c.lineTo(46, -26); c.fill(); c.restore();
     for (let i = 1; i < 10; i++) { const kk = Math.max(0, fly - i * .03); E.glowDot(c, E.lerp(hx + 30, 780, kk), E.lerp(hy - 40, gy - 300, kk) - Math.sin(kk * Math.PI) * 260, 10, 'rgba(255,255,255,.6)', 1 - i / 10); } }
   const got = E.p(t, 2.2, 2.6, 'back');
-  E.figure(c, { x: 800, y: gy - E.FIG_H - 2, f: -1, color: got > .5 ? GOLD : '#aaa', pose: got > 0 ? { ...E.mix(E.pose('sad'), E.pose('cheer'), got), aF: 2.6 + Math.sin(t * 6) * .2 } : E.pose('sad') });
+  E.figure(c, { x: 800 + (got > 0 ? 0 : Math.sin(t * 2.5) * 50), y: gy - E.FIG_H - 2 - (got > 0 ? Math.abs(Math.sin(t * 8)) * 26 : 0), f: -1, color: got > .5 ? GOLD : '#aaa', pose: got > 0 ? { ...E.mix(E.pose('sad'), E.pose('cheer'), got), aF: 2.6 + Math.sin(t * 6) * .2 } : E.walk(t * 4, .2) });
   if (t > 2.2) E.bubble(c, 'Needed this today.', 760, gy - 400, got, { size: 32, stroke: GOLD, color: GOLD, tail: 1 });
   for (let i = 0; i < 6; i++) { if (t < 2.6) break; const q = ((t - 2.6) * .8 + i / 6) % 1; E.heart(c, E.lerp(780, 300, q), gy - 300 - Math.sin(q * Math.PI) * 200, .7, Math.sin(q * Math.PI)); }
 } },
 // 5 — Write tomorrow's top 3
-{ dur: 5, cam: [200, 760, 880, 1320], draw(c, t) {
+{ dur: 5, floor: 1300, cam: [200, 760, 880, 1320], draw(c, t) {
   habit(c, t, 5, "Write tomorrow's top 3.", 2.6, 52);
+  const day = Math.max(1, Math.round(30 * E.p(t, 3.3, 4.6, 'in')));
+  if (t > 3.3) { E.tag(c, `DAY ${day}`, 660, 1290 - 20, t, 3.3, { size: 34, color: GOLD, fill: '#2a2208' }); E.glowDot(c, 330, 1120, 260 + day * 6, 'rgba(245,197,66,.35)'); }
   const gy = 1300; E.ground(c, gy, 200, 880);
   E.shaded(c, 470, 800, 380, 440, 16, '#fffaf0', '#e8dcc4', '#bba');
   E.text(c, 'TOMORROW', 660, 850, { size: 32, weight: 900, ls: 4, color: '#8a6a3a' });

@@ -14,7 +14,7 @@ const [reelPath, out, mode] = process.argv.slice(2);
   await page.addScriptTag({ path: path.join(__dirname, 'engine.js') });
   await page.addScriptTag({ path: path.resolve(reelPath) });
   const SCALE = +(process.env.SCALE || 1);
-  await page.evaluate(async S => { window.RENDER_SCALE = S; await document.fonts.load('800 40px "Inter Display"'); await document.fonts.load('900 40px "Inter Display"'); await document.fonts.load('600 40px Inter'); await document.fonts.load('900 40px Inter'); await document.fonts.load('700 40px Inter'); setupReel(REEL); }, SCALE);
+  await page.evaluate(async S => { window.RENDER_SCALE = S; await document.fonts.load('800 40px "Inter Display"'); await document.fonts.load('900 40px "Inter Display"'); await document.fonts.load('600 40px Inter'); await document.fonts.load('900 40px Inter'); await document.fonts.load('700 40px Inter'); await document.fonts.load('800 28px "JetBrains Mono"'); setupReel(REEL); }, SCALE);
   const info = await page.evaluate(() => REEL_INFO);
   const grab = async T => Buffer.from((await page.evaluate(T => { renderAt(T); return document.getElementById('cv').toDataURL('image/png'); }, T)).split(',')[1], 'base64');
 

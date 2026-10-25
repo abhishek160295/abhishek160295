@@ -29,6 +29,9 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 
 18. **Reference-level punch.** Every fast scene sets a `cam` box around its action so props fill the frame (titles stay on a fixed text layer). Strokes are 16px, main props are shaded, and every scene has one big physical action (splash, burst, smash, sprint). Targets against the reference bank average (14 reels, see research/reference-bank.md): motion of 1.56 or more, screen fill of about 5.6%, still time of 3.5s or less.
 
+19. **Scorecard ≥ 9.0.** Every reel is scored on research/scorecard.md before shipping, and anything below 9 gets reworked.
+20. **Reference #14 devices.** Every reel uses a depth stage (`floor`), at least one typewriter tag or counter for tension (`E.tag`), and a climax beat: a near-miss, others joining, or a counter landing.
+
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
 - Each shipped reel has to be instantly relatable (a moment the viewer has lived) and have a payoff worth a screenshot.
