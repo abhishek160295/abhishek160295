@@ -18,28 +18,28 @@ const fall = (t, t0, y1) => E.lerp(380, y1, E.p(t, t0, t0 + .45, 'in'));
 
 const REEL = { title: 'Just the next step', bpm: 120, scenes: [
 // 1 — Same problems. One complains, one builds.
-{ dur: 7, draw(c, t) {
-  const gy = 1340, S = 150, LBL = ['REJECTED', 'BROKE', 'FAILED'], T0 = [-.2, 1.4, 2.9];
+{ dur: 6, draw(c, t) {
+  const gy = 1340, S = 150, LBL = ['REJECTED', 'BROKE', 'FAILED'], T0 = [-.2, 1.2, 2.4];
   slab(c, -100, 1180, gy);
-  LB(c, 'COMPLAINING', 290, 690); LB(c, 'BUILDING', 740, 690, { color: t > 4.6 ? GOLD : '#e8e8e8' });
+  LB(c, 'COMPLAINING', 290, 690); LB(c, 'BUILDING', 740, 690, { color: t > 3.8 ? GOLD : '#e8e8e8' });
   // left: the problems stack into a wall in front of him
   T0.forEach((t0, i) => { if (t > t0) { const y1 = gy - S * (i + 1), y = fall(t, t0, y1); block(c, 350, y, S, LBL[i], t, t0 + .45); E.particles(c, 425, y1 + S, t - t0 - .45, { n: 18, speed: 260, color: '#9a9a9a', grav: 500, life: .6, seed: i }); } });
   const flinch = T0.some(t0 => t > t0 + .45 && t < t0 + .7);
-  fig(c, { x: 250, y: hipOn(gy, .9), s: .9, color: '#bdbdbd', pose: t < 3.4 ? (flinch ? E.pose('sad') : E.pose('arms')) : { ...E.pose('sad'), hd: .7 } });
-  E.tag(c, 'WHY ME?', 230, 960, t, 3.9, { size: 24, color: '#bbb' });
+  fig(c, { x: 250, y: hipOn(gy, .9), s: .9, color: '#bdbdbd', pose: t < 2.9 ? (flinch ? E.pose('sad') : E.pose('arms')) : { ...E.pose('sad'), hd: .7 } });
+  E.tag(c, 'WHY ME?', 230, 960, t, 3.2, { size: 24, color: '#bbb' });
   // right: the same problems become steps
   const pos = [[590, gy - S], [740, gy - S], [740, gy - 2 * S]];
   T0.forEach((t0, i) => { if (t > t0) { const [x, y1] = pos[i], y = fall(t, t0, y1); block(c, x, y, S, LBL[i], t, t0 + .45); E.particles(c, x + S / 2, y1 + S, t - t0 - .45, { n: 18, speed: 260, color: '#9a9a9a', grav: 500, life: .6, seed: i + 5 }); } });
   const s = .9; let x = 510, y = hipOn(gy, s), pose = E.pose('stand');
-  const h1 = E.p(t, .7, 1.3, 'inOut'), h2 = E.p(t, 3.8, 4.4, 'inOut');
+  const h1 = E.p(t, .7, 1.3, 'inOut'), h2 = E.p(t, 3.0, 3.6, 'inOut');
   if (h1 > 0) [x, y] = hop(h1, 510, hipOn(gy, s), 665, hipOn(gy - S, s));
   if (h2 > 0) [x, y] = hop(h2, 665, hipOn(gy - S, s), 815, hipOn(gy - 2 * S, s), 110);
   if ((h1 > 0 && h1 < 1) || (h2 > 0 && h2 < 1)) pose = E.pose('jump');
-  else if (t > 4.6) pose = { ...E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 4.6, 4.9, 'back')), aF: 2.6 + Math.sin(t * 5) * .15 };
-  if (t > 4.6) { E.glowDot(c, x, y - 60, 360, 'rgba(245,197,66,.35)', E.p(t, 4.6, 5.2)); E.rays(c, x, y - 60, 460, .22 * E.p(t, 4.6, 5.2), GOLD, 14, t * .2); }
-  if (t > 4.8) E.flag(c, 850, gy - 2 * S, E.p(t, 4.8, 5.1), 0);
-  fig(c, { x, y, s, color: t > 4.6 ? GOLD : '#fff', pose });
-  E.particles(c, x, y - 80, t - 4.6, { n: 50, speed: 520, grav: 300 });
+  else if (t > 3.8) pose = { ...E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, 3.8, 4.1, 'back')), aF: 2.6 + Math.sin(t * 5) * .15 };
+  if (t > 3.8) { E.glowDot(c, x, y - 60, 360, 'rgba(245,197,66,.35)', E.p(t, 3.8, 4.4)); E.rays(c, x, y - 60, 460, .22 * E.p(t, 3.8, 4.4), GOLD, 14, t * .2); }
+  if (t > 4.0) E.flag(c, 850, gy - 2 * S, E.p(t, 4.0, 4.3), 0);
+  fig(c, { x, y, s, color: t > 3.8 ? GOLD : '#fff', pose });
+  E.particles(c, x, y - 80, t - 3.8, { n: 50, speed: 520, grav: 300 });
 } },
 // 2 — Wishing vs working
 { dur: 8, draw(c, t) {
@@ -80,19 +80,19 @@ const REEL = { title: 'Just the next step', bpm: 120, scenes: [
   E.tag(c, `DAY ${String(day).padStart(2, '0')}`, Math.min(bo.x, 820), gB - 330, t, -1, { size: 24, color: t > 5.6 ? GOLD : '#ddd', fill: t > 5.6 ? '#2a2208' : '#0c0c0c' });
 } },
 // 3 — Overthinking vs action: the longer you wait, the wider the gap
-{ dur: 8, draw(c, t) {
+{ dur: 6.5, draw(c, t) {
   const gT = 950, gB = 1480;
   const cliff = (x1, x2, gy) => { const g = c.createLinearGradient(0, gy, 0, gy + 260); g.addColorStop(0, '#3a3a3e'); g.addColorStop(1, 'rgba(8,8,9,0)'); c.save(); c.fillStyle = g; c.fillRect(x1, gy, x2 - x1, 260); c.restore(); E.line(c, x1, gy, x2, gy, '#7a7a7a', 3); E.line(c, x1, gy, x1, gy + 200, '#444', 3); E.line(c, x2, gy, x2, gy + 200, '#444', 3); };
   LB(c, 'OVERTHINKING', 540, 470); LB(c, 'ACTION', 540, 1080, { color: t > 2.6 ? GOLD : '#e8e8e8' });
   // top: every thought pushes the other side further away
-  const gx = E.lerp(560, 930, E.p(t, .5, 5.6, 'inOut'));
+  const gx = E.lerp(560, 930, E.p(t, .3, 5.0, 'inOut')) + Math.max(0, t - 5.0) * 14;
   cliff(-100, 420, gT); cliff(gx, 1180, gT);
   E.flag(c, gx + 40, gT, 1, 0);
-  const late = t > 5.8;
+  const late = t > 4.8;
   fig(c, { x: 370, y: hipOn(gT, .85), s: .85, color: '#bdbdbd', f: 1, pose: late ? { ...E.pose('sad'), hd: .8 } : { ...E.pose('stand'), aF: .9, eF: 1.9, hd: .15 + Math.sin(t * 2) * .05 } });
-  const TH = [['WHAT IF I FAIL?', .5], ['NOT READY YET', 2.2], ['MAYBE TOMORROW', 3.9]];
-  TH.forEach(([s, t0], i) => { const t1 = i < 2 ? TH[i + 1][1] : 5.8; if (t > t0 && t < t1) E.tag(c, s, 370, 600, t, t0, { size: 24, color: '#ccc' }); });
-  if (late) E.tag(c, 'TOO LATE', 370, 600, t, 5.8, { size: 26, color: RED, fill: '#1e0a0a' });
+  const TH = [['WHAT IF I FAIL?', .3], ['NOT READY YET', 1.8], ['MAYBE TOMORROW', 3.3]];
+  TH.forEach(([s, t0], i) => { const t1 = i < 2 ? TH[i + 1][1] : 4.8; if (t > t0 && t < t1) E.tag(c, s, 370, 600, t, t0, { size: 24, color: '#ccc' }); });
+  if (late) E.tag(c, 'TOO LATE', 370, 600, t, 4.8, { size: 26, color: RED, fill: '#1e0a0a' });
   // bottom: he jumps while the gap is small
   cliff(-100, 420, gB); cliff(560, 1180, gB);
   const s = .85; let x, y = hipOn(gB, s), pose;
