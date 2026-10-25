@@ -216,7 +216,8 @@
     "step outside (dark room to sunlight)",
     "text someone you love (paper plane, 'needed this today')",
     "write tomorrow's top 3 (notepad ticks)"
-   ]
+   ],
+   "status": "reserve"
   },
   {
    "id": "reel018",
@@ -227,7 +228,8 @@
     "bad hair day: imagined spotlight, hat off",
     "scared to post: imagined critics vs 'Mom liked your video'",
     "dance anyway on stage"
-   ]
+   ],
+   "status": "reserve"
   },
   {
    "id": "reel019",
@@ -238,6 +240,30 @@
     "game over, continue, +1 life",
     "prune plant, regrow fuller with gold flowers",
     "night to sunrise restart"
+   ]
+  },
+  {
+   "id": "reel020",
+   "day": 5,
+   "title": "Consistency beats talent",
+   "concepts": [
+    "talent vs consistency race",
+    "water drop carves stone",
+    "one big push vs daily rope pulls",
+    "one stroke a day mural",
+    "snowball smashes IMPOSSIBLE wall"
+   ]
+  },
+  {
+   "id": "reel021",
+   "day": 5,
+   "title": "Comfort will cost you",
+   "concepts": [
+    "comfort quicksand couch",
+    "easy road vs choose your hard",
+    "rusty vs sharpened sword log test",
+    "ships safe in harbor",
+    "cage door never locked"
    ]
   }
  ]

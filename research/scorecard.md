@@ -15,13 +15,16 @@ Each criterion is worth 1 point. A reel ships only at **9.0 or above**.
 | 9 | Rewatch | Humour, detail or a twist that rewards a second watch, and a clean loop |
 | 10 | Originality + brand | Not in the ledger, not the reference creator's idea, on-brand look |
 
-## Day 5 (Sun 26 Oct) — after upgrade
+**Must-pass gate (before scoring): reference fit.** The theme is discipline, consistency, success or never giving up, told through visual metaphors in a serious tone and building to a climax. Lifestyle tips, comedy and social-anxiety stories fail the gate whatever they score.
 
-| Reel | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | **Score** |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 5 minutes that change your day | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | .5 | 1 | **9.25** |
-| Nobody is watching you that closely | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | **9.75** |
-| It's okay to start over | 1 | .75 | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | **9.5** |
+## Day 5 (Sun 26 Oct): after the fit gate
 
-Measured: motion 1.60 / 1.90 / 1.67 (ref 1.56), fill 7.8% / 6.5% / 9.6% (ref 5.6%), still 0 / 0.7 / 0s (ref 3.5s).
-This score covers quality. Reach also depends on the sound, posting time and account age, which a video can't control.
+| Reel | Fit | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | **Score** |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Consistency beats talent | pass | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | **9.75** |
+| Comfort will cost you | pass | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | **9.75** |
+| It's okay to start over | pass | 1 | .75 | 1 | 1 | 1 | 1 | 1 | 1 | .75 | 1 | **9.5** |
+
+Measured: motion 1.61 / 1.56 / 1.67 (ref 1.56), fill 11.7% / 5.8% / 9.6% (ref 5.6%), dead time 0s on all three.
+"5 minutes that change your day" and "Nobody is watching you that closely" failed the fit gate (lifestyle and social themes). They moved to Reserve.
+The score covers quality only. Reach also depends on the sound, the posting time and the account's age, which the video itself can't control.

@@ -31,6 +31,7 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 
 19. **Scorecard ≥ 9.0.** Every reel is scored on research/scorecard.md before shipping, and anything below 9 gets reworked.
 20. **Reference #14 devices.** Every reel uses a depth stage (`floor`), at least one typewriter tag or counter for tension (`E.tag`), and a climax beat: a near-miss, others joining, or a counter landing.
+21. **Reference fit is a gate.** Every reel must be about discipline, consistency, success or never giving up, told through metaphors in a serious tone, and must build to a climax. Lifestyle, comedy and social stories don't ship, however well they score.
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
