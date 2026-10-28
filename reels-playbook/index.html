@@ -1,0 +1,367 @@
+<title>Stickman Reels Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Archivo:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single dark "stage" column, like the reels themselves; sections read as scenes, red is used only where the reels use it. */
+:root{
+  --stage:#0b0b0c; --panel:#141416; --line:#26262a; --ink:#ecebe7; --mute:#9b9a96; --dim:#5f5e5b; --signal:#e5322d; --signal-soft:#e5322d22;
+  --f-label:"Silkscreen","JetBrains Mono",ui-monospace,monospace;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--stage);color:var(--ink);font:400 16px/1.6 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 80px}
+.wrap{max-width:880px;margin:0 auto}
+header{padding-block:56px 40px;border-bottom:1px solid var(--line)}
+.eyebrow,.lbl{font-family:var(--f-label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1{font:800 clamp(38px,8vw,72px)/.95 var(--f-body);letter-spacing:-.03em;margin:14px 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--signal)}
+.lede{max-width:62ch;color:var(--mute);font-size:17px;margin:0}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+nav a{font-family:var(--f-label);font-size:10px;letter-spacing:.12em;color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:7px 10px}
+nav a:hover,nav a:focus-visible{border-color:var(--signal);outline:none}
+section{padding-block:52px 8px;border-bottom:1px solid var(--line)}
+h2{font:800 30px/1.1 var(--f-body);letter-spacing:-.02em;margin:8px 0 18px;text-wrap:balance}
+h3{font:700 18px/1.3 var(--f-body);margin:28px 0 8px}
+p,li{max-width:66ch}
+ul,ol{padding-left:20px}
+li{margin-block:6px}
+strong{color:var(--ink)}
+.mute{color:var(--mute)}
+code,.mono{font-family:var(--f-mono);font-size:.88em}
+.rule{display:grid;grid-template-columns:52px 1fr;gap:4px 14px;padding-block:14px;border-top:1px solid var(--line)}
+.rule:first-of-type{border-top:0}
+.rule .n{font-family:var(--f-label);font-size:12px;color:var(--signal);padding-top:3px}
+.rule p{margin:0}
+.rule b{display:block}
+.tbl{overflow-x:auto;margin-block:16px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th{font-family:var(--f-label);font-weight:400;font-size:10px;letter-spacing:.12em;color:var(--mute);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+td.t{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;margin-block:14px}
+.sw{display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:8px 12px 8px 8px;font-family:var(--f-mono);font-size:12px}
+.sw i{width:28px;height:28px;display:block;border:1px solid var(--line)}
+.callout{border-left:2px solid var(--signal);background:var(--signal-soft);padding:14px 18px;margin-block:20px}
+.callout p{margin:0}
+.beats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin-block:20px}
+.beat{background:var(--panel);padding:14px 12px;min-width:0}
+.beat .lbl{color:var(--signal)}
+.beat b{display:block;margin:6px 0 4px;font-size:14px}
+.beat span{font-size:13px;color:var(--mute);line-height:1.45;display:block}
+@media (max-width:640px){.beats{grid-template-columns:1fr 1fr}.beat:last-child{grid-column:span 2}}
+.kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2px;margin-block:12px 24px}
+.snd{display:flex;align-items:center;gap:12px;background:var(--panel);padding:10px 12px;min-width:0}
+.snd button{flex:none;width:34px;height:34px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.snd button:hover,.snd button:focus-visible{border-color:var(--signal);outline:none}
+.snd button.on{background:var(--signal);border-color:var(--signal)}
+.snd button svg{width:12px;height:12px;fill:currentColor}
+.snd div{min-width:0}
+.snd .nm{font-family:var(--f-mono);font-size:12px;overflow-wrap:anywhere}
+.snd .use{font-size:12px;color:var(--mute);line-height:1.35}
+.group{font-family:var(--f-label);font-size:11px;letter-spacing:.14em;color:var(--mute);margin-top:22px}
+.ideas{counter-reset:i;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;margin-block:16px}
+.idea{background:var(--panel);padding:16px;min-width:0}
+.idea .vs{font-family:var(--f-label);font-size:11px;letter-spacing:.1em;color:var(--ink)}
+.idea .vs s{text-decoration:none;color:var(--signal)}
+.idea p{font-size:14px;color:var(--mute);margin:8px 0 0}
+.idea .line{color:var(--ink);font-weight:600;margin-top:10px;font-size:14px}
+.check{list-style:none;padding:0}
+.check li{padding-left:28px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:7px;width:12px;height:12px;border:1px solid var(--signal)}
+.fig{background:var(--panel);margin-block:20px;padding:18px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.fig svg{max-width:100%;height:auto}
+.fig .cap{font-size:13px;color:var(--mute);flex:1 1 220px;min-width:0}
+footer{padding-top:32px;color:var(--dim);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Rule book · v1 · Oct 2026</div>
+  <h1>Two figures.<br>One choice.<br><em>One ending.</em></h1>
+  <p class="lede">The full system for making minimalist stickman reels in the style of the 7 viral references: how to write the idea, build the scene, time the animation, design the sound and post it. The music you add in Instagram. Everything else is here, including a sound kit built from scratch.</p>
+  <nav>
+    <a href="#dna">DNA</a><a href="#script">Script</a><a href="#visual">Visual</a><a href="#motion">Motion</a><a href="#sound">Sound</a><a href="#kit">SFX kit</a><a href="#text">Text</a><a href="#workflow">Workflow</a><a href="#post">Posting</a><a href="#ideas">30 ideas</a><a href="#qc">QC</a>
+  </nav>
+</header>
+
+<section id="dna">
+  <div class="lbl">01 · The DNA</div>
+  <h2>Why these reels go viral</h2>
+  <p>Every one of the 7 reels is the same machine: two characters receive the same conditions and make different choices, and the ending shows the result of those choices without a single word of explanation. The viewer works out the lesson themselves, which is why they rewatch, save and share.</p>
+  <div class="rule"><span class="n">R1</span><p><b>Two characters, same conditions.</b>Same bricks, same 5 minutes, same rain, same diving board. Only the choice changes. If the conditions differ, the lesson collapses.</p></div>
+  <div class="rule"><span class="n">R2</span><p><b>The lesson is shown, never explained.</b>The final frame proves the point: the wall is built, the man is on top, the water is stored. Text only names it.</p></div>
+  <div class="rule"><span class="n">R3</span><p><b>Under 16 seconds.</b>The references run 3 to 16 s. Aim for 10 to 14 s. Short means the completion rate is above 100% because people loop it.</p></div>
+  <div class="rule"><span class="n">R4</span><p><b>Labels, not sentences.</b>OVERTHINKER / DOER. PERFECTIONIST / ACTION TAKER. Two words tell the viewer who to watch.</p></div>
+  <div class="rule"><span class="n">R5</span><p><b>Universal pain point.</b>Snoozing, overthinking, following the crowd, being mocked. Each viewer should see themselves in the losing character and want to be the winning one.</p></div>
+  <div class="rule"><span class="n">R6</span><p><b>Language free.</b>No voiceover, simple English labels. That makes the reel work in every country, which multiplies reach.</p></div>
+  <div class="rule"><span class="n">R7</span><p><b>One visual system.</b>Black stage, white hero, grey crowd, one red object. Recognisable in the feed before anyone reads a word.</p></div>
+</section>
+
+<section id="script">
+  <div class="lbl">02 · Script</div>
+  <h2>The 5-beat structure</h2>
+  <p>Write every reel on this grid before you draw anything. Times are for a 12-second reel at 30 fps.</p>
+  <div class="beats">
+    <div class="beat"><span class="lbl">0.0–1.0s</span><b>Hook frame</b><span>Both characters already on screen, labels visible, action already started. Never start on empty black.</span></div>
+    <div class="beat"><span class="lbl">1–3s</span><b>Same start</b><span>Show the shared condition: the bricks, the alarm, the rain.</span></div>
+    <div class="beat"><span class="lbl">3–8s</span><b>Split</b><span>Choices diverge. The winner repeats a simple action; the loser stalls, loops or mocks.</span></div>
+    <div class="beat"><span class="lbl">8–11s</span><b>Payoff</b><span>The result lands visibly: wall complete, top of the tower, drought. Hardest SFX hit here.</span></div>
+    <div class="beat"><span class="lbl">11–13s</span><b>Name it</b><span>One line of text on a hold frame that loops cleanly back to the start.</span></div>
+  </div>
+  <h3>Script template</h3>
+  <div class="tbl"><table>
+    <tr><th>Field</th><th>Fill in</th><th>Example (Overthinker vs Doer)</th></tr>
+    <tr><td>Pair</td><td>Loser label / winner label</td><td>OVERTHINKER / DOER</td></tr>
+    <tr><td>Shared condition</td><td>Same object, same moment</td><td>Two identical diving boards over water</td></tr>
+    <tr><td>Winner action</td><td>One repeatable action</td><td>Jumps, swims, climbs back, jumps again</td></tr>
+    <tr><td>Loser action</td><td>One stalling loop</td><td>Steps up, crouches, steps back</td></tr>
+    <tr><td>Red object</td><td>The symbol of the problem</td><td>Red tip of the board (the edge he won't cross)</td></tr>
+    <tr><td>Payoff frame</td><td>The still that proves it</td><td>Doer swimming freely, overthinker still dry</td></tr>
+    <tr><td>Closing line</td><td>Max 8 words, optional</td><td>None needed. The labels do the work.</td></tr>
+  </table></div>
+  <div class="callout"><p><strong>Test before you animate:</strong> describe the reel in one sentence with no labels. If a stranger can't guess the lesson from that sentence, the visual metaphor is too weak. Change the metaphor, not the text.</p></div>
+</section>
+
+<section id="visual">
+  <div class="lbl">03 · Visual</div>
+  <h2>The visual rule book</h2>
+  <h3>Canvas</h3>
+  <ul>
+    <li><strong>1080 × 1920</strong>, 9:16, 30 fps. Render H.264, 10–15 Mbps.</li>
+    <li>Keep all action in the <strong>middle 1080 × 1100</strong> (y 380 to 1480). Instagram covers the top 250 px and bottom 400 px with UI.</li>
+    <li>Labels sit at y 420 to 520, above the characters, never at the very top.</li>
+  </ul>
+  <h3>Palette</h3>
+  <div class="swatches">
+    <div class="sw"><i style="background:#000000"></i>#000000 stage</div>
+    <div class="sw"><i style="background:#F2F2F2"></i>#F2F2F2 hero</div>
+    <div class="sw"><i style="background:#8A8A8A"></i>#8A8A8A loser / crowd</div>
+    <div class="sw"><i style="background:#3A3A3A"></i>#3A3A3A props, floor</div>
+    <div class="sw"><i style="background:#E5322D"></i>#E5322D one red object</div>
+  </div>
+  <div class="rule"><span class="n">V1</span><p><b>Red appears on one object only.</b>Spirit level, blindfolds, flag, sun, alarm light. Red marks the thing the lesson is about.</p></div>
+  <div class="rule"><span class="n">V2</span><p><b>Hero is brighter than everyone else.</b>White, with a soft glow (outer glow, 6–10 px, 30% opacity). The loser or crowd sits at 55–65% brightness.</p></div>
+  <div class="rule"><span class="n">V3</span><p><b>Glossy floor.</b>Mirror the scene under the ground line at 15–20% opacity with a fade. That single trick makes flat stickmen look premium.</p></div>
+  <div class="rule"><span class="n">V4</span><p><b>Vignette and grain.</b>Radial vignette at 40%, film grain at 3–5%. Keeps pure black from looking like a dead screen.</p></div>
+  <div class="rule"><span class="n">V5</span><p><b>Losing ending = fade to dark.</b>The losing side desaturates and dims in the last second (crowd fading in the climb reel, red sun dimming in the umbrella reel).</p></div>
+  <div class="rule"><span class="n">V6</span><p><b>Small watermark.</b>Your handle in the label font, 18 px, 12% opacity, centred under the floor line. Visible but never distracting.</p></div>
+  <h3>Stickman spec</h3>
+  <div class="fig">
+    <svg width="180" height="260" viewBox="0 0 180 260" aria-label="Stickman proportions">
+      <g stroke="#F2F2F2" stroke-width="12" stroke-linecap="round" fill="none">
+        <line x1="90" y1="78" x2="90" y2="160"/><line x1="90" y1="98" x2="56" y2="140"/><line x1="90" y1="98" x2="126" y2="138"/>
+        <line x1="90" y1="160" x2="66" y2="238"/><line x1="90" y1="160" x2="116" y2="238"/>
+      </g>
+      <circle cx="90" cy="46" r="26" fill="#F2F2F2"/>
+      <g fill="#9b9a96" font-family="JetBrains Mono, monospace" font-size="10">
+        <text x="124" y="40">head 1u</text><text x="100" y="128">torso 1.6u</text><text x="122" y="206">legs 1.6u</text>
+      </g>
+    </svg>
+    <p class="cap">Solid circle head, one stroke weight for every limb, round caps, no hands or feet. Head diameter = 1 unit; torso and legs about 1.6 units each. Stroke = 22% of head diameter. Characters are always drawn side-on so the action reads at phone size.</p>
+  </div>
+  <h3>Typography</h3>
+  <ul>
+    <li>Font: a squared pixel or mono caps face such as <strong>Silkscreen</strong>, <strong>Space Mono Bold</strong> or <strong>VT323</strong>.</li>
+    <li>Labels 30–34 px, letter-spacing +12%, all caps, white at 90%.</li>
+    <li>Closing line 32–38 px, centred, max 2 lines, max 8 words per line.</li>
+  </ul>
+</section>
+
+<section id="motion">
+  <div class="lbl">04 · Motion</div>
+  <h2>Animation rules</h2>
+  <div class="rule"><span class="n">M1</span><p><b>Speed is the story.</b>The winner moves at a steady, quick rhythm. The loser moves slower, stops and repeats. Viewers read the lesson from tempo before they read the labels.</p></div>
+  <div class="rule"><span class="n">M2</span><p><b>Loops for the loser.</b>Animate the stalling action once (2 to 3 s) and cycle it. The repetition is the joke and the lesson.</p></div>
+  <div class="rule"><span class="n">M3</span><p><b>Progress for the winner.</b>Something must accumulate: wall height, distance climbed, water level, a timer. Visible accumulation is what makes the payoff satisfying.</p></div>
+  <div class="rule"><span class="n">M4</span><p><b>Ease in and out on everything, except impacts.</b>Use ease in/out curves on movement, and hard stops on contact (brick lands, feet hit the water), with 2 frames of squash.</p></div>
+  <div class="rule"><span class="n">M5</span><p><b>Anticipation before every big move.</b>Crouch 6 frames before a jump, lean back 4 frames before a throw.</p></div>
+  <div class="rule"><span class="n">M6</span><p><b>Hold the payoff 1.5 s.</b>Let the result frame breathe before text arrives. This is where people screenshot.</p></div>
+  <div class="rule"><span class="n">M7</span><p><b>Seamless loop.</b>The last frame should cut back to the first without a jump. The easiest method is to end on a pose and layout that match the opening frame.</p></div>
+  <div class="rule"><span class="n">M8</span><p><b>Camera stays still.</b>A locked camera, with at most one slow push-in (100% to 108%) during the payoff.</p></div>
+</section>
+
+<section id="sound">
+  <div class="lbl">05 · Sound</div>
+  <h2>Sound design rule book</h2>
+  <p>Music comes from Instagram, so the sound you bake into the video is effects only. Done well, it makes cheap animation feel expensive, and it means the reel still works when someone watches without the music.</p>
+  <h3>The four layers</h3>
+  <div class="tbl"><table>
+    <tr><th>Layer</th><th>What</th><th>Peak level</th><th>Rule</th></tr>
+    <tr><td>1 · Bed</td><td>Rain, water, wind, heat hum, crowd murmur</td><td class="t">−24 dB</td><td>Runs under the whole scene. Fade in 0.3 s, never cut hard.</td></tr>
+    <tr><td>2 · Action</td><td>Bricks, steps, splashes, bounces, grips</td><td class="t">−12 dB</td><td>One sound per visible contact, placed on the exact frame of contact.</td></tr>
+    <tr><td>3 · UI</td><td>Label ticks, text pop, typewriter</td><td class="t">−16 dB</td><td>Every label and text line gets a sound on the frame it appears.</td></tr>
+    <tr><td>4 · Punctuation</td><td>Riser, sub drop, impact, chime</td><td class="t">−6 dB</td><td>Once per reel only, on the payoff. This is the moment people remember.</td></tr>
+  </table></div>
+  <div class="rule"><span class="n">S1</span><p><b>Sync to the frame.</b>Contact sounds start on the contact frame. Whooshes start 2–3 frames before the movement they describe.</p></div>
+  <div class="rule"><span class="n">S2</span><p><b>Give each character a sonic identity.</b>The winner's actions are crisp and bright (high-passed). The loser's are duller and quieter (low-passed, −4 dB). The ear hears who is winning.</p></div>
+  <div class="rule"><span class="n">S3</span><p><b>Silence before the payoff.</b>Duck everything for 6–10 frames just before the punctuation hit. Contrast makes the hit land.</p></div>
+  <div class="rule"><span class="n">S4</span><p><b>Never repeat the exact same sample twice in a row.</b>Shift pitch ±1 to 3 semitones and volume ±2 dB for each repetition (bricks, footsteps, bounces). Identical repeats sound robotic.</p></div>
+  <div class="rule"><span class="n">S5</span><p><b>Leave room for the music.</b>Keep the overall mix under −14 LUFS. In Instagram, set the original audio to about 60–70% and the music track to 20–35%, so the effects stay audible under the beat.</p></div>
+  <div class="rule"><span class="n">S6</span><p><b>Pick music by mood, not by trend alone.</b>Slow piano or ambient pads suit reflective reels (umbrella, climb). Dark phonk or a steady beat suits action reels (bricks, discipline). Start the music on the hook frame.</p></div>
+  <div class="rule"><span class="n">S7</span><p><b>Export.</b>48 kHz, stereo AAC 320 kbps, baked into the MP4. Pan the winner 15% right and the loser 15% left when they're on opposite sides of the screen.</p></div>
+</section>
+
+<section id="kit">
+  <div class="lbl">06 · SFX kit</div>
+  <h2>44 original sounds, built from scratch</h2>
+  <p>Every sound below was generated from oscillators, filtered noise and envelopes: no samples, no ElevenLabs, no licences to worry about. Tap to preview. The WAV files (48 kHz, mono) are in the <code>sfx/</code> folder of the repo and in the zip I sent. The generator script <code>tools/make_sfx.py</code> rebuilds the whole kit, and you can tweak it to make new variations.</p>
+  <div id="kitlist"></div>
+</section>
+
+<section id="text">
+  <div class="lbl">07 · Text</div>
+  <h2>On-screen text rules</h2>
+  <div class="rule"><span class="n">T1</span><p><b>Labels from frame 1.</b>Character labels are on screen from the very first frame so the scroll-stopper already makes sense.</p></div>
+  <div class="rule"><span class="n">T2</span><p><b>Closing line only in the last 25%.</b>It names the lesson after the viewer has already felt it. Typewriter reveal, 2 frames per letter, with <code>ui_typewriter_line</code>.</p></div>
+  <div class="rule"><span class="n">T3</span><p><b>Two-part lines hit harder.</b>"DON'T FOLLOW BLINDLY." then a beat, then "OR YOU'LL PAY THE CONSEQUENCES." Shows as two reveals, and the second gets the hit.</p></div>
+  <div class="rule"><span class="n">T4</span><p><b>Parallel structure.</b>"DON'T RELY ON MOTIVATION / RELY ON DISCIPLINE". "SAME 5 MINUTES. DIFFERENT DAY." Repetition with one word changed is the most quotable form.</p></div>
+  <div class="rule"><span class="n">T5</span><p><b>No hashtags, emoji or handles in the video.</b>Those go in the caption.</p></div>
+</section>
+
+<section id="workflow">
+  <div class="lbl">08 · Workflow</div>
+  <h2>Production pipeline</h2>
+  <div class="tbl"><table>
+    <tr><th>Step</th><th>Tool (pick one)</th><th>Output</th><th>Time</th></tr>
+    <tr><td>1 · Script</td><td>The template above</td><td>Filled 5-beat grid</td><td class="t">15 min</td></tr>
+    <tr><td>2 · Storyboard</td><td>Paper, or 6 thumbnail frames in any app</td><td>Hook, split, payoff, end frames</td><td class="t">15 min</td></tr>
+    <tr><td>3 · Animate</td><td>Phone: Alight Motion or Stick Nodes Pro · Desktop: After Effects (with Duik), Blender (Grease Pencil) or Cavalry</td><td>Silent 1080×1920 MP4</td><td class="t">2–4 h</td></tr>
+    <tr><td>4 · Finish</td><td>Glow, reflection, vignette, grain</td><td>Graded master</td><td class="t">20 min</td></tr>
+    <tr><td>5 · Sound</td><td>CapCut, DaVinci Resolve (free) or Premiere + this kit</td><td>MP4 with SFX baked in</td><td class="t">30 min</td></tr>
+    <tr><td>6 · Post</td><td>Instagram: add music, cover, caption</td><td>Live reel</td><td class="t">10 min</td></tr>
+  </table></div>
+  <div class="callout"><p><strong>Batch it.</strong> Build reusable rigs once (stickman, crowd of 20, floor with reflection, label preset). After the first reel, each new one takes 1.5–2 hours instead of 4, and posting 3 a week becomes realistic.</p></div>
+</section>
+
+<section id="post">
+  <div class="lbl">09 · Posting</div>
+  <h2>Posting rules</h2>
+  <ul>
+    <li><strong>Cover:</strong> the payoff frame with both labels visible. It should make sense in the profile grid.</li>
+    <li><strong>Caption formula:</strong> a short line that makes people tag someone, then a question. For example: "Which one are you right now? 👇" or "Send this to the friend who keeps snoozing."</li>
+    <li><strong>Hashtags:</strong> 5 to 8. Mix one big (#motivation), three mid (#disciplineovermotivation, #selfimprovement, #mindsetshift) and two niche (#stickmananimation, #minimalistanimation).</li>
+    <li><strong>Timing:</strong> 7–9 am or 8–10 pm local time, when people scroll before work or before sleep.</li>
+    <li><strong>Cadence:</strong> 3 per week minimum, same visual system every time, so the page reads as one series.</li>
+    <li><strong>First hour:</strong> reply to every comment. Pin the best one.</li>
+    <li><strong>Track:</strong> watch time over 100%, saves and shares. Those three tell you which metaphors to repeat.</li>
+  </ul>
+</section>
+
+<section id="ideas">
+  <div class="lbl">10 · Idea bank</div>
+  <h2>30 ready concepts</h2>
+  <p>Every concept follows the DNA: same conditions, two choices, a visible ending. Loser first, winner second.</p>
+  <div class="ideas" id="ideas-list"></div>
+</section>
+
+<section id="qc">
+  <div class="lbl">11 · Quality check</div>
+  <h2>Before you post</h2>
+  <ul class="check">
+    <li>Lesson guessable with the sound off and labels hidden.</li>
+    <li>Both characters on screen in frame 1, with labels visible.</li>
+    <li>Same conditions for both. Only the choice differs.</li>
+    <li>Red is used on one object only.</li>
+    <li>Everything important sits inside the safe zone (y 380–1480).</li>
+    <li>Every visible contact has a sound, synced to the frame.</li>
+    <li>One punctuation hit only, on the payoff, with silence just before it.</li>
+    <li>Closing line of 8 words or fewer, arriving in the last 25%.</li>
+    <li>Loops cleanly from the last frame back to the first.</li>
+    <li>Total length 10–14 s, 1080×1920, 30 fps, audio at −14 LUFS or below.</li>
+  </ul>
+</section>
+
+<footer>Rule book built from frame-by-frame analysis of 7 reference reels. Sound kit generated with <span class="mono">tools/make_sfx.py</span>.</footer>
+</div>
+
+<script>
+const KIT = {
+  "UI / text": [
+    ["ui_text_pop","Closing line appears"],["ui_label_tick","Each character label"],["ui_typewriter_line","Letter-by-letter text reveal"],["ui_reveal_chime","Positive payoff text"]],
+  "Transitions & impacts": [
+    ["tr_whoosh_soft","Scene change, slow move"],["tr_whoosh_fast","Fast jump, throw, swipe"],["tr_riser_2s","Build tension into the payoff"],["tr_sub_drop","The one big payoff hit"],["tr_impact_hit","Hard landing, reveal slam"]],
+  "Build": [
+    ["build_brick_place","Single brick set down"],["build_brick_stack_fast","Action taker stacking"],["build_level_tap","Perfectionist checking"],["build_scrape_adjust","Nudging a brick again"]],
+  "Morning routine": [
+    ["morning_alarm_beep","Alarm goes off"],["morning_snooze_tap","Snooze pressed"],["morning_tick_timer","Clock or timer on screen"],["morning_pan_sizzle","Cooking eggs"],["morning_shower_loop","Shower running"],["morning_door_close","Leaving the house"],["morning_footsteps_walk","Calm, confident walk"],["morning_footsteps_rush","Late, rushing"]],
+  "Discipline ball": [
+    ["ball_bounce_dying","Motivation fading out"],["ball_bounce_steady","Discipline, steady rhythm"]],
+  "Crowd & cliff": [
+    ["crowd_march_murmur","Herd marching"],["crowd_blindfold_rip","Blindfold pulled off"],["crowd_fall_whistle","Figure falling"],["crowd_distant_thud","Landing far below"],["crowd_ha_ha_mock","Mocking laugh"]],
+  "Diving": [
+    ["dive_board_spring","Board flex on jump"],["dive_splash","Hitting the water"],["dive_water_ambience_loop","Water bed"],["dive_hesitate_shuffle","Overthinker stepping back"]],
+  "Climb": [
+    ["climb_grip","Each handhold"],["climb_pebbles_fall","Rock crumbling"],["climb_flag_flutter","Flag at the summit"],["climb_stream_pour","Something raining down"]],
+  "Weather & drought": [
+    ["weather_rain_loop","Rain bed"],["weather_thunder","Storm arrives"],["weather_umbrella_open","Umbrella flip"],["weather_heat_drone","Drought, red sun"],["weather_dry_wind","Empty, dry ground"],["weather_drink_gulps","Drinking stored water"]],
+  "Emotional beats": [
+    ["beat_heartbeat","Moment of decision"],["beat_tension_tick","Hesitation, countdown"]]
+};
+const play = '<svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z"/></svg>';
+const stop = '<svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8"/></svg>';
+let cur = null, curBtn = null;
+const host = document.getElementById("kitlist");
+for (const [g, items] of Object.entries(KIT)) {
+  const h = document.createElement("div"); h.className = "group"; h.textContent = g + " · " + items.length; host.appendChild(h);
+  const grid = document.createElement("div"); grid.className = "kit";
+  for (const [name, use] of items) {
+    const row = document.createElement("div"); row.className = "snd";
+    row.innerHTML = `<button type="button" id="p-${name}" aria-label="Play ${name}">${play}</button><div><div class="nm">${name}.wav</div><div class="use">${use}</div></div>`;
+    const b = row.querySelector("button");
+    b.addEventListener("click", () => {
+      if (cur) { cur.pause(); curBtn.classList.remove("on"); curBtn.innerHTML = play; }
+      if (curBtn === b) { cur = curBtn = null; return; }
+      cur = new Audio("sfx/" + name + ".wav"); curBtn = b;
+      b.classList.add("on"); b.innerHTML = stop;
+      cur.addEventListener("ended", () => { b.classList.remove("on"); b.innerHTML = play; cur = curBtn = null; });
+      cur.play().catch(() => { b.classList.remove("on"); b.innerHTML = play; cur = curBtn = null; });
+    });
+    grid.appendChild(row);
+  }
+  host.appendChild(grid);
+}
+
+const IDEAS = [
+  ["Scroller","Reader","Both on a couch at night. One thumb flicks a glowing phone, the other turns pages. A height bar behind each: the reader's grows.","Same hour. Different mind."],
+  ["Talker","Builder","One stands on a box shouting with speech bubbles, the other quietly lays tracks. A train arrives on the builder's track.","Talk less. Build more."],
+  ["Quitter","Miner","Two dig tunnels toward a red diamond. One stops a single block away and walks back.","You were one swing away."],
+  ["Comparer","Climber","On parallel ladders, one keeps looking sideways and slips back a rung each time.","Eyes on your own ladder."],
+  ["Spender","Saver","Same paycheck coin falls each week. One drops it in a red shop, the other into a jar that becomes a house.","Same salary. Different future."],
+  ["Starter","Finisher","One begins five paintings and abandons each. The other completes one, and it gets hung on the wall.","Finish one thing."],
+  ["Excuse maker","Runner","Same rainy track. One hides under a sign reading TOMORROW, the other runs laps through the rain.","The weather is the same for both."],
+  ["Crowd","One","A crowd walks the wide easy road toward a dead end. One takes a steep narrow path to a peak.","The easy road leads nowhere."],
+  ["Waiter","Planter","Both by a field. One waits for fruit to appear; the other plants seeds, waters, waits and harvests.","Nothing grows from waiting."],
+  ["Complainer","Fixer","Same leaking roof. One points and shouts, the other climbs and patches it.","Complaints don't fix roofs."],
+  ["Gym on Monday","Gym every day","Calendar flips. One figure appears only on Mondays, the other every day and grows visibly stronger.","Consistency beats intensity."],
+  ["Liked","Respected","One collects floating hearts that pop as quickly as they arrive. The other stacks solid blocks that stay.","Attention fades. Work stays."],
+  ["Revenge","Rise","Someone pushes both down. One chases the pusher in circles; the other climbs a staircase out of the pit.","Your best revenge is altitude."],
+  ["Busy","Productive","One runs on a treadmill at full speed, the other walks slowly along a path and arrives.","Motion is not progress."],
+  ["Doubter","Believer","Both face a dark bridge that only appears when you step on it. One never steps.","The path appears when you walk."],
+  ["Fixed","Growing","Both hit the same wall. One bangs against it; the other steps back, builds a ladder and climbs over.","Walls are tests, not stops."],
+  ["Night owl scroller","Early riser","Split screen 11 pm and 6 am. Screen light on one face; on the other, a sunrise run.","Win the night to win the morning."],
+  ["Debt","Asset","Both buy something red. One buys a car that shrinks in value, the other a tree that keeps giving fruit.","Buy things that pay you back."],
+  ["Lone wolf","Team","A huge boulder. One pushes alone and fails; the other gathers four people and it rolls.","Go far together."],
+  ["Hesitator","Taker","A door opens briefly in a wall. One deliberates until it shuts; the other walks through.","Opportunity doesn't wait."],
+  ["Imitator","Original","A crowd copies each other's dance moves in sync; one figure does something different and a spotlight finds them.","Be the one they can't copy."],
+  ["Short-term","Long-term","Two marshmallows. One eats now; the other waits and receives a mountain of them.","Wait for the bigger plate."],
+  ["Over-planner","Mover","One draws maps all day on a table; the other starts walking and draws the map as they go.","The map is drawn by walking."],
+  ["Phone","Focus","At a desk, red notifications fly at both. One reacts to every one; the other turns the phone face down and finishes the work.","Protect your attention."],
+  ["Blame","Ownership","Both trip on the same rock. One points at the rock forever, the other steps over it and moves on.","The rock doesn't care who's to blame."],
+  ["Wisher","Worker","Both stand under a falling star. One closes their eyes and wishes; the other gets a ladder and reaches it.","Stars are for climbing."],
+  ["Bottle","Battery","Both get drained during a long day. One refills on junk and crashes; the other sleeps, trains and recharges green.","Rest is part of the work."],
+  ["Echo","Voice","In a canyon of shouting figures, one repeats whatever is shouted. Another speaks once and the canyon goes quiet.","Have your own voice."],
+  ["Hoarder of ideas","Shipper","One stores lightbulbs in a closet until it overflows. The other screws one bulb in and the room lights up.","An idea in a drawer is dark."],
+  ["Afraid of falling","Learning to fly","Two birds on a cliff edge. One clings on; the other jumps, drops, then glides.","You learn to fly on the way down."]
+];
+const il = document.getElementById("ideas-list");
+for (const [a, b, d, l] of IDEAS) {
+  const c = document.createElement("div"); c.className = "idea";
+  c.innerHTML = `<div class="vs">${a.toUpperCase()} <s>/</s> ${b.toUpperCase()}</div><p>${d}</p><div class="line">“${l}”</div>`;
+  il.appendChild(c);
+}
+</script>
