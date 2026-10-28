@@ -21,7 +21,8 @@ Every reference reel we benchmark against. Measured at 15 fps on a 135×240 gray
 | Work smart over hard | 33.5s | 3.2s | 0.89 | 3.2% |
 | Prove them wrong | 32.7s | 1.1s | 3.06 | 3.1% |
 | Dont give up | 34.9s | 1.9s | 1.16 | 14.1% |
-| **Average (14 reels)** | **33.6s** | **3.5s** | **1.56** | **5.6%** |
+| Growth happens when nobody watches | 33.6s | 0.0s | 1.57 | 2.9% |
+| **Average (15 reels)** | **33.6s** | **3.3s** | **1.56** | **5.4%** |
 
 ## #14 — "Make it happen" (added 24 Oct)
 Same creator (SIMPLY ANIMATED). It's the best-performing file on our metrics: motion 2.42 (highest in the bank) and zero still time.
@@ -39,3 +40,19 @@ What it adds to our picture of the style:
 - **Counters as tension.** DAY 001 → 365 and a flipping calendar to show time passing.
 - **A near-miss climax.** "THIS CLOSE" turns the quitters into the lesson. It's emotional and gets screenshotted.
 - **3 of 4 scenes are side-by-side comparisons**, the same pattern as the rest of the bank.
+
+## #15 — "Growth happens when nobody watches" (added 28 Oct)
+Same creator (SIMPLY ANIMATED). It runs 33.6s, has zero still time, motion 1.57 and fill 2.9%. It has 5 scenes:
+1. **Motivation vs discipline.** Each figure swings a sledgehammer at a boulder. The motivated one hits hard, tires and kneels. The disciplined one keeps an even rhythm until the rock cracks.
+2. **What people see vs what they don't.** A crowd cheers someone at the top. Then the camera drops to a dark staircase where he climbs alone, lighting a candle on each step.
+3. **Reacts vs rises.** A crowd throws insult planks (IT WON'T WORK, FAKE, DREAMER, TOO LATE, LOSER, QUIT, CRINGE). One figure fights back and stays down. The other stacks the planks as steps and climbs over the wall.
+4. **One brick a day vs all at once, later.** Counters run DAY 1 → 365. One figure lays a brick daily until a lit house stands. The other lies on the pile saying "MONDAY." and then "NEW YEAR.", with nothing built.
+5. **Comfort zone to success.** Nested circles labelled COMFORT, FEAR, LEARNING and GROWTH. The figure breaks out of the red comfort ring and rises through each ring to stand on top under "SUCCESS".
+
+What it adds to the style:
+- **Text-as-object.** Insults become physical planks you can climb. This is the strongest device in the bank.
+- **Two-line mono counters.** "DAY 343" in big type with "343 BRICKS LAID" in small type under it, ticking in both rows at once.
+- **Light as reward.** Candles light on each step and the finished house gets lit windows. Light marks progress, so gold isn't needed.
+- **Speech-bubble excuses.** "MONDAY." and "NEW YEAR." are one-word bubbles that land as jokes.
+- **Abstract diagram finale.** The concentric zones break from the scenes before it and still escalate to the climax.
+- **Labels and depth.** Title-case labels with a soft glow appear here as well as small caps, and the grey gradient depth from #14 is used again.
