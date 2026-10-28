@@ -76,6 +76,21 @@ td.t{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--mut
 .fig svg{max-width:100%;height:auto}
 .fig .cap{font-size:13px;color:var(--mute);flex:1 1 220px;min-width:0}
 footer{padding-top:32px;color:var(--dim);font-size:13px}
+.day{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px}
+.day h2{margin:8px 0}
+.drops{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-block:18px 28px}
+.drop{background:var(--panel);min-width:0;display:flex;flex-direction:column}
+.drop video{width:100%;aspect-ratio:9/16;background:#000;display:block}
+.drop .body{padding:16px;display:flex;flex-direction:column;gap:10px}
+.drop .pair{font-family:var(--f-label);font-size:12px;letter-spacing:.12em}
+.drop .pair s{text-decoration:none;color:var(--signal)}
+.drop dl{margin:0;display:grid;grid-template-columns:78px 1fr;gap:6px 12px;font-size:14px}
+.drop dt{font-family:var(--f-label);font-size:10px;letter-spacing:.12em;color:var(--mute);padding-top:3px}
+.drop dd{margin:0;min-width:0}
+.cap{position:relative}
+.cap pre{white-space:pre-wrap;font:13px/1.5 var(--f-mono);background:var(--stage);border:1px solid var(--line);padding:12px;margin:0;color:var(--ink)}
+.copy{align-self:flex-start;font-family:var(--f-label);font-size:10px;letter-spacing:.12em;background:transparent;color:var(--ink);border:1px solid var(--line);padding:8px 12px;cursor:pointer}
+.copy:hover,.copy:focus-visible{border-color:var(--signal);outline:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -85,9 +100,16 @@ footer{padding-top:32px;color:var(--dim);font-size:13px}
   <h1>Two figures.<br>One choice.<br><em>One ending.</em></h1>
   <p class="lede">The full system for making minimalist stickman reels in the style of the 7 viral references: how to write the idea, build the scene, time the animation, design the sound and post it. The music you add in Instagram. Everything else is here, including a sound kit built from scratch.</p>
   <nav>
-    <a href="#dna">DNA</a><a href="#script">Script</a><a href="#visual">Visual</a><a href="#motion">Motion</a><a href="#sound">Sound</a><a href="#kit">SFX kit</a><a href="#text">Text</a><a href="#workflow">Workflow</a><a href="#post">Posting</a><a href="#ideas">30 ideas</a><a href="#qc">QC</a>
+    <a href="#daily">Daily reels</a><a href="#dna">DNA</a><a href="#script">Script</a><a href="#visual">Visual</a><a href="#motion">Motion</a><a href="#sound">Sound</a><a href="#kit">SFX kit</a><a href="#text">Text</a><a href="#workflow">Workflow</a><a href="#post">Posting</a><a href="#ideas">30 ideas</a><a href="#qc">QC</a>
   </nav>
 </header>
+
+<section id="daily">
+  <div class="lbl">00 · Daily reels</div>
+  <div class="day"><h2>Thursday 29 October</h2><span class="lbl">2 reels · SFX baked in · add music in Instagram</span></div>
+  <div class="drops" id="drops"></div>
+  <p class="mute">The full-quality MP4s are also sent in chat each day, since this page can't start downloads. New reels appear at the top of this section every evening for the next day.</p>
+</section>
 
 <section id="dna">
   <div class="lbl">01 · The DNA</div>
@@ -358,6 +380,34 @@ const IDEAS = [
   ["Hoarder of ideas","Shipper","One stores lightbulbs in a closet until it overflows. The other screws one bulb in and the room lights up.","An idea in a drawer is dark."],
   ["Afraid of falling","Learning to fly","Two birds on a cliff edge. One clings on; the other jumps, drops, then glides.","You learn to fly on the way down."]
 ];
+const DROPS = [
+  { id: "2026-10-29-a", pair: ["WAITER", "PLANTER"], len: "14.0 s",
+    idea: "Both catch the same red seed. One plants it and tends it through 365 days until it fruits. The other drops his on the ground and waits beside it.",
+    music: "Slow emotional piano or soft ambient pad. Start on frame 1. Music at 25%, original audio at 70%.",
+    post: "7–9 am", cover: "10.6 s (fruit in hand, waiter staring at his seed)",
+    caption: "Same seed. Same 365 days.\nOne of them is still waiting for it to grow.\n\nWhich one were you this year?\n\n#motivation #discipline #selfimprovement #mindsetshift #consistency #growthmindset #stickmananimation #minimalistanimation" },
+  { id: "2026-10-29-b", pair: ["HESITATOR", "TAKER"], len: "13.6 s",
+    idea: "A glowing doorway opens between them with a red countdown above it. One walks straight in. The other steps forward, steps back and thinks, then runs just as it snaps shut.",
+    music: "Dark tension build or slowed phonk with a drop near 8 s. Music at 30%, original audio at 70%.",
+    post: "8–10 pm", cover: "7.7 s (him sprinting as the door closes)",
+    caption: "It opened for both of them.\n\nSend this to the friend who's still \"thinking about it\".\n\n#motivation #overthinking #takeaction #mindset #opportunity #selfgrowth #stickmananimation #minimalistanimation" }
+];
+const dh = document.getElementById("drops");
+for (const d of DROPS) {
+  const el = document.createElement("article"); el.className = "drop";
+  el.innerHTML = `<video controls playsinline preload="metadata" poster="reels/${d.id}.jpg" src="reels/${d.id}.mp4"></video>
+  <div class="body"><div class="pair">${d.pair[0]} <s>/</s> ${d.pair[1]}</div>
+  <dl><dt>Idea</dt><dd>${d.idea}</dd><dt>Length</dt><dd>${d.len}</dd><dt>Music</dt><dd>${d.music}</dd><dt>Post at</dt><dd>${d.post}</dd><dt>Cover</dt><dd>${d.cover}</dd></dl>
+  <div class="cap"><pre id="cap-${d.id}"></pre></div>
+  <button class="copy" type="button" id="copy-${d.id}">Copy caption</button></div>`;
+  el.querySelector("pre").textContent = d.caption;
+  const btn = el.querySelector(".copy");
+  btn.addEventListener("click", () => {
+    navigator.clipboard.writeText(d.caption).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy caption", 1500); })
+      .catch(() => { const r = document.createRange(); r.selectNodeContents(el.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+  });
+  dh.appendChild(el);
+}
 const il = document.getElementById("ideas-list");
 for (const [a, b, d, l] of IDEAS) {
   const c = document.createElement("div"); c.className = "idea";
