@@ -48,7 +48,7 @@ const REEL = { title: 'Same year, different you', bpm: 120, scenes: [
   E.particles(c, 860, bo.y - 80, t - 6.8, { n: 45, speed: 480, grav: 300 });
 } },
 // 2 — Fighting everyone vs fighting yourself
-{ dur: 8.5, draw(c, t) {
+{ dur: 7.6, draw(c, t) {
   const gT = 950, gB = 1480, s = .82, ko = 5.6, done = t > ko;
   const ropes = gy => { E.line(c, 110, gy, 110, gy - 190, '#6a6a6a', 8); E.line(c, 970, gy, 970, gy - 190, '#6a6a6a', 8); [70, 130, 180].forEach(h => E.line(c, 110, gy - h, 970, gy - h, '#4a4a4a', 3)); };
   LB(c, 'FIGHTING EVERYONE', 540, 540); LB(c, 'FIGHTING YOURSELF', 540, 1070, { color: done ? GOLD : '#e8e8e8' });

@@ -19,7 +19,7 @@ const mixCol = (a, b, k) => { const h = s => [1, 3, 5].map(i => parseInt(s.slice
 
 const REEL = { title: 'Go on', bpm: 120, scenes: [
 // 1 — Stops at NO vs goes ON: the same word, read the other way
-{ dur: 8.5, draw(c, t) {
+{ dur: 7.6, draw(c, t) {
   const gT = 950, gB = 1480, s = .82, DX = [380, 600, 820];
   const door = (x, gy, open) => {
     if (open > 0) { E.glowDot(c, x, gy - 100, 200, 'rgba(255,214,120,.55)', open); }
@@ -84,7 +84,7 @@ const REEL = { title: 'Go on', bpm: 120, scenes: [
   E.particles(c, 950, rT - 160, t - arrive - .5, { n: 45, speed: 480, grav: 300 });
 } },
 // 3 — Waiting for talent vs practicing
-{ dur: 8.5, draw(c, t) {
+{ dur: 7.6, draw(c, t) {
   const gT = 950, gB = 1480, s = .78, gold = 5.2, done = t > 6.2;
   const piano = (x, gy) => {
     E.line(c, x + 20, gy - 70, x + 20, gy, '#555', 6); E.line(c, x + 200, gy - 70, x + 200, gy, '#555', 6);
@@ -112,8 +112,8 @@ const REEL = { title: 'Go on', bpm: 120, scenes: [
     const q = (t - born) / 2.2; if (q > 1) continue;
     const ph = born < 2.6 ? 0 : born < gold ? 1 : 2;
     const col = ph === 0 ? RED : ph === 1 ? '#bbbbbb' : GOLD, wob = ph === 0 ? Math.sin(i * 3) * .7 : 0;
-    const x = 640 + q * 300 + (ph === 2 ? Math.sin(q * 6 + i) * 30 : E.rnd(i) * 60), y = gB - 230 - q * (ph === 2 ? 300 : 200) + (ph === 0 ? Math.sin(q * 20) * 10 : 0);
-    note(c, x, y, col, wob, 1 - q);
+    const x = 690 + q * 240 + (ph === 2 ? Math.sin(q * 6 + i) * 30 : E.rnd(i) * 50), y = gB - 230 - q * (ph === 2 ? 210 : 160) + (ph === 0 ? Math.sin(q * 20) * 10 : 0);
+    note(x, y, col, wob, 1 - q);
   }
   CNT(c, 50, 1120, 'DAY', day, `${Math.round(3000 * E.p(t, .2, 6.2, 'lin')).toLocaleString('en-US')} HOURS`, done ? GOLD : '#e8e8e8');
   E.particles(c, 620, gB - 260, t - 6.2, { n: 45, speed: 460, grav: 260 });
