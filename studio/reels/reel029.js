@@ -84,7 +84,7 @@ const REEL = { title: 'Busy is not progress', bpm: 120, scenes: [
   CNT(c, 50, 1110, 'TARGETS', 1, done ? '1 FIRE' : '0 FIRES', done ? GOLD : '#e8e8e8');
 } },
 // 3 — Tug of war with your excuses
-{ dur: 8.5, draw(c, t) {
+{ dur: 7.4, draw(c, t) {
   const gT = 950, gB = 1480, s = .85, WORDS = ['LAZY', 'TIRED', 'LATER'], won = 6.2, done = t > won;
   const PULL = { ...E.pose('stand'), tor: -.45, hd: .1, aF: 1.45, eF: .2, aB: 1.35, eB: .35, lF: .55, kF: .1, lB: -.25, kB: .35 };
   LB(c, 'GIVES IN', 540, 540); LB(c, 'PULLS HARDER', 540, 1070, { color: done ? GOLD : '#e8e8e8' });
@@ -117,31 +117,31 @@ const REEL = { title: 'Busy is not progress', bpm: 120, scenes: [
   E.particles(c, fxB, hipOn(gB, s) - 80, t - won, { n: 45, speed: 480, grav: 300 });
 } },
 // 4 — Big days sometimes vs small days always (the bars stack up)
-{ dur: 10, draw(c, t) {
-  const N = 30, BW = 20, GAP = 6, X0 = 150, BT = 880, BB = 1400, stackX = 900, SC = .58, grow = 4.5, merge = 5.0, end = 7.2, done = t > end;
+{ dur: 8.6, draw(c, t) {
+  const N = 30, BW = 20, GAP = 6, X0 = 150, BT = 880, BB = 1400, stackX = 900, SC = .58, grow = 3.0, merge = 3.4, end = 5.4, done = t > end;
   const big = i => { const r = E.rnd(i * 7 + 2); return r > .82 ? 110 + 70 * E.rnd(i + 11) : 0; };
   LB(c, 'BIG DAYS SOMETIMES', 130, 560, { align: 'left' }); LB(c, 'SMALL DAYS ALWAYS', 130, 1010, { align: 'left', color: done ? GOLD : '#e8e8e8' });
   E.line(c, X0 - 10, BT, 960, BT, '#5a5a5a', 3); E.line(c, X0 - 10, BB, 960, BB, '#5a5a5a', 3);
   const chart = (base, hOf, col, gold) => {
-    let acc = 0; const total = Array.from({ length: N }, (_, i) => hOf(i)).reduce((a, b) => a + b, 0);
+    let acc = 0, vis = 0; const total = Array.from({ length: N }, (_, i) => hOf(i)).reduce((a, b) => a + b, 0);
     for (let i = 0; i < N; i++) {
-      const h = hOf(i), born = .2 + i * (grow / N), k = E.p(t, born, born + .2, 'back'); if (k <= 0) continue;
-      const m = E.p(t, merge + i * .05, merge + i * .05 + .6, 'inOut');
+      const h = hOf(i), born = .2 + i * (grow / N), k = E.p(t, born, born + .2, 'back'); if (k <= 0) continue; vis += h;
+      const m = E.p(t, merge + i * .04, merge + i * .04 + .5, 'inOut');
       const x = E.lerp(X0 + i * (BW + GAP), X0 + acc * SC, m), y = E.lerp(base - h * k, base - 28, m), w = E.lerp(BW, h * SC, m), hh = E.lerp(h * k, 28, m);
       if (h === 0) { if (m < 1) E.rrect(c, x, base - 6, BW, 6, 2, '#5a2a2a'); }
       else E.rrect(c, x, y, Math.max(2, w - (m > .9 ? 1 : 0)), hh, 3, gold ? GOLD : col);
       acc += h;
     }
-    return total;
+    return [total, vis];
   };
-  const tTop = chart(BT, big, '#9a9a9a', false), tBot = chart(BB, () => 45, '#e8e8e8', done);
+  const [tTop, vTop] = chart(BT, big, '#9a9a9a', false), [tBot, vBot] = chart(BB, () => 45, '#e8e8e8', done);
   // the one who shows up every day stands on what he built
   const days = Math.min(N, Math.floor(Math.max(0, t - .2) / (grow / N)) + 1);
   const ex = X0 + tBot * SC - 20;
   if (t > end) { E.glowDot(c, ex, BB - 120, 360, 'rgba(245,197,66,.4)', E.p(t, end, end + .5)); E.rays(c, ex, BB - 120, 420, .25 * E.p(t, end, end + .5), GOLD, 14, t * .15);
     fig(c, { x: ex, y: hipOn(BB - 28, .6), s: .6, color: GOLD, pose: win(t, end + .2) }); }
-  CNT(c, 540, 600, 'TOTAL', t > merge + 2 ? Math.round(tTop) : '...', `${Array.from({ length: N }, (_, i) => big(i)).filter(Boolean).length} BIG DAYS`);
-  CNT(c, 540, 1050, 'TOTAL', t > merge + 2 ? Math.round(tBot) : '...', `${days} SMALL DAYS`, done ? GOLD : '#e8e8e8');
+  CNT(c, 540, 600, 'TOTAL', Math.round(vTop), `${Array.from({ length: N }, (_, i) => big(i)).filter(Boolean).length} BIG DAYS`);
+  CNT(c, 540, 1050, 'TOTAL', Math.round(vBot), `${days} SMALL DAYS`, done ? GOLD : '#e8e8e8');
   E.text(c, 'SMALL DAYS ALWAYS WIN.', 540, 1480, { size: 30, weight: 700, ls: 4, color: GOLD, alpha: E.p(t, end + .3, end + .8) });
   E.particles(c, ex, BB - 140, t - end, { n: 60, speed: 520, grav: 260, life: 1.6 });
 } },
