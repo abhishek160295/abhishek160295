@@ -16,7 +16,7 @@ const CNT = (c, x, y, label, num, sub, col = '#e8e8e8') => {
 };
 const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24, fill: '#eeeeee', stroke: '#eeeeee', color: '#111', tail });
 
-const REEL = { title: 'Stop and you slide', bpm: 120, scenes: [
+const REEL = { title: 'Stop and you slide', bpm: 120, speed: 1.145, scenes: [
 // 1 — Life is a down escalator
 { dur: 8.5, draw(c, t) {
   const P0 = [130, 1460], P1 = [880, 780], V = .09, s = .85;

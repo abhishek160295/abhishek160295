@@ -39,6 +39,18 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
     - **Holds:** the win and the ending are held for 1–2s.
     - **Ending:** the last scene is the emotional peak.
     - **Sound:** each reel names its own sound (an emotional piano or a cinematic track), never "any trending sound".
+23. **31 seconds max (from Day 8).** No reel runs past 31.0s. Use 4 scenes of about 7s each, or 3 scenes plus a 9s finale. If a reel runs long, tighten it with `speed` instead of cutting a beat.
+24. **Retention first.**
+    - **Frame 0:** the action is already moving and the A vs B conflict is on screen, with no intro.
+    - **Something new every ~2s:** a fall, a flip, a pop, a bubble or a counter jump. No hold over 0.8s except the final 1s.
+    - **Open loop:** a counter or goal is visible from the first second, so the viewer stays to see it land.
+    - **Loopable:** the last frame flows back into the first.
+25. **Reaction first.** Every reel needs moments people react to:
+    - **Wince:** one "ouch" beat per reel, such as a fail or a near-miss.
+    - **Satisfying snap:** one payoff beat, such as a flip, a light coming on, a break or a click.
+    - **Twist ending:** one line people screenshot and quote.
+    - **Comment bait:** the caption ends with a question people answer ("which one are you, 1 or 2?").
+    - **Send trigger:** each reel has a "send this to..." trigger.
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.

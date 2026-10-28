@@ -24,7 +24,7 @@ const flame = (c, x, y, k, t) => {
   });
 };
 
-const REEL = { title: 'Busy is not progress', bpm: 120, scenes: [
+const REEL = { title: 'Busy is not progress', bpm: 120, speed: 1.065, scenes: [
 // 1 — Busy vs productive: the wheel vs the road
 { dur: 8.5, draw(c, t) {
   const gT = 950, gB = 1480, arrive = 6.6, done = t > arrive;

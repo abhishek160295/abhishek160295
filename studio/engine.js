@@ -197,8 +197,10 @@ window.setupReel = reel => {
   const c = cv.getContext('2d');
   let starts = [], acc = 0; for (const s of reel.scenes) { starts.push(acc); acc += s.dur; }
   reel.total = acc; const fast = reel.pace === 'fast'; E.bold = fast;
-  window.REEL_INFO = { total: acc, frames: Math.round(acc * FPS), starts, cues: reel.scenes.flatMap((s, i) => (s.cues || []).map(q => [q[0] + starts[i], q[1]])), bpm: reel.bpm, title: reel.title };
+  const SP = reel.speed || 1; // playback speed: >1 tightens a reel without re-timing its scenes
+  window.REEL_INFO = { total: acc / SP, frames: Math.round(acc / SP * FPS), starts, cues: reel.scenes.flatMap((s, i) => (s.cues || []).map(q => [q[0] + starts[i], q[1]])), bpm: reel.bpm, title: reel.title };
   window.renderAt = T => {
+    T *= SP;
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
     const sc = reel.scenes[i], t = T - starts[i];
     c.setTransform(S, 0, 0, S, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);

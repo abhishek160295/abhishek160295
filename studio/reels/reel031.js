@@ -19,7 +19,7 @@ const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24
 const RIDE = { ...E.pose('stand'), tor: .1, hd: 0, aF: 1.25, eF: .3, aB: -1.2, eB: .3, lF: .35, kF: .6, lB: -.35, kB: .6 };
 const board = (c, x, y, rot = 0, col = '#c8a46a') => { c.save(); c.translate(x, y); c.rotate(rot); E.line(c, -52, 0, 52, 0, col, 8); c.fillStyle = '#ddd'; [-34, 34].forEach(dx => { c.beginPath(); c.arc(dx, 10, 7, 0, 7); c.fill(); }); c.restore(); };
 
-const REEL = { title: 'You fell 240 times once', bpm: 120, scenes: [
+const REEL = { title: 'You fell 240 times once', bpm: 120, speed: 1.161, scenes: [
 // 1 — Skateboard: quits after one fall vs falls 99 times
 { dur: 8.5, draw(c, t) {
   const gT = 950, gB = 1480, s = .8, land = 6.0, done = t > land + .6;
