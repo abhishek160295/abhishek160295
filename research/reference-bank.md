@@ -22,7 +22,8 @@ Every reference reel we benchmark against. Measured at 15 fps on a 135×240 gray
 | Prove them wrong | 32.7s | 1.1s | 3.06 | 3.1% |
 | Dont give up | 34.9s | 1.9s | 1.16 | 14.1% |
 | Growth happens when nobody watches | 33.6s | 0.0s | 1.57 | 2.9% |
-| **Average (15 reels)** | **33.6s** | **3.3s** | **1.56** | **5.4%** |
+| Let their hate build your success | 36.9s | 1.7s | 3.07 | 4.6% |
+| **Average (16 reels)** | **33.8s** | **3.2s** | **1.66** | **5.4%** |
 
 ## #14 — "Make it happen" (added 24 Oct)
 Same creator (SIMPLY ANIMATED). It's the best-performing file on our metrics: motion 2.42 (highest in the bank) and zero still time.
@@ -56,3 +57,19 @@ What it adds to the style:
 - **Speech-bubble excuses.** "MONDAY." and "NEW YEAR." are one-word bubbles that land as jokes.
 - **Abstract diagram finale.** The concentric zones break from the scenes before it and still escalate to the climax.
 - **Labels and depth.** Title-case labels with a soft glow appear here as well as small caps, and the grey gradient depth from #14 is used again.
+
+## #16 — "Let their hate build your success" (added 29 Oct)
+Same creator (SIMPLY ANIMATED). It runs 36.9s with 1.7s of still time, motion **3.07** (the highest in the bank, about double the average) and fill 4.6%. It has 5 scenes:
+1. **Hate becomes the climb.** A crowd kicks him into a pit and throws insult blocks after him: LOL, LOSER, LMAO, DREAMER, TOO LATE, JOKE, GIVE UP, NO ONE CARES, FAILURE, CRINGE. He stacks every block under himself and rises out of the pit. The blocks keep piling into a pyramid with SUCCESS at the top, where he stands lit while the crowd stays below.
+2. **The power of discipline.** A winged figure tries to fly but is chained to a rock called YOUR PAST by a red chain. The chain snaps and he flies up into a spotlight.
+3. **Their way worked for them.** Over the same pit, others cross with a pole vault, a rolling boulder and a long jump. He copies them, misses and falls. The line "DON'T DROP YOURS" follows.
+4. **Old life vs new life.** OLD LIFE says "TOMORROW." in red and a pit opens between him and NEW LIFE. Then "TODAY." appears in green and he steps across.
+5. **Support vs congratulations.** Stadium stands: SUPPORT has one fan, CONGRATULATIONS fills up as a scoreboard ticks 25 → 65 → 75 and a trophy appears.
+
+What it adds to the style:
+- **Much more motion.** Crowds, throws, flights and constant fast action. This is the retention benchmark: aim for motion of 1.5 or more, not 0.6–0.8.
+- **Words as building material, at scale.** About 15 insult blocks become the structure he climbs.
+- **Colour-coded words.** Red for the bad word ("TOMORROW."), teal or green for the good one ("TODAY.", "NEW LIFE"). Colour now carries meaning beyond gold.
+- **Spotlight from above** with soft volumetric light, and glowing wings for the win.
+- **A crowd as a counter.** Empty stands vs full stands is social proof shown visually, which drives comments.
+- **A one-line principle per scene,** like "THEIR WAY WORKED FOR THEM" and "DON'T DROP YOURS".

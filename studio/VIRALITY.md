@@ -51,6 +51,7 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
     - **Twist ending:** one line people screenshot and quote.
     - **Comment bait:** the caption ends with a question people answer ("which one are you, 1 or 2?").
     - **Send trigger:** each reel has a "send this to..." trigger.
+26. **Motion target from ref #16.** Aim for motion of **1.5 or more**. Ref #16 hits 3.07, the most-moving reel in the bank. Use crowds, throws, flights and several actors moving at once. A reel at 0.6–0.8 is too calm.
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
