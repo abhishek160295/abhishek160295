@@ -91,6 +91,10 @@ footer{padding-top:32px;color:var(--dim);font-size:13px}
 .cap pre{white-space:pre-wrap;font:13px/1.5 var(--f-mono);background:var(--stage);border:1px solid var(--line);padding:12px;margin:0;color:var(--ink)}
 .copy{align-self:flex-start;font-family:var(--f-label);font-size:10px;letter-spacing:.12em;background:transparent;color:var(--ink);border:1px solid var(--line);padding:8px 12px;cursor:pointer}
 .copy:hover,.copy:focus-visible{border-color:var(--signal);outline:none}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.copy.dl{background:var(--signal);border-color:var(--signal)}
+.copy:disabled{opacity:.6;cursor:wait}
+.dlmsg{font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -108,7 +112,7 @@ footer{padding-top:32px;color:var(--dim);font-size:13px}
   <div class="lbl">00 · Daily reels</div>
   <div class="day"><h2>Thursday 29 October</h2><span class="lbl">2 reels · SFX baked in · add music in Instagram</span></div>
   <div class="drops" id="drops"></div>
-  <p class="mute">The full-quality MP4s are also sent in chat each day, since this page can't start downloads. New reels appear at the top of this section every evening for the next day.</p>
+  <p class="mute">Tap Download MP4 under a reel to save it, then confirm the save prompt. The same files are also sent in chat each day. New reels appear at the top of this section every evening for the next day.</p>
 </section>
 
 <section id="dna">
@@ -392,6 +396,25 @@ const DROPS = [
     post: "8–10 pm", cover: "7.7 s (him sprinting as the door closes)",
     caption: "It opened for both of them.\n\nSend this to the friend who's still \"thinking about it\".\n\n#motivation #overthinking #takeaction #mindset #opportunity #selfgrowth #stickmananimation #minimalistanimation" }
 ];
+const dlReady = (async () => { try { return await window.claude?.use?.("downloads"); } catch { return null; } })();
+function wireDownload(btn, src, name, msg) {
+  dlReady.then(dl => {
+    if (!dl) return;
+    btn.hidden = false;
+    btn.addEventListener("click", async () => {
+      const label = btn.textContent; btn.disabled = true; btn.textContent = "Preparing…"; msg.textContent = "";
+      try {
+        const blob = await (await fetch(src)).blob();
+        await dl.save({ filename: name, data: blob });
+        msg.textContent = "Saved " + name;
+      } catch (e) {
+        if (e && e.code === "declined") msg.textContent = "";
+        else if (e && e.code === "rate_limited") msg.textContent = "Another save is open. Try again in a moment.";
+        else msg.textContent = "Download isn't available in this view. Use the file sent in chat.";
+      } finally { btn.disabled = false; btn.textContent = label; }
+    });
+  });
+}
 const dh = document.getElementById("drops");
 for (const d of DROPS) {
   const el = document.createElement("article"); el.className = "drop";
@@ -399,9 +422,11 @@ for (const d of DROPS) {
   <div class="body"><div class="pair">${d.pair[0]} <s>/</s> ${d.pair[1]}</div>
   <dl><dt>Idea</dt><dd>${d.idea}</dd><dt>Length</dt><dd>${d.len}</dd><dt>Music</dt><dd>${d.music}</dd><dt>Post at</dt><dd>${d.post}</dd><dt>Cover</dt><dd>${d.cover}</dd></dl>
   <div class="cap"><pre id="cap-${d.id}"></pre></div>
-  <button class="copy" type="button" id="copy-${d.id}">Copy caption</button></div>`;
+  <div class="btns"><button class="copy dl" type="button" id="dl-${d.id}" hidden>Download MP4</button><button class="copy dlc" type="button" id="dlc-${d.id}" hidden>Download cover</button><button class="copy" type="button" id="copy-${d.id}">Copy caption</button></div><span class="dlmsg mute"></span></div>`;
   el.querySelector("pre").textContent = d.caption;
-  const btn = el.querySelector(".copy");
+  wireDownload(el.querySelector(".dl"), `reels/${d.id}.mp4`, `${d.id}-${d.pair.join("-").toLowerCase()}.mp4`, el.querySelector(".dlmsg"));
+  wireDownload(el.querySelector(".dlc"), `reels/${d.id}.jpg`, `${d.id}-cover.jpg`, el.querySelector(".dlmsg"));
+  const btn = el.querySelector("#copy-" + d.id);
   btn.addEventListener("click", () => {
     navigator.clipboard.writeText(d.caption).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy caption", 1500); })
       .catch(() => { const r = document.createRange(); r.selectNodeContents(el.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
