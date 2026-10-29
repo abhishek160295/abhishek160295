@@ -253,6 +253,17 @@ def build():
         return (voiced * env(len(tt), 0.02, d * 0.6, 3) + breath)
     save("crowd_ha_ha_mock", place(1.3, [(i * 0.2, ha(230 - i * 8), 1 - i * 0.1) for i in range(5)]))
 
+    # Money
+    def clink(f0=2600, d=0.45):
+        tt = t(d)
+        parts = [(1.0, 1.0), (2.76, 0.5), (5.4, 0.25), (8.93, 0.12)]
+        tone = sum(a * np.sin(2 * np.pi * f0 * r * tt) * env(len(tt), 0.0005, d * (0.6 / r ** 0.5), 4) for r, a in parts)
+        return tone + 0.4 * click(6000, d, 3)
+    save("money_coin_clink", clink())
+    save("money_coin_stack", mix(clink(2100, 0.3) * 0.6, 0.5 * brick()[: int(SR * 0.22)] * 0.5, place(0.3, [(0.04, clink(2400, 0.26), 0.4)])))
+    save("money_bag_rustle", hp(noise(0.35), 2200) * (0.55 + 0.45 * np.sin(2 * np.pi * 23 * t(0.35))) * np.hanning(int(SR * 0.35)))
+    save("money_poof", bp(noise(0.4), 1800, 1.2) * env(int(SR * 0.4), 0.01, 0.25, 4) + 0.3 * sine_sweep(900, 300, 0.4) * env(int(SR * 0.4), 0.005, 0.2, 4))
+
     # Emotional beats
     hb = place(2.4, [(i * 0.8, thud(50, 0.2), 1.0) for i in range(3)] + [(i * 0.8 + 0.18, thud(45, 0.2), 0.7) for i in range(3)])
     save("beat_heartbeat", lp(hb, 300))

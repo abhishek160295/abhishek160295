@@ -110,8 +110,7 @@ footer{padding-top:32px;color:var(--dim);font-size:13px}
 
 <section id="daily">
   <div class="lbl">00 · Daily reels</div>
-  <div class="day"><h2>Thursday 29 October</h2><span class="lbl">2 reels · SFX baked in · add music in Instagram</span></div>
-  <div class="drops" id="drops"></div>
+  <div id="days"></div>
   <p class="mute">Tap Download MP4 under a reel to save it, then confirm the save prompt. The same files are also sent in chat each day. New reels appear at the top of this section every evening for the next day.</p>
 </section>
 
@@ -234,7 +233,7 @@ footer{padding-top:32px;color:var(--dim);font-size:13px}
 
 <section id="kit">
   <div class="lbl">06 · SFX kit</div>
-  <h2>44 original sounds, built from scratch</h2>
+  <h2>48 original sounds, built from scratch</h2>
   <p>Every sound below was generated from oscillators, filtered noise and envelopes: no samples, no ElevenLabs, no licences to worry about. Tap to preview. The WAV files (48 kHz, mono) are in the <code>sfx/</code> folder of the repo and in the zip I sent. The generator script <code>tools/make_sfx.py</code> rebuilds the whole kit, and you can tweak it to make new variations.</p>
   <div id="kitlist"></div>
 </section>
@@ -325,6 +324,8 @@ const KIT = {
     ["climb_grip","Each handhold"],["climb_pebbles_fall","Rock crumbling"],["climb_flag_flutter","Flag at the summit"],["climb_stream_pour","Something raining down"]],
   "Weather & drought": [
     ["weather_rain_loop","Rain bed"],["weather_thunder","Storm arrives"],["weather_umbrella_open","Umbrella flip"],["weather_heat_drone","Drought, red sun"],["weather_dry_wind","Empty, dry ground"],["weather_drink_gulps","Drinking stored water"]],
+  "Money": [
+    ["money_coin_clink","Coin lands in a hand"],["money_coin_stack","Coin added to a stack"],["money_bag_rustle","Shopping bag appears"],["money_poof","Something vanishes"]],
   "Emotional beats": [
     ["beat_heartbeat","Moment of decision"],["beat_tension_tick","Hesitation, countdown"]]
 };
@@ -385,12 +386,22 @@ const IDEAS = [
   ["Afraid of falling","Learning to fly","Two birds on a cliff edge. One clings on; the other jumps, drops, then glides.","You learn to fly on the way down."]
 ];
 const DROPS = [
-  { id: "2026-10-29-a", pair: ["WAITER", "PLANTER"], len: "14.0 s",
+  { day: "Friday 30 October", id: "2026-10-30-a", pair: ["COMPARER", "CLIMBER"], len: "13.8 s",
+    idea: "Two identical ladders, a red flag on top of each. One climbs at a steady rhythm. The other keeps turning to watch him, slips a rung each time, and finally falls to the ground as the climber raises his flag.",
+    music: "Steady motivational beat or cinematic build that peaks near 9 s. Music at 25%, original audio at 70%.",
+    post: "7–9 am", cover: "9.3 s (flag raised at the top, comparer on the ground)",
+    caption: "Every time he looked across, he slipped.\n\nYour ladder needs your eyes.\n\nWho needs to hear this today?\n\n#motivation #comparison #focus #selfimprovement #mindset #discipline #stickmananimation #minimalistanimation" },
+  { day: "Friday 30 October", id: "2026-10-30-b", pair: ["SPENDER", "SAVER"], len: "13.8 s",
+    idea: "The same coin lands in both hands every week for 52 weeks. One turns each coin into a red shopping bag that vanishes. The other stacks his into a staircase and walks up it.",
+    music: "Upbeat lo-fi or a confident hip-hop instrumental. Music at 25%, original audio at 70%. The coin clinks carry the rhythm.",
+    post: "8–10 pm", cover: "10.1 s (saver standing on top of his stairs)",
+    caption: "Same salary. 52 weeks.\nOne bought things. One built stairs.\n\nWhere did your last paycheck go?\n\n#money #saving #financialfreedom #personalfinance #motivation #mindset #stickmananimation #minimalistanimation" },
+  { day: "Thursday 29 October", id: "2026-10-29-a", pair: ["WAITER", "PLANTER"], len: "14.0 s",
     idea: "Both catch the same red seed. One plants it and tends it through 365 days until it fruits. The other drops his on the ground and waits beside it.",
     music: "Slow emotional piano or soft ambient pad. Start on frame 1. Music at 25%, original audio at 70%.",
     post: "7–9 am", cover: "10.6 s (fruit in hand, waiter staring at his seed)",
     caption: "Same seed. Same 365 days.\nOne of them is still waiting for it to grow.\n\nWhich one were you this year?\n\n#motivation #discipline #selfimprovement #mindsetshift #consistency #growthmindset #stickmananimation #minimalistanimation" },
-  { id: "2026-10-29-b", pair: ["HESITATOR", "TAKER"], len: "13.6 s",
+  { day: "Thursday 29 October", id: "2026-10-29-b", pair: ["HESITATOR", "TAKER"], len: "13.6 s",
     idea: "A glowing doorway opens between them with a red countdown above it. One walks straight in. The other steps forward, steps back and thinks, then runs just as it snaps shut.",
     music: "Dark tension build or slowed phonk with a drop near 8 s. Music at 30%, original audio at 70%.",
     post: "8–10 pm", cover: "7.7 s (him sprinting as the door closes)",
@@ -415,8 +426,16 @@ function wireDownload(btn, src, name, msg) {
     });
   });
 }
-const dh = document.getElementById("drops");
+const daysEl = document.getElementById("days"), dayGrids = {};
 for (const d of DROPS) {
+  if (!dayGrids[d.day]) {
+    const head = document.createElement("div"); head.className = "day";
+    head.innerHTML = `<h2></h2><span class="lbl">2 reels · SFX baked in · add music in Instagram</span>`;
+    head.querySelector("h2").textContent = d.day;
+    const grid = document.createElement("div"); grid.className = "drops";
+    daysEl.append(head, grid); dayGrids[d.day] = grid;
+  }
+  const dh = dayGrids[d.day];
   const el = document.createElement("article"); el.className = "drop";
   el.innerHTML = `<video controls playsinline preload="metadata" poster="reels/${d.id}.jpg" src="reels/${d.id}.mp4"></video>
   <div class="body"><div class="pair">${d.pair[0]} <s>/</s> ${d.pair[1]}</div>

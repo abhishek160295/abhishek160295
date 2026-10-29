@@ -24,7 +24,7 @@ function rng(seed) {
 // ---------- poses ----------
 // Angles in degrees. Limbs: 0 = hanging straight down, + rotates toward the facing direction.
 // Torso: 0 = upright, + leans forward. f = facing (1 right, -1 left).
-const BASE = { x: 540, y: 0, f: 1, ground: true, lift: 0, torso: 0, head: 0,
+const BASE = { x: 540, y: 0, f: 1, front: false, ground: true, lift: 0, torso: 0, head: 0,
   aL: 8, aL2: 14, aR: -6, aR2: 2, lL: 4, lL2: 4, lR: -4, lR2: -4 };
 const KEYS = ["x", "y", "lift", "torso", "head", "aL", "aL2", "aR", "aR2", "lL", "lL2", "lR", "lR2"];
 
@@ -42,6 +42,7 @@ function mixPose(a, b, k) {
   const o = Object.assign({}, a);
   for (const key of KEYS) o[key] = lerp(a[key], b[key], k);
   o.ground = k < 0.5 ? a.ground : b.ground;
+  o.front = k < 0.5 ? a.front : b.front;
   return o;
 }
 // Blend through a list of [time, pose] keys with easing.
@@ -72,16 +73,20 @@ const U = { r: 32, torso: 100, neck: 12, ua: 54, la: 50, th: 58, sh: 58, stroke:
 
 function joints(p, groundY, scale = 1) {
   const f = p.f, k = scale;
-  const dir = (a, len) => [Math.sin(rad(a)) * len * f * k, Math.cos(rad(a)) * len * k];
+  // front view: left limbs swing to screen-left, right limbs to screen-right
+  const fl = p.front ? -1 : f, fr = p.front ? 1 : f;
+  const dirS = (a, len, s) => [Math.sin(rad(a)) * len * s * k, Math.cos(rad(a)) * len * k];
+  const dir = (a, len) => dirS(a, len, f);
   const up = (a, len) => [Math.sin(rad(a)) * len * f * k, -Math.cos(rad(a)) * len * k];
   const hip0 = [0, 0];
   const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
   const sh = add(hip0, up(p.torso, U.torso));
   const head = add(sh, up(p.torso + p.head, U.neck + U.r));
-  const eL = add(sh, dir(p.aL, U.ua)), hL = add(eL, dir(p.aL2, U.la));
-  const eR = add(sh, dir(p.aR, U.ua)), hR = add(eR, dir(p.aR2, U.la));
-  const kL = add(hip0, dir(p.lL, U.th)), fL = add(kL, dir(p.lL2, U.sh));
-  const kR = add(hip0, dir(p.lR, U.th)), fR = add(kR, dir(p.lR2, U.sh));
+  const eL = add(sh, dirS(p.aL, U.ua, fl)), hL = add(eL, dirS(p.aL2, U.la, fl));
+  const eR = add(sh, dirS(p.aR, U.ua, fr)), hR = add(eR, dirS(p.aR2, U.la, fr));
+  const hipL = p.front ? [-7 * k, 0] : hip0, hipR = p.front ? [7 * k, 0] : hip0;
+  const kL = add(hipL, dirS(p.lL, U.th, fl)), fL = add(kL, dirS(p.lL2, U.sh, fl));
+  const kR = add(hipR, dirS(p.lR, U.th, fr)), fR = add(kR, dirS(p.lR2, U.sh, fr));
   let oy = p.y;
   if (p.ground) oy = groundY - Math.max(fL[1], fR[1], kL[1], kR[1]) - p.lift;
   const o = [p.x, oy];
