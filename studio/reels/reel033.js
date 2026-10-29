@@ -36,7 +36,7 @@ const MESS = (() => {
 
 const REEL = { title: 'Big rocks first', bpm: 120, scenes: [
 // 1 — Your day is a jar: sand first vs big rocks first
-{ dur: 7.5, draw(c, t) {
+{ dur: 6.0, draw(c, t) {
   const gy = 1400, top = 960, J = [140, 640], JW = 260, R = 46, NAMES = ['HEALTH', 'FAMILY', 'GOALS', 'GROWTH'], done = t > 4.6;
   LB(c, 'YOUR DAY IS A JAR', 540, 520, { color: done ? GOLD : '#e8e8e8' });
   E.text(c, 'SAND FIRST', J[0] + JW / 2, 900, { size: 24, weight: 700, ls: 3, color: '#bbb' }); E.text(c, 'BIG ROCKS FIRST', J[1] + JW / 2, 900, { size: 24, weight: 700, ls: 3, color: done ? GOLD : '#bbb' });
@@ -67,12 +67,12 @@ const REEL = { title: 'Big rocks first', bpm: 120, scenes: [
   if (t > 3.7) { const k = E.p(t, 4.1, 4.8, 'in'); const x = E.lerp(xl + 160, xl + 420, k), y = t < 4.1 ? fallTo(t, 3.7, 904, .4) : E.lerp(904, gy - R, k) - Math.sin(k * Math.PI) * 50; rock(x, y, NAMES[3], false); }
   glass(xl, false);
   if (t > 4.8) E.tag(c, 'NO ROOM', xl + 130, 840, t, 4.8, { size: 22, color: RED, fill: '#1e0a0a' });
-  SAY(c, 'WHERE DID MY DAY GO?', xl + 150, 640, E.p(t, 5.2, 5.5, 'back'));
+  SAY(c, 'WHERE DID MY DAY GO?', xl + 150, 640, E.p(t, 4.7, 5.0, 'back'));
   CNT(c, 140, 1440, 'ROCKS IN', `${t > 3.2 ? 2 : t > 2.9 ? 1 : 0}/4`, 'NO ROOM LEFT', '#e8e8e8', t > 4.8 ? RED : null);
   CNT(c, 640, 1440, 'ROCKS IN', `${RK.filter((_, i) => t > .75 + i * .3).length}/4`, done ? 'EVERYTHING FITS' : 'BIG ROCKS FIRST', done ? GOLD : '#e8e8e8');
 } },
 // 2 — Starting is the hardest part: the car
-{ dur: 6.5, draw(c, t) {
+{ dur: 5.6, draw(c, t) {
   const gT = 950, gB = 1480, s = .85, CW = 240, ride = 4.0, done = t > ride + .5;
   const car = (x, gy, spin, gold) => {
     c.save(); E.shaded(c, x, gy - 96, CW, 62, 14, gold ? '#f7d36a' : '#9a9a9a', gold ? '#a07a1a' : '#4a4a4a');
@@ -103,7 +103,7 @@ const REEL = { title: 'Big rocks first', bpm: 120, scenes: [
   E.text(c, 'STARTING IS THE HARDEST PART.', 540, 470, { size: 24, weight: 700, ls: 3, color: GOLD, alpha: E.p(t, ride + .6, ride + 1.0) });
 } },
 // 3 — Tetris: all at once vs one at a time
-{ dur: 7, draw(c, t) {
+{ dur: 6.1, draw(c, t) {
   const CS = 30, BX = [110, 620], BOT = 1300, ROWS = 14, over = MESS.over, done = t > 5.4;
   const cell = (bx, q, r, col, a = 1) => { c.save(); c.globalAlpha = a; c.fillStyle = col; c.fillRect(bx + q * CS + 1, BOT - (r + 1) * CS + 1, CS - 2, CS - 2); c.fillStyle = 'rgba(255,255,255,.18)'; c.fillRect(bx + q * CS + 1, BOT - (r + 1) * CS + 1, CS - 2, 5); c.restore(); };
   const board = (bx, gold) => { c.save(); c.fillStyle = '#0c0c0e'; c.fillRect(bx, BOT - ROWS * CS, 10 * CS, ROWS * CS); c.strokeStyle = gold ? GOLD : '#5a5a5a'; c.lineWidth = 4; c.strokeRect(bx, BOT - ROWS * CS, 10 * CS, ROWS * CS); c.restore(); };

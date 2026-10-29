@@ -31,20 +31,20 @@ const REEL = { title: 'Make 8-year-old you proud', bpm: 120, scenes: [
   SAY(c, "I'M DONE.", 560, 690, E.p(t, 2.5, 2.8, 'back'));
   CNT(c, 50, 590, 'MILE', '20.1', t > 2.3 ? 'GAVE UP' : 'RUNNING', '#e8e8e8', t > 2.3 ? RED : null);
   // bottom: about to stop, remembers who he's running for
-  E.line(c, 880, gB, 880, gB - 170, '#8a8a8a', 5); E.line(c, 1000, gB, 1000, gB - 170, '#8a8a8a', 5);
-  if (t < fin) E.line(c, 880, gB - 110, 1000, gB - 110, '#e8e8e8', 4);
-  else { const k = E.p(t, fin, fin + .4); E.line(c, 880, gB - 110, 880 + 50 * (1 - k), gB - 110 + 60 * k, '#e8e8e8', 4); E.line(c, 1000, gB - 110, 1000 - 50 * (1 - k), gB - 110 + 60 * k, '#e8e8e8', 4); }
+  E.line(c, 800, gB, 800, gB - 170, '#8a8a8a', 5); E.line(c, 900, gB, 900, gB - 170, '#8a8a8a', 5);
+  if (t < fin) E.line(c, 800, gB - 110, 900, gB - 110, '#e8e8e8', 4);
+  else { const k = E.p(t, fin, fin + .4); E.line(c, 800, gB - 110, 800 + 40 * (1 - k), gB - 110 + 60 * k, '#e8e8e8', 4); E.line(c, 900, gB - 110, 900 - 40 * (1 - k), gB - 110 + 60 * k, '#e8e8e8', 4); }
   let bx = 150 + 300 * E.p(t, 0, 1.8, 'out'), bp = t < 1.8 ? { ...E.run(t * 12), tor: .5 } : { ...E.pose('crouch'), hd: .4 };
-  if (t > spark + .5) { const k = E.p(t, spark + .5, fin, 'in'); bx = E.lerp(450, 900, k); bp = E.run(t * 18); }
+  if (t > spark + .5) { const k = E.p(t, spark + .5, fin, 'in'); bx = E.lerp(450, 850, k); bp = E.run(t * 18); }
   if (done) bp = win(t, fin + .1);
   if (t > spark && t < spark + 1.6) { const a = E.p(t, spark, spark + .3, 'back') * (1 - E.p(t, spark + 1.3, spark + 1.6)); const cx = 560, cy = gB - 250;
     c.save(); c.globalAlpha = a; E.glowDot(c, cx, cy, 160, 'rgba(255,214,120,.5)'); c.fillStyle = '#141414'; c.strokeStyle = GOLD; c.lineWidth = 4; c.beginPath(); c.arc(cx, cy, 72, 0, 7); c.fill(); c.stroke();
     [[cx - 40, cy + 50, 10], [cx - 22, cy + 76, 6]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); c.stroke(); }); c.restore();
     if (a > .05) { c.save(); c.globalAlpha = a; kid(c, cx - 16, cy + 18, .32, '#ffe08a', { ...E.pose('cheer'), aF: 2.6 + Math.sin(t * 10) * .3 }); E.heart(c, cx + 34, cy - 10, .45 + .08 * Math.sin(t * 10), 1, RED); c.restore(); } }
-  if (done) E.glowDot(c, 940, hipOn(gB, s) - 60, 360, 'rgba(245,197,66,.4)', E.p(t, fin, fin + .5));
+  if (done) E.glowDot(c, 850, hipOn(gB, s) - 60, 360, 'rgba(245,197,66,.4)', E.p(t, fin, fin + .5));
   fig(c, { x: bx, y: hipOn(gB, s), s, color: done ? GOLD : t > spark + .5 ? '#fff' : '#d8d8d8', pose: bp });
   if (t > spark + .5 && !done) for (let i = 0; i < 4; i++) E.line(c, bx - 60 - i * 24, hipOn(gB, s) - 30 + i * 16, bx - 100 - i * 24, hipOn(gB, s) - 30 + i * 16, 'rgba(255,255,255,.3)', 3);
-  E.particles(c, 940, gB - 110, t - fin, { n: 60, speed: 520, grav: 300 });
+  E.particles(c, 850, gB - 110, t - fin, { n: 60, speed: 520, grav: 300 });
   CNT(c, 50, 1110, 'MILE', t < spark + .5 ? '20.1' : (20.1 + 6.1 * E.p(t, spark + .5, fin, 'in')).toFixed(1), done ? 'FINISHED. FOR THEM.' : t > spark ? 'FOR THEM' : 'RUNNING', done ? GOLD : '#e8e8e8');
 } },
 // 2 — The dark forest: no direction vs a purpose
