@@ -18,7 +18,7 @@ const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24
 const TEAL = '#5ee0c0';
 const THROW = k => ({ ...E.pose('stand'), tor: .15, aF: E.lerp(-1.4, 1.9, k), eF: .1, aB: -.4 });
 
-const REEL = { title: 'Change the route, not the destination', bpm: 120, scenes: [
+const REEL = { title: 'Change the route, not the destination', bpm: 120, speed: 1.2, scenes: [
 // 1 — The door says PULL
 { dur: 5.2, draw(c, t) {
   const gT = 950, gB = 1480, s = .9, DX = 560, DW = 100, DH = 230, open = 2.0, done = t > 3.7;
@@ -143,6 +143,7 @@ const REEL = { title: 'Change the route, not the destination', bpm: 120, scenes:
     if (sg.X && t > sg.xt) { blocks++; const pk = E.p(t, sg.xt, sg.xt + .25, 'back'); c.save(); c.translate(...sg.X); c.scale(pk, pk); c.strokeStyle = RED; c.lineWidth = 10; c.lineCap = 'round'; c.beginPath(); c.moveTo(-20, -20); c.lineTo(20, 20); c.moveTo(20, -20); c.lineTo(-20, 20); c.stroke(); c.restore(); E.tag(c, sg.word, sg.X[0], sg.X[1] - 46, t, sg.xt, { size: 16, color: RED, fill: '#1e0a0a' }); E.shake(c, t, sg.xt, .2, 6); }
     if (sg.X && t > sg.b && STG[i + 1] && t < STG[i + 1].a) recalc = true;
   });
+  for (let i = 0; i < 3; i++) { const q = (t * 1.4 + i / 3) % 1; c.save(); c.globalAlpha = .55 * (1 - q); c.strokeStyle = done ? GOLD : TEAL; c.lineWidth = 4; c.beginPath(); c.arc(pos[0], pos[1], 20 + q * (recalc ? 170 : 110), 0, 7); c.stroke(); c.restore(); }
   E.glowDot(c, pos[0], pos[1], 60, done ? 'rgba(245,197,66,.8)' : 'rgba(94,224,192,.7)');
   c.save(); c.fillStyle = done ? GOLD : TEAL; c.beginPath(); c.arc(pos[0], pos[1], 15, 0, 7); c.fill(); c.restore();
   if (recalc && Math.floor(t * 6) % 2 === 0) E.text(c, 'RECALCULATING...', pos[0], pos[1] + 50, { size: 18, weight: 800, family: MONO, color: TEAL });

@@ -119,7 +119,7 @@ const REEL = { title: "Rest if you must. Just don't quit.", bpm: 120, scenes: [
   const dawn = E.p(t, 3.4, 6.2);
   c.save(); const sky = c.createLinearGradient(0, 600, 0, GY); sky.addColorStop(0, 'rgba(0,0,0,0)'); sky.addColorStop(1, `rgba(245,160,80,${.35 * dawn})`); c.fillStyle = sky; c.fillRect(-100, 600, 1300, GY - 600); c.restore();
   const sy = E.lerp(1420, 1080, E.p(t, 3.8, 6.4, 'out'));
-  if (dawn > 0) { E.glowDot(c, 900, sy, 520, 'rgba(255,200,110,.5)', dawn); E.rays(c, 900, sy, 600, .25 * dawn, '#ffd27a', 18, t * .1); c.save(); c.globalAlpha = dawn; c.fillStyle = '#ffd98a'; c.beginPath(); c.arc(900, sy, 110, 0, 7); c.fill(); c.restore(); }
+  if (dawn > 0) { E.glowDot(c, 800, sy, 520, 'rgba(255,200,110,.5)', dawn); E.rays(c, 800, sy, 600, .25 * dawn, '#ffd27a', 18, t * .1); c.save(); c.globalAlpha = dawn; c.fillStyle = '#ffd98a'; c.beginPath(); c.arc(800, sy, 100, 0, 7); c.fill(); c.restore(); }
   slab(c, -100, 1180, GY, 260);
   rain(c, t, 560, GY, 1 - E.p(t, 3.4, 4.6), 110);
   if (t < 6.2) LB(c, "TO THE ONE WHO'S TIRED", 540, 470, { size: 34, ls: 5 });
@@ -130,11 +130,11 @@ const REEL = { title: "Rest if you must. Just don't quit.", bpm: 120, scenes: [
   let x = E.lerp(-40, 470, E.p(t, 0, sit - .2, 'lin')), y = hipOn(GY, s), pose = { ...E.walk(t * 5, .3), tor: .5, hd: .4 };
   if (t > sit - .2 && t < up) { x = 500; y = GY - 70 - 10; pose = { ...E.pose('sit'), hd: E.lerp(.6, -.2, E.p(t, 4, 5.4)), tor: E.lerp(.4, 0, E.p(t, 4, 5.4)) }; }
   if (t >= up && t < run) { x = 520; pose = { ...E.mix(E.pose('stand'), E.pose('cheer'), E.p(t, up, up + .3)), aF: 2.8, aB: -2.8 }; }
-  if (t >= run) { x = E.lerp(520, 700, E.p(t, run, 7.0, 'in')); pose = done ? win(t, 7.0) : E.run(t * 16); }
+  if (t >= run) { x = E.lerp(520, 640, E.p(t, run, 7.0, 'in')); pose = done ? win(t, 7.0) : E.run(t * 16); }
   if (done) E.glowDot(c, x, y - 60, 360, 'rgba(245,197,66,.45)', E.p(t, 7.0, 7.4));
   fig(c, { x, y, s, color: done ? GOLD : t > up ? '#ffffff' : '#bdbdbd', pose });
   const energy = t < 2.8 ? 12 : Math.round(E.lerp(12, 100, E.p(t, 2.8, up, 'inOut')));
   CNT(c, 60, 560, 'ENERGY', `${energy}%`, t < sit ? 'RUNNING ON EMPTY' : t < up ? 'RESTING. NOT QUITTING.' : 'READY', energy === 100 ? GOLD : '#e8e8e8', t < sit ? RED : null);
-  E.particles(c, 700, y - 80, t - 7.0, { n: 60, speed: 500, grav: 260, life: 1.6 });
+  E.particles(c, 640, y - 80, t - 7.0, { n: 60, speed: 500, grav: 260, life: 1.6 });
 } },
 ] };
