@@ -19,7 +19,7 @@ const PANEL = (c, y0, y1, tab, gold = false) => {
 const P1 = [560, 980], P2 = [1010, 1430], gT = 940, gB = 1400;
 const clip = (c, P, fn) => { c.save(); c.beginPath(); c.roundRect(70, P[0], 920, P[1] - P[0], 22); c.clip(); fn(); c.restore(); };
 
-const REEL = { title: 'Someone is proud of you', bpm: 120, scenes: [
+const REEL = { title: 'Someone is proud of you', bpm: 120, speed: 1.12, scenes: [
 // 1 — What you feed grows
 { dur: 6.5, draw(c, t) {
   const s = .8, g = E.p(t, .4, 4.6, 'inOut'), done = t > 4.8;
@@ -99,10 +99,10 @@ const REEL = { title: 'Someone is proud of you', bpm: 120, scenes: [
   CNT(c, 70, 560, 'PASSED', `${passed}/${N}`, done ? 'FINISHED. AT HIS PACE.' : 'AT WALKING SPEED', done ? GOLD : '#e8e8e8');
 } },
 // 4 — You think nobody notices. Someone is proud of you.
-{ dur: 9, draw(c, t) {
-  const GY = 1330, look = 6.6, done = t > look;
-  if (t < 6.8) PRIN(c, 'YOU THINK NOBODY NOTICES.', 470);
-  else E.title(c, 'SOMEONE IS PROUD OF YOU.', 540, 470, t, 6.8, 1e9, { size: 36, weight: 800, ls: 4, family: 'Inter', color: GOLD });
+{ dur: 8, draw(c, t) {
+  const GY = 1330, look = 5.4, done = t > look;
+  if (t < 5.6) PRIN(c, 'YOU THINK NOBODY NOTICES.', 470);
+  else E.title(c, 'SOMEONE IS PROUD OF YOU.', 540, 470, t, 5.6, 1e9, { size: 36, weight: 800, ls: 4, family: 'Inter', color: GOLD });
   E.shaded(c, -100, GY, 1300, 140, 0, '#2a2a2e', '#101012'); E.line(c, -100, GY, 1180, GY, '#5a5a5a', 3);
   // desk, lamp, the one working late
   E.glowDot(c, 640, GY - 210, 260, 'rgba(255,214,120,.45)');
@@ -112,9 +112,10 @@ const REEL = { title: 'Someone is proud of you', bpm: 120, scenes: [
   E.line(c, 380, GY - 70, 470, GY - 70, '#6a6a6a', 8); E.line(c, 390, GY - 70, 390, GY, '#555', 5); E.line(c, 460, GY - 70, 460, GY, '#555', 5);
   const writing = !done;
   fig(c, { x: 450, y: GY - 70 - 8, s: .85, color: done ? GOLD : '#d8d8d8', pose: done ? { ...E.pose('sit'), hd: -.3, tor: -.05, aF: 2.2, eF: .3, aB: 2.0, eB: .3 } : { ...E.pose('sit'), hd: .5, tor: .35, aF: 1.4 + .15 * Math.sin(t * 9), eF: .5, aB: 1.3, eB: .6 } });
-  SAY(c, 'DOES ANYONE EVEN CARE?', 420, GY - 300, E.p(t, 1.2, 1.5, 'back') * (1 - E.p(t, 3.2, 3.4)));
+  SAY(c, 'DOES ANYONE EVEN CARE?', 420, GY - 300, E.p(t, .4, .7, 'back') * (1 - E.p(t, 2.4, 2.6)));
+  if (!done) { for (let i = 0; i < 5; i++) { const q = (t * .7 + i / 5) % 1; c.save(); c.globalAlpha = .35 * (1 - q); c.strokeStyle = '#bbb'; c.lineWidth = 3; c.beginPath(); c.moveTo(620 + Math.sin(q * 8 + i) * 8, GY - 150 - q * 120); c.lineTo(624 + Math.sin(q * 8 + i + 1) * 8, GY - 160 - q * 120); c.stroke(); c.restore(); } E.particles(c, 600, GY - 150, (t * 2) % 1 * .4, { n: 5, speed: 60, color: '#ddd', grav: -40, life: .4, seed: Math.floor(t * 2) }); }
   // the people behind him he can't see
-  const PEOPLE = [[140, 'MOM', 3.4, .78], [270, 'YOUR KID', 4.0, .5], [810, 'BEST FRIEND', 4.6, .78], [930, 'FUTURE YOU', 5.2, .82]];
+  const PEOPLE = [[140, 'MOM', 2.0, .78], [270, 'YOUR KID', 2.7, .5], [810, 'BEST FRIEND', 3.4, .78], [930, 'FUTURE YOU', 4.1, .82]];
   PEOPLE.forEach(([x, name, t0, sc], i) => {
     const a = E.p(t, t0, t0 + .6); if (a <= 0) return;
     const col = done ? GOLD : '#ffe7a8', y = hipOn(GY - 30, sc);
