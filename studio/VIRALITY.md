@@ -57,6 +57,13 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
     - Use panel cards (rounded frames with tab labels) for A vs B rows.
     - Add one slapstick reaction gag per batch.
     - Crowds of 30 or more figures raise motion the cheapest way.
+28. **YouTube Shorts algorithm (from Day 12).** Shorts ranks on viewed vs swiped away, average % viewed (loops push it past 100%), then likes, comments, shares and subs.
+    - **Length:** 22–25s, under 30s max. A short length raises % viewed and loops.
+    - **Frame 0:** the hook text is on screen and something is already moving. A timely hook ("60 DAYS LEFT IN 2026") works best.
+    - **Pacing:** a payoff every 5–6s, so there's never a reason to swipe.
+    - **Comments:** the caption asks a 1-or-2 question or a "tag someone" prompt. Pin the same question as the first comment.
+    - **Title:** curiosity plus the principle, under 40 characters, ending in #shorts.
+    - **Sound:** pick a trending sound in the Shorts editor at low volume, so the visuals still lead.
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
