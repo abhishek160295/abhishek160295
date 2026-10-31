@@ -23,7 +23,8 @@ Every reference reel we benchmark against. Measured at 15 fps on a 135×240 gray
 | Dont give up | 34.9s | 1.9s | 1.16 | 14.1% |
 | Growth happens when nobody watches | 33.6s | 0.0s | 1.57 | 2.9% |
 | Let their hate build your success | 36.9s | 1.7s | 3.07 | 4.6% |
-| **Average (16 reels)** | **33.8s** | **3.2s** | **1.66** | **5.4%** |
+| I have to win vs I need to win | 33.1s | 1.2s | 2.53 | 7.5% |
+| **Average (17 reels)** | **33.8s** | **3.1s** | **1.71** | **5.5%** |
 
 ## #14 — "Make it happen" (added 24 Oct)
 Same creator (SIMPLY ANIMATED). It's the best-performing file on our metrics: motion 2.42 (highest in the bank) and zero still time.
@@ -73,3 +74,20 @@ What it adds to the style:
 - **Spotlight from above** with soft volumetric light, and glowing wings for the win.
 - **A crowd as a counter.** Empty stands vs full stands is social proof shown visually, which drives comments.
 - **A one-line principle per scene,** like "THEIR WAY WORKED FOR THEM" and "DON'T DROP YOURS".
+
+## #17 — "I have to win vs I need to win" (added 31 Oct)
+Same creator (SIMPLY ANIMATED). It runs 33.1s with 1.2s of still time, motion **2.53** and fill 7.5%, the second-highest motion in the bank. It has 5 scenes:
+1. **A crowd is not a direction.** A huge crowd marches one way in deep perspective. One figure takes a lit side path toward a glowing tree.
+2. **The difference between "I have to win" and "I need to win".** A sprint in the rain on a perspective running track, with a low camera, motion blur and a red finish line. One runner dives across the line to win.
+3. **Numbers don't always win.** A seesaw on a rock with one figure on one end and a crowd on the other. Leverage beats numbers.
+4. **Hard work vs smart work.** Rounded card panels. One figure pushes a heavy block. The other thinks (a lightbulb and a blueprint), builds a cart and wheels three blocks at once.
+5. **Not learning vs learning from mistakes.** The rake gag: one figure steps on rakes and gets hit in the face again and again. The other learns after the first hit and steps around them.
+
+What it adds to the style:
+- **Perspective and camera.** Crowds and tracks drawn with vanishing points, a low hero angle, motion blur and rain. This is the most cinematic reel in the bank.
+- **Panel framing.** Rows sit inside rounded dark cards with small labels in a tab ("HARD WORK", "SMART WORK").
+- **Comedy.** The rake-to-the-face slapstick is the reaction beat, like our PULL door gag.
+- **Sentence-case captions under scenes** ("Learning from mistakes") as an alternative to small caps.
+- **Crowds of 50 or more figures** are a big part of why its motion is so high.
+
+Note: the second upload, "Let Their Hate Build Your Success (_1)", is byte-for-byte the same file as reference #16, so it is not added again.
