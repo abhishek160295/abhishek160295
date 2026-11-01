@@ -30,15 +30,15 @@ const REEL = { title: 'Your worth never changed', bpm: 120, scenes: [
   // top: a hammer called PRESSURE
   clip(c, P1, () => { E.line(c, 90, gT, 970, gT, '#4a4a50', 3);
     const ex = 540, ey = gT - 104;
-    if (t < hit) egg(c, ex, ey, 1, Math.sin(t * 3) * .02);
+    if (t < hit) egg(c, ex, ey, 1, Math.sin(t * 9) * .06);
     else { const dt = t - hit; c.save(); c.fillStyle = '#f5c542'; c.beginPath(); c.ellipse(ex, gT - 8, 110 + 40 * Math.min(1, dt * 4), 18, 0, 0, 7); c.fill(); c.fillStyle = '#f2f0e8'; c.beginPath(); c.ellipse(ex, gT - 12, 70, 10, 0, 0, 7); c.fill(); c.restore();
       for (let i = 0; i < 10; i++) { const a = -Math.PI * E.rnd(i), sp = 260 + 200 * E.rnd(i + 3), x = ex + Math.cos(a) * sp * Math.min(dt, .6), y = gT - 30 + Math.sin(a) * sp * Math.min(dt, .6) + 900 * Math.min(dt, .6) ** 2; c.save(); c.translate(x, Math.min(y, gT - 6)); c.rotate(dt * 6 + i); c.fillStyle = '#e8e4d8'; c.beginPath(); c.moveTo(-12, 0); c.lineTo(0, -16); c.lineTo(12, 4); c.fill(); c.restore(); } }
-    const ha = t < hit ? E.lerp(-1.4, .2, E.p(t, .6, hit, 'in')) : .2 - .4 * E.p(t, hit, hit + .5); c.save(); c.translate(760, gT - 330); c.rotate(ha); E.line(c, 0, 0, -10, 230, '#8a6a44', 14); E.shaded(c, -90, 210, 120, 60, 8, '#9a9a9a', '#3a3a3a'); E.text(c, 'PRESSURE', -30, 240, { size: 14, weight: 800, family: MONO, color: '#111' }); c.restore();
+    const ha = t < hit ? E.lerp(-1.4, .2, E.p(t, 0, hit, 'in')) + (t < .8 ? Math.sin(t * 8) * .15 : 0) : .2 - .4 * E.p(t, hit, hit + .5); c.save(); c.translate(760, gT - 330); c.rotate(ha); E.line(c, 0, 0, -10, 230, '#8a6a44', 14); E.shaded(c, -90, 210, 120, 60, 8, '#9a9a9a', '#3a3a3a'); E.text(c, 'PRESSURE', -30, 240, { size: 14, weight: 800, family: MONO, color: '#111' }); c.restore();
     E.shake(c, t, hit, .25, 10); });
   E.flash(c, t, hit, .15, '255,255,255', .25);
   // bottom: cracks from the inside, out comes life
   clip(c, P2, () => { E.line(c, 90, gB, 970, gB, '#4a4a50', 3);
-    const ex = 540, ey = gB - 104, wob = t > 1.2 && t < hatch ? Math.sin(t * 18) * .06 * E.p(t, 1.2, hatch) : 0;
+    const ex = 540, ey = gB - 104, wob = t < hatch ? Math.sin(t * 18) * (.04 + .06 * E.p(t, 1.2, hatch)) : 0;
     if (done) { E.glowDot(c, ex, ey - 40, 380, 'rgba(245,197,66,.45)', E.p(t, hatch, hatch + .5)); E.rays(c, ex, ey - 40, 420, .28 * E.p(t, hatch, hatch + .5), GOLD, 16, t * .2); }
     if (!done) egg(c, ex, ey, 1, wob);
     else { c.save(); c.translate(ex, ey); const g = c.createRadialGradient(-20, -30, 10, 0, 0, 110); g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#bdb6a6'); c.fillStyle = g; c.beginPath(); c.moveTo(-78, 0); for (let i = 0; i <= 8; i++) c.lineTo(-78 + i * 19.5, (i % 2 ? -20 : 0)); c.lineTo(78, 0); c.ellipse(0, 0, 78, 102, 0, 0, Math.PI); c.fill(); c.restore();
