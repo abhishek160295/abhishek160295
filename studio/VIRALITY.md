@@ -64,6 +64,9 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
     - **Comments:** the caption asks a 1-or-2 question or a "tag someone" prompt. Pin the same question as the first comment.
     - **Title:** curiosity plus the principle, under 40 characters, ending in #shorts.
     - **Sound:** pick a trending sound in the Shorts editor at low volume, so the visuals still lead.
+29. **Audience first (from Day 14).** See `research/audience.md`.
+    - Every scene starts from a moment the 16–28 audience lived this week: exams, phone, gym, job hunt, comparison, family sacrifice, a new city.
+    - Then apply the reference bible: mono plus gold, a principle line, A vs B panels, counters, crowds and one final line.
 
 ## Selection bar (3 a day = only the best)
 - Draft at least 5 concepts per day and ship only the top 3. The rest go to Reserve.
