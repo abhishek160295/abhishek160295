@@ -13,9 +13,9 @@ const halo = (c, x, y, a = 1, gold = false) => E.glowDot(c, x, y, 190, gold ? 'r
 const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24, fill: '#eeeeee', stroke: '#eeeeee', color: '#111', tail });
 const car = (c, x, y, ph, col = '#d8d8d8', f = 1) => { c.save(); c.translate(x, y); c.scale(f, 1); E.rrect(c, -130, -86, 260, 56, 14, '#1c1c20', col, 5); c.save(); c.strokeStyle = col; c.lineWidth = 5; c.fillStyle = '#0e0e10'; c.beginPath(); c.moveTo(-70, -86); c.lineTo(-40, -132); c.lineTo(50, -132); c.lineTo(84, -86); c.closePath(); c.fill(); c.stroke(); c.restore(); E.line(c, 4, -86, 4, -130, col, 4);
   [-78, 80].forEach(wx => { c.save(); c.translate(wx, -26); c.fillStyle = '#111'; c.strokeStyle = col; c.lineWidth = 6; c.beginPath(); c.arc(0, 0, 26, 0, 7); c.fill(); c.stroke(); c.rotate(ph); for (let i = 0; i < 3; i++) { c.rotate(2.09); E.line(c, 0, 0, 0, 20, col, 4); } c.restore(); }); c.restore(); };
-const REEL = { title: "You'll never feel ready", bpm: 120, scenes: [
+const REEL = { title: "You'll never feel ready", bpm: 120, speed: 1.1, push: .07, drift: 9, scenes: [
 // 1 — The train doesn't wait until you feel ready
-{ dur: 7, draw(c, t) {
+{ dur: 6.2, draw(c, t) {
   const GY = 1330, s = 1.05, stopT = 1.1, goT = 3.5, done = t > 4.8;
   TITLE(c, "THE TRAIN DOESN'T WAIT", 450);
   TITLE(c, 'UNTIL YOU FEEL READY.', 505, done ? GOLD : '#f2f2f2');

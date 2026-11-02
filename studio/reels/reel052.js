@@ -14,7 +14,7 @@ const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24
 const flame = (c, x, y, k, t) => { if (k <= .02) return; E.glowDot(c, x, y - 40 * k, 260 * k, 'rgba(255,170,60,.5)'); [['#f08a24', 26, 80], [GOLD, 17, 58], ['#fff3c4', 8, 30]].forEach(([col, w, h], i) => { const ww = w * k * (1 + .08 * Math.sin(t * 13 + i)), hh = h * k * (1 + .1 * Math.sin(t * 9 + i)); c.save(); c.fillStyle = col; c.beginPath(); c.moveTo(x, y - hh); c.quadraticCurveTo(x + ww, y - hh * .3, x, y); c.quadraticCurveTo(x - ww, y - hh * .3, x, y - hh); c.fill(); c.restore(); }); };
 const candle = (c, x, gy, k, t) => { E.shaded(c, x - 20, gy - 130, 40, 130, 6, '#eeeeee', '#9a9a9a'); E.line(c, x, gy - 130, x, gy - 146, '#555', 4); flame(c, x, gy - 144, k, t); };
 const battery = (c, x, y, pct, col) => { E.rrect(c, x - 70, y - 34, 140, 68, 10, '#0c0c0c', col, 5); E.rrect(c, x + 72, y - 14, 12, 28, 3, col); const w = Math.max(4, 124 * pct / 100); E.rrect(c, x - 62, y - 26, w, 52, 6, col); E.text(c, `${Math.round(pct)}%`, x, y + 66, { size: 24, weight: 800, family: MONO, ls: 2, color: col }); };
-const REEL = { title: 'Light their candle', bpm: 120, scenes: [
+const REEL = { title: 'Light their candle', bpm: 120, speed: 1.1, push: .07, drift: 9, scenes: [
 // 1 — Slow progress is still progress
 { dur: 7, draw(c, t) {
   const GY = 1380, WX = 560, top = 660, done = t > 5.2;
@@ -42,7 +42,7 @@ const REEL = { title: 'Light their candle', bpm: 120, scenes: [
   E.particles(c, WX + 120, top, t - 5.2, { n: 60, speed: 500, grav: 260 });
 } },
 // 2 — A phone at 1% can't run everything
-{ dur: 7, draw(c, t) {
+{ dur: 6.2, draw(c, t) {
   const gT = 950, gB = 1420, s = .9, done = t > 5.0;
   TITLE(c, "A PHONE AT 1% CAN'T RUN EVERYTHING.", 470, done ? GOLD : '#f2f2f2');
   floor(c, gT); floor(c, gB);
@@ -62,7 +62,7 @@ const REEL = { title: 'Light their candle', bpm: 120, scenes: [
   E.particles(c, 400, gB - 300, t - 5.0, { n: 50, speed: 460, grav: 260 });
 } },
 // 3 — Blowing out their candle won't make yours brighter
-{ dur: 7.5, draw(c, t) {
+{ dur: 6.8, draw(c, t) {
   const gT = 950, gB = 1420, s = .9, blow = 2.0, lightT = 2.6, done = t > 4.4;
   TITLE(c, "BLOWING OUT THEIR CANDLE", 450);
   TITLE(c, "WON'T MAKE YOURS BRIGHTER.", 505, done ? GOLD : '#f2f2f2');

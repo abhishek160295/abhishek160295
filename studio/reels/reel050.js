@@ -13,7 +13,7 @@ const halo = (c, x, y, a = 1, gold = false) => E.glowDot(c, x, y, 190, gold ? 'r
 const SAY = (c, str, x, y, a, tail = -1) => E.bubble(c, str, x, y, a, { size: 24, fill: '#eeeeee', stroke: '#eeeeee', color: '#111', tail });
 const rabbit = (c, x, y, f, ph, col = '#e8e8e8') => { const hopY = -Math.abs(Math.sin(ph)) * 40; c.save(); c.translate(x, y + hopY); c.scale(f, 1); c.fillStyle = col; c.beginPath(); c.ellipse(0, -30, 38, 26, -.2, 0, 7); c.fill(); c.beginPath(); c.arc(34, -52, 18, 0, 7); c.fill(); c.beginPath(); c.ellipse(30, -86, 6, 22, -.2, 0, 7); c.fill(); c.beginPath(); c.ellipse(42, -84, 6, 20, .2, 0, 7); c.fill(); c.beginPath(); c.arc(-38, -34, 10, 0, 7); c.fill(); c.restore(); };
 
-const REEL = { title: 'Too light to feel', bpm: 120, scenes: [
+const REEL = { title: 'Too light to feel', bpm: 120, speed: 1.1, push: .07, drift: 9, scenes: [
 // 1 — Habits are too light to feel until they're too heavy to break
 { dur: 7, draw(c, t) {
   const GY = 1330, X = 470, s = 1.25, k = E.p(t, .2, 4.4, 'lin'), pull = t > 4.6, done = t > 4.4;

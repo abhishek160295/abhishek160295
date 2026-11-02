@@ -233,7 +233,7 @@ window.setupReel = reel => {
       const hud = E._hud; E._hud = null; hud.forEach(f => f()); c.restore();
     } else {
       // slow cinematic push-in across each scene
-      const z = 1 + .025 * (t / sc.dur); c.translate(540, 960); c.scale(z, z); c.translate(-540, -960);
+      const z = 1 + (reel.push || .025) * (t / sc.dur), dr = reel.drift || 0; c.translate(540 + Math.sin(T * 1.1) * dr, 960 + Math.cos(T * .8) * dr * .8); c.scale(z, z); c.translate(-540, -960);
       sc.draw(c, t, sc.dur); c.restore();
       // fade to black between scenes (first frame of reel is already live — no fade-in)
       const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
