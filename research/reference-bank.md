@@ -24,7 +24,8 @@ Every reference reel we benchmark against. Measured at 15 fps on a 135×240 gray
 | Growth happens when nobody watches | 33.6s | 0.0s | 1.57 | 2.9% |
 | Let their hate build your success | 36.9s | 1.7s | 3.07 | 4.6% |
 | I have to win vs I need to win | 33.1s | 1.2s | 2.53 | 7.5% |
-| **Average (17 reels)** | **33.8s** | **3.1s** | **1.71** | **5.5%** |
+| Brick by brick | 32.9s | 0.0s | 2.75 | 7.9% |
+| **Average (18 reels)** | **33.7s** | **2.9s** | **1.77** | **5.6%** |
 
 ## #14 — "Make it happen" (added 24 Oct)
 Same creator (SIMPLY ANIMATED). It's the best-performing file on our metrics: motion 2.42 (highest in the bank) and zero still time.
@@ -91,3 +92,18 @@ What it adds to the style:
 - **Crowds of 50 or more figures** are a big part of why its motion is so high.
 
 Note: the second upload, "Let Their Hate Build Your Success (_1)", is byte-for-byte the same file as reference #16, so it is not added again.
+
+## #18 — "Brick by brick" (added 2 Nov)
+Same creator (SIMPLY ANIMATED). It runs 32.9s with **0.0s** of still time, motion **2.75** (second-highest in the bank, after #16 at 3.07) and fill 7.9%. It has 4 scenes:
+1. **Brick by brick.** A huge crowd hurls stones at one figure with a shield. He uses everything they throw to build a wall, then towers, then a full castle. He ends on top, lit in gold, with a flag.
+2. **What overthinking looks like.** A horse clears the fence in one jump. A goat stands at the same fence while a clock and day counter run (DAY 60 → 354 → 929). Its horns grow and curl as it ages, and it never jumps.
+3. **How it feels when you try to please everyone.** Under a spotlight, people keep handing him rocks (their expectations). The pile on his head grows until he buckles.
+4. **Quitting vs consistency.** Two tunnel cross-section panels dig toward a massive glittering gold vein. The quitter's tunnel stops; the consistent one keeps going.
+
+What it adds to the style:
+- **Animals as metaphors** (horse vs goat). It's funny and fresh, and the aging horns are a time-lapse gag.
+- **Clock plus day counter** to show wasted time: DAY 929 lands as the punchline.
+- **Spotlight cone staging** for the emotional scene.
+- **A textured gold vein** taking up a third of the frame. The payoff is shown as spectacle, not a small icon.
+- **Sentence-case titles** ("What overthinking looks like") work alongside small caps.
+- **Zero still time.** Every frame is moving, from crowds to debris to particles.
