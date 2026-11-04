@@ -204,7 +204,7 @@ window.setupReel = reel => {
     let i = starts.length - 1; while (i > 0 && T < starts[i]) i--;
     const sc = reel.scenes[i], t = T - starts[i];
     c.setTransform(S, 0, 0, S, 0, 0); c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
-    if (fast) for (let k = 0; k < 34; k++) { // ambient dust: constant, subtle background motion
+    if (fast || reel.dust) for (let k = 0; k < 34; k++) { // ambient dust: constant, subtle background motion
       const x = ((E.rnd(k) * W + T * (14 + 26 * E.rnd(k + 7))) % (W + 40)) - 20, y = E.rnd(k + 3) * H + Math.sin(T * .6 + k) * 24;
       c.fillStyle = `rgba(255,255,255,${.06 + .1 * E.rnd(k + 11)})`; c.beginPath(); c.arc(x, y, 1.5 + 2.5 * E.rnd(k + 5), 0, 7); c.fill();
     }
@@ -234,7 +234,10 @@ window.setupReel = reel => {
     } else {
       // slow cinematic push-in across each scene
       const z = 1 + (reel.push || .025) * (t / sc.dur), dr = reel.drift || 0; c.translate(540 + Math.sin(T * 1.1) * dr, 960 + Math.cos(T * .8) * dr * .8); c.scale(z, z); c.translate(-540, -960);
+      // optional scene zoom (sc.zoom about sc.focus): world grows, hud text (o.hud) stays put in the safe frame
+      if (sc.zoom) { const [fx, fy] = sc.focus || [540, 1000], zm = typeof sc.zoom === 'function' ? sc.zoom(t) : sc.zoom; E._hud = []; c.translate(fx, fy); c.scale(zm, zm); c.translate(-fx, -fy); }
       sc.draw(c, t, sc.dur); c.restore();
+      if (E._hud) { const hud = E._hud; E._hud = null; c.save(); c.translate(573, 960); c.scale(.88, .88); c.translate(-573, -960); hud.forEach(f => f()); c.restore(); }
       // fade to black between scenes (first frame of reel is already live — no fade-in)
       const fin = i === 0 ? 1 : E.p(t, 0, .28, 'out'), fout = i === reel.scenes.length - 1 ? 1 : 1 - E.p(t, sc.dur - .28, sc.dur, 'in');
       const a = 1 - fin * fout; if (a > 0) { c.fillStyle = `rgba(0,0,0,${a})`; c.fillRect(0, 0, W, H); }

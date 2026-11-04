@@ -595,37 +595,25 @@
    ]
   },
   {
-   "id": "reel050",
+   "id": "reel053",
    "day": 15,
-   "title": "Too light to feel",
+   "title": "Roots first",
    "concepts": [
     "habit thread SCROLL thickens to a chain by DAY 365",
-    "chase two rabbits catch none vs one rabbit caught",
-    "motivation is a match vs discipline is a fire fed one log a night",
-    "imagined obstacles (dashed wall/pit/monster WHAT IF) dissolve as he walks through"
-   ]
-  },
-  {
-   "id": "reel051",
-   "day": 15,
-   "title": "You'll never feel ready",
-   "concepts": [
     "train doors close on 'one more minute' while another boards",
-    "parked car PLAN A-E 0 km vs driving through WRONG TURN/MISTAKE cones to flag",
-    "polishing one perfect brick vs rough bricks build a lit house",
-    "diving board: fear tags break, he jumps, the water was fine"
-   ]
-  },
-  {
-   "id": "reel052",
-   "day": 15,
-   "title": "Light their candle",
-   "concepts": [
-    "snail climbs wall in rain, washed back, reaches top at sunrise",
-    "battery 1%: tasks pile to BURNOUT vs sleep recharge to 100%",
-    "blowing out their candle vs sharing the flame doubles the light",
+    "diving board: fear tags break, he jumps, the water was fine",
     "bamboo: years of roots underground then 90 feet"
    ]
   }
+ ],
+ "drafts_unused": [
+  "chase two rabbits catch none",
+  "motivation is a match vs discipline fire fed nightly",
+  "imagined obstacles dissolve (suffer more in imagination)",
+  "parked car PLAN A-E vs driving through mistakes",
+  "perfect brick vs rough bricks build a house",
+  "snail climbs wall in rain",
+  "battery 1% burnout vs recharge",
+  "blowing out their candle vs sharing the flame"
  ]
 }

@@ -74,3 +74,9 @@ Posting: 3 a day at 9am, 2pm and 8pm local, the same file to YouTube Shorts, Ree
 - Every scene: one hook line, one payoff line, one or two props.
 - YouTube Shorts: title under 60 characters ending in #shorts; description is 1 line plus 3 hashtags. The loop must be clean, because Shorts rewards rewatches.
 - Slot logic: the morning-themed reel at 9am, the emotional or relatable one at 2pm, the late-night or reflective one at 8pm.
+
+## 30. One reel a day (from Day 15)
+- Ship ONE reel per day, the single best one. No filler slots.
+- Every reel must hit the reference averages: motion >= 1.5 (ref 1.77), fill near 5% (ref 5.6), zero still time, 22-26s.
+- Use scene zoom (sc.zoom + hud titles) so figures fill the frame like the reference. Four scenes: hook wince, wince, fear-to-action, big gold payoff.
+- Unused strong scenes go to ledger.drafts_unused for future reels.
