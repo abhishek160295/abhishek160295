@@ -32,12 +32,13 @@ li code,.e code{display:block;font-family:Menlo,Consolas,monospace;font-size:32p
 .brand{position:absolute;bottom:52px;left:84px;right:84px;display:flex;justify-content:space-between;font-size:30px;color:#8a8a8a;font-weight:700;border-top:2px solid #eee;padding-top:16px}
 .brand b{color:#141414}
 `;
-const page = (i, inner) => `<section class="pg"><div class="n">${String(i).padStart(2,'0')} / 05</div>${inner}<div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div></section>`;
+const page = (i, n, inner) => `<section class="pg"><div class="n">${String(i).padStart(2,'0')} / ${String(n).padStart(2,'0')}</div>${inner}<div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div></section>`;
 const list = items => `<ul>${items.map(([t, e, c]) => `<li>${t}${e ? `<span class="e">${e}</span>` : ''}${c ? `<code>${c}</code>` : ''}</li>`).join('')}</ul>`;
 const box = h => `<div class="box">${h}</div>`;
-const doc = (tag, title, sub, inside, pages) => `<html><head><meta charset="utf-8"><style>${css}</style></head><body>
+const EXTRA = require('./extra.js')(list, box);
+const doc = (tag, title, sub, inside, pages) => { pages = pages.slice(); (EXTRA[tag] || []).slice().sort((a, b) => a[0] - b[0]).forEach(([at, pg]) => pages.splice(at, 0, pg)); const N = pages.length + 1; return `<html><head><meta charset="utf-8"><style>${css}</style></head><body>
 <section class="pg cover"><div class="tag">${tag}</div><h1>${title}</h1><p>${sub}</p><ul>${inside.map(x => `<li>${x}</li>`).join('')}</ul><div class="brand"><b>@thedataguy16</b><span>Swipe →</span></div></section>
-${pages.map((p, i) => page(i + 2, `<h2>${p[0]}</h2><p class="lead">${p[1]}</p>${p[2]}<div class="sp"></div>`)).join('')}</body></html>`;
+${pages.map((p, i) => page(i + 2, N, `<h2>${p[0]}</h2><p class="lead">${p[1]}</p>${p[2]}<div class="sp"></div>`)).join('')}</body></html>`; };
 
 const docs = {
 sql: doc('SQL', 'SQL Interview Pack', '8 patterns behind most SQL interview questions. Learn the pattern once, solve 50 questions with it.',
