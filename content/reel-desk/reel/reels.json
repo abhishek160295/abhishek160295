@@ -16,5 +16,23 @@
   "kw": "QUERIES",
   "title": "Stop Memorizing 100 SQL Queries. These 10 Are Enough",
   "built": "2026-11-05"
+ },
+ "t15": {
+  "pages": 8,
+  "kw": "JOIN2X",
+  "title": "Interviewer: \"Your JOIN doubled the row count. Why?\" Comment your answer",
+  "built": "2026-11-05"
+ },
+ "t23": {
+  "pages": 8,
+  "kw": "15LPA",
+  "title": "How to Go From ₹4 LPA to ₹15 LPA as a Data Analyst",
+  "built": "2026-11-05"
+ },
+ "t32": {
+  "pages": 8,
+  "kw": "ML5",
+  "title": "Don't Know Anything About ML? Start With These 5 Concepts",
+  "built": "2026-11-05"
  }
 }
