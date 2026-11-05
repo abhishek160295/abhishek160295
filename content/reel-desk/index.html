@@ -1,0 +1,290 @@
+<title>Dataguy16 Reel Desk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column desk. Today's 3 cards up top, then queue, kit PDFs, history. Committed dark look matching the reel covers. */
+:root{
+  --bg:#0c0c0b; --panel:#171715; --line:#2a2925; --fg:#f3f1ea; --muted:#9d9a8f;
+  --accent:#ffd21f; --accent-ink:#0c0c0b; --bad:#ff7a6b; --good:#7fd88f;
+  --display:"Anton",Impact,"Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:36px}
+header{display:grid;gap:6px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,56px);line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
+h1 span{color:var(--accent)}
+h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0 0 12px;letter-spacing:.02em}
+.sub{color:var(--muted);margin:0;max-width:62ch}
+.status{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cards{display:grid;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:12px}
+.card.posted{opacity:.55}
+.cover{background:#000;border-radius:6px;padding:18px 16px;min-height:96px;display:flex;align-items:center;justify-content:center;text-align:center}
+.cover p{margin:0;font-family:var(--display);font-size:clamp(20px,4.6vw,28px);line-height:1.15;color:var(--accent);text-wrap:balance;text-shadow:0 2px 0 #000}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--muted)}
+.chip.cat{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.chip.new{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent)}
+.why{margin:0;color:var(--muted);font-size:14px}
+.cta{font-size:14px;margin:0}
+.cta b{color:var(--accent);font-family:var(--mono)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+button{font:600 14px var(--body);border-radius:7px;padding:9px 14px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--fg)}
+button:hover{border-color:var(--muted)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.reject{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+button:disabled{opacity:.5;cursor:default}
+.kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.pdf{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:8px;align-content:start}
+.pdf strong{font-size:15px}
+.pdf small{color:var(--muted);font-size:13px}
+.pdf .kw{font-family:var(--mono);color:var(--accent);font-size:12px}
+.pdf .row{display:flex;gap:8px;flex-wrap:wrap}
+.pdf a{color:var(--fg);font-size:13px}
+.list{display:grid;gap:0;border-top:1px solid var(--line)}
+.li{display:grid;grid-template-columns:44px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.li .n{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.li .t{min-width:0}
+.li .c{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase}
+.li.rej .t{text-decoration:line-through;color:var(--muted)}
+.li.done .t{color:var(--good)}
+details summary{cursor:pointer;font-family:var(--display);font-size:24px;letter-spacing:.02em;list-style:none}
+details summary::after{content:" +";color:var(--accent)}
+details[open] summary::after{content:" –"}
+.formula{background:var(--panel);border:1px dashed var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:13px;color:var(--fg)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--accent);color:var(--accent-ink);font-weight:600;padding:10px 16px;border-radius:8px;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.card{transition:opacity .2s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="dateLabel">Today</div>
+    <h1>Today's <span>3 reels</span></h1>
+    <p class="sub">Picked from the formats that already pulled 200K to 686K views. Reject one and the next title takes its place. When the bank runs out, a fresh title is written for you in the same style.</p>
+    <div class="status" id="status">Loading your saved progress…</div>
+  </header>
+
+  <section aria-labelledby="todayH">
+    <h2 id="todayH" hidden>Today</h2>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section>
+    <h2>Lead magnet PDFs</h2>
+    <p class="sub" style="margin-bottom:12px">Each reel points to one of these. Post the reel with "Comment KEYWORD" and send the matching PDF in DMs.</p>
+    <div class="kit" id="kit"></div>
+  </section>
+
+  <section>
+    <div class="formula">Formula that wins on this account: Stop / If + big number cut to small number + deadline or ₹ salary. Under 12 words on screen.</div>
+  </section>
+
+  <details>
+    <summary>Title bank and history</summary>
+    <div class="list" id="bank" style="margin-top:12px"></div>
+  </details>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const PDFS = {
+  sql:{name:"SQL Interview Pack",kw:"SQL",desc:"8 patterns, JOIN trap, 20 questions",file:"pdfs/sql.pdf"},
+  excel:{name:"Excel for Data Analysts",kw:"EXCEL",desc:"15 functions, #N/A and SUM=0 checklists",file:"pdfs/excel.pdf"},
+  powerbi:{name:"Power BI Interview Notes",kw:"POWERBI",desc:"Star schema, 10 DAX, 15 questions",file:"pdfs/powerbi.pdf"},
+  python:{name:"Python for Data Analysts",kw:"PYTHON",desc:"12 Pandas functions, 30-day plan",file:"pdfs/python.pdf"},
+  stats:{name:"Statistics Cheat Sheet",kw:"STATS",desc:"p-value, tests, A/B testing steps",file:"pdfs/stats.pdf"},
+  ml:{name:"ML Starter Pack",kw:"ML",desc:"7 algorithms, metrics, 60-day plan",file:"pdfs/ml.pdf"},
+  career:{name:"Data Career Playbook",kw:"CAREER",desc:"Salary bands, 90-day plan, AI prompts",file:"pdfs/career.pdf"}
+};
+const CAT_LABEL={sql:"SQL",excel:"Excel",powerbi:"Power BI",python:"Python",stats:"Statistics",ml:"Data Science",career:"Career"};
+// Ordered by win probability. why = which proven reel it copies.
+const BANK = [
+ ["t1","Stop Memorizing 100 SQL Queries. These 10 Are Enough","sql","Same frame as your 686K Excel reel"],
+ ["t4","If I Had a SQL Interview in 24 Hours, I'd Only Study This","sql","Same frame as your 506K reel"],
+ ["t34","If I Had a Data Science Interview in 24 Hours, I'd Study Only This","ml","Tests DS audience on a 506K frame"],
+ ["t7","Every Power BI Skill a Data Analyst Needs at ₹12-18 LPA","powerbi","Salary anchor, like your 295K reel"],
+ ["t15","Interviewer: \"Your JOIN doubled the row count. Why?\" Comment your answer","sql","Comment driver, like your 178K VLOOKUP reel"],
+ ["t23","How to Go From ₹4 LPA to ₹15 LPA as a Data Analyst","career","Money jump, new angle"],
+ ["t32","Don't Know Anything About ML? Start With These 5 Concepts","ml","Zero-knowledge hook, like your 289K Python reel"],
+ ["t18","I Rejected 40 Data Analyst Candidates. Same 5 Mistakes Every Time","career","Interviewer POV, new angle"],
+ ["t2","Stop Learning 50 Power BI Visuals. These 6 Are Enough","powerbi","Subtraction frame, 686K format"],
+ ["t13","If You Can't Answer These 15 Excel Questions, You're Not Interview Ready","excel","Ego trigger, like your 194K reel"],
+ ["t36","Every Statistics Concept a Data Scientist Needs at ₹20-30 LPA","stats","Salary anchor on DS"],
+ ["t10","If I Have 0 Knowledge of SQL, This Is How I'd Get Job-Ready in 30 Days","sql","Zero-to plan, 289K format"],
+ ["t3","Stop Learning All of Pandas. These 12 Functions Are Enough","python","Subtraction frame"],
+ ["t29","Only 1 in 10 Data Analysts Get This Excel Question Right","excel","Challenge, comment bait"],
+ ["t5","If I Had a Power BI Interview Tomorrow With Only 3 Hours","powerbi","Short deadline, like your 271K reel"],
+ ["t33","Stop Watching ML Courses. These 7 Algorithms Are Enough","ml","Subtraction frame on DS"],
+ ["t9","If I Started Learning Power BI & SQL Again in 2026, I'd Do This First","sql","Restart plan, 389K format"],
+ ["t39","Interviewer: \"Your model is 99% accurate. Why is that bad?\" Comment","ml","Comment driver on DS"],
+ ["t12","If You Can't Answer These 20 SQL Questions, Don't Apply Yet","sql","Ego trigger"],
+ ["t27","5 ChatGPT Prompts That Do 2 Hours of Excel Work in 2 Minutes","career","AI trend"],
+ ["t6","If I Had a Python Interview in 48 Hours, These 8 Topics Only","python","Deadline frame, 225K format"],
+ ["t35","If I Have 0 Knowledge of Machine Learning, This Is My 60-Day Plan","ml","Zero-to plan on DS"],
+ ["t14","Interviewer: \"Your SUM is showing 0 but data is there. What do you check first?\"","excel","Comment driver"],
+ ["t24","Non-Tech to Data Analyst in 90 Days. The Exact Plan","career","Career switch audience"],
+ ["t8","Every Python Function a Data Analyst Needs at ₹15-20 LPA","python","Salary anchor"],
+ ["t38","The Only 10 Statistics Questions Asked in Every Data Interview","stats","Subtraction frame on stats"],
+ ["t20","I Take Data Analyst Interviews. This Is What I Actually Check","career","Interviewer POV"],
+ ["t30","Guess the Output of This SQL Query. 90% Get It Wrong","sql","Challenge, comment bait"],
+ ["t11","1-Hour Daily Python & Power BI Plan for Working Professionals","python","Daily plan, 227K format"],
+ ["t37","Data Analyst to Data Scientist in 6 Months. My Exact Roadmap","ml","DA to DS bridge"],
+ ["t17","3 Excel Mistakes That Got Freshers Rejected in My Interviews","excel","Fear of rejection"],
+ ["t40","A/B Testing Explained in 60 Seconds. Asked at Every Product Company","stats","Quick explainer with stakes"],
+ ["t25","Data Analyst at ₹6 LPA vs ₹20 LPA. The Only Difference","career","Salary contrast"],
+ ["t31","XLOOKUP vs INDEX MATCH. Which One Would You Use? Comment","excel","Debate, comment bait"],
+ ["t41","5 ML Projects That Actually Get You Shortlisted in 2026","ml","Projects, like your 119K reel"],
+ ["t21","The Only Question I Ask to Know If You Really Know SQL","sql","Interviewer POV"],
+ ["t26","Will AI Replace Data Analysts? Here's What I See at Work","career","AI fear"],
+ ["t19","Your SQL Is Correct But Still Wrong. Interviewers Catch This","sql","Curiosity gap"],
+ ["t42","Data Analyst vs Data Scientist Salary in India. Honest Numbers","career","Salary comparison"],
+ ["t16","5 Free YouTube Playlists to Crack a Data Science Job in 2026","ml","Same frame as your 244K reel"],
+ ["t43","When a Job Description Says Machine Learning, This Is What They Mean","ml","Same frame as your 221K reel"],
+ ["t22","What 14 Years in Data Taught Me That No Course Will","career","Authority"],
+ ["t28","Use AI Like This in Data Interviews and You'll Stand Out","career","AI trend"],
+ ["t44","Stop Learning Deep Learning First. Do This Instead","ml","Contrarian"]
+].map(([id,title,cat,why])=>({id,title,cat,why}));
+
+const KEY="reeldesk_v1";
+let state={days:{},rejected:[],posted:[],generated:[]};
+let db=null, docRef=null, sample=null, downloads=null, saving=Promise.resolve();
+const $=s=>document.querySelector(s);
+const today=(()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")})();
+$("#dateLabel").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+
+function all(){return BANK.concat(state.generated)}
+function byId(id){return all().find(t=>t.id===id)}
+function used(){const s=new Set(state.rejected);Object.values(state.days).forEach(a=>a.forEach(i=>s.add(i)));return s}
+function nextFree(){const u=used();return all().find(t=>!u.has(t.id))}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,2600)}
+
+function persist(){
+  try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
+  if(docRef){saving=saving.then(()=>docRef.set(JSON.parse(JSON.stringify(state)))).catch(()=>toast("Could not save to the cloud. Saved on this device."))}
+}
+
+async function ensureToday(){
+  if(!state.days[today]) state.days[today]=[];
+  let changed=false;
+  while(state.days[today].length<3){
+    let t=nextFree();
+    if(!t){t=await generate();if(!t)break}
+    state.days[today].push(t.id);changed=true;
+  }
+  if(changed)persist();
+}
+
+async function generate(){
+  if(!sample){return null}
+  $("#status").textContent="Writing a fresh title in your winning style…";
+  const existing=all().map(t=>t.title);
+  const rejected=state.rejected.map(id=>byId(id)?.title).filter(Boolean);
+  const counts={};state.generated.forEach(t=>counts[t.cat]=(counts[t.cat]||0)+1);
+  try{
+    const r=await sample.json([{role:"user",content:
+`You write Instagram Reel cover titles for @thedataguy16, a data professional with 14 years experience in India. Audience: freshers and working people who want data analyst or data scientist jobs.
+Proven winners with views: "Stop Memorizing 100 Excel Formulas These 10 Are Enough" 686K; "If I Had to Prepare for a Data Analyst Interview in 24 Hours" 506K; "If I Started Learning SQL & Excel Again in 2026, I'd Do This First" 389K; "If I Had to Learn Power BI From Zero for a Job in 7 Days" 302K; "Every Excel Formula a Data Analyst Needs at ₹12-18 LPA" 295K; "If I have 0 knowledge of Python" 289K; "Interviewer: Your VLOOKUP is returning #N/A for half the data. What are the 3 things you check first?" 178K.
+Weak (under 120K): neutral explainers without a number, deadline or stakes.
+Formula: Stop/If + big number cut to small number + deadline or ₹ salary, or an interviewer challenge question that drives comments. Under 12 words where possible. Plain words, no emojis, no hashtags.
+Do not repeat or closely copy any of these existing titles: ${JSON.stringify(existing)}
+The creator rejected these, so avoid their angle: ${JSON.stringify(rejected)}
+Topics allowed: sql, excel, powerbi, python, stats, ml, career. Prefer a topic used less so far: ${JSON.stringify(counts)}.
+Return JSON only: {"title": string, "cat": one of the topic keys, "why": short reason under 10 words}`}],{modelTier:"default",cache:false});
+    if(!r||!r.title||!PDFS[r.cat])throw new Error("bad");
+    const t={id:"g"+Date.now(),title:String(r.title).slice(0,140),cat:r.cat,why:String(r.why||"Fresh title in your winning format").slice(0,80),gen:true};
+    state.generated.push(t);
+    return t;
+  }catch(e){
+    $("#status").textContent=e&&e.code==="rate_limited"?"Too many new titles at once. Try again in a minute.":"Could not write a new title right now.";
+    return null;
+  }
+}
+
+async function reject(id){
+  state.rejected.push(id);
+  const arr=state.days[today];arr.splice(arr.indexOf(id),1);
+  render();
+  await ensureToday();persist();render();
+  toast("Rejected. Next title is in.");
+}
+function markPosted(id){
+  const i=state.posted.indexOf(id);
+  if(i>=0)state.posted.splice(i,1);else state.posted.push(id);
+  persist();render();
+}
+async function copy(text,btn){
+  try{await navigator.clipboard.writeText(text);toast("Copied")}catch(e){toast("Copy blocked. Select the title and copy it.")}
+}
+async function getPdf(cat,btn){
+  const p=PDFS[cat];
+  if(!downloads){toast("Use Open to view the PDF.");return}
+  btn.disabled=true;
+  try{const blob=await (await fetch(p.file)).blob();await downloads.save({filename:"dataguy16-"+cat+".pdf",data:blob})}
+  catch(e){toast("Download did not finish.")}
+  btn.disabled=false;
+}
+
+function el(tag,attrs={},kids=[]){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==="text")e.textContent=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v)}kids.forEach(k=>e.append(k));return e}
+
+function render(){
+  const cards=$("#cards");cards.replaceChildren();
+  (state.days[today]||[]).forEach((id,i)=>{
+    const t=byId(id);if(!t)return;const p=PDFS[t.cat];const done=state.posted.includes(id);
+    cards.append(el("article",{class:"card"+(done?" posted":"")},[
+      el("div",{class:"meta"},[el("span",{class:"chip",text:"Reel "+(i+1)}),el("span",{class:"chip cat",text:CAT_LABEL[t.cat]}),...(t.gen?[el("span",{class:"chip new",text:"New title"})]:[]),...(done?[el("span",{class:"chip new",text:"Posted"})]:[])]),
+      el("div",{class:"cover"},[el("p",{text:t.title})]),
+      el("p",{class:"why",text:t.why}),
+      el("p",{class:"cta"},[document.createTextNode("Caption CTA: Comment "),el("b",{text:p.kw}),document.createTextNode(" and I'll send you the "+p.name+" PDF.")]),
+      el("div",{class:"actions"},[
+        el("button",{class:"primary",onclick:e=>copy(t.title,e.target),text:"Copy title"}),
+        el("button",{onclick:e=>copy("Comment "+p.kw+" and I'll send you the "+p.name+" PDF.",e.target),text:"Copy CTA"}),
+        el("button",{onclick:e=>getPdf(t.cat,e.target),text:"Get PDF"}),
+        el("button",{onclick:()=>markPosted(id),text:done?"Undo posted":"Mark posted"}),
+        el("button",{class:"reject",onclick:e=>{e.target.disabled=true;reject(id)},text:"Reject"})
+      ])
+    ]));
+  });
+  if(!(state.days[today]||[]).length)cards.append(el("p",{class:"sub",text:"No titles left for today. Allow Claude access on this page to keep getting fresh ones."}));
+  const left=all().length-used().size;
+  $("#status").textContent=`${left} titles left in the bank · ${state.rejected.length} rejected · ${state.posted.length} posted`+(docRef?" · synced":" · saved on this device");
+
+  const bank=$("#bank");bank.replaceChildren();
+  const dayOf={};Object.entries(state.days).forEach(([d,a])=>a.forEach(i=>dayOf[i]=d));
+  all().forEach((t,i)=>{
+    const cls=state.rejected.includes(t.id)?"rej":state.posted.includes(t.id)?"done":"";
+    const tag=state.rejected.includes(t.id)?"Rejected":state.posted.includes(t.id)?"Posted":dayOf[t.id]?dayOf[t.id].slice(5):CAT_LABEL[t.cat];
+    bank.append(el("div",{class:"li "+cls},[el("span",{class:"n",text:String(i+1).padStart(2,"0")}),el("span",{class:"t",text:t.title}),el("span",{class:"c",text:tag})]));
+  });
+}
+
+function renderKit(){
+  const kit=$("#kit");kit.replaceChildren();
+  Object.entries(PDFS).forEach(([cat,p])=>kit.append(el("div",{class:"pdf"},[
+    el("span",{class:"kw",text:"Comment "+p.kw}),el("strong",{text:p.name}),el("small",{text:p.desc}),
+    el("div",{class:"row"},[el("button",{onclick:e=>getPdf(cat,e.target),text:"Download"}),el("a",{href:p.file,target:"_blank",rel:"noopener",text:"Open"})])
+  ])));
+}
+
+(async function start(){
+  try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)state=Object.assign(state,s)}catch(e){}
+  renderKit();
+  await ensureToday();render();$("#status").textContent="Loading your saved progress…";
+  const c=window.claude;
+  const [d,s,dl]=await Promise.all([c?.use("db").catch(()=>null),c?.use("sample").catch(()=>null),c?.use("downloads").catch(()=>null)]);
+  sample=s||null;downloads=dl||null;
+  if(d){
+    db=d;docRef=db.doc("planner/state");
+    try{
+      const snap=await Promise.race([docRef.get(),new Promise((_,r)=>setTimeout(()=>r(new Error("timeout")),10000))]);
+      if(snap.exists){const v=snap.data();state={days:v.days||{},rejected:v.rejected||[],posted:v.posted||[],generated:v.generated||[]}}
+    }catch(e){docRef=null}
+  }
+  await ensureToday();render();
+})();
+</script>
