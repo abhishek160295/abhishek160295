@@ -6,28 +6,31 @@ const OUT = path.join(__dirname, '..', 'reel', 'pdfs');
 const css = `
 @page{size:1080px 1920px;margin:0}
 *{box-sizing:border-box;margin:0}
-body{font-family:Helvetica,Arial,sans-serif;background:#0b0b0b;color:#fff}
-.pg{width:1080px;height:1920px;padding:100px 84px 130px;display:flex;flex-direction:column;page-break-after:always;position:relative;overflow:hidden}
+body{font-family:Helvetica,Arial,sans-serif;background:#fff;color:#141414}
+.pg{width:1080px;height:1920px;padding:100px 84px 130px;display:flex;flex-direction:column;page-break-after:always;position:relative;overflow:hidden;background:#fff}
 .pg:last-child{page-break-after:auto}
-.n{font-size:30px;color:#888;letter-spacing:.1em;font-weight:700}
-.tag{align-self:flex-start;background:#FFD21F;color:#0b0b0b;font-weight:900;font-size:38px;letter-spacing:.08em;padding:12px 26px;border-radius:10px}
-.cover h1{font-size:124px;line-height:1.02;font-weight:900;color:#FFD21F;margin:auto 0 40px}
-.cover p{font-size:48px;line-height:1.35;color:#e8e8e8}
+.pg::after{content:"@thedataguy16";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:150px;font-weight:900;color:rgba(0,0,0,.05);white-space:nowrap;pointer-events:none;z-index:5}
+.pg::before{content:"";position:absolute;left:0;top:0;right:0;height:18px;background:#FFD21F}
+.n{font-size:30px;color:#8a8a8a;letter-spacing:.1em;font-weight:700}
+.tag{align-self:flex-start;background:#FFD21F;color:#141414;font-weight:900;font-size:38px;letter-spacing:.08em;padding:12px 26px;border-radius:10px}
+.cover h1{font-size:124px;line-height:1.02;font-weight:900;color:#141414;margin:auto 0 40px}
+.cover h1::after{content:"";display:block;width:220px;height:18px;background:#FFD21F;margin-top:30px}
+.cover p{font-size:48px;line-height:1.35;color:#333}
 .cover ul{margin:50px 0 auto;gap:22px}
 .cover li{font-size:42px}
-h2{font-size:78px;line-height:1.05;font-weight:900;color:#FFD21F;margin:auto 0 14px}
+h2{font-size:78px;line-height:1.05;font-weight:900;color:#141414;margin:auto 0 14px;padding-bottom:12px;border-bottom:10px solid #FFD21F;align-self:flex-start}
 .sp{margin-bottom:auto}
-.lead{font-size:38px;line-height:1.35;color:#cfcfcf;margin-bottom:40px}
+.lead{font-size:38px;line-height:1.35;color:#555;margin:14px 0 40px}
 ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:38px}
-li{font-size:46px;line-height:1.2;font-weight:800;padding-left:48px;position:relative}
-li::before{content:"";position:absolute;left:0;top:14px;width:22px;height:22px;background:#FFD21F;border-radius:4px}
-li .e{display:block;font-size:35px;line-height:1.35;font-weight:400;color:#d0d0d0;margin-top:8px}
-li code,.e code{display:block;font-family:Menlo,Consolas,monospace;font-size:32px;font-weight:400;color:#FFE27A;background:#1a1a1a;border-radius:8px;padding:12px 16px;margin-top:12px;white-space:pre-wrap}
-.code{background:#1a1a1a;border-left:8px solid #FFD21F;border-radius:10px;padding:28px 30px;font-family:Menlo,Consolas,monospace;font-size:34px;line-height:1.4;white-space:pre-wrap;color:#fff;margin:6px 0 30px}
-.box{background:#FFD21F;color:#0b0b0b;border-radius:12px;padding:28px 32px;font-size:36px;line-height:1.35;font-weight:600;margin-top:44px}
+li{font-size:46px;line-height:1.2;font-weight:800;padding-left:48px;position:relative;color:#141414}
+li::before{content:"";position:absolute;left:0;top:14px;width:22px;height:22px;background:#FFD21F;border:2px solid #141414;border-radius:4px}
+li .e{display:block;font-size:35px;line-height:1.35;font-weight:400;color:#3a3a3a;margin-top:8px}
+li code,.e code{display:block;font-family:Menlo,Consolas,monospace;font-size:32px;font-weight:400;color:#141414;background:#f4f1e4;border-left:6px solid #FFD21F;border-radius:6px;padding:12px 16px;margin-top:12px;white-space:pre-wrap}
+.code{background:#f4f1e4;border-left:8px solid #FFD21F;border-radius:10px;padding:28px 30px;font-family:Menlo,Consolas,monospace;font-size:34px;line-height:1.4;white-space:pre-wrap;color:#141414;margin:6px 0 30px}
+.box{background:#FFD21F;color:#141414;border-radius:12px;padding:28px 32px;font-size:36px;line-height:1.35;font-weight:600;margin-top:44px}
 .box b{font-weight:900}
-.brand{position:absolute;bottom:52px;left:84px;right:84px;display:flex;justify-content:space-between;font-size:30px;color:#888;font-weight:700}
-.brand b{color:#FFD21F}
+.brand{position:absolute;bottom:52px;left:84px;right:84px;display:flex;justify-content:space-between;font-size:30px;color:#8a8a8a;font-weight:700;border-top:2px solid #eee;padding-top:16px}
+.brand b{color:#141414}
 `;
 const page = (i, inner) => `<section class="pg"><div class="n">${String(i).padStart(2,'0')} / 05</div>${inner}<div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div></section>`;
 const list = items => `<ul>${items.map(([t, e, c]) => `<li>${t}${e ? `<span class="e">${e}</span>` : ''}${c ? `<code>${c}</code>` : ''}</li>`).join('')}</ul>`;
@@ -268,7 +271,7 @@ career: doc('CAREER', 'Data Career Playbook', 'Salary, the switch plan and what 
   const p = await b.newPage();
   for (const [k, html] of Object.entries(docs)) {
     await p.setContent(html, { waitUntil: 'load' });
-    await p.pdf({ path: path.join(OUT, k + '.pdf'), width: '1080px', height: '1920px', printBackground: true, preferCSSPageSize: true });
+    await p.pdf({ path: path.join(OUT, 'v4', k + '.pdf'), width: '1080px', height: '1920px', printBackground: true, preferCSSPageSize: true });
     if (k === 'sql') { await p.setViewportSize({ width: 1080, height: 1920 }); await p.screenshot({path: path.join(__dirname,'check.png'),fullPage:true}); if(0) await p.screenshot({ path: path.join(__dirname, 'check.png'), fullPage: true }); }
   }
   await b.close();

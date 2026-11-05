@@ -94,13 +94,13 @@ details[open] summary::after{content:" –"}
 
 <script>
 const PDFS = {
-  sql:{name:"SQL Interview Pack",kw:"SQL",desc:"8 patterns, JOIN trap, execution order",file:"pdfs/sql.pdf"},
-  excel:{name:"Excel for Data Analysts",kw:"EXCEL",desc:"Key functions, #N/A and SUM=0 checks",file:"pdfs/excel.pdf"},
-  powerbi:{name:"Power BI Interview Notes",kw:"POWERBI",desc:"Model, DAX, most asked questions",file:"pdfs/powerbi.pdf"},
-  python:{name:"Python for Data Analysts",kw:"PYTHON",desc:"Core Pandas, SQL to Pandas, 30-day plan",file:"pdfs/python.pdf"},
-  stats:{name:"Statistics Cheat Sheet",kw:"STATS",desc:"p-value, tests, A/B testing steps",file:"pdfs/stats.pdf"},
-  ml:{name:"ML Starter Pack",kw:"ML",desc:"7 algorithms, metrics, 60-day plan",file:"pdfs/ml.pdf"},
-  career:{name:"Data Career Playbook",kw:"CAREER",desc:"Salary bands, 90-day plan, AI prompts",file:"pdfs/career.pdf"}
+  sql:{name:"SQL Interview Pack",kw:"SQL",desc:"8 patterns, JOIN trap, execution order",file:"pdfs/v4/sql.pdf"},
+  excel:{name:"Excel for Data Analysts",kw:"EXCEL",desc:"Key functions, #N/A and SUM=0 checks",file:"pdfs/v4/excel.pdf"},
+  powerbi:{name:"Power BI Interview Notes",kw:"POWERBI",desc:"Model, DAX, most asked questions",file:"pdfs/v4/powerbi.pdf"},
+  python:{name:"Python for Data Analysts",kw:"PYTHON",desc:"Core Pandas, SQL to Pandas, 30-day plan",file:"pdfs/v4/python.pdf"},
+  stats:{name:"Statistics Cheat Sheet",kw:"STATS",desc:"p-value, tests, A/B testing steps",file:"pdfs/v4/stats.pdf"},
+  ml:{name:"ML Starter Pack",kw:"ML",desc:"7 algorithms, metrics, 60-day plan",file:"pdfs/v4/ml.pdf"},
+  career:{name:"Data Career Playbook",kw:"CAREER",desc:"Salary bands, 90-day plan, AI prompts",file:"pdfs/v4/career.pdf"}
 };
 const CAT_LABEL={sql:"SQL",excel:"Excel",powerbi:"Power BI",python:"Python",stats:"Statistics",ml:"Data Science",career:"Career"};
 // Ordered by win probability. why = which proven reel it copies.
@@ -225,7 +225,7 @@ async function getPdf(cat,btn){
   const p=PDFS[cat];
   if(!downloads){toast("Use Open to view the PDF.");return}
   btn.disabled=true;
-  try{const blob=await (await fetch(p.file)).blob();await downloads.save({filename:"dataguy16-"+cat+".pdf",data:blob})}
+  try{const res=await fetch(p.file+"?v=4",{cache:"no-store"});const blob=await res.blob();if(!res.ok||blob.type.indexOf("pdf")<0)throw new Error("not pdf");await downloads.save({filename:"dataguy16-"+cat+"-"+p.kw.toLowerCase()+".pdf",data:new Blob([blob],{type:"application/pdf"})})}
   catch(e){toast("Download did not finish.")}
   btn.disabled=false;
 }
@@ -267,7 +267,7 @@ function renderKit(){
   const kit=$("#kit");kit.replaceChildren();
   Object.entries(PDFS).forEach(([cat,p])=>kit.append(el("div",{class:"pdf"},[
     el("span",{class:"kw",text:"Comment "+p.kw}),el("strong",{text:p.name}),el("small",{text:p.desc}),
-    el("div",{class:"row"},[el("button",{onclick:e=>getPdf(cat,e.target),text:"Download"}),el("a",{href:p.file,target:"_blank",rel:"noopener",text:"Open"})])
+    el("div",{class:"row"},[el("button",{onclick:e=>getPdf(cat,e.target),text:"Download"}),el("a",{href:p.file+"?v=4",target:"_blank",rel:"noopener",text:"Open"})])
   ])));
 }
 
