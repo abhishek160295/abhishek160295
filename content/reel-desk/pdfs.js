@@ -7,105 +7,260 @@ const css = `
 @page{size:1080px 1920px;margin:0}
 *{box-sizing:border-box;margin:0}
 body{font-family:Helvetica,Arial,sans-serif;background:#0b0b0b;color:#fff}
-.pg{width:1080px;height:1920px;padding:120px 90px 110px;display:flex;flex-direction:column;page-break-after:always;position:relative;overflow:hidden}
+.pg{width:1080px;height:1920px;padding:100px 84px 130px;display:flex;flex-direction:column;page-break-after:always;position:relative;overflow:hidden}
 .pg:last-child{page-break-after:auto}
-.n{font-size:34px;color:#888;letter-spacing:.1em;font-weight:700}
-.tag{align-self:flex-start;background:#FFD21F;color:#0b0b0b;font-weight:900;font-size:40px;letter-spacing:.08em;padding:12px 26px;border-radius:10px}
-h1{font-size:132px;line-height:1.02;font-weight:900;color:#FFD21F;margin:60px 0 40px}
-.cover p{font-size:54px;line-height:1.3;color:#e8e8e8}
-h2{font-size:100px;line-height:1.05;font-weight:900;color:#FFD21F;margin:auto 0 60px}
+.n{font-size:30px;color:#888;letter-spacing:.1em;font-weight:700}
+.tag{align-self:flex-start;background:#FFD21F;color:#0b0b0b;font-weight:900;font-size:38px;letter-spacing:.08em;padding:12px 26px;border-radius:10px}
+.cover h1{font-size:124px;line-height:1.02;font-weight:900;color:#FFD21F;margin:auto 0 40px}
+.cover p{font-size:48px;line-height:1.35;color:#e8e8e8}
+.cover ul{margin:50px 0 auto;gap:22px}
+.cover li{font-size:42px}
+h2{font-size:78px;line-height:1.05;font-weight:900;color:#FFD21F;margin:auto 0 14px}
 .sp{margin-bottom:auto}
-.cover h1{margin-top:auto}
-.cover p{margin-bottom:auto}
-ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:46px}
-li{font-size:68px;line-height:1.22;font-weight:700;padding-left:56px;position:relative}
-li::before{content:"";position:absolute;left:0;top:22px;width:26px;height:26px;background:#FFD21F;border-radius:4px}
-li small{display:block;font-size:46px;font-weight:400;color:#bdbdbd;margin-top:10px;font-family:Menlo,Consolas,monospace}
-.code{background:#1b1b1b;border-left:10px solid #FFD21F;border-radius:10px;padding:34px 36px;font-family:Menlo,Consolas,monospace;font-size:44px;line-height:1.4;white-space:pre-wrap;color:#fff;margin-top:20px}
-.big{font-size:64px;line-height:1.25;font-weight:700}
-.note{margin-top:auto;font-size:40px;color:#bdbdbd;line-height:1.3}
-.brand{position:absolute;bottom:56px;left:90px;right:90px;display:flex;justify-content:space-between;font-size:34px;color:#888;font-weight:700}
+.lead{font-size:38px;line-height:1.35;color:#cfcfcf;margin-bottom:40px}
+ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:38px}
+li{font-size:46px;line-height:1.2;font-weight:800;padding-left:48px;position:relative}
+li::before{content:"";position:absolute;left:0;top:14px;width:22px;height:22px;background:#FFD21F;border-radius:4px}
+li .e{display:block;font-size:35px;line-height:1.35;font-weight:400;color:#d0d0d0;margin-top:8px}
+li code,.e code{display:block;font-family:Menlo,Consolas,monospace;font-size:32px;font-weight:400;color:#FFE27A;background:#1a1a1a;border-radius:8px;padding:12px 16px;margin-top:12px;white-space:pre-wrap}
+.code{background:#1a1a1a;border-left:8px solid #FFD21F;border-radius:10px;padding:28px 30px;font-family:Menlo,Consolas,monospace;font-size:34px;line-height:1.4;white-space:pre-wrap;color:#fff;margin:6px 0 30px}
+.box{background:#FFD21F;color:#0b0b0b;border-radius:12px;padding:28px 32px;font-size:36px;line-height:1.35;font-weight:600;margin-top:44px}
+.box b{font-weight:900}
+.brand{position:absolute;bottom:52px;left:84px;right:84px;display:flex;justify-content:space-between;font-size:30px;color:#888;font-weight:700}
 .brand b{color:#FFD21F}
 `;
 const page = (i, inner) => `<section class="pg"><div class="n">${String(i).padStart(2,'0')} / 05</div>${inner}<div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div></section>`;
-const list = items => `<ul>${items.map(x => Array.isArray(x) ? `<li>${x[0]}<small>${x[1]}</small></li>` : `<li>${x}</li>`).join('')}</ul>`;
-const doc = (tag, title, sub, pages) => `<html><head><meta charset="utf-8"><style>${css}</style></head><body>
-<section class="pg cover"><div class="tag">${tag}</div><h1>${title}</h1><p>${sub}</p><div class="brand"><b>@thedataguy16</b><span>Swipe →</span></div></section>
-${pages.map((p, i) => page(i + 2, `<h2>${p[0]}</h2>${p[1]}<div class="sp"></div>`)).join('')}</body></html>`;
+const list = items => `<ul>${items.map(([t, e, c]) => `<li>${t}${e ? `<span class="e">${e}</span>` : ''}${c ? `<code>${c}</code>` : ''}</li>`).join('')}</ul>`;
+const box = h => `<div class="box">${h}</div>`;
+const doc = (tag, title, sub, inside, pages) => `<html><head><meta charset="utf-8"><style>${css}</style></head><body>
+<section class="pg cover"><div class="tag">${tag}</div><h1>${title}</h1><p>${sub}</p><ul>${inside.map(x => `<li>${x}</li>`).join('')}</ul><div class="brand"><b>@thedataguy16</b><span>Swipe →</span></div></section>
+${pages.map((p, i) => page(i + 2, `<h2>${p[0]}</h2><p class="lead">${p[1]}</p>${p[2]}<div class="sp"></div>`)).join('')}</body></html>`;
 
 const docs = {
-sql: doc('SQL', 'SQL Interview Pack', '8 patterns that cover most SQL interview questions.', [
- ['Patterns 1 to 4', list([['Top N per group','DENSE_RANK() OVER (PARTITION BY ...)'],['Running total','SUM() OVER (ORDER BY date)'],['Month on month','LAG(revenue) OVER (...)'],['Remove duplicates','ROW_NUMBER() ... WHERE rn = 1']])],
- ['Patterns 5 to 8', list([['Consecutive days','date - ROW_NUMBER()'],['Find missing rows','LEFT JOIN ... WHERE b.id IS NULL'],['Pivot without PIVOT','SUM(CASE WHEN ... THEN 1 END)'],['Employee and manager','Self join on manager_id']])],
- ['Your JOIN doubled the rows?', `<p class="big">The join key is not unique on one side.</p><div class="code">SELECT key, COUNT(*)
-FROM t
-GROUP BY key
-HAVING COUNT(*) &gt; 1;</div><p class="note">Fix: remove duplicates or aggregate before you join.</p>`],
- ['Order of execution', `<div class="code">FROM
-JOIN
-WHERE
-GROUP BY
-HAVING
-SELECT
-ORDER BY
-LIMIT</div><p class="note">That is why a SELECT alias fails inside WHERE.</p>`],
-]),
-excel: doc('EXCEL', 'Excel for Data Analysts', 'The functions that cover real work, and the 2 checks every interviewer asks.', [
- ['Lookup and sum', list([['XLOOKUP','Lookup in any direction'],['INDEX + MATCH','For older Excel'],['SUMIFS','Sum with conditions'],['COUNTIFS','Count with conditions']])],
- ['Clean and shape', list([['TRIM + CLEAN','Kill hidden spaces'],['TEXTSPLIT','Split by comma'],['UNIQUE + FILTER','Live lists'],['IFERROR','No ugly errors']])],
- ['VLOOKUP shows #N/A?', list([['Hidden spaces','Wrap value in TRIM'],['Number stored as text','Convert with VALUE'],['Range not locked','Use $ or a Table'],['Last argument missing','Set it to FALSE']])],
- ['SUM shows 0?', list([['Numbers stored as text','Green triangle, left aligned'],['Calculation is Manual','Formulas → Calculation → Automatic'],['Circular reference','Check the status bar']])],
-]),
-powerbi: doc('POWER BI', 'Power BI Interview Notes', 'Model, DAX and the questions that come up every time.', [
- ['Model it right', list([['Star schema','1 fact table, dimensions around it'],['One-to-many','Single direction filters'],['Date table','Mark it as date table']])],
- ['DAX you will use', `<div class="code">Total = SUM(Sales[Amt])
+sql: doc('SQL', 'SQL Interview Pack', '8 patterns behind most SQL interview questions. Learn the pattern once, solve 50 questions with it.',
+ ['8 patterns with ready queries', 'The JOIN mistake that doubles rows', 'Order of execution, explained'],
+ [
+ ['Patterns 1 to 4', 'Window functions. If you know these, you clear most product and service company rounds.', list([
+  ['Top N per group', 'Top 3 salaries in each department. DENSE_RANK keeps ties.', 'DENSE_RANK() OVER (PARTITION BY dept\n  ORDER BY salary DESC) AS rk  -- then WHERE rk &lt;= 3'],
+  ['Running total', 'Cumulative revenue by date.', 'SUM(amount) OVER (ORDER BY order_date)'],
+  ['Month on month change', 'Compare each row with the previous one.', 'revenue - LAG(revenue) OVER (ORDER BY month)'],
+  ['Remove duplicates', 'Keep only the latest row per email.', 'ROW_NUMBER() OVER (PARTITION BY email\n  ORDER BY created_at DESC)  -- keep rn = 1'],
+ ])],
+ ['Patterns 5 to 8', 'Joins and conditional logic. These separate a fresher answer from an experienced one.', list([
+  ['Consecutive days', 'Users who logged in 3 days in a row. Same streak = same group value.', 'login_date - ROW_NUMBER() OVER (\n  PARTITION BY user_id ORDER BY login_date)'],
+  ['Find what is missing', 'Customers who never ordered.', 'LEFT JOIN orders o ON o.cust_id = c.id\nWHERE o.id IS NULL'],
+  ['Pivot without PIVOT', 'Turn status rows into columns.', "SUM(CASE WHEN status='Returned' THEN 1 ELSE 0 END)"],
+  ['Self join', 'Employees who earn more than their manager.', 'JOIN employees m ON e.manager_id = m.id\nWHERE e.salary &gt; m.salary'],
+ ])],
+ ['Your JOIN doubled the rows', 'Most asked debugging question. The answer is almost always duplicate keys.', `<div class="code">-- Step 1: find the duplicate keys
+SELECT customer_id, COUNT(*)
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) &gt; 1;</div>` + list([
+  ['Why it happens', '1 row on the left matches 3 rows on the right, so you get 3 rows back. Sums get inflated.'],
+  ['Fix 1: aggregate first', 'GROUP BY on the right table, then join.'],
+  ['Fix 2: deduplicate', 'Use ROW_NUMBER() and keep rn = 1 before joining.'],
+ ])],
+ ['Order of execution', 'SQL does not run top to bottom. Knowing this answers 5 common questions at once.', `<div class="code">1 FROM / JOIN     5 SELECT
+2 WHERE           6 DISTINCT
+3 GROUP BY        7 ORDER BY
+4 HAVING          8 LIMIT</div>` + list([
+  ['Alias fails in WHERE', 'SELECT runs after WHERE, so the alias does not exist yet.'],
+  ['WHERE vs HAVING', 'WHERE filters rows before grouping. HAVING filters groups after.'],
+  ['Alias works in ORDER BY', 'ORDER BY runs after SELECT.'],
+ ])],
+ ]),
 
-North = CALCULATE([Total],
-  Region[Name]="North")
+excel: doc('EXCEL', 'Excel for Data Analysts', 'The functions that cover daily analyst work, plus the 2 debugging questions every interviewer asks.',
+ ['8 functions with real examples', 'The #N/A checklist', 'Why SUM shows 0'],
+ [
+ ['Lookup and summarise', 'This is 70% of Excel work in any analyst job.', list([
+  ['XLOOKUP', 'Looks left or right, handles "not found" on its own. Replaces VLOOKUP.', '=XLOOKUP(A2, Emp[ID], Emp[Name], "Not found")'],
+  ['SUMIFS', 'Sum with any number of conditions.', '=SUMIFS(Sales, Region, "North", Month, "Mar")'],
+  ['COUNTIFS', 'Count with conditions. Great for open tickets per owner.', '=COUNTIFS(Status, "Open", Owner, G2)'],
+  ['IFS', 'Clean buckets without nesting 5 IFs.', '=IFS(B2&gt;=90,"A", B2&gt;=75,"B", TRUE,"C")'],
+ ])],
+ ['Clean and shape', 'Raw data is never clean. These save hours every week.', list([
+  ['TRIM + CLEAN', 'Removes extra and invisible spaces that break lookups.', '=TRIM(CLEAN(A2))'],
+  ['TEXTSPLIT', 'Split "Delhi, North, 2026" into 3 columns.', '=TEXTSPLIT(A2, ", ")'],
+  ['UNIQUE + FILTER', 'Live lists that update when data changes.', '=FILTER(Data, Data[Sales] &gt; 50000)'],
+  ['TEXT', 'Turn dates into readable labels for reports.', '=TEXT(A2, "mmm-yy")'],
+ ])],
+ ['VLOOKUP shows #N/A', 'Interviewers ask this to see if you have worked with real data. Check in this order.', list([
+  ['1. Hidden spaces', '"A101 " and "A101" do not match. Wrap the lookup value.', '=VLOOKUP(TRIM(A2), Range, 2, FALSE)'],
+  ['2. Number stored as text', 'One side is 101, the other is "101". Green triangle in the corner gives it away. Fix with VALUE or Text to Columns.'],
+  ['3. Range not locked', 'Range shifts when copied down. Use $A$2:$C$500 or a Table.'],
+  ['4. Missing FALSE', 'Without it Excel does an approximate match.'],
+ ])],
+ ['SUM shows 0', 'The numbers are there, the total is 0. Three causes, in order of how often I see them.', list([
+  ['Numbers stored as text', 'Left aligned, green triangle. Select the column, Data, Text to Columns, Finish.'],
+  ['Calculation is Manual', 'Someone switched it to speed up a big file. Formulas, Calculation Options, Automatic.'],
+  ['Circular reference', 'The SUM range includes its own cell. Status bar shows the cell address.'],
+ ]) + box('<b>Interview tip:</b> say the checks in order. It shows you have debugged real files, not just practised clean data.')],
+ ]),
 
-% Total = DIVIDE([Total],
-  CALCULATE([Total], ALL(Region)))
+powerbi: doc('POWER BI', 'Power BI Interview Notes', 'The model, the DAX and the concepts that come up in every Power BI round.',
+ ['Star schema, explained simply', '6 DAX measures you will reuse', 'Top questions with answers'],
+ [
+ ['Model it right', 'Most slow or wrong reports are a modelling problem, not a DAX problem.', list([
+  ['Star schema', 'One fact table (Sales) in the middle. Dimension tables (Date, Product, Customer) around it.'],
+  ['One-to-many, single direction', 'Filters flow from dimension to fact. Avoid both-direction filters unless you must.'],
+  ['Always add a Date table', 'Mark it as a date table. Time intelligence functions need it.', "Date = CALENDAR(DATE(2024,1,1), DATE(2026,12,31))"],
+ ])],
+ ['6 measures you will reuse', 'Write these once and you can build most business dashboards.', `<div class="code">Total = SUM(Sales[Amount])
 
-LY = CALCULATE([Total],
-  SAMEPERIODLASTYEAR('Date'[Date]))</div>`],
- ['Measure vs column', list([['Column','Row by row, stored, for slicing'],['Measure','At query time, for totals and KPIs'],['SUM vs SUMX','SUMX goes row by row first']])],
- ['Most asked', list(['Filter vs row context','What CALCULATE does','Import vs DirectQuery','Row Level Security','How to speed up a slow report'])],
-]),
-python: doc('PYTHON', 'Python for Data Analysts', 'Only the Pandas you need, and a 30-day plan from zero.', [
- ['Load and inspect', `<div class="code">df = pd.read_csv("sales.csv")
-df.head()
-df.info()
-df.isna().sum()
-df.drop_duplicates()</div>`],
- ['Analyse', `<div class="code">df.query("amount &gt; 5000")
+North = CALCULATE([Total], Region[Name]="North")
 
-df.groupby("region")["amount"].sum()
+% of Total = DIVIDE([Total],
+    CALCULATE([Total], ALL(Region)))
 
-pd.merge(a, b, on="id", how="left")
+Sales LY = CALCULATE([Total],
+    SAMEPERIODLASTYEAR('Date'[Date]))
 
-df.pivot_table(index="region",
-  columns="month", values="amount")</div>`],
- ['SQL to Pandas', list([['WHERE','df.query()'],['GROUP BY','groupby().agg()'],['JOIN','merge()'],['UNION ALL','pd.concat()']])],
- ['30 days from zero', list([['Days 1-5','Python basics'],['Days 6-17','Pandas: clean, group, merge'],['Days 18-22','Charts'],['Days 23-30','1 full project on GitHub']])],
-]),
-stats: doc('STATISTICS', 'Statistics Cheat Sheet', 'What interviewers ask, one line each.', [
- ['The basics', list([['Median over mean','When data is skewed'],['68 · 95 · 99.7','Within 1, 2, 3 standard deviations'],['Central Limit Theorem','Sample means look normal']])],
- ['Hypothesis testing', list([['p-value','Chance of this result if nothing changed'],['Below 0.05','Usually significant'],['Type I','False alarm'],['Type II','Missed a real effect']])],
- ['Which test?', list([['2 group means','t-test'],['3+ group means','ANOVA'],['2 categories','Chi-square'],['2 conversion rates','z-test']])],
- ['A/B test in 5 steps', list(['Pick one metric','Fix sample size first','Split users randomly','Run full weeks, no peeking','Check significance, then decide'])],
-]),
-ml: doc('DATA SCIENCE', 'Machine Learning Starter Pack', '7 algorithms, the right metrics, and a 60-day plan.', [
- ['The 7 algorithms', list(['Linear Regression','Logistic Regression','Decision Tree','Random Forest','XGBoost / LightGBM','K-Means','KNN'])],
- ['Pick the right metric', list([['Precision','False positives are costly'],['Recall','False negatives are costly'],['F1','Balance of both'],['RMSE','Regression error']])],
- ['"99% accurate. Why is that bad?"', `<p class="big">If 1% is fraud, predicting "not fraud" every time is 99% accurate and catches nothing.</p><p class="note">Check recall and the confusion matrix. Use class weights or resampling.</p>`],
- ['60 days from zero', list([['Days 1-10','Python + Pandas'],['Days 11-20','Statistics'],['Days 21-45','Scikit-learn and metrics'],['Days 46-60','2 end-to-end projects']])],
-]),
-career: doc('CAREER', 'Data Career Playbook', 'Salary, the switch plan and what interviewers check.', [
- ['Salary bands (India)', list([['0-2 years','DA ₹4-8 LPA · DS ₹6-12 LPA'],['2-5 years','DA ₹8-15 LPA · DS ₹12-25 LPA'],['5-8 years','DA ₹15-25 LPA · DS ₹25-40 LPA']]) + `<p class="note">Indicative only. Varies by city, company and domain.</p>`],
- ['₹4 to ₹15 LPA', list(['Window functions in SQL','One BI tool done properly','Talk in business impact','Pick a domain','Switch with 2-3 strong projects'])],
- ['90-day switch plan', list([['Weeks 1-3','Excel → 1 dashboard'],['Weeks 4-7','SQL → 50 questions'],['Weeks 8-10','Power BI → 1 report'],['Weeks 11-13','Python, resume, apply']])],
- ['What I check in interviews', list(['Can you explain your own project?','Do you ask the business question first?','Can you spot a wrong number?','Do you know your trade-offs?'])],
-]),
+YoY % = DIVIDE([Total] - [Sales LY], [Sales LY])
+
+YTD = TOTALYTD([Total], 'Date'[Date])</div>` + box('<b>DIVIDE</b> instead of "/" returns blank instead of an error when the bottom is 0.')],
+ ['Concepts they test', 'Know the one line answer, then give an example.', list([
+  ['Measure vs calculated column', 'Column: computed row by row at refresh, stored, used for slicing. Measure: computed at query time, used for totals and KPIs.'],
+  ['Row context vs filter context', 'Row context is the current row. Filter context is what slicers, visuals and CALCULATE have filtered.'],
+  ['SUM vs SUMX', 'SUMX calculates row by row first, then adds. Use it for Qty × Price.', 'SUMX(Sales, Sales[Qty] * Sales[Price])'],
+ ])],
+ ['Most asked questions', 'Prepare a 2 line answer for each.', list([
+  ['What does CALCULATE do?', 'Changes the filter context, then evaluates the expression.'],
+  ['Import vs DirectQuery', 'Import is fast, data is copied. DirectQuery is live, slower, for very large or real-time data.'],
+  ['Row Level Security', 'Roles with DAX filters so each manager sees only their region.'],
+  ['Slow report?', 'Fewer visuals per page, remove unused columns, measures over calculated columns, star schema.'],
+ ])],
+ ]),
+
+python: doc('PYTHON', 'Python for Data Analysts', 'Only the Pandas you need for analyst work, mapped to SQL you already know, with a 30-day plan.',
+ ['Load, clean and analyse in 10 lines', 'SQL to Pandas cheat table', '30-day plan from zero'],
+ [
+ ['Load and clean', 'First 5 minutes with any new dataset. Run these before any analysis.', `<div class="code">import pandas as pd
+df = pd.read_csv("sales.csv")
+
+df.shape          # rows, columns
+df.info()         # types and nulls
+df.describe()     # quick stats
+df.isna().sum()   # nulls per column
+
+df = df.drop_duplicates()
+df["date"] = pd.to_datetime(df["date"])
+df["amount"] = df["amount"].fillna(0)</div>` + box('<b>Check dtypes first.</b> Numbers read as text are the #1 reason a groupby gives wrong totals.')],
+ ['Analyse', 'These 4 lines answer most business questions.', list([
+  ['Filter', 'North region orders above ₹5,000.', 'df.query("region == \'North\' and amount &gt; 5000")'],
+  ['Group and summarise', 'Revenue and order count by region.', 'df.groupby("region").agg(\n  revenue=("amount","sum"), orders=("id","count"))'],
+  ['Join', 'Add customer details to orders.', 'pd.merge(orders, customers, on="cust_id", how="left")'],
+  ['Pivot', 'Region by month table.', 'df.pivot_table(index="region",\n  columns="month", values="amount", aggfunc="sum")'],
+ ])],
+ ['SQL to Pandas', 'If you know SQL, you already know 80% of Pandas.', list([
+  ['WHERE', '', 'df[df.amount &gt; 500]   or   df.query()'],
+  ['GROUP BY', '', 'df.groupby("col").agg(...)'],
+  ['JOIN', '', 'pd.merge(a, b, on="id", how="left")'],
+  ['UNION ALL', '', 'pd.concat([a, b])'],
+  ['ORDER BY ... DESC', '', 'df.sort_values("amount", ascending=False)'],
+  ['ROW_NUMBER', '', 'df.groupby("g").cumcount() + 1'],
+ ])],
+ ['30 days from zero', 'One hour a day is enough. The project at the end matters more than the course.', list([
+  ['Days 1-5: Python basics', 'Variables, lists, dictionaries, loops, functions. Skip classes for now.'],
+  ['Days 6-17: Pandas', 'Load, clean, filter, groupby, merge, pivot, dates.'],
+  ['Days 18-22: Charts', 'Bar, line, histogram with Matplotlib or Seaborn.'],
+  ['Days 23-30: One project', 'Real dataset, 5 business questions answered, pushed to GitHub with a clear README.'],
+ ])],
+ ]),
+
+stats: doc('STATISTICS', 'Statistics Cheat Sheet', 'The concepts interviewers ask, each explained the way you would say it to a manager.',
+ ['Core concepts in plain words', 'Which test to use, when', 'A/B testing step by step'],
+ [
+ ['The basics', 'You will use these every week, not just in interviews.', list([
+  ['Mean vs median', 'Use median when data is skewed. Average salary in a team with one CEO is misleading. Median is not.'],
+  ['Standard deviation', 'How spread out values are. Small SD means values sit close to the average.'],
+  ['68 · 95 · 99.7 rule', 'In a normal distribution, that share of values falls within 1, 2 and 3 standard deviations.'],
+  ['Outliers (IQR rule)', 'Below Q1 − 1.5×IQR or above Q3 + 1.5×IQR.'],
+ ])],
+ ['Hypothesis testing', 'The most asked stats topic. Learn to explain p-value without jargon.', list([
+  ['Null hypothesis', 'The default claim: nothing changed. The new button did not change conversion.'],
+  ['p-value', 'If nothing really changed, how likely is a result this big? Below 0.05 usually means significant.'],
+  ['Type I error', 'False alarm. You say the button worked when it did not.'],
+  ['Type II error', 'Missed it. The button worked but your test did not detect it. Usually too small a sample.'],
+ ])],
+ ['Which test to use', 'Pick by what you are comparing.', list([
+  ['Two group averages', 't-test. Average order value, app A vs app B.'],
+  ['Three or more averages', 'ANOVA. Average spend across 4 cities.'],
+  ['Two categories related?', 'Chi-square. Is gender related to product choice?'],
+  ['Two conversion rates', 'Two-proportion z-test. Old checkout 3.1% vs new 3.6%.'],
+  ['Two numbers related?', 'Correlation, then regression. Ad spend vs sales.'],
+ ])],
+ ['A/B testing in 6 steps', 'Asked at every product company. Say the steps in this order.', list([
+  ['1. One primary metric', 'For example checkout conversion rate.'],
+  ['2. Sample size first', 'Decide significance (0.05), power (80%) and the smallest lift you care about.'],
+  ['3. Random split', 'Users, not sessions, so one person sees one version.'],
+  ['4. Run full weeks', 'Weekday and weekend behaviour differ. Do not stop early when it looks good.'],
+  ['5-6. Test and check guardrails', 'Significant? Then make sure revenue or retention did not drop.'],
+ ])],
+ ]),
+
+ml: doc('DATA SCIENCE', 'Machine Learning Starter Pack', 'The algorithms, metrics and concepts that cover most entry-level data science interviews.',
+ ['7 algorithms and when to use each', 'The 99% accuracy trap', '60-day plan from zero'],
+ [
+ ['7 algorithms', 'You do not need 40. These cover most real tabular data problems.', list([
+  ['Linear Regression', 'Predict a number. Next month sales.'],
+  ['Logistic Regression', 'Predict yes or no. Will this customer churn?'],
+  ['Decision Tree', 'Easy to explain to business. Clear if-then rules.'],
+  ['Random Forest', 'Many trees voting. Strong first model on most datasets.'],
+  ['XGBoost / LightGBM', 'Usually the best accuracy on tabular data.'],
+  ['K-Means', 'Group similar customers when there is no label.'],
+  ['KNN', 'Predict from the nearest similar records. Simple baseline.'],
+ ])],
+ ['Pick the right metric', 'Accuracy alone can lie. Choose by what a mistake costs.', list([
+  ['Precision', 'Of everything flagged, how much was right? Use when false alarms are costly, like spam.'],
+  ['Recall', 'Of all real cases, how many did we catch? Use when missing one is costly, like fraud or disease.'],
+  ['F1 score', 'Balance of precision and recall.'],
+  ['RMSE / MAE', 'Average error when predicting a number. MAE is easier to explain.'],
+ ])],
+ ['"99% accurate. Why is that bad?"', 'A favourite interview question. Here is the full answer.', list([
+  ['The trap', 'If 1% of transactions are fraud, a model that always says "not fraud" is 99% accurate and catches zero fraud.'],
+  ['What to check', 'Confusion matrix, recall and precision on the fraud class.'],
+  ['How to fix', 'Class weights, oversampling (SMOTE), or lowering the decision threshold.'],
+ ]) + `<div class="code">RandomForestClassifier(class_weight="balanced")</div>`],
+ ['60 days from zero', 'Two projects at the end are worth more than five certificates.', list([
+  ['Days 1-10: Python and Pandas', 'Load, clean, group, merge, plot.'],
+  ['Days 11-20: Statistics', 'Distributions, hypothesis testing, regression.'],
+  ['Days 21-45: Scikit-learn', 'The 7 algorithms, train-test split, cross-validation, metrics.'],
+  ['Days 46-60: Two projects', 'Churn prediction and customer segmentation, each with a business recommendation.'],
+ ])],
+ ]),
+
+career: doc('CAREER', 'Data Career Playbook', 'Salary, the switch plan and what interviewers actually look for, from 14 years in data.',
+ ['Salary bands in India', 'What moves you from ₹4 to ₹15 LPA', '90-day plan for career switchers'],
+ [
+ ['Salary bands in India', 'Indicative ranges. City, company type and domain change these a lot.', list([
+  ['0-2 years', 'Data Analyst ₹4-8 LPA · Data Scientist ₹6-12 LPA'],
+  ['2-5 years', 'Data Analyst ₹8-15 LPA · Data Scientist ₹12-25 LPA'],
+  ['5-8 years', 'Data Analyst ₹15-25 LPA · Data Scientist ₹25-40 LPA'],
+  ['8+ years', 'Analytics Lead ₹25-45 LPA · Lead Data Scientist ₹40-70 LPA'],
+  ['Company type', 'Product companies and GCCs often pay 1.5 to 2 times a service company at the same experience.'],
+ ]) + box('<b>Biggest jump</b> usually comes from switching companies at 2-3 years with strong projects, not from waiting for appraisals.')],
+ ['₹4 LPA to ₹15 LPA', 'The skills are not the only difference. How you show them matters as much.', list([
+  ['SQL beyond basics', 'Window functions, CTEs, and explaining query logic out loud.'],
+  ['One BI tool done properly', 'Power BI with a clean data model and DAX, not just drag and drop.'],
+  ['Talk in impact', '"Cut weekly reporting from 6 hours to 20 minutes" beats "built a dashboard".'],
+  ['Pick a domain', 'BFSI, e-commerce or supply chain. Domain knowledge gets you paid more.'],
+ ])],
+ ['90-day switch plan', 'For non-tech or non-data backgrounds. 1.5 to 2 hours a day.', list([
+  ['Weeks 1-3: Excel', 'Lookups, pivots, one sales dashboard.'],
+  ['Weeks 4-7: SQL', '50 questions using the 8 patterns.'],
+  ['Weeks 8-10: Power BI', 'One end-to-end report with a star schema.'],
+  ['Weeks 11-12: Python + stats', 'One EDA notebook on a real dataset.'],
+  ['Week 13: Apply', 'Resume with numbers, LinkedIn updated, 20 targeted applications.'],
+ ])],
+ ['What I check in interviews', 'After taking many data interviews, these decide most outcomes.', list([
+  ['Can you explain your own project?', 'Without reading. Why you chose that approach and what you would do differently.'],
+  ['Do you ask the business question first?', 'Before writing SQL, ask what decision the numbers will support.'],
+  ['Can you spot a wrong number?', 'Sanity checks: totals, row counts, sudden spikes.'],
+  ['Resume with numbers', 'Rows, hours saved, revenue, accuracy. Tools alone say nothing.'],
+ ])],
+ ]),
 };
 
 (async () => {
