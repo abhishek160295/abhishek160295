@@ -173,8 +173,13 @@ function persist(){
 async function ensureToday(){
   if(!state.days[today]) state.days[today]=[];
   let changed=false;
+  // one topic per day: drop repeats that are not posted yet (they go back to the bank)
+  const seen=new Set();
+  state.days[today]=state.days[today].filter(id=>{const t=byId(id);if(!t)return false;if(seen.has(t.cat)&&!state.posted.includes(id)){changed=true;return false}seen.add(t.cat);return true});
   while(state.days[today].length<3){
-    let t=nextFree();
+    const cats=new Set(state.days[today].map(id=>byId(id)?.cat));
+    const u=used();
+    let t=all().find(x=>!u.has(x.id)&&!cats.has(x.cat))||nextFree();
     if(!t){t=await generate();if(!t)break}
     state.days[today].push(t.id);changed=true;
   }
@@ -249,7 +254,7 @@ function render(){
       el("div",{class:"actions"},[
         el("button",{class:"primary",onclick:e=>copy(t.title,e.target),text:"Copy title"}),
         el("button",{onclick:e=>copy("Comment "+p.kw+" and I'll send you the "+p.name+" PDF.",e.target),text:"Copy CTA"}),
-        el("button",{onclick:e=>getPdf(t.cat,e.target),text:"Get PDF"}),
+        el("button",{onclick:e=>getPdf(t.cat,e.target),text:"Get "+CAT_LABEL[t.cat]+" PDF"}),
         el("button",{onclick:()=>markPosted(id),text:done?"Undo posted":"Mark posted"}),
         el("button",{class:"reject",onclick:e=>{e.target.disabled=true;reject(id)},text:"Reject"})
       ])
@@ -272,7 +277,7 @@ function renderKit(){
   const kit=$("#kit");kit.replaceChildren();
   Object.entries(PDFS).forEach(([cat,p])=>kit.append(el("div",{class:"pdf"},[
     el("span",{class:"kw",text:"Comment "+p.kw}),el("strong",{text:p.name}),el("small",{text:p.desc}),
-    el("div",{class:"row"},[el("button",{onclick:e=>getPdf(cat,e.target),text:"Download"}),el("a",{href:p.file+"?v=4",target:"_blank",rel:"noopener",text:"Open"})])
+    el("div",{class:"row"},[el("button",{onclick:e=>getPdf(cat,e.target),text:"Download "+p.kw}),el("a",{href:p.file+"?v=4",target:"_blank",rel:"noopener",text:"Open"})])
   ])));
 }
 
