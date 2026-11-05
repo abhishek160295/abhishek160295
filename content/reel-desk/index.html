@@ -58,6 +58,12 @@ details summary{cursor:pointer;font-family:var(--display);font-size:24px;letter-
 details summary::after{content:" +";color:var(--accent)}
 details[open] summary::after{content:" –"}
 .formula{background:var(--panel);border:1px dashed var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:13px;color:var(--fg)}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gallery button{padding:0;border-radius:6px;overflow:hidden;display:grid;gap:0;background:var(--bg);border:1px solid var(--line);text-align:center}
+.gallery img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#fff}
+.gallery span{font:600 12px var(--body);padding:6px 4px;color:var(--fg)}
+.gallery-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
+@media (max-width:420px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--accent);color:var(--accent-ink);font-weight:600;padding:10px 16px;border-radius:8px;max-width:calc(100% - 32px)}
 @media (prefers-reduced-motion:no-preference){.card{transition:opacity .2s}}
 </style>
@@ -287,6 +293,31 @@ async function getPdf(cat,btn,t){
   btn.disabled=false;
 }
 
+async function saveImage(t,n,btn){
+  if(!downloads){toast("Downloads are not available here.");return}
+  btn.disabled=true;
+  try{
+    let bytes;
+    if(n===1){bytes=await coverPng(t)}
+    else{const res=await fetch("img/"+t.cat+"/"+n+".png",{cache:"no-store"});if(!res.ok)throw new Error("missing");bytes=new Uint8Array(await res.arrayBuffer())}
+    await downloads.save({filename:slug(t.title)+"-"+String(n).padStart(2,"0")+".png",data:bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength)});
+    btn.querySelector("span").textContent="Saved";
+  }catch(e){toast(e&&e.code==="declined"?"Save cancelled.":e&&e.code==="rate_limited"?"Finish the open save first.":"Could not save this image"+(e&&e.code?" ("+e.code+")":"")+".")}
+  btn.disabled=false;
+}
+const openGalleries=new Set();
+async function fillGallery(box,t){
+  box.replaceChildren(el("div",{class:"gallery-head"},[el("span",{text:"Tap a page to save it as a phone-size image. Save them one by one."})]));
+  const g=el("div",{class:"gallery"});box.append(g);
+  for(let n=1;n<=8;n++){
+    const img=el("img",{alt:"Page "+n,loading:"lazy"});
+    if(n>1)img.src="img/"+t.cat+"/"+n+".png";
+    const b=el("button",{onclick:e=>saveImage(t,n,b)},[img,el("span",{text:n===1?"1 · Cover":"Page "+n})]);
+    g.append(b);
+  }
+  try{const u=await coverPng(t);g.querySelector("img").src=URL.createObjectURL(new Blob([u],{type:"image/png"}))}catch(e){}
+}
+
 function el(tag,attrs={},kids=[]){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==="text")e.textContent=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v)}kids.forEach(k=>e.append(k));return e}
 
 function render(){
@@ -302,9 +333,11 @@ function render(){
         el("button",{class:"primary",onclick:e=>copy(t.title,e.target),text:"Copy title"}),
         el("button",{onclick:e=>copy("Comment "+p.kw+" and I'll send you the "+p.name+" PDF.",e.target),text:"Copy CTA"}),
         el("button",{onclick:e=>getPdf(t.cat,e.target,t),text:"Get PDF for this reel"}),
+        el("button",{onclick:e=>{if(openGalleries.has(id))openGalleries.delete(id);else openGalleries.add(id);render()},text:openGalleries.has(id)?"Hide images":"Save images"}),
         el("button",{onclick:()=>markPosted(id),text:done?"Undo posted":"Mark posted"}),
         el("button",{class:"reject",onclick:e=>{e.target.disabled=true;reject(id)},text:"Reject"})
-      ])
+      ]),
+      ...(openGalleries.has(id)?[(()=>{const box=el("div");fillGallery(box,t);return box})()]:[])
     ]));
   });
   if(!(state.days[today]||[]).length)cards.append(el("p",{class:"sub",text:"No titles left for today. Allow Claude access on this page to keep getting fresh ones."}));
