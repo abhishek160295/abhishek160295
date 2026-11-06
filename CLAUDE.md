@@ -1,6 +1,6 @@
 # Working with Abhishek (The Data Guy)
 
-Full persona: @PERSONA.md
+Full persona lives privately in Notion Memory ("About ABHISHEK" + Memories database). Load it before any content, brand or business task.
 
 ## Output rules (apply to every task)
 - No salutations, no preamble, no sign-offs. Start with the answer.
