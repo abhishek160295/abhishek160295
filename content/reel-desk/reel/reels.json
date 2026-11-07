@@ -52,5 +52,23 @@
   "kw": "EXCEL15",
   "title": "If You Can't Answer These 15 Excel Questions, You're Not Interview Ready",
   "built": "2026-11-06"
+ },
+ "t36": {
+  "pages": 9,
+  "kw": "STATS30",
+  "title": "Every Statistics Concept a Data Scientist Needs at ₹20-30 LPA",
+  "built": "2026-11-07"
+ },
+ "t10": {
+  "pages": 7,
+  "kw": "SQL30",
+  "title": "If I Have 0 Knowledge of SQL, This Is How I'd Get Job-Ready in 30 Days",
+  "built": "2026-11-07"
+ },
+ "t3": {
+  "pages": 8,
+  "kw": "PANDAS12",
+  "title": "Stop Learning All of Pandas. These 12 Functions Are Enough",
+  "built": "2026-11-07"
  }
 }
