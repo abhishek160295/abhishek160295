@@ -106,5 +106,23 @@
   "kw": "PY48",
   "title": "If I Had a Python Interview in 48 Hours, These 8 Topics Only",
   "built": "2026-11-09"
+ },
+ "t35": {
+  "pages": 8,
+  "kw": "ML60",
+  "title": "If I Have 0 Knowledge of Machine Learning, This Is My 60-Day Plan",
+  "built": "2026-11-11"
+ },
+ "t24": {
+  "pages": 8,
+  "kw": "90DAYS",
+  "title": "Non-Tech to Data Analyst in 90 Days. The Exact Plan",
+  "built": "2026-11-11"
+ },
+ "t12": {
+  "pages": 9,
+  "kw": "SQL20",
+  "title": "If You Can't Answer These 20 SQL Questions, Don't Apply Yet",
+  "built": "2026-11-11"
  }
 }
