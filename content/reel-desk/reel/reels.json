@@ -124,5 +124,23 @@
   "kw": "SQL20",
   "title": "If You Can't Answer These 20 SQL Questions, Don't Apply Yet",
   "built": "2026-11-11"
+ },
+ "t8": {
+  "pages": 9,
+  "kw": "PY20LPA",
+  "title": "Every Python Function a Data Analyst Needs at ₹15-20 LPA",
+  "built": "2026-11-12"
+ },
+ "t38": {
+  "pages": 8,
+  "kw": "STATS10",
+  "title": "The Only 10 Statistics Questions Asked in Every Data Interview",
+  "built": "2026-11-12"
+ },
+ "t20": {
+  "pages": 8,
+  "kw": "ICHECK",
+  "title": "I Take Data Analyst Interviews. This Is What I Actually Check",
+  "built": "2026-11-12"
  }
 }
