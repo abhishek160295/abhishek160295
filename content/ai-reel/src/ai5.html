@@ -1,0 +1,187 @@
+<html><head><meta charset="utf-8"><style>
+@page{size:1080px 1920px;margin:0}
+*{box-sizing:border-box;margin:0}
+body{font-family:Helvetica,Arial,sans-serif;color:#141414;background:#fff}
+.pg{width:1080px;height:1920px;padding:96px 80px 120px;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column;background:#fff}
+.pg:last-child{page-break-after:auto}
+.pg::before{content:"";position:absolute;left:0;top:0;right:0;height:18px;background:#FFD21F}
+.pg::after{content:"@thedataguy16";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:150px;font-weight:900;color:rgba(0,0,0,.045);white-space:nowrap;pointer-events:none;z-index:5}
+.n{font-size:30px;color:#8a8a8a;letter-spacing:.1em;font-weight:700}
+.tag{align-self:flex-start;background:#FFD21F;font-weight:900;font-size:36px;letter-spacing:.08em;padding:12px 26px;border-radius:10px}
+h1{font-size:104px;line-height:1.02;font-weight:900;margin:40px 0 28px}
+h1 span{background:linear-gradient(transparent 62%,#FFD21F 62%)}
+h2{font-size:76px;line-height:1.05;font-weight:900;margin:22px 0 10px}
+h2 span{background:linear-gradient(transparent 62%,#FFD21F 62%)}
+.lead{font-size:36px;line-height:1.35;color:#555;margin-bottom:34px}
+.brand{position:absolute;bottom:50px;left:80px;right:80px;display:flex;justify-content:space-between;font-size:30px;color:#8a8a8a;font-weight:700;border-top:2px solid #eee;padding-top:16px}
+.brand b{color:#141414}
+svg{display:block}
+.card{border:3px solid #141414;border-radius:20px;padding:26px 30px;background:#fff;position:relative}
+.chip{display:inline-block;background:#141414;color:#FFD21F;font-weight:800;font-size:26px;padding:6px 16px;border-radius:30px;letter-spacing:.05em}
+.mono{font-family:Menlo,Consolas,monospace}
+.row{display:flex;gap:22px}
+.box{background:#FFD21F;border-radius:16px;padding:26px 30px;font-size:34px;line-height:1.35;font-weight:700}
+</style></head><body>
+
+<!-- PAGE 1: COVER -->
+<section class="pg">
+  <div class="tag">AI · CAREER</div>
+  <h1>Everyone is talking about <span>AI.</span><br>No one tells you what you need to learn.</h1>
+  <p style="font-size:42px;line-height:1.35;color:#333">The exact skills, in the right order. 3 levels, 1 roadmap.</p>
+  <svg width="800" height="661" viewBox="0 0 920 760" style="margin-top:auto">
+    <!-- staircase -->
+    <rect x="0" y="520" width="300" height="200" rx="16" fill="#FFF3B0" stroke="#141414" stroke-width="4"/>
+    <rect x="310" y="340" width="300" height="380" rx="16" fill="#FFE36B" stroke="#141414" stroke-width="4"/>
+    <rect x="620" y="160" width="300" height="560" rx="16" fill="#FFD21F" stroke="#141414" stroke-width="4"/>
+    <text x="150" y="600" font-size="72" font-weight="900" text-anchor="middle" fill="#141414">1</text>
+    <text x="150" y="660" font-size="32" font-weight="800" text-anchor="middle" fill="#141414">USE AI WELL</text>
+    <text x="460" y="440" font-size="72" font-weight="900" text-anchor="middle" fill="#141414">2</text>
+    <text x="460" y="500" font-size="32" font-weight="800" text-anchor="middle" fill="#141414">WORK WITH AI</text>
+    <text x="770" y="420" font-size="72" font-weight="900" text-anchor="middle" fill="#141414">3</text>
+    <text x="770" y="480" font-size="32" font-weight="800" text-anchor="middle" fill="#141414">BUILD WITH AI</text>
+    <!-- person arrow -->
+    <path d="M40 470 Q 280 210 560 230 T 880 60" fill="none" stroke="#141414" stroke-width="5" stroke-dasharray="14 12"/>
+    <path d="M866 40 L 912 52 L 876 84 Z" fill="#141414"/>
+    <text x="0" y="760" font-size="28" fill="#6b6b6b">Most jobs need levels 1 and 2. Level 3 is for builders.</text>
+  </svg>
+  <div class="brand"><b>@thedataguy16</b><span>Comment AILEARN · Swipe →</span></div>
+</section>
+
+<!-- PAGE 2: LEVELS -->
+<section class="pg">
+  <div class="n">02 / 05</div><div style="flex:1"></div>
+  <h2>Pick your <span>level</span></h2>
+  <p class="lead">Trying to learn everything is why most people stall. Know where you are going.</p>
+  <div style="display:flex;flex-direction:column;gap:26px">
+    <div class="card" style="border-left:22px solid #FFF3B0"><span class="chip">LEVEL 1 · EVERYONE</span>
+      <div style="font-size:46px;font-weight:900;margin:14px 0 8px">Use AI well</div>
+      <div style="font-size:33px;line-height:1.35;color:#333">Clear prompts · check every output · keep company data private · know where AI is weak</div></div>
+    <div class="card" style="border-left:22px solid #FFE36B"><span class="chip">LEVEL 2 · DATA &amp; TECH ROLES</span>
+      <div style="font-size:46px;font-weight:900;margin:14px 0 8px">Work with AI</div>
+      <div style="font-size:33px;line-height:1.35;color:#333">AI for SQL, Python and analysis · understand tokens, context window, hallucination</div></div>
+    <div class="card" style="border-left:22px solid #FFD21F"><span class="chip">LEVEL 3 · BUILDERS</span>
+      <div style="font-size:46px;font-weight:900;margin:14px 0 8px">Build with AI</div>
+      <div style="font-size:33px;line-height:1.35;color:#333">Call models from code · JSON output · embeddings · RAG · agents · evaluation</div></div>
+    <div class="card" style="border-color:#c9c9c9;background:#f6f6f6">
+      <div style="display:flex;align-items:center;gap:22px">
+        <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="31" fill="#fff" stroke="#d33" stroke-width="6"/><line x1="14" y1="14" x2="56" y2="56" stroke="#d33" stroke-width="6"/></svg>
+        <div><div style="font-size:38px;font-weight:900">Not needed for most jobs</div>
+        <div style="font-size:31px;color:#555">Training large models from scratch. That is research work.</div></div></div></div>
+  </div>
+  <div style="flex:1"></div><div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div>
+</section>
+
+<!-- PAGE 3: LEVEL 1 PROMPT + FOUNDATIONS -->
+<section class="pg">
+  <div class="n">03 / 05</div><div style="flex:1"></div>
+  <h2>Prompt like <span>a pro</span></h2>
+  <p class="lead">Use these 5 parts for almost any task. The last one catches most mistakes.</p>
+  <div style="background:#f4f1e4;border-radius:24px;padding:30px;position:relative">
+    <div style="display:flex;flex-direction:column;gap:16px" class="mono">
+      <div style="font-size:30px"><span class="chip" style="font-family:Helvetica">ROLE</span>&nbsp; You are a senior data analyst.</div>
+      <div style="font-size:30px;line-height:1.35"><span class="chip" style="font-family:Helvetica">CONTEXT</span>&nbsp; Table sales: order_id, order_date, region, amount.</div>
+      <div style="font-size:30px;line-height:1.35"><span class="chip" style="font-family:Helvetica">TASK</span>&nbsp; Month-on-month revenue growth % by region.</div>
+      <div style="font-size:30px"><span class="chip" style="font-family:Helvetica">FORMAT</span>&nbsp; PostgreSQL, one line per step.</div>
+      <div style="font-size:30px;line-height:1.35"><span class="chip" style="font-family:Helvetica;background:#FFD21F;color:#141414">CHECK</span>&nbsp; List 2 ways this could be wrong.</div>
+    </div>
+  </div>
+  <h2 style="font-size:58px;margin-top:46px">AI multiplies your <span>skills</span></h2>
+  <svg width="920" height="560" viewBox="0 0 920 560" style="margin-top:10px">
+    <g font-family="Helvetica,Arial" font-weight="800">
+      <rect x="0" y="20" width="260" height="96" rx="18" fill="#fff" stroke="#141414" stroke-width="4"/><text x="130" y="80" font-size="40" text-anchor="middle" fill="#141414">SQL</text>
+      <rect x="0" y="150" width="260" height="96" rx="18" fill="#fff" stroke="#141414" stroke-width="4"/><text x="130" y="210" font-size="40" text-anchor="middle" fill="#141414">Python</text>
+      <rect x="0" y="280" width="260" height="96" rx="18" fill="#fff" stroke="#141414" stroke-width="4"/><text x="130" y="340" font-size="40" text-anchor="middle" fill="#141414">Statistics</text>
+      <rect x="0" y="410" width="260" height="96" rx="18" fill="#fff" stroke="#141414" stroke-width="4"/><text x="130" y="470" font-size="40" text-anchor="middle" fill="#141414">Business</text>
+      <path d="M270 68 C 380 68, 380 263, 440 263" fill="none" stroke="#141414" stroke-width="4"/>
+      <path d="M270 198 C 360 198, 380 263, 440 263" fill="none" stroke="#141414" stroke-width="4"/>
+      <path d="M270 328 C 360 328, 380 263, 440 263" fill="none" stroke="#141414" stroke-width="4"/>
+      <path d="M270 458 C 380 458, 380 263, 440 263" fill="none" stroke="#141414" stroke-width="4"/>
+      <circle cx="500" cy="263" r="60" fill="#FFD21F" stroke="#141414" stroke-width="4"/><text x="500" y="285" font-size="64" text-anchor="middle" fill="#141414">×</text>
+      <text x="500" y="365" font-size="34" text-anchor="middle" fill="#141414">AI</text>
+      <path d="M565 263 L 640 263" stroke="#141414" stroke-width="5"/><path d="M636 248 L 664 263 L 636 278 Z" fill="#141414"/>
+      <rect x="675" y="173" width="245" height="180" rx="22" fill="#141414"/>
+      <text x="797" y="250" font-size="38" text-anchor="middle" fill="#FFD21F">Speed +</text>
+      <text x="797" y="300" font-size="38" text-anchor="middle" fill="#FFD21F">judgement</text>
+    </g>
+    <text x="0" y="550" font-size="30" fill="#6b6b6b">If you cannot check the answer, you cannot safely use it.</text>
+  </svg>
+  <div style="flex:1"></div><div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div>
+</section>
+
+<!-- PAGE 4: HOW AI WORKS -->
+<section class="pg">
+  <div class="n">04 / 05</div><div style="flex:1"></div>
+  <h2>How AI <span>actually works</span></h2>
+  <p class="lead">The 5 terms that come up in interviews and at work.</p>
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div class="card"><div style="font-size:38px;font-weight:900">Token</div>
+      <div style="font-size:29px;color:#444;margin:6px 0 14px">The unit of text a model reads and writes. Usage is counted in tokens. (Split below is illustrative.)</div>
+      <div class="row mono" style="gap:10px;flex-wrap:wrap;font-size:30px">
+        <span style="background:#FFF3B0;border:2px solid #141414;border-radius:8px;padding:6px 12px">Rev</span><span style="background:#FFE36B;border:2px solid #141414;border-radius:8px;padding:6px 12px">enue</span><span style="background:#FFF3B0;border:2px solid #141414;border-radius:8px;padding:6px 12px">&nbsp;grew</span><span style="background:#FFE36B;border:2px solid #141414;border-radius:8px;padding:6px 12px">&nbsp;12</span><span style="background:#FFF3B0;border:2px solid #141414;border-radius:8px;padding:6px 12px">%</span></div></div>
+    <div class="row">
+      <div class="card" style="flex:1"><div style="font-size:36px;font-weight:900">Context window</div>
+        <div style="font-size:28px;color:#444;margin:6px 0 14px">How much text the model can consider at once: prompt + reply.</div>
+        <svg width="380" height="56" viewBox="0 0 380 56"><rect x="2" y="8" width="376" height="40" rx="10" fill="#fff" stroke="#141414" stroke-width="3"/><rect x="6" y="12" width="210" height="32" rx="7" fill="#FFD21F"/><rect x="216" y="12" width="96" height="32" rx="0" fill="#141414"/><text x="110" y="36" font-size="20" font-weight="800" text-anchor="middle" fill="#141414">prompt</text><text x="264" y="36" font-size="20" font-weight="800" text-anchor="middle" fill="#FFD21F">reply</text></svg></div>
+      <div class="card" style="flex:1"><div style="font-size:36px;font-weight:900">Temperature</div>
+        <div style="font-size:28px;color:#444;margin:6px 0 14px">Randomness. Low: consistent. High: varied.</div>
+        <svg width="380" height="56" viewBox="0 0 380 56"><rect x="10" y="22" width="360" height="12" rx="6" fill="#e6e2d2"/><rect x="10" y="22" width="110" height="12" rx="6" fill="#FFD21F"/><circle cx="120" cy="28" r="20" fill="#141414"/><text x="10" y="56" font-size="18" fill="#6b6b6b">low</text><text x="370" y="56" font-size="18" text-anchor="end" fill="#6b6b6b">high</text></svg></div>
+    </div>
+    <div class="card" style="background:#fff8d6"><div style="font-size:36px;font-weight:900">Hallucination</div>
+      <div style="font-size:29px;color:#444;margin-top:6px">A confident answer that is wrong. This is why checking output is a core skill.</div></div>
+    <div class="card"><div style="font-size:36px;font-weight:900">RAG: answers from your documents</div>
+      <svg width="860" height="190" viewBox="0 0 860 190" style="margin-top:16px" font-family="Helvetica,Arial" font-weight="800">
+        <rect x="0" y="50" width="170" height="90" rx="14" fill="#fff" stroke="#141414" stroke-width="3"/><text x="85" y="102" font-size="26" text-anchor="middle" fill="#141414">Question</text>
+        <rect x="230" y="50" width="170" height="90" rx="14" fill="#FFF3B0" stroke="#141414" stroke-width="3"/><text x="315" y="92" font-size="24" text-anchor="middle" fill="#141414">Search</text><text x="315" y="122" font-size="24" text-anchor="middle" fill="#141414">your docs</text>
+        <rect x="460" y="50" width="170" height="90" rx="14" fill="#FFE36B" stroke="#141414" stroke-width="3"/><text x="545" y="92" font-size="24" text-anchor="middle" fill="#141414">Relevant</text><text x="545" y="122" font-size="24" text-anchor="middle" fill="#141414">passages</text>
+        <rect x="690" y="50" width="170" height="90" rx="14" fill="#141414"/><text x="775" y="92" font-size="24" text-anchor="middle" fill="#FFD21F">LLM</text><text x="775" y="122" font-size="24" text-anchor="middle" fill="#FFD21F">answers</text>
+        <path d="M172 95 L 222 95" stroke="#141414" stroke-width="4"/><path d="M218 85 L 230 95 L 218 105 Z" fill="#141414"/>
+        <path d="M402 95 L 452 95" stroke="#141414" stroke-width="4"/><path d="M448 85 L 460 95 L 448 105 Z" fill="#141414"/>
+        <path d="M632 95 L 682 95" stroke="#141414" stroke-width="4"/><path d="M678 85 L 690 95 L 678 105 Z" fill="#141414"/>
+        <text x="0" y="182" font-size="22" font-weight="400" fill="#6b6b6b">Grounds answers in real sources, which reduces made-up facts.</text>
+      </svg></div>
+  </div>
+  <div style="flex:1"></div><div class="brand"><b>@thedataguy16</b><span>Save · Share</span></div>
+</section>
+
+<!-- PAGE 5: ROADMAP -->
+<section class="pg">
+  <div class="n">05 / 05</div><div style="flex:1"></div>
+  <h2>Your <span>90-day</span> plan</h2>
+  <p class="lead">One hour a day. Follow the order.</p>
+  <svg width="920" height="900" viewBox="0 0 920 900" font-family="Helvetica,Arial">
+    <line x1="60" y1="40" x2="60" y2="860" stroke="#141414" stroke-width="6"/>
+    <g>
+      <circle cx="60" cy="70" r="34" fill="#FFF3B0" stroke="#141414" stroke-width="5"/><text x="60" y="82" font-size="32" font-weight="900" text-anchor="middle" fill="#141414">1</text>
+      <text x="130" y="62" font-size="30" font-weight="800" fill="#8a8a8a">DAYS 1-15</text>
+      <text x="130" y="108" font-size="40" font-weight="900" fill="#141414">Use AI daily at work</text>
+      <text x="130" y="152" font-size="30" fill="#444">Practise the 5-part prompt. Check every output.</text>
+    </g>
+    <g>
+      <circle cx="60" cy="280" r="34" fill="#FFE36B" stroke="#141414" stroke-width="5"/><text x="60" y="292" font-size="32" font-weight="900" text-anchor="middle" fill="#141414">2</text>
+      <text x="130" y="272" font-size="30" font-weight="800" fill="#8a8a8a">DAYS 16-45</text>
+      <text x="130" y="318" font-size="40" font-weight="900" fill="#141414">Strengthen the foundations</text>
+      <text x="130" y="362" font-size="30" fill="#444">SQL, Python, statistics. AI as tutor, not answer key.</text>
+    </g>
+    <g>
+      <circle cx="60" cy="490" r="34" fill="#FFD21F" stroke="#141414" stroke-width="5"/><text x="60" y="502" font-size="32" font-weight="900" text-anchor="middle" fill="#141414">3</text>
+      <text x="130" y="482" font-size="30" font-weight="800" fill="#8a8a8a">DAYS 46-60</text>
+      <text x="130" y="528" font-size="40" font-weight="900" fill="#141414">Understand how AI works</text>
+      <text x="130" y="572" font-size="30" fill="#444">Learn the 5 terms. Classify 50 rows of real text,</text>
+      <text x="130" y="612" font-size="30" fill="#444">then check accuracy by hand.</text>
+    </g>
+    <g>
+      <circle cx="60" cy="720" r="34" fill="#141414"/><text x="60" y="732" font-size="32" font-weight="900" text-anchor="middle" fill="#FFD21F">4</text>
+      <text x="130" y="712" font-size="30" font-weight="800" fill="#8a8a8a">DAYS 61-90</text>
+      <text x="130" y="758" font-size="40" font-weight="900" fill="#141414">Build one small AI project</text>
+      <text x="130" y="802" font-size="30" fill="#444">Call a model from Python, get JSON output,</text>
+      <text x="130" y="842" font-size="30" fill="#444">build a simple RAG search on your own documents.</text>
+    </g>
+  </svg>
+  <div class="row" style="margin-top:10px">
+    <div class="card" style="flex:1;border-color:#c9c9c9;background:#f6f6f6"><div style="font-size:32px;font-weight:900;margin-bottom:10px">Skip for now</div>
+      <div style="font-size:27px;line-height:1.45;color:#555">✕ Training LLMs from scratch<br>✕ Deep transformer maths<br>✕ Chasing every new tool</div></div>
+    <div class="box" style="flex:1;font-size:30px">The skill companies want most: knowing when the AI is wrong.</div>
+  </div>
+  <div style="flex:1"></div><div class="brand"><b>@thedataguy16</b><span>Comment AILEARN for the full PDF</span></div>
+</section>
+</body></html>
