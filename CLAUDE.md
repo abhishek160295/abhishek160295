@@ -150,7 +150,7 @@ The depth levels (essentials / standard / deep / master) set coverage within thi
 
 ## Notion design
 
-- Handbooks are exported to PDF and posted on social media: the page must open directly on section 1. No table of contents block, no outcome/intro callout, no hooks or any other text above the first section. Hooks never go inside the Notion page; they live on the Topic Deck (copy and .txt download).
+- Handbooks are exported to PDF and posted on social media: the page must open directly on section 1. No table of contents block, no outcome/intro callout, no hooks or any other text above the first section. Hooks never go inside the Notion page; they live on the Topic Deck as copyable text and as downloadable 1080x1350 PNG cover images ("Cover images" button): IG cover = white, Anton caps, tool word red, payoff green; FB cover = grey top fade, full-width Anton caps, key term in a red block.
 - Start directly with teaching content. No welcome text, decorative title blocks, promotional sections, or "this handbook covers…" filler.
 - Native components with purpose: headings, callouts (💡 tip, ⚠️ mistake, 🎯 interview, ✅ checkpoint), toggles for answers/solutions/deep dives, columns for comparisons, native tables, language-tagged code blocks (python, sql, dax, etc.), numbered/bulleted lists, to-do checklists, dividers, table of contents.
 - Never put code in plain text.
