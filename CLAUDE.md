@@ -63,6 +63,24 @@ Every hook (deck cards, handbook titles, covers) must use a proven frame below, 
 
 Weak (avoid): plain "X notes for beginners", "X vs Y" comparisons (~16K), Matplotlib (17K), Excel shortcuts (15.8K). Strongest topics: interview prep (DA, SQL, Python, ML, statistics, Power BI), Python basics, new Excel functions, data cleaning.
 
+### Facebook hook bank (last 28 days to 20 Nov 2026)
+
+Every card carries two hooks: `hook` (Instagram, long interview-stakes frame above) and `hookFb` (Facebook). FB wants short, keyword-led, all-caps label covers with one red block on the key term; the long IG-style line flopped there (45 Python programs vs Excel: 11K).
+
+| FB frame | Example | Views |
+|---|---|---|
+| N+ REAL/REAL WORLD X QUERIES/QUESTIONS | 250+ SQL real world queries / 150+ real SQL queries | 210K / 66K |
+| X BEGINNER NOTES / X NOTES FOR BEGINNERS | Machine learning beginner notes / Power BI notes for beginners | 118K / 51K |
+| ONLY X YOU NEED (reel) | Only Excel formulas and shortcuts you need | 69K |
+| TOP N X PROGRAMS TO GET INTO DATA JOBS | Top 100 Python programs | 61K |
+| Symptom troubleshooter | "SUM shows 0" with 3 causes | 60K |
+| X EXPLAINED | SQL subqueries explained / window functions explained | 56K / 27K |
+| N X THAT ARE ENOUGH FOR ANY JOB | 100 Excel formulas | 34K |
+| COMPLETE X NOTES | Complete Python notes | 33K |
+| X IN PYTHON | List in Python | 26K |
+
+Weak on FB: roadmaps (9-18K), cheat sheets (13.6K), SQL joins explained (13.6K), long IG-style hooks. Note the split: "notes for beginners" is strong on FB but weak on IG; never reuse one platform's hook on the other.
+
 ### Content playbook rules (carousels)
 
 - Hook truth: every number on a cover is literally true for the slides shown. Up to 20 slides, all content in the post.
