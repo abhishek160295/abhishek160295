@@ -29,6 +29,14 @@ Artifact: https://claude.ai/artifact/RfrcZh2SD1Rqf61bCEZiYu (db collection `topi
 - Topic sources for every deck: (1) topics the owner named in chat at any point (original examples: Python Dictionaries, SQL Joins, Excel Pivot Tables, Power BI DAX, Statistics for Data Science, Machine Learning Algorithms, Pandas GroupBy, Python Functions, plus the suggested roadmap), (2) the content playbook topic bank, (3) fresh research. Chat-named topics go to the top of the deck.
 - Learning: before dealing a deck, read every decided doc in `topics` and the `meta/profile` doc. Compare build/first vs pass by route, tags, track, format and hook frame. Weight decisions under ~2s per card lower (likely testing). Skew the new deck toward what was kept, drop or rework what was passed, and never re-deal a passed topic unless it is reframed. Rewrite `meta/profile` (notes, likes, avoids, basedOn, updatedAt) so the page shows what was learned.
 - Build only after selection: never draft content for a card until the owner has swiped it right or up. When building, produce the complete deliverable in one go (full handbook or full post set), never a partial or an outline.
+- Tune sheet: after a right/up swipe (or Edit in the queue) the owner can rewrite the hook and set per-topic specs. Honour them exactly when building:
+  - `hook`: use the owner's edited hook verbatim as the cover/title line (`suggestedHook` holds my original).
+  - `notion.depth`: essentials (core concepts, key syntax, ~15 practice items) · standard (every subtopic with examples and outputs, interview set, 25+ practice) · deep (standard + internals, edge cases, case study, 40+ practice; default) · master (deep + advanced patterns, performance, mock interview, 60+ practice).
+  - `notion.graphics`: minimal (code blocks and tables only) · balanced (callouts, tables, toggles, columns in every section; default) · rich (balanced + flow diagrams and visual comparison blocks) · max (a diagram per major concept, charts, a one-page visual cheat sheet).
+  - `design.detail`: clean (notebook pages, 1-2 figures) · standard (2-3 figure/worked-calc pages; default) · premium (3-5 figure pages, covers A and B) · showcase (figure on most pages, custom graphics, covers A/B + 3 alt hooks).
+  - `design.slides`: 8 / 12 / 16 / 20, and the cover number must match.
+  - `notes`: owner's free-text instructions; they override defaults.
+  - Also learn from edits: compare `hook` vs `suggestedHook` and chosen levels to shape future hooks and defaults.
 - `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"` with its link.
 
 ### Content playbook rules (carousels)
