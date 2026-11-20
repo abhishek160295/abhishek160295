@@ -138,6 +138,16 @@ Use current official docs for changing/technical subjects. Never invent syntax, 
 
 Never ship code that only looks correct.
 
+## Notion page length limit (hard rule)
+
+A handbook exported from Notion to PDF must be **19 pages or fewer** (A4). Before publishing, render the final markdown to an A4 PDF (toggles expanded, Notion-like styling, 20 mm margins) and count pages; target 17 or fewer for margin. Fit the limit by being dense, not by dropping topics:
+- Put outputs inside the code block as `# Output` comments instead of a separate block.
+- One code block per concept; combine related snippets.
+- Practice: list questions as a numbered list, then one toggle per level holding a single solutions code block.
+- Predict-the-output and MCQ answers in one toggle each; common mistakes as one table.
+- No repeated datasets, duplicate syntax blocks or filler prose.
+The depth levels (essentials / standard / deep / master) set coverage within this limit; item counts scale down if needed to stay at 19 pages or fewer.
+
 ## Notion design
 
 - Start directly with teaching content. No welcome text, decorative title blocks, promotional sections, or "this handbook covers…" filler.
