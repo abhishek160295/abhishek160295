@@ -37,7 +37,7 @@ Artifact: https://claude.ai/artifact/RfrcZh2SD1Rqf61bCEZiYu (db collection `topi
   - `design.slides`: 8 / 12 / 16 / 20, and the cover number must match.
   - `notes`: owner's free-text instructions; they override defaults.
   - Also learn from edits: compare `hook` vs `suggestedHook` and chosen levels to shape future hooks and defaults.
-- `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"` with its link.
+- `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"`, `doneAt` (ms), `notionUrl` and/or `designUrl` so it shows under "Ready to open" on the page; also list the links in the chat reply.
 
 ### Hook bank (owner's Instagram, 30 days to 20 Nov 2026)
 
