@@ -39,6 +39,30 @@ Artifact: https://claude.ai/artifact/RfrcZh2SD1Rqf61bCEZiYu (db collection `topi
   - Also learn from edits: compare `hook` vs `suggestedHook` and chosen levels to shape future hooks and defaults.
 - `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"` with its link.
 
+### Hook bank (owner's Instagram, 30 days to 20 Nov 2026)
+
+Every hook (deck cards, handbook titles, covers) must use a proven frame below, with a big number that is literally true for what gets built. Tag cards `Proven · <views>`.
+
+| Frame | Example that worked | Views |
+|---|---|---|
+| Stop memorising N X. These M are enough | Stop memorizing 100 SQL queries, these 10 are enough (reel) | 146K |
+| How I'd explain X to a 5-year-old | Python (part 2), 5.6K shares | 123K |
+| Don't sit in / face a X interview/round without these N | DA interview, 18 pages of notes / 40 Python programs / 40 ML questions | 76.7K / 49.8K / 49.3K |
+| If you can't answer these N questions, don't apply yet | 50 DA questions / 52 Power BI questions | 61.8K / 28.3K |
+| Stop watching X tutorials. Solve these N problems with answers | 40 Excel practice problems (791 comments) | 45K |
+| X round in 48 hours? Revise only these N | 55 SQL questions | 44.5K |
+| N new X upgrades that pay off for years | 9 new Excel upgrades | 42.8K |
+| The only X cheat sheet a data analyst needs | Statistics | 41.1K |
+| Don't touch a messy dataset without these N pages | Data cleaning notes | 37.3K |
+| Shortlisted for an analyst role? Revise these N first | 48 statistics questions | 37K |
+| X explained like never before | OOP (773 shares) | 36.1K |
+| 'Strong SQL' in a JD means these N queries | SQL cheat sheet | 33.8K |
+| N X every job uses / These N lines replace an hour of Y | 27 DAX measures / 33 Python lines vs Excel | 32.5K / 31.5K |
+| If you know only these N X, you're job-ready / If these N feel easy, you're ready to apply | 33 SQL functions / 45 Python questions | 26.2K / 25.7K |
+| If I had N days to learn X, I'd study these M pages | Python, 14 pages | 26.7K |
+
+Weak (avoid): plain "X notes for beginners", "X vs Y" comparisons (~16K), Matplotlib (17K), Excel shortcuts (15.8K). Strongest topics: interview prep (DA, SQL, Python, ML, statistics, Power BI), Python basics, new Excel functions, data cleaning.
+
 ### Content playbook rules (carousels)
 
 - Hook truth: every number on a cover is literally true for the slides shown. Up to 20 slides, all content in the post.
