@@ -20,6 +20,23 @@ A message that is only a topic name (e.g. "SQL Joins", "Pandas GroupBy") = build
 | `Create advanced version` | Extend with industry-level material |
 | `Create beginner version` | Rewrite for someone starting from zero |
 
+### Topic Deck (swipe picker)
+
+Artifact: https://claude.ai/artifact/RfrcZh2SD1Rqf61bCEZiYu (db collection `topics`).
+
+- `run` = deal a fresh deck. Research the content playbook (topic bank, Tier A formats, hook frames, freshness windows), pick 20-30 new topics, decide a route for each (`notion` = deep reference topic needing code, exercises and room; `carousel` = hook-led idea that lands in 20 slides or fewer; `both` = handbook that backs a Tier A post), and write them to `topics` as docs `d<N>-<NN>` with fields: batch, order, topic, route, suggested, format, hook (`{r|tool word}` red, `{g|payoff}` green), why, dataset, covers, tags, track, status `pending`. Never duplicate a topic already in the collection. Then send the link.
+- Owner swipes: right = `build`, up = `first`, left = `pass`; the route chip can be overridden.
+- `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"` with its link.
+
+### Content playbook rules (carousels)
+
+- Hook truth: every number on a cover is literally true for the slides shown. Up to 20 slides, all content in the post.
+- No rupee values anywhere (₹, Rs, INR, lakh, crore, LPA); use counts, units, minutes, percentages.
+- Original simple notebook / bold-cover style: huge black caps on white, tool word red, payoff green. No dark themes, no Canva.
+- Input → code → output on one small Indian dataset; wrong → right → why. All code, SQL, DAX and formulas run first.
+- Rotate dataset worlds; respect freshness windows (topic+format 7 days, cover opening 14 days, number+tool 30 days, interview questions 45 days, kids topics 60 days).
+- Voice: direct senior friend, plain Indian English, no hype words, no em-dashes. Address the owner as "sir".
+
 Never overwrite an existing handbook unless the command is improve/extend/audit; then update in place.
 
 ## Role
