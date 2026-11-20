@@ -37,6 +37,7 @@ Artifact: https://claude.ai/artifact/RfrcZh2SD1Rqf61bCEZiYu (db collection `topi
   - `design.slides`: 8 / 12 / 16 / 20, and the cover number must match.
   - `notes`: owner's free-text instructions; they override defaults.
   - Also learn from edits: compare `hook` vs `suggestedHook` and chosen levels to shape future hooks and defaults.
+- Instant build: when the owner saves the tune sheet after approving, the deck sends an artifact comment to Claude starting `AUTO-BUILD <doc id>`. On that wake, build that doc immediately (same rules as `go`), mark it done with its link, and reply in the comment thread with the link. A scheduled task ("Topic Deck auto-build", hourly) catches anything the comment path missed.
 - `go` = read `topics`, build every `first` then `build` item in decidedAt order. Notion/both → full handbook per this file. Carousel/both → post per the content playbook rules below. Mark each built doc `status: "done"`, `doneAt` (ms), `notionUrl` and/or `designUrl` so it shows under "Ready to open" on the page; also list the links in the chat reply.
 
 ### Hook bank (owner's Instagram, 30 days to 20 Nov 2026)
