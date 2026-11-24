@@ -25,7 +25,13 @@ Rebuilt from the live beehiiv account, the two saved beehiiv skills, and Google 
 7. Check every href before saving. Any Notion link gets swapped for Topmate.
 8. Schedule or publish. Recent send times vary between about 03:30 and 15:30 UTC.
 
-## 3. Issue layout (v2, letter style)
+## 3. Issue layout
+
+> **Current format is v3** (sends Nov 12-16). The full spec is saved in the beehiiv skill "Data Guy email format (house style)".
+> Order: cold-open scene, bold one-word reply ask, gold "Start Day 1" button, H3 teaching sections (weak vs strong), ad, "Where this lives in the 90-Day System", dark "Everything inside" box, gold "Get the 90-Day System" button, grey objections box, who it's for / isn't, "See what's inside" button, "Abhishek", P.S., P.P.S. Promotions.
+> Gold #E8A33D, ink #11151C. Best v3 send: "BSc grad, night shift..." at 19.8% opens.
+
+### Older v2 letter style (kept for reference)
 
 Reference issue: *"14 pages to help you crack your first data analyst interview"* (`post_0f3942f2-1047-4807-b653-55f4c44a3578`). Modeled on Nicolas Boucher's *The AI Finance Pro*.
 
