@@ -1,0 +1,185 @@
+<title>Data Guy Mail Queue</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column, "next to send" ticket on top, playbook, then send history */
+:root{
+  --bg:#F6F4EF; --surface:#FFFFFF; --ink:#11151C; --muted:#5B6270; --line:#E3DFD5;
+  --gold:#E8A33D; --gold-soft:#FBEBD0; --good:#1F7A4D; --good-soft:#DDF1E6; --warn:#A4541A; --warn-soft:#F8E3D2;
+  --display:"Instrument Sans",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1116; --surface:#171B23; --ink:#EEF0F3; --muted:#9AA3B2; --line:#2A303B;
+  --gold:#F0B455; --gold-soft:#3A2C14; --good:#5BC98F; --good-soft:#163024; --warn:#F09A5B; --warn-soft:#3A2414; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1116; --surface:#171B23; --ink:#EEF0F3; --muted:#9AA3B2; --line:#2A303B;
+  --gold:#F0B455; --gold-soft:#3A2C14; --good:#5BC98F; --good-soft:#163024; --warn:#F09A5B; --warn-soft:#3A2414; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body)}
+.wrap{max-width:880px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px}
+h1{font:700 clamp(26px,4vw,34px)/1.1 var(--display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0}
+.eyebrow{font:600 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h2{font:600 18px/1.3 var(--display);margin:0 0 12px}
+.status-line{font-size:13px;color:var(--muted)}
+.ticket{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:22px;display:grid;gap:16px;box-shadow:4px 4px 0 var(--gold)}
+.ticket-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--body);padding:6px 10px;border-radius:99px;background:var(--gold-soft);color:var(--ink)}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.subject{font:700 clamp(20px,3vw,26px)/1.25 var(--display);margin:0;text-wrap:balance}
+.preview{color:var(--muted);margin:0}
+.rows{display:grid;gap:8px}
+.row{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.row .lbl{flex:none;font:500 11px/1 var(--mono);color:var(--muted);width:64px}
+.row .txt{flex:1;min-width:0;overflow-wrap:anywhere}
+button.copy{flex:none;font:600 12px var(--body);border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer}
+button.copy:hover{border-color:var(--ink)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.note{border-left:3px solid var(--gold);padding:2px 0 2px 12px;min-width:0}
+.note p{margin:4px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+a.btn{display:inline-block;text-decoration:none;font:600 14px var(--body);padding:11px 16px;border-radius:10px;background:var(--gold);color:#11151C}
+a.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+ul.learn{margin:0;padding-left:18px;display:grid;gap:6px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{text-align:left;font:600 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px 10px}
+td{padding:10px;border-top:1px solid var(--line);vertical-align:top}
+td.num{text-align:right;white-space:nowrap}
+th.num{text-align:right}
+.empty{color:var(--muted);margin:0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px}
+@media (prefers-reduced-motion:no-preference){.ticket{transition:box-shadow .2s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">The Data Guy · beehiiv</div>
+      <h1>Mail Queue</h1>
+      <p class="sub">A new issue lands here every evening, ready to send the next day. Nothing new is made while one is still waiting.</p>
+    </div>
+    <div class="status-line" id="sync">Loading…</div>
+  </header>
+
+  <section aria-labelledby="next-h">
+    <div class="eyebrow" id="next-h" style="margin-bottom:10px">Next to send</div>
+    <div id="next"><div class="card"><p class="empty">Loading the queue…</p></div></div>
+  </section>
+
+  <section class="card" aria-labelledby="pb-h">
+    <h2 id="pb-h">What's working</h2>
+    <div id="playbook"><p class="empty">The playbook appears after the first evening run.</p></div>
+  </section>
+
+  <section class="card" aria-labelledby="hist-h">
+    <h2 id="hist-h">Send history</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Date</th><th>Subject</th><th>Status</th><th class="num">Opens</th><th class="num">Clicks</th></tr></thead>
+        <tbody id="hist"><tr><td colspan="5" class="empty">No mails yet.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const safeUrl = u => (typeof u === "string" && u.startsWith("https://")) ? u : null;
+const pct = v => (typeof v === "number") ? v.toFixed(1) + "%" : "–";
+const fmtDate = d => { try { return new Date(d + "T00:00:00").toLocaleDateString(undefined, {weekday:"short", day:"numeric", month:"short"}); } catch { return d; } };
+
+function toast(msg){ const t = el("div","toast",msg); document.body.appendChild(t); setTimeout(()=>t.remove(),1600); }
+function copyBtn(text){
+  const b = el("button","copy","Copy"); b.type = "button";
+  b.addEventListener("click", () => {
+    navigator.clipboard.writeText(text).then(()=>toast("Copied")).catch(()=>{
+      const r = document.createRange(); r.selectNodeContents(b.previousSibling); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Press Ctrl+C");
+    });
+  });
+  return b;
+}
+function row(label, text){
+  const r = el("div","row"); r.append(el("span","lbl",label)); const t = el("span","txt",text); r.append(t, copyBtn(text)); return r;
+}
+
+function renderNext(mails){
+  const box = $("next"); box.replaceChildren();
+  const ready = mails.filter(m => m.status === "ready").sort((a,b)=> (a.date||"").localeCompare(b.date||""));
+  if (!ready.length){
+    const c = el("div","card"); c.append(el("p","empty","Nothing waiting. Tonight's run will add the next issue."));
+    box.append(c); return;
+  }
+  const m = ready[0];
+  const t = el("article","ticket");
+  const top = el("div","ticket-top");
+  const left = el("div"); left.style.display="flex"; left.style.gap="8px"; left.style.flexWrap="wrap";
+  left.append(el("span","pill","Send " + fmtDate(m.date)));
+  if (m.ad && m.ad.name){ left.append(el("span", "pill warn", "Ad: " + m.ad.name + (m.ad.sendBy ? " · send by " + fmtDate(String(m.ad.sendBy).slice(0,10)) : ""))); }
+  top.append(left);
+  if (ready.length > 1) top.append(el("span","status-line", (ready.length-1) + " more waiting"));
+  t.append(top);
+  t.append(el("h3","subject", m.subject || m.title || "Untitled"));
+  if (m.preview) t.append(el("p","preview", m.preview));
+  const rows = el("div","rows");
+  if (m.subject) rows.append(row("SUBJECT", m.subject));
+  (Array.isArray(m.variants)?m.variants:[]).forEach((v,i)=> rows.append(row("TEST " + String.fromCharCode(66+i), String(v))));
+  if (m.preview) rows.append(row("PREVIEW", m.preview));
+  t.append(rows);
+  const notes = el("div","notes");
+  if (m.basedOn){ const n = el("div","note"); n.append(el("div","eyebrow","Built on")); n.append(el("p",null,m.basedOn)); notes.append(n); }
+  if (m.experiment){ const n = el("div","note"); n.append(el("div","eyebrow","Testing")); n.append(el("p",null,m.experiment)); notes.append(n); }
+  if (notes.childElementCount) t.append(notes);
+  const acts = el("div","actions");
+  const ed = safeUrl(m.editorUrl); if (ed){ const a = el("a","btn","Open in beehiiv"); a.href = ed; a.target="_blank"; a.rel="noopener"; acts.append(a); }
+  const pv = safeUrl(m.previewUrl); if (pv){ const a = el("a","btn ghost","Preview draft"); a.href = pv; a.target="_blank"; a.rel="noopener"; acts.append(a); }
+  if (acts.childElementCount) t.append(acts);
+  box.append(t);
+}
+
+function renderHistory(mails){
+  const body = $("hist"); body.replaceChildren();
+  const list = [...mails].sort((a,b)=> (b.date||"").localeCompare(a.date||""));
+  if (!list.length){ const tr = el("tr"); const td = el("td","empty","No mails yet."); td.colSpan=5; tr.append(td); body.append(tr); return; }
+  for (const m of list){
+    const tr = el("tr");
+    tr.append(el("td",null,fmtDate(m.date)));
+    const sTd = el("td"); const u = safeUrl(m.editorUrl);
+    if (u){ const a = el("a",null,m.subject||m.title||"Untitled"); a.href=u; a.target="_blank"; a.rel="noopener"; a.style.color="inherit"; sTd.append(a); } else sTd.textContent = m.subject||m.title||"Untitled";
+    tr.append(sTd);
+    const st = el("td"); const cls = m.status==="sent"?"pill good":m.status==="ready"?"pill":"pill warn";
+    st.append(el("span",cls, m.status==="sent"?"Sent":m.status==="ready"?"Ready":(m.status||"–"))); tr.append(st);
+    const s = m.stats||{};
+    tr.append(el("td","num",pct(s.openRate)));
+    tr.append(el("td","num",pct(s.clickRate)));
+    body.append(tr);
+  }
+}
+
+function renderPlaybook(p){
+  const box = $("playbook"); box.replaceChildren();
+  if (!p){ box.append(el("p","empty","The playbook appears after the first evening run.")); return; }
+  const items = Array.isArray(p.learnings)?p.learnings:[];
+  if (items.length){ const ul = el("ul","learn"); items.forEach(x=>ul.append(el("li",null,String(x)))); box.append(ul); }
+  if (p.updatedAt){ const s = el("p","status-line","Updated " + fmtDate(String(p.updatedAt).slice(0,10))); s.style.marginTop="12px"; box.append(s); }
+}
+
+(async () => {
+  const db = await claude.use("db");
+  if (!db){ $("sync").textContent = "Sign in to see the queue."; $("next").replaceChildren(Object.assign(el("div","card"),{})); $("next").firstChild.append(el("p","empty","The queue can't load in this view.")); return; }
+  let firstLoad = true;
+  const timer = setTimeout(()=>{ if (firstLoad) $("sync").textContent = "Can't reach the queue yet."; }, 10000);
+  db.collection("mails").onSnapshot(snap => {
+    if (!snap.metadata.fromCache){ firstLoad = false; clearTimeout(timer); $("sync").textContent = "Live"; }
+    const mails = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    renderNext(mails); renderHistory(mails);
+  }, () => { clearTimeout(timer); $("sync").textContent = "Queue unavailable right now."; });
+  db.doc("meta/playbook").onSnapshot(d => renderPlaybook(d.exists ? d.data() : null), () => {});
+})();
+</script>
